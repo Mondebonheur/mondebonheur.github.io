@@ -3,276 +3,476 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire d'Inscription aux Formations</title>
+    <title>Candidature en Ligne - Votre Grande École</title>
     <style>
-        /* --- Style Général --- */
+        /* --- Typographie et Variables --- */
+        :root {
+            --primary-color: #005A9C; /* Bleu institutionnel */
+            --secondary-color: #3498db;
+            --light-gray: #f4f7f6;
+            --dark-gray: #333;
+            --border-color: #ccc;
+        }
+
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f4f7f6;
+            background-color: var(--light-gray);
             margin: 0;
             padding: 2rem;
-            color: #333;
+            color: var(--dark-gray);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
         }
 
         /* --- Conteneur Principal --- */
         .form-container {
             max-width: 800px;
-            margin: auto;
+            width: 100%;
             background-color: #ffffff;
-            padding: 2.5rem;
+            padding: 2.5rem 3rem;
             border-radius: 10px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
-        /* --- Titres --- */
         h1 {
-            color: #2c3e50;
+            color: var(--primary-color);
             text-align: center;
             margin-bottom: 2rem;
         }
 
-        legend {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #34495e;
-            padding-bottom: 0.5rem;
+        /* --- Barre de Progression --- */
+        .progress-bar {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 3rem;
+            counter-reset: step;
+        }
+        .progress-step {
             width: 100%;
+            text-align: center;
+            position: relative;
         }
-        
-        /* --- Messages de réassurance --- */
-        .reassurance-message {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            margin-top: -1rem;
-            margin-bottom: 1.5rem;
-            border-bottom: 2px solid #ecf0f1;
-            padding-bottom: 1.5rem;
-        }
-
-        /* --- Groupes de champs --- */
-        fieldset {
-            border: none;
-            padding: 0;
-            margin-bottom: 1rem; /* réduit pour un meilleur flux */
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        /* --- Champs et Labels --- */
-        label {
+        .progress-step::before {
+            counter-increment: step;
+            content: counter(step);
+            width: 30px;
+            height: 30px;
+            line-height: 30px;
+            border: 2px solid var(--border-color);
+            border-radius: 50%;
             display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 500;
+            margin: 0 auto 10px auto;
+            background-color: white;
+            color: var(--dark-gray);
+            transition: all 0.3s ease;
+        }
+        .progress-step::after {
+            content: '';
+            position: absolute;
+            width: calc(100% - 40px);
+            height: 2px;
+            background-color: var(--border-color);
+            top: 15px;
+            left: -50%;
+            z-index: -1;
+            transition: all 0.3s ease;
+        }
+        .progress-step:first-child::after { content: none; }
+        .progress-step.active::before {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            color: white;
+        }
+        .progress-step.active::after {
+            background-color: var(--primary-color);
+        }
+
+        /* --- Sections du Formulaire (Étapes) --- */
+        .form-step {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        .form-step.active {
+            display: block;
         }
         
-        input[type="text"],
-        input[type="email"],
-        input[type="tel"],
-        input[type="number"],
-        select,
-        textarea {
+        legend {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+            border: none;
+        }
+        .reassurance-message {
+            font-size: 0.95rem;
+            color: #7f8c8d;
+            margin-bottom: 2rem;
+            font-style: italic;
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+        label { display: block; margin-bottom: 0.5rem; font-weight: 500; }
+        input, select, textarea {
             width: 100%;
             padding: 0.8rem;
-            border: 1px solid #ccc;
+            border: 1px solid var(--border-color);
             border-radius: 5px;
             box-sizing: border-box;
             font-size: 1rem;
-            transition: border-color 0.3s;
         }
-
-        input:focus, select:focus, textarea:focus {
-            border-color: #3498db;
-            outline: none;
+        input.invalid, select.invalid, textarea.invalid {
+            border-color: #e74c3c;
         }
         
-        label.required::after {
-            content: ' *';
-            color: #e74c3c;
+        /* --- Navigation entre les étapes --- */
+        .form-navigation {
+            margin-top: 2rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
         }
-
-        textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        /* --- Boutons --- */
         .btn {
-            display: block;
-            width: 100%;
-            padding: 1rem;
+            padding: 0.8rem 1.5rem;
             border-radius: 5px;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: bold;
             cursor: pointer;
             text-align: center;
-            margin-top: 1rem;
+            text-decoration: none;
+            border: 2px solid transparent;
             transition: all 0.3s;
         }
-        
-        .submit-btn {
-            background-color: #3498db;
-            color: white;
-            border: none;
+        .btn-primary { background-color: var(--primary-color); color: white; }
+        .btn-primary:hover { background-color: #004a80; }
+        .btn-secondary { background-color: #f0f0f0; color: var(--dark-gray); }
+        .btn-secondary:hover { background-color: #e0e0e0; }
+
+        /* --- Message de Succès --- */
+        #success-message {
+            display: none;
+            text-align: center;
+            animation: fadeIn 0.5s;
         }
-        .submit-btn:hover {
-            background-color: #2980b9;
-        }
-        
-        .whatsapp-btn {
-            background-color: #ffffff;
-            color: #2980b9;
-            border: 2px solid #2980b9;
-            text-decoration: none; /* Pour les liens <a> */
-        }
-        
-        .whatsapp-btn:hover {
-             background-color: #2980b9;
-             color: white;
-        }
-        
-        /* --- Responsive Design --- */
-        @media (max-width: 600px) {
-            body { padding: 1rem; }
-            .form-container { padding: 1.5rem; }
-        }
+        #success-message h2 { color: var(--primary-color); }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
     <div class="form-container">
-        <form action="/submit-form" method="post">
-            <h1>Devenez un Expert avec Nos Formations</h1>
+        <h1>Votre Avenir Commence Ici</h1>
+        
+        <!-- BARRE DE PROGRESSION -->
+        <div class="progress-bar">
+            <div class="progress-step active"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+            <div class="progress-step"></div>
+        </div>
 
-            <!-- ÉTAPE 1: INFORMATIONS PERSONNELLES -->
-            <fieldset>
-                <legend>Étape 1 : Vos informations</legend>
-                <p class="reassurance-message">Vos informations sont sécurisées et ne seront utilisées que pour vous accompagner dans votre projet.</p>
-                
+        <!-- FORMULAIRE -->
+        <form id="inscriptionForm">
+            <!-- ÉTAPE 1: PROFIL -->
+            <fieldset class="form-step active">
+                <legend>Votre Profil</legend>
+                <p class="reassurance-message">"Le meilleur investissement que vous puissiez faire est en vous-même." - Warren Buffett</p>
                 <div class="form-group">
-                    <label for="nom" class="required">Nom</label>
+                    <label for="nom">Nom</label>
                     <input type="text" id="nom" name="nom" required>
                 </div>
                 <div class="form-group">
-                    <label for="prenom" class="required">Prénom</label>
+                    <label for="prenom">Prénom</label>
                     <input type="text" id="prenom" name="prenom" required>
                 </div>
                 <div class="form-group">
-                    <label for="email" class="required">E-mail</label>
+                    <label for="email">E-mail</label>
                     <input type="email" id="email" name="email" required>
-                </div>
-                 <div class="form-group">
-                    <label for="whatsapp">Contact WhatsApp (avec indicatif pays)</label>
-                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ex: 237699XXXXXX">
                 </div>
                 <div class="form-group">
                     <label for="pays">Pays de résidence</label>
-                    <select id="pays" name="pays">
-                        <option value="cm">Cameroun</option>
-                        <option value="sn">Sénégal</option>
-                        <option value="ci">Côte d'Ivoire</option>
-                        <option value="fr">France</option>
-                        <option value="be">Belgique</option>
-                        <option value="ca">Canada</option>
+                    <select id="pays" name="pays" required>
+                        <option value="" disabled selected>-- Sélectionnez votre pays --</option>
+                        <optgroup label="Afrique (Francophone)">
+                            <option value="cm">Cameroun</option>
+                            <option value="sn">Sénégal</option>
+                            <option value="ci">Côte d'Ivoire</option>
+                            <option value="bj">Bénin</option>
+                            <option value="bf">Burkina Faso</option>
+                            <option value="cg">Congo-Brazzaville</option>
+                            <option value="cd">Congo-Kinshasa</option>
+                            <option value="ga">Gabon</option>
+                            <option value="gn">Guinée</option>
+                            <option value="ml">Mali</option>
+                            <option value="ne">Niger</option>
+                            <option value="tg">Togo</option>
+                        </optgroup>
+                        <optgroup label="Europe">
+                            <option value="fr">France</option>
+                            <option value="be">Belgique</option>
+                            <option value="ch">Suisse</option>
+                            <option value="lu">Luxembourg</option>
+                        </optgroup>
+                        <optgroup label="Amérique du Nord">
+                            <option value="ca">Canada</option>
+                        </optgroup>
+                         <optgroup label="Pays Anglophones">
+                            <option value="gb">Royaume-Uni</option>
+                            <option value="us">États-Unis</option>
+                            <option value="ng">Nigéria</option>
+                            <option value="gh">Ghana</option>
+                        </optgroup>
                     </select>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-primary next-btn">Continuer</button>
                 </div>
             </fieldset>
 
-            <!-- ÉTAPE 2: CHOIX DE LA FORMATION -->
-            <fieldset>
-                <legend>Étape 2 : Votre projet de formation</legend>
-                <p class="reassurance-message">Excellent choix ! Aidez-nous à comprendre votre besoin pour mieux vous orienter.</p>
-                
+            <!-- ÉTAPE 2: PROJET DE FORMATION -->
+            <fieldset class="form-step">
+                <legend>Votre Projet</legend>
+                <p class="reassurance-message">"Un objectif sans plan n'est qu'un souhait." - Antoine de Saint-Exupéry</p>
                 <div class="form-group">
-                    <label for="formation" class="required">Quelle formation vous intéresse ?</label>
+                    <label for="category">Domaine de Formation</label>
+                    <select id="category" name="category" required>
+                        <option value="">-- Choisissez un domaine --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="formation">Formation souhaitée</label>
                     <select id="formation" name="formation" required>
-                        <option value="" disabled selected>-- Sélectionnez une formation --</option>
-                        <!-- Les optgroup et options de formations vont ici... -->
-                         <optgroup label="Action Humanitaire et Développement">
-                            <option>Coordination de l'Action humanitaire</option>
-                            <option>Management des Projets/Programmes</option>
-                            <option>etc.</option>
-                        </optgroup>
-                        <optgroup label="Informatique et Technologies">
-                            <option>Développement web</option>
-                            <option>Cybersécurité</option>
-                            <option>etc.</option>
-                        </optgroup>
+                        <option value="">-- Choisissez d'abord un domaine --</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="objectifs">Vos objectifs (reconversion, montée en compétences...)</label>
-                    <textarea id="objectifs" name="objectifs" placeholder="Plus vous serez précis, mieux nous pourrons vous aider."></textarea>
+                    <label for="objectifs">Quels sont vos objectifs principaux ?</label>
+                    <textarea id="objectifs" name="objectifs" placeholder="Ex: Développer de nouvelles compétences, changer de carrière, créer mon entreprise..."></textarea>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-secondary prev-btn">Précédent</button>
+                    <button type="button" class="btn btn-primary next-btn">Continuer</button>
                 </div>
             </fieldset>
 
-            <!-- ÉTAPE 3: MODALITÉS DE FORMATION -->
-            <fieldset>
-                <legend>Étape 3 : Vos préférences</legend>
-                <p class="reassurance-message">Nous nous adaptons à votre rythme. Indiquez-nous vos disponibilités.</p>
-                 <div class="form-group">
-                    <label for="lieu">Où souhaitez-vous suivre la formation ?</label>
-                    <select id="lieu" name="lieu">
+            <!-- ÉTAPE 3: MODALITÉS -->
+            <fieldset class="form-step">
+                <legend>Vos Préférences</legend>
+                <p class="reassurance-message">"La flexibilité est la clé de la stabilité." - John Wooden</p>
+                <div class="form-group">
+                    <label for="lieu">Modalité d'apprentissage</label>
+                    <select id="lieu" name="lieu" required>
                         <option value="en_ligne">En ligne (100% à distance)</option>
-                        <option value="presentiel">En présentiel (dans nos locaux)</option>
+                        <option value="presentiel">En présentiel (sur campus)</option>
                         <option value="hybride">Hybride (mix des deux)</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="debut">Quand souhaitez-vous commencer ?</label>
-                    <select id="debut" name="debut">
-                        <option>Dès que possible</option>
-                        <option>Le mois prochain</option>
-                        <option>Selon le calendrier du centre</option>
+                    <label for="session">Rythme souhaité</label>
+                     <select id="session" name="session" required>
+                        <option value="matin">Session du matin</option>
+                        <option value="soir">Session du soir</option>
+                        <option value="flexible">Rythme flexible</option>
                     </select>
+                </div>
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-secondary prev-btn">Précédent</button>
+                    <button type="button" class="btn btn-primary next-btn">Continuer</button>
+                </div>
+            </fieldset>
+            
+            <!-- ÉTAPE 4: FINALISATION -->
+            <fieldset class="form-step">
+                <legend>Finalisation</legend>
+                <p class="reassurance-message">"Le voyage de mille lieues commence par un premier pas." - Lao Tseu</p>
+                <div class="form-group">
+                    <label for="whatsapp">Contact WhatsApp (optionnel)</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ex: +2348106814709">
                 </div>
                 <div class="form-group">
-                    <label for="session">Quelle session vous arrange le mieux ?</label>
-                     <select id="session" name="session">
-                        <option>Session du matin</option>
-                        <option>Session du soir</option>
-                        <option>Flexible</option>
+                    <label for="paiement">Méthode de paiement envisagée</label>
+                    <select id="paiement" name="paiement" required>
+                        <!-- Options chargées dynamiquement -->
                     </select>
                 </div>
-            </fieldset>
-
-            <!-- ÉTAPE 4: FINALISATION -->
-            <fieldset>
-                <legend>Étape 4 : Finalisation</legend>
-                 <p class="reassurance-message">Vous y êtes presque ! Un conseiller vous contactera après la soumission pour valider les prochaines étapes.</p>
-                 <div class="form-group">
-                    <label for="paiement">Préférence de paiement</label>
-                    <select id="paiement" name="paiement">
-                        <option>Carte de crédit</option>
-                        <option>PayPal</option>
-                        <option>Paiement mobile (Orange Money, Wave, MTN...)</option>
-                        <option>Virement bancaire</option>
-                    </select>
+                <div class="form-navigation">
+                    <button type="button" class="btn btn-secondary prev-btn">Précédent</button>
+                    <button type="submit" class="btn btn-primary" id="submitBtn">Envoyer ma candidature</button>
                 </div>
             </fieldset>
-            
-            <!-- --- BOUTONS D'ACTION --- -->
-            
-            <!-- REMPLACEZ VOTRE_NUMERO par votre numéro WhatsApp  -->
-            <a href="https://wa.me/+2348106814709?text=Bonjour, j'ai une question concernant vos formations." class="btn whatsapp-btn" target="_blank">Poser une question sur WhatsApp</a>
-            
-            <button type="submit" class="btn submit-btn">Envoyer mon inscription</button>
-
         </form>
+        
+        <!-- MESSAGE DE SUCCÈS -->
+        <div id="success-message">
+            <h2>Merci, votre candidature a été envoyée !</h2>
+            <p>Un membre de notre équipe d'admissions vous contactera très prochainement par e-mail pour discuter des prochaines étapes.</p>
+            <p>Si vous avez une question urgente, n'hésitez pas à nous contacter sur WhatsApp.</p>
+            <br>
+            <a href="https://wa.me/2348106814709?text=Bonjour, je viens de soumettre ma candidature et j'ai une question." class="btn btn-primary" target="_blank">Contacter sur WhatsApp</a>
+        </div>
     </div>
 
-          <script>
-  const scriptURL = "https://script.google.com/macros/s/AKfycbx-mLkXNzOKx7yOi8EdB5GXyU0ZYSDXznEXf4-2ZUixP1LLbvfFknputR6K7-r_GAg/exec"; 
-  const form = document.getElementById("form");
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
 
-  form.addEventListener("submit", e => {
-    e.preventDefault();
-    fetch(scriptURL, { method: "POST", body: new FormData(form)})
-      .then(() => alert("Formulaire envoyé !"))
-      .catch(error => alert("Erreur : " + error.message));
-  });
-</script>
+            // --- STRUCTURE DE DONNÉES POUR LES FORMATIONS ---
+            const trainingData = {
+                "Action Humanitaire & Développement": ["Coordination de l'Action humanitaire", "Management des Projets/Programmes", "Suivi-Évaluation des Projets", "Logistique & Transport Humanitaire", "WASH en situation d'urgence", "Protection de l'Enfance en Situation d'urgence", "Sécurité Alimentaire et Moyens d'Existence (SAME)"],
+                "Gestion & Entrepreneuriat": ["Création d'entreprise", "Gestion de startup", "Business plan", "Gestion financière", "Gestion de projet entrepreneurial", "Marketing digital", "Management des ONG/associations"],
+                "Informatique & Technologies": ["Développement web", "Cybersécurité", "Administration système", "Analyse de données", "Intelligence artificielle", "Développement d'applications mobiles", "Cloud computing"],
+                "Restauration & Hôtellerie": ["Gestion hôtelière", "Cuisine professionnelle", "Service en restaurant", "Marketing hôtelier", "Événementiel"],
+                "Santé & Services Sociaux": ["Santé publique", "Nutrition", "Soins infirmiers", "Psychologie", "Travail social"],
+                "Communication & Médias": ["Journalisme", "Communication d'entreprise", "Production audiovisuelle", "Relations publiques", "Communication de crise"]
+            };
+            
+            // --- INITIALISATION DES MENUS DÉROULANTS ---
+            const categorySelect = document.getElementById('category');
+            const trainingSelect = document.getElementById('formation');
+            
+            Object.keys(trainingData).forEach(category => {
+                const option = document.createElement('option');
+                option.value = category;
+                option.textContent = category;
+                categorySelect.appendChild(option);
+            });
+            
+            categorySelect.addEventListener('change', () => {
+                trainingSelect.innerHTML = '<option value="">-- Choisissez une formation --</option>'; // Réinitialiser
+                const selectedCategory = categorySelect.value;
+                if (selectedCategory && trainingData[selectedCategory]) {
+                    trainingData[selectedCategory].forEach(training => {
+                        const option = document.createElement('option');
+                        option.value = training;
+                        option.textContent = training;
+                        trainingSelect.appendChild(option);
+                    });
+                }
+            });
 
+            // --- GESTION DU FORMULAIRE MULTI-ÉTAPES ---
+            const prevBtns = document.querySelectorAll(".prev-btn");
+            const nextBtns = document.querySelectorAll(".next-btn");
+            const formSteps = document.querySelectorAll(".form-step");
+            const progressSteps = document.querySelectorAll(".progress-step");
+
+            let formStepsNum = 0;
+
+            nextBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    if (validateStep(formStepsNum)) {
+                        formStepsNum++;
+                        updateFormSteps();
+                        updateProgressbar();
+                    }
+                });
+            });
+
+            prevBtns.forEach(btn => {
+                btn.addEventListener("click", () => {
+                    formStepsNum--;
+                    updateFormSteps();
+                    updateProgressbar();
+                });
+            });
+
+            function updateFormSteps() {
+                formSteps.forEach(step => step.classList.remove("active"));
+                formSteps[formStepsNum].classList.add("active");
+            }
+
+            function updateProgressbar() {
+                progressSteps.forEach((step, idx) => {
+                    if (idx < formStepsNum + 1) {
+                        step.classList.add("active");
+                    } else {
+                        step.classList.remove("active");
+                    }
+                });
+            }
+
+            function validateStep(stepIndex) {
+                let isValid = true;
+                const currentStep = formSteps[stepIndex];
+                const inputs = currentStep.querySelectorAll("input[required], select[required], textarea[required]");
+                
+                inputs.forEach(input => {
+                    input.classList.remove('invalid');
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        input.classList.add('invalid');
+                    }
+                });
+                return isValid;
+            }
+
+            // --- GESTION DYNAMIQUE DU PAIEMENT ---
+            const paysSelect = document.getElementById('pays');
+            const paiementSelect = document.getElementById('paiement');
+            const modesDePaiement = {
+                'fr': ['Carte bancaire (CB)', 'Virement SEPA', 'PayPal'],
+                'be': ['Bancontact', 'Virement SEPA', 'PayPal'],
+                'ca': ['Virement Interac', 'Carte de crédit', 'PayPal'],
+                'default': ['Paiement mobile (Orange, MTN, Wave...)', 'Virement bancaire', 'Carte de crédit']
+            };
+
+            function updatePaiements() {
+                const pays = paysSelect.value;
+                const options = modesDePaiement[pays] || modesDePaiement['default'];
+                paiementSelect.innerHTML = '';
+                options.forEach(opt => {
+                    const option = new document.createElement('option');
+                    option.value = opt;
+                    option.textContent = opt;
+                    paiementSelect.appendChild(option);
+                });
+            }
+            paysSelect.addEventListener('change', updatePaiements);
+            updatePaiements();
+
+            // --- SOUMISSION VERS GOOGLE SHEET ---
+            const form = document.getElementById('inscriptionForm');
+            const submitButton = document.getElementById('submitBtn');
+            const successMessage = document.getElementById('success-message');
+            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxpB3vqvtT9lXinkAJSSB3TgyK5nI8wtLW2YklSmIos1qVHmMDu9Mws4AeLWPFl0sU/exec';
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (!validateStep(formStepsNum)) return;
+
+                submitButton.disabled = true;
+                submitButton.textContent = 'Envoi en cours...';
+
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+
+                fetch(WEB_APP_URL, {
+                    method: 'POST',
+                    mode: 'cors',
+                    cache: 'no-cache',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.result === 'success') {
+                        form.style.display = 'none';
+                        document.querySelector('.progress-bar').style.display = 'none';
+                        document.querySelector('h1').style.display = 'none';
+                        successMessage.style.display = 'block';
+                    } else {
+                        throw new Error(data.error || 'Erreur inconnue.');
+                    }
+                })
+                .catch(error => {
+                    alert('Erreur lors de l\'envoi : ' + error.message);
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Envoyer ma candidature';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
