@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire d'Inscription aux Formations en Ligne</title>
+    <title>Formulaire d'Inscription aux Formations</title>
     <style>
         /* --- Style Général --- */
         body {
@@ -28,38 +28,48 @@
         h1 {
             color: #2c3e50;
             text-align: center;
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
         legend {
             font-size: 1.2rem;
             font-weight: 600;
             color: #34495e;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #3498db;
             padding-bottom: 0.5rem;
+            width: 100%;
+        }
+        
+        /* --- Messages de réassurance --- */
+        .reassurance-message {
+            font-size: 0.9rem;
+            color: #7f8c8d;
+            margin-top: -1rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid #ecf0f1;
+            padding-bottom: 1.5rem;
         }
 
         /* --- Groupes de champs --- */
         fieldset {
             border: none;
             padding: 0;
-            margin-bottom: 2rem;
+            margin-bottom: 1rem; /* réduit pour un meilleur flux */
         }
 
-        /* --- Champs et Labels --- */
         .form-group {
             margin-bottom: 1.5rem;
         }
 
+        /* --- Champs et Labels --- */
         label {
             display: block;
             margin-bottom: 0.5rem;
             font-weight: 500;
         }
-
+        
         input[type="text"],
         input[type="email"],
+        input[type="tel"],
         input[type="number"],
         select,
         textarea {
@@ -67,7 +77,7 @@
             padding: 0.8rem;
             border: 1px solid #ccc;
             border-radius: 5px;
-            box-sizing: border-box; /* Important */
+            box-sizing: border-box;
             font-size: 1rem;
             transition: border-color 0.3s;
         }
@@ -77,7 +87,6 @@
             outline: none;
         }
         
-        /* Indication des champs obligatoires */
         label.required::after {
             content: ' *';
             color: #e74c3c;
@@ -88,46 +97,59 @@
             min-height: 100px;
         }
 
-        /* --- Bouton d'envoi --- */
-        .submit-btn {
+        /* --- Boutons --- */
+        .btn {
             display: block;
             width: 100%;
             padding: 1rem;
-            background-color: #3498db;
-            color: white;
-            border: none;
             border-radius: 5px;
             font-size: 1.1rem;
             font-weight: bold;
             cursor: pointer;
-            transition: background-color 0.3s;
+            text-align: center;
+            margin-top: 1rem;
+            transition: all 0.3s;
         }
-
+        
+        .submit-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+        }
         .submit-btn:hover {
             background-color: #2980b9;
         }
         
+        .whatsapp-btn {
+            background-color: #ffffff;
+            color: #2980b9;
+            border: 2px solid #2980b9;
+            text-decoration: none; /* Pour les liens <a> */
+        }
+        
+        .whatsapp-btn:hover {
+             background-color: #2980b9;
+             color: white;
+        }
+        
         /* --- Responsive Design --- */
         @media (max-width: 600px) {
-            body {
-                padding: 1rem;
-            }
-            .form-container {
-                padding: 1.5rem;
-            }
+            body { padding: 1rem; }
+            .form-container { padding: 1.5rem; }
         }
-
     </style>
 </head>
 <body>
 
     <div class="form-container">
         <form action="/submit-form" method="post">
-            <h1>Inscription à une Formation</h1>
+            <h1>Devenez un Expert avec Nos Formations</h1>
 
-            <!-- SECTION INFORMATIONS PERSONNELLES -->
+            <!-- ÉTAPE 1: INFORMATIONS PERSONNELLES -->
             <fieldset>
-                <legend>Informations Personnelles</legend>
+                <legend>Étape 1 : Vos informations</legend>
+                <p class="reassurance-message">Vos informations sont sécurisées et ne seront utilisées que pour vous accompagner dans votre projet.</p>
+                
                 <div class="form-group">
                     <label for="nom" class="required">Nom</label>
                     <input type="text" id="nom" name="nom" required>
@@ -140,193 +162,117 @@
                     <label for="email" class="required">E-mail</label>
                     <input type="email" id="email" name="email" required>
                 </div>
-                <div class="form-group">
-                    <label for="age">Âge</label>
-                    <input type="number" id="age" name="age" min="16">
+                 <div class="form-group">
+                    <label for="whatsapp">Contact WhatsApp (avec indicatif pays)</label>
+                    <input type="tel" id="whatsapp" name="whatsapp" placeholder="Ex: 237699XXXXXX">
                 </div>
                 <div class="form-group">
                     <label for="pays">Pays de résidence</label>
                     <select id="pays" name="pays">
-                        <!-- NOTE: La langue du formulaire et les modes de paiement pourraient être ajustés dynamiquement (avec JavaScript) en fonction de ce choix -->
-                        <option value="fr">France</option>
                         <option value="cm">Cameroun</option>
                         <option value="sn">Sénégal</option>
                         <option value="ci">Côte d'Ivoire</option>
+                        <option value="fr">France</option>
                         <option value="be">Belgique</option>
                         <option value="ca">Canada</option>
-                        <!-- Ajouter d'autres pays ici -->
                     </select>
                 </div>
             </fieldset>
 
-            <!-- SECTION CHOIX DE LA FORMATION -->
+            <!-- ÉTAPE 2: CHOIX DE LA FORMATION -->
             <fieldset>
-                <legend>Choix de la Formation</legend>
-                <div class="form-group">
-                    <label for="formation" class="required">Quelle formation souhaitez-vous suivre ?</label>
-                    <select id="formation" name="formation" required>
-                        <option value="" disabled selected>-- Sélectionnez une catégorie --</option>
-                        
-                        <optgroup label="Action Humanitaire et Développement">
-                            <option>Coordination de l'Action humanitaire</option>
-                            <option>Management des Projets/Programmes</option>
-                            <option>Management des ONG/associations</option>
-                            <option>Ingénierie de formation</option>
-                            <option>Formation des formateurs</option>
-                            <option>Gestion des Ressources Humaines (GRH)</option>
-                            <option>Gestion des Ressources Humaines des Mines</option>
-                            <option>Genre et Développement</option>
-                            <option>Logistique & Transport</option>
-                            <option>Santé, Hygiène et Sécurité, Environnement</option>
-                            <option>Santé/Nutrition communautaire</option>
-                            <option>WASH en situation humanitaire</option>
-                            <option>Protection de l'Enfance en Situation d'urgence</option>
-                            <option>Suivi-Évaluation des Projets/Programmes</option>
-                            <option>Passation des Marchés Publics</option>
-                            <option>Décentralisation et Gouvernance locale</option>
-                            <option>Responsabilité sociale des entreprises (RSE)</option>
-                            <option>Économie Sociale et Solidaire (ESS)</option>
-                            <option>Évaluation environnementale</option>
-                            <option>Comptabilité des sociétés</option>
-                            <option>Audit, Contrôle et Gestion</option>
-                            <option>Analyse des politiques publiques (ASE BÉNIN)</option>
-                            <option>Management stratégique et Gestion de la performance</option>
-                            <option>Gestion Axée sur les Résultats (GAR) et Indicateurs de performances</option>
-                            <option>Finances internationales</option>
-                            <option>Finance islamique</option>
-                            <option>Montage de projet de développement et recherche de financements</option>
-                            <option>Montage de plan d'affaires</option>
-                            <option>12 logiciels de gestion de projet et Suivi-Évaluation</option>
-                            <option>Logiciels comptables</option>
-                            <option>Management de la qualité selon ISO</option>
-                            <option>Santé et Sécurité au Travail</option>
-                            <option>Sécurité Alimentaire et Moyens d'Existence (SAME)</option>
-                            <option>Communication politique</option>
-                            <option>Sécurité du personnel humanitaire</option>
-                            <option>Capitalisation des expériences des Projets</option>
-                            <option>Prévention et Gestion des conflits communautaire</option>
-                            <option>Devenir consultant</option>
-                            <option>Techniques agricoles et d'élevage dans les projets de développement</option>
-                            <option>Mobilisation des ressources financières pour les projets</option>
-                            <option>Gestion des Ressources Naturelles</option>
-                            <option>Épidémiologie et Santé publique</option>
-                            <option>Ingénierie immobilière</option>
-                            <option>Violences Basées sur le Genre (VBG)</option>
-                            <option>Métier de Consultant</option>
-                            <option>Risque bancaire</option>
-                            <option>Décentralisation et Gestion des Collectivités territoriales</option>
-                            <option>Coopération décentralisée</option>
-                            <option>Management de la Sécurité globale</option>
-                            <option>Expertise immobilière</option>
-                            <option>Mobilisation communautaire</option>
-                            <option>Management des équipes</option>
-                            <option>Indicateurs des performances des projets</option>
-                            <option>Préparation à la certification PMP</option>
-                            <option>Gestion de la Paie</option>
-                            <option>Prévention et Gestion des risques bancaires</option>
-                            <option>Secrétariat et assistance de direction</option>
-                            <option>Métier de transitaire et déclarant en douanes</option>
-                            <option>Certificat au métier de cinéma</option>
-                            <option>Développement des activités Génératrices des Revenus (AGR)</option>
-                            <option>La psychologie de la santé mentale</option>
-                            <option>Le journalisme socio-humanitaire</option>
-                            <option>Le Journalisme de crise</option>
-                            <option>Le journalisme de paix</option>
-                            <option>Gestion des conflits</option>
-                            <option>Jumelage et Intercommunalité</option>
-                            <option>Biogaz et Méthanisation</option>
-                            <option>Diplomatie Internationale</option>
-                            <option>Conseillé Thérapeutique anti-drogue</option>
-                            <option>Juge de Paix et Médiation</option>
-                            <option>Communication d’Influence</option>
-                            <option>Communication de crise</option>
-                            <option>La Science de l’environnement</option>
-                            <option>Ethique contre la Corruption</option>
-                            <option>Ethique contre la Fraude</option>
-                            <option>La surveillance et l’Observation électorale</option>
-                            <option>Ethique professionnelle et sociale</option>
-                            <option>Journalisme Reporter d’Images (JRI)</option>
-                        </optgroup>
-                        
-                        <optgroup label="Informatique et Technologies">
-                            <option>Développement web</option>
-                            <option>Administration système</option>
-                            <option>Sécurité informatique</option>
-                            <option>Réseaux informatiques</option>
-                            <option>Programmation informatique</option>
-                            <option>Bases de données</option>
-                            <option>Analyse de données</option>
-                            <option>Intelligence artificielle</option>
-                            <option>Cybersécurité</option>
-                            <option>Infographie</option>
-                        </optgroup>
-
-                        <optgroup label="Restauration et Hôtellerie">
-                            <option>Cuisine</option>
-                            <option>Service en restaurant</option>
-                            <option>Gestion hôtelière</option>
-                            <option>Tourisme</option>
-                            <option>Événementiel</option>
-                            <option>Pâtisserie</option>
-                            <option>Boulangerie</option>
-                            <option>Service client</option>
-                            <option>Marketing hôtelier</option>
-                            <option>Gestion de salle</option>
-                        </optgroup>
-
-                        <optgroup label="Santé et Services Sociaux">
-                            <option>Soins infirmiers</option>
-                            <option>Assistance sociale</option>
-                            <option>Travail social</option>
-                            <option>Gérontologie</option>
-                            <option>Santé publique</option>
-                            <option>Nutrition</option>
-                            <option>Kinésithérapie</option>
-                            <option>Orthophonie</option>
-                            <option>Psychologie</option>
-                            <option>Éducation spécialisée</option>
-                        </optgroup>
-                        
-                        <!-- Ajouter les autres catégories ici de la même manière -->
-                        
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="niveau">Votre niveau d'étude ou expérience dans le domaine</label>
-                    <select id="niveau" name="niveau">
-                        <option>Débutant</option>
-                        <option>Intermédiaire</option>
-                        <option>Avancé</option>
-                        <option>Expert / Professionnel</option>
-                    </select>
-                </div>
+                <legend>Étape 2 : Votre projet de formation</legend>
+                <p class="reassurance-message">Excellent choix ! Aidez-nous à comprendre votre besoin pour mieux vous orienter.</p>
                 
                 <div class="form-group">
-                    <label for="objectifs">Vos objectifs avec cette formation</label>
-                    <textarea id="objectifs" name="objectifs" placeholder="Ex: Reconversion professionnelle, acquérir de nouvelles compétences, etc."></textarea>
+                    <label for="formation" class="required">Quelle formation vous intéresse ?</label>
+                    <select id="formation" name="formation" required>
+                        <option value="" disabled selected>-- Sélectionnez une formation --</option>
+                        <!-- Les optgroup et options de formations vont ici... -->
+                         <optgroup label="Action Humanitaire et Développement">
+                            <option>Coordination de l'Action humanitaire</option>
+                            <option>Management des Projets/Programmes</option>
+                            <option>etc.</option>
+                        </optgroup>
+                        <optgroup label="Informatique et Technologies">
+                            <option>Développement web</option>
+                            <option>Cybersécurité</option>
+                            <option>etc.</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="objectifs">Vos objectifs (reconversion, montée en compétences...)</label>
+                    <textarea id="objectifs" name="objectifs" placeholder="Plus vous serez précis, mieux nous pourrons vous aider."></textarea>
                 </div>
             </fieldset>
 
-            <!-- SECTION PAIEMENT -->
+            <!-- ÉTAPE 3: MODALITÉS DE FORMATION -->
             <fieldset>
-                <legend>Paiement</legend>
+                <legend>Étape 3 : Vos préférences</legend>
+                <p class="reassurance-message">Nous nous adaptons à votre rythme. Indiquez-nous vos disponibilités.</p>
+                 <div class="form-group">
+                    <label for="lieu">Où souhaitez-vous suivre la formation ?</label>
+                    <select id="lieu" name="lieu">
+                        <option value="en_ligne">En ligne (100% à distance)</option>
+                        <option value="presentiel">En présentiel (dans nos locaux)</option>
+                        <option value="hybride">Hybride (mix des deux)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="debut">Quand souhaitez-vous commencer ?</label>
+                    <select id="debut" name="debut">
+                        <option>Dès que possible</option>
+                        <option>Le mois prochain</option>
+                        <option>Selon le calendrier du centre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="session">Quelle session vous arrange le mieux ?</label>
+                     <select id="session" name="session">
+                        <option>Session du matin</option>
+                        <option>Session du soir</option>
+                        <option>Flexible</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <!-- ÉTAPE 4: FINALISATION -->
+            <fieldset>
+                <legend>Étape 4 : Finalisation</legend>
+                 <p class="reassurance-message">Vous y êtes presque ! Un conseiller vous contactera après la soumission pour valider les prochaines étapes.</p>
                  <div class="form-group">
                     <label for="paiement">Préférence de paiement</label>
                     <select id="paiement" name="paiement">
-                        <!-- NOTE: Ces options devraient être chargées dynamiquement selon le pays -->
                         <option>Carte de crédit</option>
                         <option>PayPal</option>
+                        <option>Paiement mobile (Orange Money, Wave, MTN...)</option>
                         <option>Virement bancaire</option>
-                        <option>Paiement mobile (Orange Money, MTN, etc.)</option>
                     </select>
                 </div>
             </fieldset>
             
-            <button type="submit" class="submit-btn">Envoyer mon inscription</button>
+            <!-- --- BOUTONS D'ACTION --- -->
+            
+            <!-- REMPLACEZ VOTRE_NUMERO par votre numéro WhatsApp  -->
+            <a href="https://wa.me/+2348106814709?text=Bonjour, j'ai une question concernant vos formations." class="btn whatsapp-btn" target="_blank">Poser une question sur WhatsApp</a>
+            
+            <button type="submit" class="btn submit-btn">Envoyer mon inscription</button>
 
         </form>
     </div>
+
+          <script>
+  const scriptURL = "https://script.google.com/macros/s/AKfycbx-mLkXNzOKx7yOi8EdB5GXyU0ZYSDXznEXf4-2ZUixP1LLbvfFknputR6K7-r_GAg/exec"; 
+  const form = document.getElementById("form");
+
+  form.addEventListener("submit", e => {
+    e.preventDefault();
+    fetch(scriptURL, { method: "POST", body: new FormData(form)})
+      .then(() => alert("Formulaire envoyé !"))
+      .catch(error => alert("Erreur : " + error.message));
+  });
+</script>
 
 </body>
 </html>
