@@ -61,72 +61,68 @@
              <!-- ... (pas de changement ici) ... -->
         </div>
     </div>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // ... (tout le début du script qui gère les étapes reste pareil)
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // ... (pas de changement dans la première partie du script) ...
+        const form = document.getElementById('inscriptionForm');
+        const submitButton = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('success-message');
+        
+        // VOTRE URL EST BIEN ICI
+        const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwEwYmnsZM9XeLaVbhd0_MTg4rKIqKSgGFXXS8dm4_IemRNua-VE1F99dwz1-eD2po/exec';
 
-            const form = document.getElementById('inscriptionForm');
-            const submitButton = document.getElementById('submitBtn');
-            const successMessage = document.getElementById('success-message');
-            
-            // !!!!! ATTENTION : COLLEZ VOTRE URL LA PLUS RÉCENTE ICI !!!!!
-            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwEwYmnsZM9XeLaVbhd0_MTg4rKIqKSgGFXXS8dm4_IemRNua-VE1F99dwz1-eD2po/exec';
+        // CORRECTION : Le garde-fou vérifie la valeur par défaut, pas votre URL.
+        if (!WEB_APP_URL || WEB_APP_URL === 'COLLEZ_VOTRE_URL_APPS_SCRIPT_FINALE_ICI') {
+            console.error("ERREUR CRITIQUE : L'URL de l'application Google n'est pas configurée dans le script !");
+            alert("Erreur de configuration : Impossible de contacter le serveur. Veuillez contacter l'administrateur du site.");
+            return; 
+        }
 
-            // --- GARDE-FOU DE SÉCURITÉ ---
-            // On vérifie que l'URL n'est pas vide ou une valeur par défaut.
-            if (!WEB_APP_URL || WEB_APP_URL === 'https://script.google.com/macros/s/AKfycbwEwYmnsZM9XeLaVbhd0_MTg4rKIqKSgGFXXS8dm4_IemRNua-VE1F99dwz1-eD2po/exec') {
-                console.error("ERREUR CRITIQUE : L'URL de l'application Google n'est pas configurée dans le script !");
-                alert("Erreur de configuration : Impossible de contacter le serveur. Veuillez contacter l'administrateur du site.");
-                return; // On arrête tout le script d'envoi.
-            }
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (!validateStep(formStepsNum)) return;
 
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-                if (!validateStep(formStepsNum)) return;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Envoi en cours...';
 
-                submitButton.disabled = true;
-                submitButton.textContent = 'Envoi en cours...';
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
 
-                const formData = new FormData(form);
-                const data = Object.fromEntries(formData.entries());
-
-                fetch(WEB_APP_URL, {
-                    method: 'POST',
-                    mode: 'cors',
-                    cache: 'no-cache',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(data)
-                })
-                .then(res => {
-                    // Une réponse réussie de la part de Google, même en cas d'erreur interne, ne devrait plus causer de "Failed to fetch".
-                    if (!res.ok && res.status !== 200) { 
-                         // Si on reçoit une erreur serveur (500, 403 etc.)
-                         throw new Error(`Erreur réseau ou serveur : ${res.statusText} (${res.status})`);
-                    }
-                    return res.json();
-                })
-                .then(data => {
-                    if (data.result === 'success') {
-                        form.style.display = 'none';
-                        document.querySelector('.progress-bar').style.display = 'none';
-                        document.querySelector('h1').style.display = 'none';
-                        document.querySelector('.header').style.display = 'none';
-                        successMessage.style.display = 'block';
-                    } else {
-                        // Erreur interne renvoyée par notre script Google
-                        throw new Error(data.error || 'Une erreur inconnue est survenue dans le script serveur.');
-                    }
-                })
-                .catch(error => {
-                    // Attrape les erreurs "Failed to fetch" (CORS) ET les erreurs réseau/serveur.
-                    alert('Erreur lors de l\'envoi : ' + error.message);
-                    console.error("Détails de l'erreur d'envoi :", error);
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Envoyer ma candidature';
-                });
+            fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(res => {
+                if (!res.ok && res.status !== 200) { 
+                     throw new Error(`Erreur réseau ou serveur : ${res.statusText} (${res.status})`);
+                }
+                return res.json();
+            })
+            .then(data => {
+                if (data.result === 'success') {
+                    form.style.display = 'none';
+                    document.querySelector('.progress-bar').style.display = 'none';
+                    document.querySelector('h1').style.display = 'none';
+                    document.querySelector('.header').style.display = 'none';
+                    successMessage.style.display = 'block';
+                } else {
+                    throw new Error(data.error || 'Une erreur inconnue est survenue dans le script serveur.');
+                }
+            })
+            .catch(error => {
+                alert('Erreur lors de l\'envoi : ' + error.message);
+                console.error("Détails de l'erreur d'envoi :", error);
+                submitButton.disabled = false;
+                submitButton.textContent = 'Envoyer ma candidature';
             });
         });
-    </script>
+    });
+</script>
+
 </body>
 </html>
+
