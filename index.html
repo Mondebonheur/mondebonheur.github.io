@@ -124,10 +124,11 @@
             const form = document.getElementById('inscriptionForm');
             const submitButton = document.getElementById('submitBtn');
             const successMessage = document.getElementById('success-message');
-            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwEwYmnsZM9XeLaVbhd0_MTg4rKIqKSgGFXXS8dm4_IemRNua-VE1F99dwz1-eD2po/exec';
+            const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbx2aI_-wJhkBYMVOKgzPXCwXG8mJ-ca6BnSNnPrXwo2paxs3Tfd00XW76QMJtvLsEs/exec';
             if (!WEB_APP_URL || WEB_APP_URL === 'COLLEZ_VOTRE_URL_APPS_SCRIPT_FINALE_ICI') { console.error("ERREUR CRITIQUE : URL non configurée !"); alert("Erreur de configuration du site."); return; }
             form.addEventListener('submit', function(e) { e.preventDefault(); if (!validateStep(formStepsNum)) return; submitButton.disabled = true; submitButton.textContent = 'Envoi en cours...'; const formData = new FormData(form); const data = Object.fromEntries(formData.entries()); fetch(WEB_APP_URL, { method: 'POST', mode: 'cors', cache: 'no-cache', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data) }).then(res => { if (!res.ok && res.status !== 200) { throw new Error(`Erreur réseau : ${res.statusText} (${res.status})`); } return res.json(); }).then(data => { if (data.result === 'success') { form.style.display = 'none'; document.querySelector('.progress-bar').style.display = 'none'; document.querySelector('h1').style.display = 'none'; document.querySelector('.header').style.display = 'none'; successMessage.style.display = 'block'; } else { throw new Error(data.error || 'Erreur inconnue du serveur.'); } }).catch(error => { alert('Erreur lors de l\'envoi : ' + error.message); console.error("Détails de l'erreur:", error); submitButton.disabled = false; submitButton.textContent = 'Envoyer ma candidature'; }); });
         });
     </script>
 </body>
 </html>
+
