@@ -58,7 +58,7 @@
         <!-- Iframe caché pour recevoir la réponse du script sans rechargement -->
         <iframe name="hidden_iframe" id="hidden_iframe" style="display:none"></iframe>
 
-<form id="inscriptionForm" action="https://script.google.com/macros/s/AKfycbwX3aOSGk86GrHuRF8FqAnArNQpeC5zisqXj34PdGRPmWtdWKfReOIMbVIYXhwHFhI/exec" method="POST" target="hidden_iframe">
+<form id="inscriptionForm" action="https://script.google.com/macros/s/AKfycbzLxOCcf89vwNI68ncnVv1szbPPsuXoXpJrLaCLiBA-UEr5DPAVD8tRiVYq9LkzpnQ/exec" method="POST" target="hidden_iframe">
     <!-- Le reste du formulaire reste inchangé -->
         
             <fieldset class="form-step active">
@@ -139,153 +139,190 @@
             <a href="https://wa.me/2348106814709?text=Bonjour, je viens de soumettre ma candidature et j'ai une question." class="btn btn-primary" target="_blank">Contacter sur WhatsApp</a>
         </div>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Détection automatique du pays
-            const paysSelect = document.getElementById('pays');
-            fetch('https://ip-api.com/json/?fields=countryCode')
-                .then(res => res.json())
-                .then(data => {
-                    if (data.countryCode) {
-                        const countryCode = data.countryCode.toLowerCase();
-                        if (paysSelect.querySelector(`option[value="${countryCode}"]`)) {
-                            paysSelect.value = countryCode;
-                        }
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Détection automatique du pays
+        const paysSelect = document.getElementById('pays');
+        fetch('https://ip-api.com/json/?fields=countryCode')
+            .then(res => res.json())
+            .then(data => {
+                if (data.countryCode) {
+                    const countryCode = data.countryCode.toLowerCase();
+                    if (paysSelect.querySelector(`option[value="${countryCode}"]`)) {
+                        paysSelect.value = countryCode;
                     }
-                })
-                .catch(() => { console.log("Détection du pays échouée."); })
-                .finally(() => {
-                    if (paysSelect.value === "") {
-                        paysSelect.querySelector('option[disabled]').textContent = "-- Sélectionnez votre pays --";
-                    }
-                });
-
-            // Données des formations
-            const trainingData = {
-                "Action Humanitaire & Développement": ["Coordination de l'Action humanitaire", "Management des Projets/Programmes", "Suivi-Évaluation des Projets"],
-                "Gestion & Entrepreneuriat": ["Création d'entreprise", "Gestion de startup", "Business plan"],
-                "Informatique & Technologies": ["Développement web", "Cybersécurité", "Analyse de données"],
-                "Santé & Services Sociaux": ["Santé publique", "Nutrition", "Psychologie"],
-                "Communication & Médias": ["Journalisme", "Communication d'entreprise", "Relations publiques"]
-            };
-            const categorySelect = document.getElementById('category');
-            const trainingSelect = document.getElementById('formation');
-            Object.keys(trainingData).forEach(category => {
-                const option = document.createElement('option');
-                option.value = category;
-                option.textContent = category;
-                categorySelect.appendChild(option);
-            });
-            categorySelect.addEventListener('change', () => {
-                trainingSelect.innerHTML = '<option value="">-- Choisissez une formation --</option>';
-                const selectedCategory = categorySelect.value;
-                if (selectedCategory && trainingData[selectedCategory]) {
-                    trainingData[selectedCategory].forEach(training => {
-                        const option = document.createElement('option');
-                        option.value = training;
-                        option.textContent = training;
-                        trainingSelect.appendChild(option);
-                    });
+                }
+            })
+            .catch(() => { console.log("Détection du pays échouée."); })
+            .finally(() => {
+                if (paysSelect.value === "") {
+                    paysSelect.querySelector('option[disabled]').textContent = "-- Sélectionnez votre pays --";
                 }
             });
 
-            // Gestion des étapes
-            const prevBtns = document.querySelectorAll(".prev-btn");
-            const nextBtns = document.querySelectorAll(".next-btn");
-            const formSteps = document.querySelectorAll(".form-step");
-            const progressSteps = document.querySelectorAll(".progress-step");
-            let formStepsNum = 0;
-
-            nextBtns.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    if (validateStep(formStepsNum)) {
-                        formStepsNum++;
-                        updateFormSteps();
-                        updateProgressbar();
-                    }
+        // Données des formations
+        const trainingData = {
+            "Action Humanitaire & Développement": ["Coordination de l'Action humanitaire", "Management des Projets/Programmes", "Suivi-Évaluation des Projets"],
+            "Gestion & Entrepreneuriat": ["Création d'entreprise", "Gestion de startup", "Business plan"],
+            "Informatique & Technologies": ["Développement web", "Cybersécurité", "Analyse de données"],
+            "Santé & Services Sociaux": ["Santé publique", "Nutrition", "Psychologie"],
+            "Communication & Médias": ["Journalisme", "Communication d'entreprise", "Relations publiques"]
+        };
+        
+        const categorySelect = document.getElementById('category');
+        const trainingSelect = document.getElementById('formation');
+        
+        Object.keys(trainingData).forEach(category => {
+            const option = document.createElement('option');
+            option.value = category;
+            option.textContent = category;
+            categorySelect.appendChild(option);
+        });
+        
+        categorySelect.addEventListener('change', () => {
+            trainingSelect.innerHTML = '<option value="">-- Choisissez une formation --</option>';
+            const selectedCategory = categorySelect.value;
+            if (selectedCategory && trainingData[selectedCategory]) {
+                trainingData[selectedCategory].forEach(training => {
+                    const option = document.createElement('option');
+                    option.value = training;
+                    option.textContent = training;
+                    trainingSelect.appendChild(option);
                 });
-            });
+            }
+        });
 
-            prevBtns.forEach(btn => {
-                btn.addEventListener("click", () => {
-                    formStepsNum--;
+        // Gestion des étapes
+        const prevBtns = document.querySelectorAll(".prev-btn");
+        const nextBtns = document.querySelectorAll(".next-btn");
+        const formSteps = document.querySelectorAll(".form-step");
+        const progressSteps = document.querySelectorAll(".progress-step");
+        let formStepsNum = 0;
+
+        nextBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                if (validateStep(formStepsNum)) {
+                    formStepsNum++;
                     updateFormSteps();
                     updateProgressbar();
-                });
-            });
-
-            function updateFormSteps() {
-                formSteps.forEach(step => step.classList.remove("active"));
-                formSteps[formStepsNum].classList.add("active");
-            }
-
-            function updateProgressbar() {
-                progressSteps.forEach((step, idx) => {
-                    step.classList.toggle("active", idx < formStepsNum + 1);
-                });
-            }
-
-            function validateStep(stepIndex) {
-                let isValid = true;
-                const inputs = formSteps[stepIndex].querySelectorAll("input[required], select[required]");
-                inputs.forEach(input => {
-                    input.classList.remove('invalid');
-                    if (!input.value.trim()) {
-                        isValid = false;
-                        input.classList.add('invalid');
-                    }
-                });
-                return isValid;
-            }
-
-            // Paiement
-            const paiementSelect = document.getElementById('paiement');
-            const autrePaiementDiv = document.getElementById('autrePaiementDiv');
-            const autrePaiementInput = document.getElementById('paiementAutre');
-            const modesDePaiement = ["Carte bancaire", "Orange Money", "Mobile Money (MTN, etc.)", "Ria", "Autre (à préciser)"];
-            modesDePaiement.forEach(mode => {
-                const option = document.createElement('option');
-                option.value = mode;
-                option.textContent = mode;
-                paiementSelect.appendChild(option);
-            });
-            paiementSelect.addEventListener('change', () => {
-                if (paiementSelect.value === "Autre (à préciser)") {
-                    autrePaiementDiv.style.display = 'block';
-                    autrePaiementInput.required = true;
-                } else {
-                    autrePaiementDiv.style.display = 'none';
-                    autrePaiementInput.required = false;
                 }
-            });
-
-            // Écouter le message de l'iframe (réponse du script)
-            window.addEventListener('message', function(event) {
-                // Vérifier l'origine pour la sécurité (remplacez par votre domaine GitHub)
-                if (event.origin !== 'https://mondebonheur.github.io') return;
-                if (event.data === 'success') {
-                    // Cacher le formulaire et afficher le message de succès
-                    document.getElementById('inscriptionForm').style.display = 'none';
-                    document.querySelector('.progress-bar').style.display = 'none';
-                    document.querySelector('h1').style.display = 'none';
-                    document.querySelector('.header').style.display = 'none';
-                    document.getElementById('success-message').style.display = 'block';
-                } else {
-                    alert('Erreur lors de l\'envoi du formulaire. Veuillez réessayer.');
-                    // Réactiver le bouton submit
-                    document.getElementById('submitBtn').disabled = false;
-                    document.getElementById('submitBtn').textContent = 'Envoyer ma candidature';
-                }
-            });
-
-            // Désactiver le bouton submit après soumission pour éviter les doubles envois
-            const form = document.getElementById('inscriptionForm');
-            form.addEventListener('submit', function() {
-                document.getElementById('submitBtn').disabled = true;
-                document.getElementById('submitBtn').textContent = 'Envoi en cours...';
             });
         });
-    </script>
+
+        prevBtns.forEach(btn => {
+            btn.addEventListener("click", () => {
+                formStepsNum--;
+                updateFormSteps();
+                updateProgressbar();
+            });
+        });
+
+        function updateFormSteps() {
+            formSteps.forEach(step => step.classList.remove("active"));
+            formSteps[formStepsNum].classList.add("active");
+        }
+
+        function updateProgressbar() {
+            progressSteps.forEach((step, idx) => {
+                step.classList.toggle("active", idx < formStepsNum + 1);
+            });
+        }
+
+        function validateStep(stepIndex) {
+            let isValid = true;
+            const inputs = formSteps[stepIndex].querySelectorAll("input[required], select[required]");
+            inputs.forEach(input => {
+                input.classList.remove('invalid');
+                if (!input.value.trim()) {
+                    isValid = false;
+                    input.classList.add('invalid');
+                }
+            });
+            return isValid;
+        }
+
+        // Paiement
+        const paiementSelect = document.getElementById('paiement');
+        const autrePaiementDiv = document.getElementById('autrePaiementDiv');
+        const autrePaiementInput = document.getElementById('paiementAutre');
+        const modesDePaiement = ["Carte bancaire", "Orange Money", "Mobile Money (MTN, etc.)", "Ria", "Autre (à préciser)"];
+        
+        modesDePaiement.forEach(mode => {
+            const option = document.createElement('option');
+            option.value = mode;
+            option.textContent = mode;
+            paiementSelect.appendChild(option);
+        });
+        
+        paiementSelect.addEventListener('change', () => {
+            if (paiementSelect.value === "Autre (à préciser)") {
+                autrePaiementDiv.style.display = 'block';
+                autrePaiementInput.required = true;
+            } else {
+                autrePaiementDiv.style.display = 'none';
+                autrePaiementInput.required = false;
+            }
+        });
+
+        // ===== GESTION DE L'ENVOI DU FORMULAIRE =====
+        const form = document.getElementById('inscriptionForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const successMessage = document.getElementById('success-message');
+        const progressBar = document.querySelector('.progress-bar');
+        const header = document.querySelector('.header');
+        const mainTitle = document.querySelector('h1');
+
+        // Écouter les messages de l'iframe
+        window.addEventListener('message', function(event) {
+            console.log("Message reçu:", event.data); // Pour déboguer
+            
+            if (event.data === 'formSuccess') {
+                // Succès : afficher le message de félicitations
+                form.style.display = 'none';
+                progressBar.style.display = 'none';
+                mainTitle.style.display = 'none';
+                header.style.display = 'none';
+                successMessage.style.display = 'block';
+            } else if (event.data === 'formError') {
+                // Erreur : réactiver le bouton
+                alert('Une erreur est survenue. Veuillez réessayer.');
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Envoyer ma candidature';
+            }
+        });
+
+        // Gérer la soumission du formulaire
+        form.addEventListener('submit', function(e) {
+            // Désactiver le bouton immédiatement
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Envoi en cours...';
+            
+            // IMPORTANT: Ne pas faire e.preventDefault()
+            // Le formulaire doit être soumis normalement vers l'iframe
+            
+            // Le reste est géré par l'attribut action et target du formulaire
+            console.log("Formulaire soumis vers:", form.action);
+        });
+
+        // Sécurité : au cas où l'iframe ne répond pas, débloquer après 10 secondes
+        setTimeout(function() {
+            if (submitBtn.disabled) {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Envoyer ma candidature';
+                console.log("Déblocage automatique après timeout");
+            }
+        }, 10000); // 10 secondes
+
+        // Gestion des erreurs réseau (au cas où)
+        const iframe = document.getElementById('hidden_iframe');
+        iframe.addEventListener('error', function() {
+            console.log("Erreur de chargement de l'iframe");
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Envoyer ma candidature';
+            alert('Erreur de connexion. Vérifiez votre réseau.');
+        });
+    });
+</script>
 </body>
 </html>
+
