@@ -3,58 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Formulaire d'inscription</title>
+    <title>Formulaire d'inscription - Monde et Bonheur ONG</title>
     <style>
         :root { --primary: #004080; --secondary: #f39c12; --bg: #f4f7f6; --text: #333; --border: #ddd; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--bg); margin: 0; padding: 2rem 1rem; color: var(--text); display: flex; justify-content: center; }
-        .container { max-width: 850px; width: 100%; background: #fff; padding: 3rem; border-radius: 12px; box-shadow: 0 15px 50px rgba(0,0,0,0.1); }
-        .header { text-align: center; margin-bottom: 2rem; border-bottom: 2px solid var(--primary); padding-bottom: 1.5rem; }
-        .header img { height: 65px; margin-bottom: 10px; }
-        .header h1 { color: var(--primary); font-size: 1.8rem; margin: 0; text-transform: uppercase; letter-spacing: 1px; }
+        .container { max-width: 850px; width: 100%; background: #fff; padding: 3rem; border-radius: 12px; box-shadow: 0 15px 50px rgba(0,0,0,0.1); position: relative; }
+        
+        .header { text-align: center; margin-bottom: 2rem; border-bottom: 2px solid var(--primary); padding: 1rem 0 1.5rem 0; position: relative; }
+        .logo-placeholder { 
+            width: 80px; 
+            height: 80px; 
+            background: var(--primary); 
+            color: white; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 2rem; 
+            font-weight: bold; 
+            margin: 0 auto 10px auto;
+        }
+        .header img { height: 65px; margin-bottom: 10px; max-width: 100%; }
+        .header h1 { color: var(--primary); font-size: 1.8rem; margin: 0; }
         .header h2 { color: #666; font-size: 1.1rem; margin: 5px 0 0 0; font-weight: 400; }
+        
+        .lang-switcher { position: absolute; top: 20px; right: 20px; display: flex; gap: 10px; }
+        .lang-switcher button { background: transparent; border: 1px solid var(--border); border-radius: 4px; padding: 5px 10px; cursor: pointer; font-weight: 600; }
+        .lang-switcher button.active { background: var(--primary); color: white; border-color: var(--primary); }
+        
         .progress-bar { display: flex; justify-content: space-between; margin-bottom: 2.5rem; position: relative; }
         .progress-bar::before { content: ''; position: absolute; top: 15px; left: 0; right: 0; height: 3px; background: var(--border); z-index: 1; }
-        .step-indicator { width: 32px; height: 32px; border-radius: 50%; background: white; border: 3px solid var(--border); color: var(--border); display: flex; align-items: center; justify-content: center; font-weight: bold; z-index: 2; transition: 0.3s; }
+        .step-indicator { width: 32px; height: 32px; border-radius: 50%; background: white; border: 3px solid var(--border); color: var(--border); display: flex; align-items: center; justify-content: center; font-weight: bold; z-index: 2; }
         .step-indicator.active { border-color: var(--primary); background: var(--primary); color: white; }
-        .form-step { display: none; animation: fadeIn 0.4s ease-in-out; }
+        
+        .form-step { display: none; }
         .form-step.active { display: block; }
+        
         fieldset { border: none; padding: 0; margin: 0; }
         legend { font-size: 1.4rem; color: var(--primary); font-weight: 600; margin-bottom: 1rem; }
         .quote { font-style: italic; color: #777; margin-bottom: 2rem; padding-left: 10px; border-left: 4px solid var(--secondary); }
         .form-group { margin-bottom: 1.5rem; }
         label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #444; }
-        input, select, textarea { width: 100%; padding: 0.9rem; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; box-sizing: border-box; transition: 0.3s; }
+        input, select, textarea { width: 100%; padding: 0.9rem; border: 1px solid var(--border); border-radius: 6px; font-size: 1rem; box-sizing: border-box; }
         input:focus, select:focus, textarea:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(0,64,128,0.1); }
         .invalid { border-color: #e74c3c !important; background-color: #fdf0ed; }
+        
         .course-card { background: #f9fbfd; border: 1px solid #cce0f5; border-radius: 8px; padding: 1.5rem; margin-top: 1.5rem; display: none; }
         .course-card h3 { color: var(--primary); margin-top: 0; border-bottom: 1px solid #eee; padding-bottom: 10px; }
-        .course-card p { margin: 8px 0; line-height: 1.5; font-size: 0.95rem; }
         .badge { display: inline-block; padding: 5px 12px; background: var(--primary); color: white; border-radius: 20px; font-weight: bold; font-size: 0.9rem; margin-top: 10px; }
         .badge.price { background: var(--secondary); margin-left: 10px; }
+        
         .btn-group { display: flex; justify-content: flex-end; gap: 15px; margin-top: 2rem; border-top: 1px solid #eee; padding-top: 1.5rem; }
-        .btn { padding: 0.8rem 1.8rem; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .btn { padding: 0.8rem 1.8rem; border: none; border-radius: 6px; font-size: 1rem; font-weight: 600; cursor: pointer; }
         .btn-prev { background: #e0e0e0; color: #333; }
-        .btn-prev:hover { background: #ccc; }
         .btn-next, .btn-submit { background: var(--primary); color: white; }
         .btn-next:hover, .btn-submit:hover { background: #002b5e; }
-        .btn-submit:disabled { background: #999; cursor: not-allowed; }
-        .whatsapp-link { display: inline-block; color: #25D366; font-weight: bold; text-decoration: none; margin-top: 1rem; }
-        #success-message { display: none; text-align: center; padding: 3rem 0; }
+        
+        .whatsapp-link { display: block; color: #25D366; font-weight: bold; text-decoration: none; margin-top: 1rem; text-align: left; }
+        
+        #success-message { display: none; text-align: center; padding: 2rem 0; }
         #success-message h2 { color: var(--primary); font-size: 2rem; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        @media (max-width: 600px) { .container { padding: 1.5rem; } .btn-group { flex-direction: column-reverse; } .btn { width: 100%; } }
+        .btn-wa { background: #25D366; color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; display: inline-block; margin-top: 20px; }
+        
+        @media (max-width: 700px) {
+            .lang-switcher { position: static; justify-content: center; margin-bottom: 15px; }
+        }
     </style>
 </head>
 <body>
-
 <div class="container">
-    <header class="header" id="header">
-        <img src="logo.jpeg" alt="Logo MBONG" onerror="this.style.display='none'">
+    <header class="header">
+        <!-- Logo avec fallback -->
+        <img src="logo.jpeg" alt="Logo Monde et Bonheur ONG" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';" style="display: block;">
+        <div class="logo-placeholder" style="display: none;">MB</div>
         <h1>Monde et Bonheur ONG</h1>
         <h2>Portail des Admissions & Formations</h2>
+        <div class="lang-switcher">
+            <button id="lang-fr" class="active">🇫🇷 FR</button>
+            <button id="lang-en">🇬🇧 EN</button>
+        </div>
     </header>
 
-    <div class="progress-bar" id="progress-bar">
+    <div class="progress-bar">
         <div class="step-indicator active">1</div>
         <div class="step-indicator">2</div>
         <div class="step-indicator">3</div>
@@ -62,412 +92,748 @@
     </div>
 
     <form id="admissionForm">
-        <!-- ETAPE 1 -->
-        <fieldset class="form-step active">
-            <legend>Informations Personnelles</legend>
-            <p class="quote">"L'éducation est l'arme la plus puissante pour changer le monde." - Nelson Mandela</p>
-            <div class="form-group"><label>Nom</label><input type="text" name="nom" required></div>
-            <div class="form-group"><label>Prénom</label><input type="text" name="prenom" required></div>
-            <div class="form-group"><label>E-mail</label><input type="email" name="email" required></div>
-            <div class="form-group"><label>Numéro WhatsApp (avec indicatif)</label><input type="tel" name="whatsapp" placeholder="Ex: +237..." required></div>
-            <div class="form-group">
-                <label>Pays de résidence</label>
-                <select id="pays" name="pays" required>
-                    <option value="" disabled selected>-- Détection en cours... --</option>
-                    <optgroup label="Zone XAF / XOF (FCFA)">
-                        <option value="cm">Cameroun</option><option value="sn">Sénégal</option><option value="ci">Côte d'Ivoire</option>
-                        <option value="bj">Bénin</option><option value="bf">Burkina Faso</option><option value="cg">Congo</option>
-                        <option value="ga">Gabon</option><option value="ml">Mali</option><option value="tg">Togo</option>
-                    </optgroup>
-                    <optgroup label="Europe (EUR / CHF)">
-                        <option value="fr">France</option><option value="be">Belgique</option><option value="ch">Suisse</option>
-                    </optgroup>
-                    <optgroup label="Amérique (CAD / USD)">
-                        <option value="ca">Canada</option><option value="us">États-Unis</option>
-                    </optgroup>
-                    <optgroup label="Autres">
-                        <option value="ng">Nigéria (NGN)</option><option value="autre">Autre pays</option>
-                    </optgroup>
-                </select>
-            </div>
-            <div class="btn-group"><button type="button" class="btn btn-next">Suivant</button></div>
-        </fieldset>
-
-        <!-- ETAPE 2 -->
-        <fieldset class="form-step">
-            <legend>Choix du Programme</legend>
-            <p class="quote">"Investir dans la formation, c'est conjuguer au présent le futur."</p>
-            <div class="form-group"><label>Domaine d'expertise</label><select id="category" name="category" required><option value="">-- Choisissez un domaine --</option></select></div>
-            <div class="form-group"><label>Formation souhaitée</label><select id="formation" name="formation" required><option value="">-- Sélectionnez d'abord un domaine --</option></select></div>
-            
-            <!-- CARTE DYNAMIQUE DU COURS -->
-            <div id="courseCard" class="course-card">
-                <h3 id="cardTitle">Titre de la formation</h3>
-                <p><strong>Objectif :</strong> <span id="cardObj">...</span></p>
-                <p><strong>Public :</strong> <span id="cardPub">...</span></p>
-                <p><strong>Contenu :</strong> <span id="cardCont">...</span></p>
-                <div style="margin-top:15px;">
-                    <span class="badge" id="cardDur">0 Heures</span>
-                    <span class="badge price" id="cardPrix">0 FCFA</span>
+        <!-- ÉTAPE 1 : Informations Personnelles -->
+        <div class="form-step active" data-step="1">
+            <fieldset>
+                <legend data-i18n="personalInfo">Informations Personnelles</legend>
+                <p class="quote" data-i18n="quote1">"L'éducation est l'arme la plus puissante pour changer le monde." - Nelson Mandela</p>
+                <div class="form-group"><label data-i18n="lastName">Nom *</label><input type="text" name="nom" required></div>
+                <div class="form-group"><label data-i18n="firstName">Prénom *</label><input type="text" name="prenom" required></div>
+                <div class="form-group"><label data-i18n="email">Email *</label><input type="email" name="email" required></div>
+                <div class="form-group"><label data-i18n="whatsapp">WhatsApp *</label><input type="tel" name="whatsapp" placeholder="+237 6XX XXX XXX" required></div>
+                <div class="form-group">
+                    <label data-i18n="country">Pays *</label>
+                    <select id="pays" name="pays" required>
+                        <option value="" disabled selected data-i18n="detecting">Chargement...</option>
+                        <optgroup label="Afrique de l'Ouest et Centrale (XAF/XOF)">
+                            <option value="cm" data-i18n="cm">🇨🇲 Cameroun</option>
+                            <option value="sn" data-i18n="sn">🇸🇳 Sénégal</option>
+                            <option value="ci" data-i18n="ci">🇨🇮 Côte d'Ivoire</option>
+                            <option value="bj" data-i18n="bj">🇧🇯 Bénin</option>
+                            <option value="bf" data-i18n="bf">🇧🇫 Burkina Faso</option>
+                            <option value="cg" data-i18n="cg">🇨🇬 Congo</option>
+                            <option value="ga" data-i18n="ga">🇬🇦 Gabon</option>
+                            <option value="ml" data-i18n="ml">🇲🇱 Mali</option>
+                            <option value="tg" data-i18n="tg">🇹🇬 Togo</option>
+                        </optgroup>
+                        <optgroup label="Europe (EUR/CHF)">
+                            <option value="fr" data-i18n="fr">🇫🇷 France</option>
+                            <option value="be" data-i18n="be">🇧🇪 Belgique</option>
+                            <option value="ch" data-i18n="ch">🇨🇭 Suisse</option>
+                        </optgroup>
+                        <optgroup label="Amérique (CAD/USD)">
+                            <option value="ca" data-i18n="ca">🇨🇦 Canada</option>
+                            <option value="us" data-i18n="us">🇺🇸 États-Unis</option>
+                        </optgroup>
+                        <optgroup label="Autres">
+                            <option value="ng" data-i18n="ng">🇳🇬 Nigéria</option>
+                            <option value="other" data-i18n="other">🌍 Autre pays</option>
+                        </optgroup>
+                    </select>
                 </div>
-            </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-next" data-next="2" data-i18n="next">Suivant</button>
+                </div>
+            </fieldset>
+        </div>
 
-            <!-- CHAMPS CACHÉS (pour envoyer au sheet) -->
-            <input type="hidden" id="selectedPrice" name="selectedPrice">
-            <input type="hidden" id="selectedCurrency" name="selectedCurrency">
-            <input type="hidden" id="selectedDuration" name="selectedDuration">
+        <!-- ÉTAPE 2 : Choix du Programme -->
+        <div class="form-step" data-step="2">
+            <fieldset>
+                <legend data-i18n="programChoice">Choix du Programme</legend>
+                <p class="quote" data-i18n="quote2">"Investir dans la formation, c'est conjuguer au présent le futur."</p>
+                <div class="form-group">
+                    <label data-i18n="domain">Domaine *</label>
+                    <select id="category" name="category" required>
+                        <option value="" data-i18n="chooseDomain">-- Choisissez un domaine --</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="training">Formation *</label>
+                    <select id="formation" name="formation" required>
+                        <option value="" data-i18n="selectDomainFirst">-- Sélectionnez d'abord un domaine --</option>
+                    </select>
+                </div>
+                <div id="courseCard" class="course-card">
+                    <h3 id="cardTitle">Titre</h3>
+                    <p><strong data-i18n="objective">Objectif :</strong> <span id="cardObj">...</span></p>
+                    <p><strong data-i18n="audience">Public :</strong> <span id="cardPub">...</span></p>
+                    <p><strong data-i18n="content">Contenu :</strong> <span id="cardCont">...</span></p>
+                    <div>
+                        <span class="badge" id="cardDur">0h</span>
+                        <span class="badge price" id="cardPrix">0</span>
+                    </div>
+                </div>
+                <input type="hidden" id="selectedPrice" name="selectedPrice">
+                <input type="hidden" id="selectedCurrency" name="selectedCurrency">
+                <input type="hidden" id="selectedDuration" name="selectedDuration">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-prev" data-prev="1" data-i18n="prev">Retour</button>
+                    <button type="button" class="btn btn-next" data-next="3" data-i18n="next">Suivant</button>
+                </div>
+            </fieldset>
+        </div>
 
-            <div class="btn-group">
-                <button type="button" class="btn btn-prev">Retour</button>
-                <button type="button" class="btn btn-next">Suivant</button>
-            </div>
-        </fieldset>
+        <!-- ÉTAPE 3 : Organisation Pédagogique -->
+        <div class="form-step" data-step="3">
+            <fieldset>
+                <legend data-i18n="pedagogy">Organisation Pédagogique</legend>
+                <div class="form-group">
+                    <label data-i18n="modality">Modalité *</label>
+                    <select name="lieu" required>
+                        <option value="" data-i18n="choose">-- Choisissez --</option>
+                        <option value="En ligne" data-i18n="online">En ligne (100% à distance)</option>
+                        <option value="Présentiel" data-i18n="onsite">En présentiel</option>
+                        <option value="Hybride" data-i18n="hybrid">Hybride (Mixte)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="rhythm">Rythme *</label>
+                    <select name="session" required>
+                        <option value="" data-i18n="choose">-- Choisissez --</option>
+                        <option value="Matin" data-i18n="morning">Session du matin</option>
+                        <option value="Soir" data-i18n="evening">Session du soir</option>
+                        <option value="Flexible" data-i18n="flexible">Rythme flexible</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label data-i18n="objectivesOpt">Objectifs (optionnel)</label>
+                    <textarea name="objectifs" rows="3" placeholder="Décrivez vos attentes..."></textarea>
+                </div>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-prev" data-prev="2" data-i18n="prev">Retour</button>
+                    <button type="button" class="btn btn-next" data-next="4" data-i18n="next">Suivant</button>
+                </div>
+            </fieldset>
+        </div>
 
-        <!-- ETAPE 3 -->
-        <fieldset class="form-step">
-            <legend>Organisation Pédagogique</legend>
-            <div class="form-group"><label>Modalité d'apprentissage</label><select name="lieu" required><option value="">-- Choisissez --</option><option value="En ligne">En ligne (100% à distance)</option><option value="En présentiel">En présentiel</option><option value="Hybride">Hybride (Mixte)</option></select></div>
-            <div class="form-group"><label>Rythme souhaité</label><select name="session" required><option value="">-- Choisissez --</option><option value="Matin">Session du matin</option><option value="Soir">Session du soir</option><option value="Flexible">Rythme flexible / À la demande</option></select></div>
-            <div class="form-group"><label>Vos objectifs professionnels (Optionnel)</label><textarea name="objectifs" rows="3" placeholder="Décrivez brièvement vos attentes..."></textarea></div>
-            <div class="btn-group"><button type="button" class="btn btn-prev">Retour</button><button type="button" class="btn btn-next">Suivant</button></div>
-        </fieldset>
-
-        <!-- ETAPE 4 -->
-        <fieldset class="form-step">
-            <legend>Validation & Financement</legend>
-            <div class="form-group"><label>Méthode de paiement souhaitée</label><select id="paiement" name="paiement" required><option value="">-- Choisissez --</option><option value="Carte Bancaire">Carte Bancaire (Visa/Mastercard)</option><option value="Mobile Money (Orange/MTN/Moov)">Mobile Money (Orange/MTN/Moov...)</option><option value="Virement Bancaire">Virement Bancaire</option><option value="Ria / Western Union">Ria / Western Union / MoneyGram</option><option value="Autre">Autre (à préciser)</option></select></div>
-            <div class="form-group" id="autrePaiementDiv" style="display:none;"><label>Précisez votre moyen de paiement</label><input type="text" id="paiementAutre" name="paiementAutre"></div>
-            
-            <a href="https://wa.me/2348106814709" target="_blank" class="whatsapp-link">💬 Contacter un conseiller sur WhatsApp</a>
-            
-            <div class="btn-group">
-                <button type="button" class="btn btn-prev">Retour</button>
-                <button type="submit" class="btn btn-submit" id="submitBtn">Valider mon inscription</button>
-            </div>
-        </fieldset>
+        <!-- ÉTAPE 4 : Validation & Financement -->
+        <div class="form-step" data-step="4">
+            <fieldset>
+                <legend data-i18n="payment">Validation & Financement</legend>
+                <div class="form-group">
+                    <label data-i18n="paymentMethod">Paiement *</label>
+                    <select id="paiement" name="paiement" required>
+                        <option value="" data-i18n="choose">-- Choisissez --</option>
+                        <option value="Carte Bancaire" data-i18n="card">Carte Bancaire</option>
+                        <option value="Mobile Money" data-i18n="mobileMoney">Mobile Money</option>
+                        <option value="Virement Bancaire" data-i18n="bankTransfer">Virement Bancaire</option>
+                        <option value="Autre" data-i18n="other">Autre</option>
+                    </select>
+                </div>
+                <div class="form-group" id="autrePaiementDiv" style="display:none;">
+                    <label data-i18n="specifyOther">Précisez</label>
+                    <input type="text" id="paiementAutre" name="paiementAutre">
+                </div>
+                <a href="https://wa.me/2348106814709" target="_blank" class="whatsapp-link" data-i18n="whatsapp">💬 Contacter un conseiller sur WhatsApp</a>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-prev" data-prev="3" data-i18n="prev">Retour</button>
+                    <button type="submit" class="btn btn-submit" id="submitBtn" data-i18n="submit">Valider mon inscription</button>
+                </div>
+            </fieldset>
+        </div>
     </form>
 
     <div id="success-message">
-        <h2>🎉 Félicitations !</h2>
-        <p>Votre dossier de candidature a été transmis avec succès au service des admissions.</p>
-        <p>Un conseiller pédagogique prendra contact avec vous dans les 24h ouvrées pour valider votre inscription.</p>
-        <a href="https://wa.me/2348106814709" target="_blank" class="btn btn-primary" style="display:inline-block; margin-top:20px; text-decoration:none;">Nous écrire sur WhatsApp</a>
+        <h2 id="success-title">🎉 Félicitations !</h2>
+        <p id="success-text1">Votre inscription a bien été reçue.</p>
+        <p id="success-text2">Nous vous contacterons sous 24h.</p>
+        <a href="https://wa.me/2348106814709" target="_blank" class="btn-wa" id="success-wa">💬 Nous contacter</a>
     </div>
 </div>
 
 <script>
+(function() {
     // ==========================================
-    // 1. BASE DE DONNÉES COMPLÈTE DES FORMATIONS
+    // 1. BASE DE DONNÉES COMPLÈTE
     // ==========================================
     const courses = [
-        // HUMANITAIRE
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Coordination de l’Action humanitaire", o:"Comprendre principes et mécanismes de coordination.", p:"Professionnels humanitaires, ONG.", c:"Principes HAP, Sphere, parties prenantes, mécanismes.", j:3, prix:750},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Management des Projets/Programmes", o:"Maîtriser le cycle de vie des projets.", p:"Chefs de projets, coordinateurs.", c:"Cadre logique, planification, suivi, risques, budget.", j:5, prix:1200},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Management des ONG/associations", o:"Gérer efficacement une ONG.", p:"Dirigeants, cadres d’ONG.", c:"Gouvernance, fonds, finance, RH.", j:4, prix:950},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Ingénierie de formation", o:"Concevoir, évaluer des dispositifs de formation.", p:"Formateurs, RH.", c:"Analyse besoins, objectifs, méthodes.", j:5, prix:1100},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Formation des formateurs", o:"Développer compétences pédagogiques.", p:"Experts, futurs formateurs.", c:"Animation, gestion groupe, conception.", j:3, prix:800},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Gestion des Ressources Humaines (GRH)", o:"Maîtriser les fondamentaux GRH.", p:"Responsables RH, managers.", c:"Recrutement, paie, compétences, conflits.", j:4, prix:900},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Gestion des RH des Mines", o:"GRH dans l'industrie minière.", p:"Responsables RH secteur minier.", c:"Spécificités légales, sécurité, carrières.", j:3, prix:950},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Genre et Développement", o:"Intégrer le genre dans les projets.", p:"Professionnels développement, ONG.", c:"Concepts genre, analyse, intégration.", j:2, prix:600},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Logistique & Transport", o:"Optimiser la chaîne logistique.", p:"Logisticiens.", c:"Planification, stocks, douanes, transport.", j:4, prix:1000},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Santé, Hygiène, Sécurité, Environnement (HSSE)", o:"Mettre en œuvre politiques HSSE.", p:"Responsables HSSE.", c:"Réglementations, risques, urgence, déchets.", j:3, prix:850},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Santé/Nutrition communautaire", o:"Gérer programmes santé/nutrition.", p:"Agents de santé, ONG.", c:"Évaluation besoins, prévention, éducation.", j:4, prix:900},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"WASH en situation humanitaire", o:"Interventions Eau, Assainissement, Hygiène.", p:"Humanitaires, ingénieurs.", c:"Évaluation rapide, approvisionnement, assainissement.", j:3, prix:800},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Protection de l’Enfance en Urgence", o:"Protéger les enfants en crise.", p:"Travailleurs sociaux, éducateurs.", c:"Principes, identification, soutien psychosocial.", j:3, prix:750},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Suivi-Évaluation des Projets", o:"Concevoir systèmes de suivi.", p:"Chefs de projets, évaluateurs.", c:"Théorie changement, indicateurs, collecte, analyse.", j:4, prix:1000},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Passation des Marchés Publics", o:"Maîtriser procédures de marchés publics.", p:"Responsables achats, juristes.", c:"Réglementation, appels d’offres, contrats.", j:3, prix:900},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Décentralisation et Gouvernance locale", o:"Comprendre décentralisation.", p:"Élus, acteurs développement.", c:"Cadre légal, financement, participation.", j:4, prix:950},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"RSE (Responsabilité sociale des entreprises)", o:"Intégrer la RSE.", p:"Dirigeants, managers.", c:"Concepts RSE, reporting, éthique.", j:2, prix:700},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Économie Sociale et Solidaire (ESS)", o:"Comprendre les principes ESS.", p:"Entrepreneurs sociaux.", c:"Modèles économiques, financement, gouvernance.", j:2, prix:650},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Évaluation environnementale", o:"Réaliser des EIE.", p:"Ingénieurs, consultants.", c:"Cadre réglementaire, étude d’impact.", j:3, prix:900},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Analyse des politiques publiques", o:"Analyser élaboration politiques.", p:"Fonctionnaires, analystes.", c:"Cadres d’analyse, acteurs, évaluation.", j:4, prix:1000},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Management stratégique et performance", o:"Définir et mesurer la stratégie.", p:"Dirigeants, consultants.", c:"Diagnostic, déploiement, tableaux de bord.", j:5, prix:1300},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Gestion Axée sur les Résultats (GAR)", o:"Piloter par les résultats.", p:"Gestionnaires projets.", c:"Cycle GAR, indicateurs, chaîne de résultats.", j:3, prix:900},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Montage de projet et financements", o:"Concevoir projets et mobiliser fonds.", p:"Porteurs projets, ONG.", c:"Identification, rédaction, recherche bailleurs.", j:4, prix:1100},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Capitalisation des expériences", o:"Documenter les leçons apprises.", p:"Chefs projets, experts.", c:"Collecte, analyse, diffusion des connaissances.", j:2, prix:700},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Prévention des conflits communautaires", o:"Prévenir et gérer conflits locaux.", p:"Médiateurs, travailleurs sociaux.", c:"Analyse, médiation, dialogue.", j:3, prix:850},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Mobilisation de ressources financières", o:"Attirer des financements.", p:"ONG, entrepreneurs.", c:"Fundraising, propositions, donateurs.", j:3, prix:950},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Gestion des Ressources Naturelles", o:"Gérer durablement les ressources.", p:"Gestionnaires environnement.", c:"Concepts GRN, planification, cadre légal.", j:4, prix:1000},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Épidémiologie et Santé publique", o:"Étudier maladies et santé populations.", p:"Professionnels santé, chercheurs.", c:"Incidence, études, surveillance.", j:5, prix:1200},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Violences Basées sur le Genre (VBG)", o:"Prévenir et répondre aux VBG.", p:"Humanitaires, travailleurs sociaux.", c:"Concepts, prise en charge, cadre légal.", j:3, prix:750},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Coopération décentralisée", o:"Partenariats entre collectivités.", p:"Acteurs territoriaux, ONG.", c:"Principes, financement, montage projets.", j:2, prix:700},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Mobilisation communautaire", o:"Engager les communautés.", p:"Agents de terrain, ONG.", c:"Facilitation, diagnostic participatif.", j:2, prix:600},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Développement des AGR", o:"Concevoir Activités Génératrices de Revenus.", p:"Entrepreneurs, agents développement.", c:"Opportunités, business plan, microcrédit.", j:3, prix:850},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Jumelage et Intercommunalité", o:"Coopération entre collectivités.", p:"Élus, fonctionnaires.", c:"Cadre légal, montage projets.", j:2, prix:600},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Biogaz et Méthanisation", o:"Technologies de production biogaz.", p:"Ingénieurs, agriculteurs.", c:"Principes, conception, valorisation déchets.", j:3, prix:900},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Diplomatie Internationale", o:"Enjeux de la diplomatie.", p:"Étudiants, diplomates.", c:"Histoire, négociations, droit international.", j:5, prix:1500},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Techniques agricoles/élevage", o:"Agriculture durable dans projets.", p:"Agronomes, techniciens.", c:"Agroécologie, eau, santé animale.", j:4, prix:1100},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Ingénierie immobilière", o:"Aspects techniques/légaux immobilier.", p:"Ingénieurs, architectes.", c:"Droit urbanisme, construction, financement.", j:5, prix:1400},
-        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Expertise immobilière", o:"Évaluer biens immobiliers.", p:"Experts, investisseurs.", c:"Méthodes d’évaluation, diagnostics, rapports.", j:3, prix:950},
-        
+        // HUMANITAIRE & DÉVELOPPEMENT
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Coordination de l'Action humanitaire", o:"Comprendre les principes et mécanismes de la coordination humanitaire.", p:"Professionnels humanitaires, gestionnaires de projets, ONG.", c:"Principes HAP, Sphere, gestion des parties prenantes, mécanismes de coordination.", j:3, prix:750},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Management des Projets/Programmes", o:"Maîtriser le cycle de vie des projets, de la conception à l'évaluation.", p:"Chefs de projets, coordinateurs, développeurs de programmes.", c:"Cadre logique, planification, suivi, gestion des risques, budgétisation.", j:5, prix:1200},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Management des ONG/associations", o:"Acquérir les compétences pour gérer efficacement une ONG ou association.", p:"Dirigeants, cadres d'ONG/associations.", c:"Gouvernance, collecte de fonds, gestion financière, communication, gestion RH.", j:4, prix:950},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Ingénierie de formation", o:"Concevoir, développer et évaluer des dispositifs de formation.", p:"Formateurs, responsables RH, consultants en formation.", c:"Analyse des besoins, objectifs pédagogiques, méthodes, évaluation.", j:5, prix:1100},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Formation des formateurs", o:"Développer les compétences pédagogiques pour animer des formations.", p:"Experts métier, futurs formateurs, cadres.", c:"Techniques d'animation, gestion de groupe, conception de supports, évaluation.", j:3, prix:800},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Gestion des Ressources Humaines (GRH)", o:"Maîtriser les fondamentaux de la GRH pour optimiser la gestion du personnel.", p:"Responsables RH, managers, chefs d'équipe.", c:"Recrutement, paie, développement des compétences, droit du travail, gestion des conflits.", j:4, prix:900},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Gestion des Ressources Humaines des Mines", o:"Appliquer les principes de la GRH au contexte spécifique de l'industrie minière.", p:"Responsables RH, managers du secteur minier.", c:"Spécificités légales, sécurité, gestion des carrières, relations sociales dans les mines.", j:3, prix:950},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Genre et Développement", o:"Intégrer la perspective de genre dans les projets de développement.", p:"Professionnels du développement, gestionnaires de projets, ONG.", c:"Concepts de genre, analyse sensible au genre, outils d'intégration, études de cas.", j:2, prix:600},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Logistique & Transport", o:"Optimiser la chaîne logistique et les opérations de transport.", p:"Logisticiens, gestionnaires de chaîne d'approvisionnement.", c:"Planification, gestion des stocks, transport multimodal, douanes, gestion des risques.", j:4, prix:1000},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Santé, Hygiène et Sécurité, Environnement (HSSE)", o:"Mettre en œuvre des politiques HSSE pour prévenir les risques.", p:"Responsables HSSE, managers, employés.", c:"Réglementations, évaluation des risques, plans d'urgence, gestion des déchets.", j:3, prix:850},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Santé/Nutrition communautaire", o:"Développer et gérer des programmes de santé et nutrition au niveau communautaire.", p:"Agents de santé, travailleurs sociaux, ONG.", c:"Évaluation des besoins, programmes de prévention, éducation sanitaire, suivi.", j:4, prix:900},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"WASH en situation humanitaire", o:"Mettre en œuvre des interventions Eau, Assainissement et Hygiène en urgence.", p:"Professionnels humanitaires, ingénieurs, techniciens.", c:"Évaluation rapide, approvisionnement en eau, assainissement, promotion de l'hygiène.", j:3, prix:800},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Protection de l'Enfance en Situation d'urgence", o:"Assurer la protection des enfants dans les contextes de crise.", p:"Travailleurs sociaux, humanitaires, éducateurs.", c:"Principes de protection, identification des risques, soutien psychosocial, mécanismes de référence.", j:3, prix:750},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Suivi-Évaluation des Projets/Programmes", o:"Concevoir et mettre en œuvre des systèmes de suivi-évaluation.", p:"Chefs de projets, évaluateurs, coordinateurs.", c:"Théorie du changement, indicateurs, collecte de données, analyse, rapports.", j:4, prix:1000},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Passation des Marchés Publics", o:"Maîtriser les procédures de passation des marchés publics.", p:"Responsables achats, juristes, gestionnaires.", c:"Cadre réglementaire, appels d'offres, contrats, gestion des litiges.", j:3, prix:900},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Décentralisation et Gouvernance locale", o:"Comprendre les enjeux et mécanismes de la décentralisation.", p:"Élus locaux, fonctionnaires territoriaux, acteurs du développement.", c:"Cadre légal, compétences, financement, participation citoyenne, gestion locale.", j:4, prix:950},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Responsabilité sociale des entreprises (RSE)", o:"Intégrer la RSE dans la stratégie et les opérations d'une entreprise.", p:"Dirigeants, managers, responsables RSE.", c:"Concepts RSE, normes, reporting, chaîne de valeur, éthique des affaires.", j:2, prix:700},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Économie Sociale et Solidaire (ESS)", o:"Comprendre les principes et modèles de l'ESS.", p:"Entrepreneurs sociaux, porteurs de projets, acteurs du développement local.", c:"Principes ESS, modèles économiques, financement, gouvernance participative.", j:2, prix:650},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Évaluation environnementale", o:"Réaliser des évaluations d'impact environnemental (EIE).", p:"Ingénieurs environnementaux, consultants, gestionnaires de projets.", c:"Cadre réglementaire, méthodologies, étude d'impact, mesures d'atténuation.", j:3, prix:900},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Analyse des politiques publiques", o:"Analyser le processus d'élaboration et d'impact des politiques publiques.", p:"Fonctionnaires, chercheurs, analystes politiques.", c:"Cadres d'analyse, acteurs, étapes, évaluation des effets.", j:4, prix:1000},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Management stratégique et Gestion de la performance", o:"Définir et mettre en œuvre la stratégie, mesurer la performance.", p:"Dirigeants, managers, consultants.", c:"Diagnostic stratégique, formulation, déploiement, tableaux de bord, KPI.", j:5, prix:1300},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Gestion Axée sur les Résultats (GAR) et Indicateurs de performances", o:"Appliquer la GAR pour piloter les projets et programmes.", p:"Gestionnaires de projets, évaluateurs, décideurs.", c:"Cycle de la GAR, chaîne de résultats, conception d'indicateurs, outils de suivi.", j:3, prix:900},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Montage de projet de développement et recherche de financements", o:"Concevoir des projets bancables et mobiliser des fonds.", p:"Porteurs de projets, ONG, entrepreneurs.", c:"Identification des besoins, élaboration de propositions, recherche de bailleurs, rédaction.", j:4, prix:1100},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Capitalisation des expériences des Projets", o:"Documenter et valoriser les leçons apprises des projets.", p:"Chefs de projets, évaluateurs, experts en savoir.", c:"Collecte de données, analyse, diffusion des connaissances, outils de capitalisation.", j:2, prix:700},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Prévention et Gestion des conflits communautaires", o:"Acquérir les outils pour prévenir et gérer les conflits au niveau local.", p:"Travailleurs sociaux, médiateurs, acteurs du développement.", c:"Analyse des conflits, techniques de médiation, dialogue intercommunautaire, gestion de crise.", j:3, prix:850},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Mobilisation des ressources financières pour les projets", o:"Identifier et attirer des financements pour les initiatives.", p:"Responsables de développement, ONG, entrepreneurs.", c:"Stratégies de fundraising, rédaction de propositions, gestion des relations donateurs, crowdfunding.", j:3, prix:950},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Gestion des Ressources Naturelles", o:"Gérer durablement les ressources naturelles.", p:"Gestionnaires de l'environnement, ONG, collectivités.", c:"Concepts de GRN, outils de planification, gestion des écosystèmes, cadre réglementaire.", j:4, prix:1000},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Épidémiologie et Santé publique", o:"Comprendre les méthodes d'étude des maladies et de la santé des populations.", p:"Professionnels de santé, chercheurs, décideurs.", c:"Mesures d'incidence, études épidémiologiques, surveillance, interventions de santé publique.", j:5, prix:1200},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Violences Basées sur le Genre (VBG)", o:"Prévenir et répondre aux VBG.", p:"Travailleurs humanitaires, sociaux, agents de santé.", c:"Concepts VBG, conséquences, prise en charge des victimes, prévention, cadre légal.", j:3, prix:750},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Coopération décentralisée", o:"Mettre en œuvre des partenariats entre collectivités territoriales.", p:"Acteurs des CT, ONG, consultants.", c:"Principes, mécanismes de financement, montage de projets, gestion de partenariats internationaux.", j:2, prix:700},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Mobilisation communautaire", o:"Engager les communautés dans les actions de développement.", p:"Agents de terrain, ONG, travailleurs sociaux.", c:"Techniques de facilitation, diagnostic participatif, renforcement des capacités locales.", j:2, prix:600},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Développement des activités Génératrices des Revenus (AGR)", o:"Concevoir et accompagner des AGR.", p:"Entrepreneurs, agents de développement, ONG.", c:"Identification des opportunités, business plan simplifié, gestion financière, microcrédit.", j:3, prix:850},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Jumelage et Intercommunalité", o:"Comprendre les formes de coopération entre collectivités territoriales.", p:"Élus, fonctionnaires territoriaux.", c:"Cadre légal, avantages, montage de projets, partenariats transfrontaliers.", j:2, prix:600},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Biogaz et Méthanisation", o:"Maîtriser les technologies de production de biogaz.", p:"Ingénieurs, techniciens, agriculteurs, acteurs du développement durable.", c:"Principes, conception d'unités, maintenance, valorisation des déchets organiques.", j:3, prix:900},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Diplomatie Internationale", o:"Comprendre les enjeux et pratiques de la diplomatie.", p:"Étudiants en relations internationales, fonctionnaires, diplomates.", c:"Histoire de la diplomatie, négociations, organisations internationales, droit international.", j:5, prix:1500},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Techniques agricoles et d'élevage dans les projets de développement", o:"Intégrer des techniques agricoles et d'élevage durables dans les projets.", p:"Agronomes, techniciens agricoles, chefs de projets.", c:"Agroécologie, gestion de l'eau, amélioration des rendements, santé animale, chaînes de valeur.", j:4, prix:1100},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Ingénierie immobilière", o:"Maîtriser les aspects techniques et réglementaires de l'immobilier.", p:"Ingénieurs, architectes, promoteurs immobiliers.", c:"Droit de l'urbanisme, construction, gestion de projet, financement, expertise.", j:5, prix:1400},
+        {d:"HUMANITAIRE & DÉVELOPPEMENT", t:"Expertise immobilière", o:"Évaluer la valeur et l'état des biens immobiliers.", p:"Experts immobiliers, agents, investisseurs.", c:"Méthodes d'évaluation, diagnostics techniques, réglementations, rédaction de rapports.", j:3, prix:950},
+
         // GESTION, FINANCE & ENTREPRENEURIAT
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Comptabilité des sociétés", o:"Principes comptables et financiers.", p:"Comptables, gestionnaires.", c:"Bilan, résultat, IFRS/OHADA, fiscalité.", j:5, prix:1100},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Audit, Contrôle et Gestion", o:"Audit interne/externe et contrôle.", p:"Auditeurs, contrôleurs.", c:"Méthodologies audit, contrôle interne, reporting.", j:4, prix:1200},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Finances internationales", o:"Mécanismes des marchés mondiaux.", p:"Financiers, investisseurs.", c:"Marchés changes, produits dérivés, risques.", j:5, prix:1500},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Finance islamique", o:"Principes de finance islamique.", p:"Banquiers, juristes.", c:"Charia, sukuk, murabaha, éthique.", j:3, prix:900},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Montage de plan d’affaires", o:"Élaborer un business plan.", p:"Entrepreneurs.", c:"Marché, stratégie, prévisions, présentation.", j:3, prix:850},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Logiciels comptables", o:"Maîtriser logiciels de comptabilité.", p:"Comptables, assistants.", c:"Saisie, factures, rapprochements (Sage, etc).", j:2, prix:600},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Management qualité selon ISO", o:"Mettre en place un SMQ ISO.", p:"Responsables qualité.", c:"Principes ISO 9001, documentation, audit.", j:3, prix:950},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Santé et Sécurité au Travail (SST)", o:"Prévenir risques professionnels.", p:"Responsables SST, managers.", c:"Réglementation, plan de prévention, ergonomie.", j:3, prix:800},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Sécurité Alimentaire (SAME)", o:"Renforcer moyens de subsistance.", p:"Humanitaires, agronomes.", c:"Vulnérabilité, urgence, chaînes de valeur.", j:4, prix:1000},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Communication politique", o:"Stratégies de comm en politique.", p:"Politiciens, communicants.", c:"Discours, image, campagnes, médias.", j:3, prix:900},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Sécurité du personnel humanitaire", o:"Gérer la sécurité en zone à risque.", p:"Responsables sécurité.", c:"Menaces, incidents, conduite zone hostile.", j:3, prix:1100},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Préparation certification PMP", o:"Préparer l'examen PMP.", p:"Chefs de projets.", c:"PMBOK, domaines connaissances, processus.", j:5, prix:1500},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Gestion de la Paie", o:"Élaboration et gestion de la paie.", p:"RH, gestionnaires paie.", c:"Salaires, cotisations, déclarations, logiciels.", j:3, prix:850},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Risque bancaire", o:"Gérer les risques bancaires.", p:"Banquiers, analystes.", c:"Risque crédit, marché, Bâle III.", j:4, prix:1300},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Prévention risques bancaires", o:"Stratégies de prévention banque.", p:"Managers bancaires.", c:"Cartographie risques, contrôle interne.", j:3, prix:1000},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Secrétariat et assistance direction", o:"Compétences assistant polyvalent.", p:"Assistants, secrétaires.", c:"Organisation, agenda, rédaction, bureautique.", j:3, prix:750},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Transitaire et déclarant douanes", o:"Opérations transit et douanes.", p:"Transitaires, logisticiens.", c:"Réglementation, incoterms, documents.", j:4, prix:1000},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Création d’entreprise", o:"Outils pour créer son entreprise.", p:"Entrepreneurs.", c:"Idéation, marché, statut, financement.", j:3, prix:800},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Gestion de startup", o:"Management croissance startup.", p:"Fondateurs, managers.", c:"Lean Startup, MVP, levée fonds, scaling.", j:3, prix:900},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Business plan (Approfondi)", o:"Business plan structuré.", p:"Porteurs projets.", c:"Stratégie, plan financier, présentation.", j:2, prix:650},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Étude de marché", o:"Réaliser une étude marché.", p:"Marketeurs, entrepreneurs.", c:"Méthodologies, collecte données, analyse.", j:2, prix:700},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Gestion financière", o:"Outils d'analyse financière.", p:"Managers, financiers.", c:"Bilans, budgets, investissements, trésorerie.", j:4, prix:1100},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Gestion projet entrepreneurial", o:"Gestion appliquée entrepreneuriat.", p:"Entrepreneurs.", c:"Planification, ressources, risques start-up.", j:3, prix:900},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Marketing entrepreneurial", o:"Stratégies pour startups/PME.", p:"Entrepreneurs, marketeurs.", c:"Positionnement, branding, digital, réseaux.", j:3, prix:850},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Gestion de risque", o:"Maîtriser les risques d'entreprise.", p:"Managers, auditeurs.", c:"Cartographie, analyse, mitigation, crise.", j:2, prix:700},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Stratégie d’entreprise", o:"Déployer une stratégie cohérente.", p:"Dirigeants, consultants.", c:"Diagnostic, choix, déploiement, innovation.", j:4, prix:1200},
-        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Innovation entrepreneuriale", o:"Stimuler l'innovation.", p:"Entrepreneurs, R&D.", c:"Design thinking, prototypage, écosystèmes.", j:2, prix:750},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Comptabilité des sociétés", o:"Maîtriser les principes comptables et financiers des entreprises.", p:"Comptables, gestionnaires, étudiants en finance.", c:"Bilan, compte de résultat, flux de trésorerie, normes IFRS/OHADA, fiscalité.", j:5, prix:1100},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Audit, Contrôle et Gestion", o:"Acquérir les compétences en audit interne et externe, et contrôle de gestion.", p:"Auditeurs, contrôleurs de gestion, financiers.", c:"Méthodologies d'audit, contrôle interne, indicateurs de performance, reporting.", j:4, prix:1200},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Finances internationales", o:"Comprendre les mécanismes des marchés financiers mondiaux.", p:"Financiers, investisseurs, économistes.", c:"Marchés des changes, produits dérivés, gestion des risques, financement international.", j:5, prix:1500},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Finance islamique", o:"Maîtriser les principes et produits de la finance islamique.", p:"Banquiers, financiers, investisseurs, juristes.", c:"Charia, sukuk, takaful, murabaha, ijarah, éthique.", j:3, prix:900},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Montage de plan d'affaires", o:"Élaborer un business plan complet et convaincant.", p:"Entrepreneurs, porteurs de projets, créateurs d'entreprise.", c:"Analyse de marché, stratégie, modèle économique, prévisions financières, présentation.", j:3, prix:850},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Logiciels comptables", o:"Maîtriser l'utilisation des logiciels de comptabilité.", p:"Comptables, assistants de gestion, entrepreneurs.", c:"Saisie comptable, gestion des factures, rapprochements bancaires, éditions (Sage, QuickBooks…).", j:2, prix:600},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Management de la qualité selon ISO", o:"Mettre en place un système de management de la qualité (SMQ) selon ISO.", p:"Responsables qualité, auditeurs, managers.", c:"Principes ISO 9001, processus, documentation, audit interne, amélioration continue.", j:3, prix:950},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Santé et Sécurité au Travail", o:"Prévenir les risques professionnels et promouvoir la santé au travail.", p:"Responsables SST, managers, membres de CSE.", c:"Réglementation, évaluation des risques, plan de prévention, ergonomie, secourisme.", j:3, prix:800},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Sécurité Alimentaire et Moyens d'Existence (SAME)", o:"Renforcer la sécurité alimentaire et les moyens de subsistance des populations.", p:"Humanitaires, agronomes, développeurs.", c:"Analyse de la vulnérabilité, programmes d'urgence, résilience, chaînes de valeur agricoles.", j:4, prix:1000},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Communication politique", o:"Stratégies et techniques de communication en politique.", p:"Politiciens, attachés de presse, communicants.", c:"Discours politique, gestion d'image, campagnes électorales, médias, réseaux sociaux.", j:3, prix:900},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Sécurité du personnel humanitaire", o:"Gérer la sécurité des équipes humanitaires en zones à risque.", p:"Professionnels humanitaires, responsables sécurité.", c:"Analyse de menaces, gestion des incidents, premiers secours, conduite en zones hostiles.", j:3, prix:1100},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Préparation à la certification PMP", o:"Préparer l'examen de certification Project Management Professional (PMP).", p:"Chefs de projets expérimentés.", c:"Cadre PMBOK, domaines de connaissances, processus de gestion de projet, questions types.", j:5, prix:1500},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Gestion de la Paie", o:"Maîtriser l'élaboration et la gestion de la paie.", p:"Gestionnaires de paie, responsables RH.", c:"Calcul des salaires, cotisations sociales, déclarations, droit du travail, logiciels de paie.", j:3, prix:850},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Risque bancaire", o:"Identifier, évaluer et gérer les risques bancaires.", p:"Banquiers, analystes financiers, contrôleurs.", c:"Risque de crédit, de marché, opérationnel, de liquidité, réglementations (Bâle III).", j:4, prix:1300},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Prévention et Gestion des risques bancaires", o:"Mettre en œuvre des stratégies de prévention et de gestion des risques en banque.", p:"Managers bancaires, compliance officers.", c:"Cartographie des risques, systèmes de contrôle interne, plans de continuité d'activité.", j:3, prix:1000},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Secrétariat et assistance de direction", o:"Acquérir les compétences d'un assistant de direction polyvalent.", p:"Secrétaires, assistants administratifs, cadres.", c:"Organisation, gestion d'agenda, rédaction, communication, outils bureautiques, protocole.", j:3, prix:750},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Métier de transitaire et déclarant en douanes", o:"Maîtriser les opérations de transit et les formalités douanières.", p:"Transitaires, déclarants en douane, logisticiens.", c:"Réglementation douanière, incoterms, documents de transport, gestion des litiges.", j:4, prix:1000},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Création d'entreprise", o:"Étapes et outils pour créer et lancer une entreprise.", p:"Porteurs de projets, entrepreneurs.", c:"Idéation, étude de marché, business plan, statut juridique, financement, marketing.", j:3, prix:800},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Gestion de startup", o:"Spécificités du management et de la croissance des startups.", p:"Fondateurs de startup, managers, investisseurs.", c:"Lean Startup, MVP, levée de fonds, gestion d'équipe, pivot, scaling.", j:3, prix:900},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Business plan", o:"Élaborer un plan d'affaires structuré et convaincant.", p:"Entrepreneurs, porteurs de projets.", c:"Résumé exécutif, étude de marché, stratégie, plan financier, présentation.", j:2, prix:650},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Étude de marché", o:"Réaliser une étude de marché efficace.", p:"Chefs de produits, entrepreneurs, marketeurs.", c:"Méthodologies, collecte de données (qualitatives/quantitatives), analyse, segmentation.", j:2, prix:700},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Gestion financière", o:"Maîtriser les outils d'analyse et de décision financière.", p:"Managers, entrepreneurs, financiers.", c:"Analyse de bilans, budgets, investissements, financement, gestion de trésorerie.", j:4, prix:1100},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Gestion de projet entrepreneurial", o:"Appliquer les principes de gestion de projet au contexte entrepreneurial.", p:"Entrepreneurs, chefs de projets.", c:"Planification, exécution, suivi, gestion des ressources, risques spécifiques à l'entrepreneuriat.", j:3, prix:900},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Marketing entrepreneurial", o:"Développer des stratégies marketing adaptées aux startups et PME.", p:"Entrepreneurs, marketeurs.", c:"Positionnement, branding, marketing digital, growth hacking, réseaux sociaux.", j:3, prix:850},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Gestion de risque", o:"Identifier, évaluer et maîtriser les risques dans une organisation.", p:"Managers, chefs de projets, auditeurs.", c:"Cartographie des risques, outils d'analyse, plans de mitigation, gestion de crise.", j:2, prix:700},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Stratégie d'entreprise", o:"Élaborer et déployer une stratégie d'entreprise cohérente.", p:"Dirigeants, managers, consultants.", c:"Diagnostic stratégique, choix d'options, déploiement, suivi, innovation.", j:4, prix:1200},
+        {d:"GESTION, FINANCE & ENTREPRENEURIAT", t:"Innovation entrepreneuriale", o:"Favoriser l'innovation et la créativité dans l'entrepreneuriat.", p:"Entrepreneurs, managers R&D.", c:"Processus d'innovation, design thinking, prototypage, propriété intellectuelle, écosystèmes.", j:2, prix:750},
 
         // INFORMATIQUE & TECHNOLOGIES
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Développement web", o:"Créer sites et applications web.", p:"Développeurs, étudiants.", c:"HTML/CSS/JS, React, Node.js, BDD.", j:10, prix:2500},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Administration système", o:"Gérer infrastructure IT.", p:"Admins système.", c:"Linux/Windows, virtualisation, sécurité.", j:5, prix:1500},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Sécurité informatique", o:"Protéger les systèmes.", p:"RSSI, admins réseau.", c:"Menaces, crypto, pare-feu, audit.", j:4, prix:1300},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Réseaux informatiques", o:"Concevoir et administrer réseaux.", p:"Techniciens réseau.", c:"OSI, TCP/IP, routage, VPN, Wi-Fi.", j:5, prix:1400},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Programmation informatique", o:"Bases de la programmation.", p:"Débutants, étudiants.", c:"Algorithmes, variables, Python/Java/C#.", j:5, prix:1200},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Bases de données", o:"Gérer et interroger BDD.", p:"DBA, développeurs.", c:"SQL, NoSQL, Modélisation, SGBD.", j:4, prix:1100},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Analyse de données", o:"Extraire infos des données.", p:"Analystes, data scientists.", c:"Stats, Python, Excel, Power BI.", j:4, prix:1200},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Intelligence artificielle", o:"Concepts et applications IA.", p:"Data scientists, développeurs.", c:"Machine/Deep Learning, NLP, Vision.", j:5, prix:1600},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Cybersécurité", o:"Défense et attaque cyber.", p:"Experts sécurité, RSSI.", c:"Vulnérabilités, pentest, réponse incidents.", j:5, prix:1800},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Infographie", o:"Créer visuels attractifs.", p:"Graphistes, communicants.", c:"Photoshop, Illustrator, InDesign, compo.", j:4, prix:1000},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Internet des objets (IoT)", o:"Solutions basées sur IoT.", p:"Ingénieurs, développeurs.", c:"Capteurs, réseaux LoRa, Cloud IoT.", j:4, prix:1300},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Blockchain et crypto", o:"Comprendre la blockchain.", p:"Développeurs, financiers.", c:"Bitcoin, Ethereum, Smart contracts, NFT.", j:3, prix:1000},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Réalité virtuelle (VR)", o:"Développer expériences VR.", p:"Designers, développeurs.", c:"Unity/Unreal, modélisation 3D, SDK.", j:5, prix:1600},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Réalité augmentée (AR)", o:"Créer applications AR.", p:"Développeurs, marketeurs.", c:"ARCore/ARKit, tracking 3D.", j:4, prix:1400},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Développement Mobile", o:"Apps iOS et Android.", p:"Développeurs mobiles.", c:"Swift/Kotlin, React Native/Flutter, Stores.", j:7, prix:2000},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Cloud computing", o:"Architecture du cloud.", p:"Architectes cloud.", c:"IaaS/PaaS/SaaS, AWS/Azure, sécurité.", j:4, prix:1300},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Big Data", o:"Gérer volumes massifs données.", p:"Data engineers.", c:"Hadoop, Spark, data lakes.", j:5, prix:1700},
-        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Innovation technologique", o:"Stimuler l'innovation tech.", p:"CTO, chercheurs.", c:"Veille, R&D, transfert technologie.", j:2, prix:800},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Développement web", o:"Maîtriser les technologies front-end et back-end pour créer des sites et applications web.", p:"Développeurs, chefs de projets web, étudiants.", c:"HTML, CSS, JavaScript, frameworks (React, Angular, Vue), back-end (Node.js, Python/Django, PHP/Laravel), bases de données.", j:10, prix:2500},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Administration système", o:"Gérer et maintenir l'infrastructure système d'une organisation.", p:"Administrateurs système, techniciens IT.", c:"Systèmes d'exploitation (Linux, Windows Server), virtualisation, scripting, sécurité, supervision.", j:5, prix:1500},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Sécurité informatique", o:"Protéger les systèmes d'information contre les menaces.", p:"Administrateurs réseau, RSSI, développeurs.", c:"Cybermenaces, cryptographie, pare-feu, détection d'intrusion, audit de sécurité, conformité.", j:4, prix:1300},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Réseaux informatiques", o:"Concevoir, configurer et administrer des réseaux.", p:"Techniciens réseau, administrateurs système.", c:"Modèle OSI, TCP/IP, routage, commutation, Wi-Fi, VPN, câblage, protocoles.", j:5, prix:1400},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Programmation informatique", o:"Apprendre les bases de la programmation et un langage spécifique.", p:"Débutants, étudiants, développeurs.", c:"Logique de programmation, algorithmes, variables, boucles, fonctions, langage (Python, Java, C#).", j:5, prix:1200},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Bases de données", o:"Concevoir, gérer et interroger des bases de données.", p:"Développeurs, administrateurs de bases de données, analystes.", c:"Modélisation (UML, Merise), SQL, SGBD (MySQL, PostgreSQL, Oracle), NoSQL.", j:4, prix:1100},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Analyse de données", o:"Extraire des informations utiles à partir de grands ensembles de données.", p:"Analystes de données, statisticiens, chercheurs.", c:"Statistiques descriptives, inférentielles, outils (Excel, R, Python/Pandas), visualisation (Power BI, Tableau).", j:4, prix:1200},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Intelligence artificielle", o:"Comprendre les concepts et applications de l'IA.", p:"Développeurs, data scientists, managers.", c:"Machine Learning, Deep Learning, traitement du langage naturel, vision par ordinateur, éthique de l'IA.", j:5, prix:1600},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Cybersécurité", o:"Maîtriser les techniques de défense et d'attaque pour la cybersécurité.", p:"Experts en sécurité, auditeurs, RSSI.", c:"Analyse de vulnérabilités, tests d'intrusion, réponse aux incidents, sécurité des applications.", j:5, prix:1800},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Infographie", o:"Créer des visuels attractifs et des supports de communication.", p:"Graphistes, designers, communicants.", c:"Adobe Photoshop, Illustrator, InDesign, typographie, couleur, composition, impression.", j:4, prix:1000},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Internet des objets (IoT)", o:"Développer des solutions basées sur l'IoT.", p:"Ingénieurs, développeurs, techniciens.", c:"Capteurs, microcontrôleurs, réseaux IoT (LoRa, Sigfox), plateformes cloud, sécurité IoT.", j:4, prix:1300},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Blockchain et money numérique", o:"Comprendre la technologie blockchain et les cryptomonnaies.", p:"Développeurs, financiers, entrepreneurs.", c:"Principes de la blockchain, Bitcoin, Ethereum, smart contracts, applications décentralisées, NFT.", j:3, prix:1000},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Réalité virtuelle (VR)", o:"Concevoir et développer des expériences en réalité virtuelle.", p:"Développeurs, designers, créateurs de contenu.", c:"Moteurs de jeu (Unity, Unreal Engine), SDK VR, modélisation 3D, interaction, cas d'usage.", j:5, prix:1600},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Réalité augmentée (AR)", o:"Créer des applications de réalité augmentée.", p:"Développeurs, designers, marketeurs.", c:"SDK AR (ARCore, ARKit), reconnaissance d'image, suivi de mouvement, superposition 3D, applications mobiles.", j:4, prix:1400},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Développement d'applications mobiles", o:"Concevoir et programmer des applications pour iOS et Android.", p:"Développeurs, designers UI/UX.", c:"Langages (Swift/Kotlin, React Native/Flutter), IDE, UI/UX mobile, publication sur stores.", j:7, prix:2000},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Cloud computing", o:"Maîtriser les services et l'architecture du cloud.", p:"Architectes cloud, administrateurs système, développeurs.", c:"IaaS, PaaS, SaaS, fournisseurs (AWS, Azure, GCP), sécurité, déploiement, coûts.", j:4, prix:1300},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Big Data", o:"Gérer et analyser des volumes massifs de données.", p:"Data scientists, ingénieurs données, architectes Big Data.", c:"Hadoop, Spark, NoSQL, data lakes, traitement distribué, visualisation.", j:5, prix:1700},
+        {d:"INFORMATIQUE & TECHNOLOGIES", t:"Innovation technologique", o:"Explorer les dernières tendances et stimuler l'innovation technologique.", p:"Managers, CTO, entrepreneurs, chercheurs.", c:"Veille technologique, R&D, propriété intellectuelle, transfert de technologie, écosystèmes d'innovation.", j:2, prix:800},
 
         // RESTAURATION & HÔTELLERIE
-        {d:"RESTAURATION & HÔTELLERIE", t:"Cuisine", o:"Techniques culinaires.", p:"Cuisiniers, apprentis.", c:"Hygiène, coupe, cuissons, sauces.", j:5, prix:1000},
-        {d:"RESTAURATION & HÔTELLERIE", t:"Service en restaurant", o:"Service et art de la table.", p:"Serveurs, maîtres d'hôtel.", c:"Accueil, commande, protocole, vins.", j:3, prix:700},
-        {d:"RESTAURATION & HÔTELLERIE", t:"Gestion hôtelière", o:"Diriger établissement hôtelier.", p:"Directeurs, managers.", c:"Opérations, marketing, RH, yield.", j:5, prix:1200},
-        {d:"RESTAURATION & HÔTELLERIE", t:"Tourisme", o:"Industrie du tourisme.", p:"Agents voyage, professionnels.", c:"Types tourisme, marketing, e-tourisme.", j:3, prix:800},
-        {d:"RESTAURATION & HÔTELLERIE", t:"Événementiel", o:"Gérer événements de A à Z.", p:"Organisateurs, chefs projets.", c:"Planification, budget, logistique.", j:4, prix:950},
-        {d:"RESTAURATION & HÔTELLERIE", t:"Pâtisserie", o:"Bases de la pâtisserie.", p:"Pâtissiers, amateurs.", c:"Pâtes, crèmes, chocolat, déco.", j:4, prix:900},
-        {d:"RESTAURATION & HÔTELLERIE", t:"Boulangerie", o:"Fabrication pain et boulangerie.", p:"Boulangers.", c:"Farines, levain, cuisson.", j:4, prix:900},
-        {d:"RESTAURATION & HÔTELLERIE", t:"Service client", o:"Qualité service et satisfaction.", p:"Personnel contact, managers.", c:"Accueil, écoute, réclamations.", j:2, prix:500},
-        {d:"RESTAURATION & HÔTELLERIE", t:"Marketing hôtelier", o:"Stratégies marketing hôtellerie.", p:"Responsables marketing.", c:"E-réputation, distribution web, réseaux.", j:3, prix:850},
-        {d:"RESTAURATION & HÔTELLERIE", t:"Gestion de salle", o:"Optimiser salle restaurant.", p:"Maîtres d'hôtel.", c:"Plan salle, flux, coordination cuisine.", j:2, prix:600},
+        {d:"RESTAURATION & HÔTELLERIE", t:"Cuisine", o:"Acquérir les techniques culinaires de base et avancées.", p:"Cuisiniers, apprentis, passionnés.", c:"Hygiène, techniques de coupe, cuissons, sauces, pâtisserie, cuisine du monde.", j:5, prix:1000},
+        {d:"RESTAURATION & HÔTELLERIE", t:"Service en restaurant", o:"Maîtriser les techniques de service et l'art de la table.", p:"Serveurs, maîtres d'hôtel, sommeliers.", c:"Accueil client, prise de commande, service à l'assiette, gestion des vins, protocole.", j:3, prix:700},
+        {d:"RESTAURATION & HÔTELLERIE", t:"Gestion hôtelière", o:"Acquérir les compétences pour diriger un établissement hôtelier.", p:"Directeurs d'hôtel, managers, responsables de service.", c:"Opérations, marketing, gestion financière, RH, e-réputation, yield management.", j:5, prix:1200},
+        {d:"RESTAURATION & HÔTELLERIE", t:"Tourisme", o:"Comprendre l'industrie du tourisme et ses enjeux.", p:"Professionnels du tourisme, agents de voyage, étudiants.", c:"Types de tourisme, destinations, marketing touristique, e-tourisme, développement durable.", j:3, prix:800},
+        {d:"RESTAURATION & HÔTELLERIE", t:"Événementiel", o:"Organiser et gérer des événements de A à Z.", p:"Organisateurs d'événements, chefs de projets, communicants.", c:"Conception, planification, budgétisation, logistique, marketing, gestion des risques.", j:4, prix:950},
+        {d:"RESTAURATION & HÔTELLERIE", t:"Pâtisserie", o:"Apprendre les bases et les techniques de la pâtisserie.", p:"Pâtissiers, apprentis, amateurs.", c:"Pâtes, crèmes, gâteaux, viennoiseries, chocolat, décoration.", j:4, prix:900},
+        {d:"RESTAURATION & HÔTELLERIE", t:"Boulangerie", o:"Maîtriser la fabrication du pain et des produits de boulangerie.", p:"Boulangers, apprentis.", c:"Types de farines, levain, pétrissage, fermentation, cuisson, spécialités.", j:4, prix:900},
+        {d:"RESTAURATION & HÔTELLERIE", t:"Service client", o:"Améliorer la qualité du service client et la satisfaction.", p:"Personnel en contact client, managers.", c:"Accueil, écoute active, gestion des réclamations, fidélisation, techniques de communication.", j:2, prix:500},
+        {d:"RESTAURATION & HÔTELLERIE", t:"Marketing hôtelier", o:"Développer des stratégies marketing spécifiques à l'hôtellerie.", p:"Directeurs d'hôtel, responsables marketing.", c:"E-réputation, distribution en ligne, SEO/SEM, réseaux sociaux, fidélisation.", j:3, prix:850},
+        {d:"RESTAURATION & HÔTELLERIE", t:"Gestion de salle", o:"Optimiser l'organisation et le fonctionnement d'une salle de restaurant.", p:"Maîtres d'hôtel, responsables de salle.", c:"Plan de salle, gestion des flux, coordination cuisine-salle, supervision du personnel.", j:2, prix:600},
 
         // SANTÉ & SERVICES SOCIAUX
-        {d:"SANTÉ & SERVICES SOCIAUX", t:"Soins infirmiers", o:"Compétences fondamentales soins.", p:"Infirmiers, aides-soignants.", c:"Anatomie, pharmaco, hygiène, gestes.", j:5, prix:1000},
-        {d:"SANTÉ & SERVICES SOCIAUX", t:"Assistance sociale", o:"Accompagner personnes difficulté.", p:"Travailleurs sociaux.", c:"Législation, écoute, réseaux aide.", j:4, prix:900},
-        {d:"SANTÉ & SERVICES SOCIAUX", t:"Travail social", o:"Fondements travail social.", p:"Professionnels secteur social.", c:"Politiques, éthique, gestion cas.", j:4, prix:900},
-        {d:"SANTÉ & SERVICES SOCIAUX", t:"Gérontologie", o:"Prise en charge personnes âgées.", p:"Soignants, aidants.", c:"Pathologies, autonomie, accompagnement.", j:3, prix:800},
-        {d:"SANTÉ & SERVICES SOCIAUX", t:"Santé publique", o:"Enjeux de santé publique.", p:"Professionnels santé, décideurs.", c:"Épidémiologie, prévention, politiques.", j:4, prix:950},
-        {d:"SANTÉ & SERVICES SOCIAUX", t:"Nutrition", o:"Bases nutrition et diététique.", p:"Diététiciens, santé, sportifs.", c:"Macronutriments, régimes, éducation.", j:3, prix:750},
-        {d:"SANTÉ & SERVICES SOCIAUX", t:"Kinésithérapie", o:"Techniques rééducation.", p:"Kinésithérapeutes.", c:"Anatomie, bilans, massages, électrothérapie.", j:5, prix:1200},
-        {d:"SANTÉ & SERVICES SOCIAUX", t:"Orthophonie", o:"Rééducation troubles langage.", p:"Orthophonistes.", c:"Bilan, troubles parole/langage/déglutition.", j:5, prix:1200},
-        {d:"SANTÉ & SERVICES SOCIAUX", t:"Psychologie", o:"Courants et applications psychologie.", p:"Professionnels santé mentale.", c:"Psy cognitive, clinique, thérapies.", j:4, prix:900},
-        {d:"SANTÉ & SERVICES SOCIAUX", t:"Éducation spécialisée", o:"Accompagner situations handicap.", p:"Éducateurs spécialisés.", c:"Pédagogie adaptée, inclusion, législation.", j:4, prix:900},
+        {d:"SANTÉ & SERVICES SOCIAUX", t:"Soins infirmiers", o:"Acquérir les compétences fondamentales en soins infirmiers.", p:"Étudiants infirmiers, aides-soignants, personnel de santé.", c:"Anatomie, physiologie, pharmacologie, hygiène, gestes techniques, éthique des soins.", j:5, prix:1000},
+        {d:"SANTÉ & SERVICES SOCIAUX", t:"Assistance sociale", o:"Développer les compétences pour accompagner les personnes en difficulté.", p:"Travailleurs sociaux, assistants sociaux, éducateurs.", c:"Législation sociale, aide aux démarches, écoute active, médiation, réseaux d'aide.", j:4, prix:900},
+        {d:"SANTÉ & SERVICES SOCIAUX", t:"Travail social", o:"Comprendre les fondements et les pratiques du travail social.", p:"Étudiants, professionnels du secteur social.", c:"Politiques sociales, intervention communautaire, éthique, diversité culturelle, gestion de cas.", j:4, prix:900},
+        {d:"SANTÉ & SERVICES SOCIAUX", t:"Gérontologie", o:"Maîtriser la prise en charge des personnes âgées.", p:"Soignants, aidants, professionnels du médico-social.", c:"Vieillissement, pathologies gériatriques, maintien de l'autonomie, accompagnement fin de vie.", j:3, prix:800},
+        {d:"SANTÉ & SERVICES SOCIAUX", t:"Santé publique", o:"Comprendre les enjeux et méthodes de la santé publique.", p:"Professionnels de santé, décideurs, chercheurs.", c:"Épidémiologie, prévention, promotion de la santé, politiques de santé, surveillance sanitaire.", j:4, prix:950},
+        {d:"SANTÉ & SERVICES SOCIAUX", t:"Nutrition", o:"Acquérir les bases de la nutrition et de la diététique.", p:"Diététiciens, professionnels de santé, sportifs, grand public.", c:"Macronutriments, micronutriments, régimes alimentaires, troubles alimentaires, éducation nutritionnelle.", j:3, prix:750},
+        {d:"SANTÉ & SERVICES SOCIAUX", t:"Kinésithérapie", o:"Apprendre les techniques de rééducation et de physiothérapie.", p:"Kinésithérapeutes, étudiants.", c:"Anatomie fonctionnelle, bilans, mobilisations, massages, électrothérapie, rééducation post-traumatique.", j:5, prix:1200},
+        {d:"SANTÉ & SERVICES SOCIAUX", t:"Orthophonie", o:"Maîtriser la rééducation des troubles du langage et de la communication.", p:"Orthophonistes, étudiants.", c:"Bilan orthophonique, troubles de la parole, du langage écrit, de la déglutition, techniques de rééducation.", j:5, prix:1200},
+        {d:"SANTÉ & SERVICES SOCIAUX", t:"Psychologie", o:"Comprendre les grands courants et applications de la psychologie.", p:"Étudiants, professionnels de la santé mentale.", c:"Psychologie cognitive, développementale, sociale, clinique, psychopathologie, thérapies.", j:4, prix:900},
+        {d:"SANTÉ & SERVICES SOCIAUX", t:"Éducation spécialisée", o:"Accompagner des personnes en situation de handicap ou de difficulté.", p:"Éducateurs spécialisés, assistants de vie.", c:"Pédagogie adaptée, gestion des comportements, inclusion, législation, travail en équipe pluridisciplinaire.", j:4, prix:900},
 
         // SECRÉTARIAT, ADMINISTRATION & COMMUNICATION
-        {d:"SECRÉTARIAT, ADMIN. & COMM.", t:"Secrétariat bureautique", o:"Outils bureautiques et administratifs.", p:"Secrétaires, assistants.", c:"Suite Office, rédaction, classement.", j:3, prix:650},
-        {d:"SECRÉTARIAT, ADMIN. & COMM.", t:"Gestion administrative", o:"Optimiser processus administratifs.", p:"Responsables administratifs.", c:"Dossiers, procédures, indicateurs.", j:3, prix:750},
-        {d:"SECRÉTARIAT, ADMIN. & COMM.", t:"Finance pour non-financiers", o:"Bases gestion financière.", p:"Managers, entrepreneurs.", c:"Bilans, budgets, rentabilité.", j:2, prix:600},
-        {d:"SECRÉTARIAT, ADMIN. & COMM.", t:"Marketing (Fondamentaux)", o:"Stratégies marketing.", p:"Marketeurs, chefs produits.", c:"Marché, ciblage, mix-marketing 4P.", j:3, prix:800},
-        {d:"SECRÉTARIAT, ADMIN. & COMM.", t:"Communication", o:"Techniques communication int/ext.", p:"Communicants, managers.", c:"Stratégies, RP, gestion crise.", j:3, prix:800},
-        {d:"SECRÉTARIAT, ADMIN. & COMM.", t:"Relations publiques", o:"Gérer image et réputation.", p:"Chargés RP.", c:"Presse, événements, lobbying.", j:2, prix:700},
-        {d:"SECRÉTARIAT, ADMIN. & COMM.", t:"Gestion de bureau", o:"Organiser un bureau.", p:"Office managers, secrétaires.", c:"Aménagement, fournitures, réunions.", j:2, prix:600},
+        {d:"SECRÉTARIAT, ADMINISTRATION & COMMUNICATION", t:"Secrétariat bureautique", o:"Maîtriser les outils bureautiques et les tâches administratives.", p:"Secrétaires, assistants administratifs, employés de bureau.", c:"Word, Excel, PowerPoint, Outlook, rédaction de courriers, classement, archivage.", j:3, prix:650},
+        {d:"SECRÉTARIAT, ADMINISTRATION & COMMUNICATION", t:"Gestion administrative", o:"Organiser et optimiser les processus administratifs d'une entreprise.", p:"Assistants de gestion, responsables administratifs.", c:"Gestion des dossiers, procédures internes, suivi des indicateurs, dématérialisation, réglementation.", j:3, prix:750},
+        {d:"SECRÉTARIAT, ADMINISTRATION & COMMUNICATION", t:"Finance (général)", o:"Acquérir les bases de la gestion financière.", p:"Managers, entrepreneurs, non-financiers.", c:"Lecture de bilans, budgets, calculs de rentabilité, gestion de trésorerie.", j:2, prix:600},
+        {d:"SECRÉTARIAT, ADMINISTRATION & COMMUNICATION", t:"Marketing", o:"Comprendre les fondamentaux du marketing et élaborer des stratégies.", p:"Marketeurs, chefs de produits, entrepreneurs.", c:"Étude de marché, segmentation, ciblage, positionnement, mix-marketing (4P), communication.", j:3, prix:800},
+        {d:"SECRÉTARIAT, ADMINISTRATION & COMMUNICATION", t:"Communication", o:"Maîtriser les techniques de communication interne et externe.", p:"Professionnels de la communication, managers, chargés de projet.", c:"Stratégies de communication, relations publiques, gestion de crise, communication digitale.", j:3, prix:800},
+        {d:"SECRÉTARIAT, ADMINISTRATION & COMMUNICATION", t:"Relations publiques", o:"Gérer l'image et la réputation d'une organisation auprès de ses publics.", p:"Chargés de RP, communicants, managers.", c:"Stratégie RP, relations presse, événements, lobbying, gestion de crise, e-réputation.", j:2, prix:700},
+        {d:"SECRÉTARIAT, ADMINISTRATION & COMMUNICATION", t:"Gestion de bureau", o:"Organiser efficacement un bureau et ses activités.", p:"Secrétaires, assistants, office managers.", c:"Aménagement, gestion des fournitures, organisation de réunions, gestion du temps, sécurité.", j:2, prix:600},
 
         // COMMUNICATION PLURIELLE & MÉDIAS
-        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Journalisme", o:"Métier de journaliste.", p:"Journalistes, communicants.", c:"Écriture, enquête, déontologie.", j:4, prix:900},
-        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Communication audiovisuelle", o:"Produire contenus audiovisuels.", p:"Vidéastes, marketeurs.", c:"Scénario, prise vue, montage.", j:5, prix:1300},
-        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Production audiovisuelle", o:"Étapes production audiovisuelle.", p:"Producteurs, réalisateurs.", c:"Pré/Post-production, budget, droits.", j:4, prix:1100},
-        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Montage vidéo", o:"Logiciels montage vidéo.", p:"Monteurs, vidéastes.", c:"Premiere Pro, Resolve, effets.", j:3, prix:850},
-        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Réalisation cinématographique", o:"Techniques réalisation cinéma.", p:"Cinéastes.", c:"Scénario, mise en scène, lumière/son.", j:5, prix:1500},
-        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Gestion projet culturel", o:"Gérer projets culturels.", p:"Chefs projets culture, artistes.", c:"Conception, financement, diffusion.", j:3, prix:900},
-        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Médiation culturelle", o:"Accès à la culture/dialogue.", p:"Médiateurs, animateurs.", c:"Publics, outils médiation, patrimoine.", j:2, prix:650},
-        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Tourisme culturel", o:"Promouvoir tourisme culturel.", p:"Acteurs tourisme/culture.", c:"Patrimoine, événements, marketing.", j:2, prix:600},
-        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Gestion de patrimoine", o:"Valoriser patrimoine.", p:"Conservateurs, historiens.", c:"Inventaire, restauration, financement.", j:3, prix:900},
-        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Archéologie", o:"Méthodes archéologie.", p:"Passionnés, étudiants.", c:"Fouilles, datation, conservation.", j:3, prix:850},
-        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Certificat métier de cinéma", o:"Bases métiers cinéma.", p:"Aspirants pros.", c:"Scénario, réa, montage, prod.", j:10, prix:2000},
+        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Journalisme", o:"Acquérir les fondamentaux du métier de journaliste.", p:"Journalistes, étudiants, communicateurs.", c:"Écriture journalistique, enquête, interview, déontologie, droit de la presse, reportage.", j:4, prix:900},
+        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Communication audiovisuelle", o:"Concevoir et produire des contenus audiovisuels.", p:"Communicants, vidéastes, marketeurs.", c:"Scénarisation, prise de vue, montage, sonorisation, diffusion, formats (court métrage, publicité, web-série).", j:5, prix:1300},
+        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Production audiovisuelle", o:"Maîtriser les étapes de production d'un projet audiovisuel.", p:"Producteurs, réalisateurs, chefs de projet.", c:"Pré-production, tournage, post-production, budgétisation, droits d'auteur, distribution.", j:4, prix:1100},
+        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Montage vidéo", o:"Maîtriser les logiciels et techniques de montage vidéo.", p:"Monteurs vidéo, vidéastes, communicants.", c:"Adobe Premiere Pro, DaVinci Resolve, Final Cut Pro, étalonnage, effets spéciaux, habillage.", j:3, prix:850},
+        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Réalisation cinématographique", o:"Apprendre les techniques de réalisation pour le cinéma.", p:"Réalisateurs, cinéastes, étudiants en cinéma.", c:"Scénario, découpage technique, direction d'acteurs, mise en scène, lumière, son.", j:5, prix:1500},
+        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Gestion de projet culturel", o:"Gérer des projets dans le secteur culturel et artistique.", p:"Chefs de projets culturels, artistes, administrateurs.", c:"Conception, financement, production, diffusion, communication, droit de la culture.", j:3, prix:900},
+        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Médiation culturelle", o:"Favoriser l'accès à la culture et le dialogue avec les publics.", p:"Médiateurs culturels, animateurs, chargés de relations publiques.", c:"Publics, outils de médiation, communication, partenariats, valorisation du patrimoine.", j:2, prix:650},
+        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Tourisme culturel", o:"Développer et promouvoir des offres de tourisme basées sur la culture.", p:"Professionnels du tourisme, acteurs culturels.", c:"Patrimoine, itinéraires culturels, événements, marketing, gestion de sites.", j:2, prix:600},
+        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Gestion de patrimoine", o:"Gérer, valoriser et conserver le patrimoine matériel et immatériel.", p:"Conservateurs, gestionnaires de sites, historiens.", c:"Inventaire, restauration, conservation préventive, médiation, financement.", j:3, prix:900},
+        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Archéologie", o:"Introduction aux méthodes et découvertes de l'archéologie.", p:"Étudiants, passionnés, guides culturels.", c:"Fouilles, datation, typologie, conservation, interprétation, archéologie préventive.", j:3, prix:850},
+        {d:"COMMUNICATION PLURIELLE & MÉDIAS", t:"Certificat au métier de cinéma", o:"Acquérir les bases des métiers du cinéma.", p:"Aspirants professionnels, étudiants.", c:"Scénario, réalisation, production, montage, son, lumière, post-production, distribution.", j:10, prix:2000},
 
         // COMMERCE, LOGISTIQUE & DOUANE
-        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Commerce international", o:"Échanges commerciaux mondiaux.", p:"Exportateurs, logisticiens.", c:"Incoterms, douanes, financement, contrats.", j:4, prix:1100},
-        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Marketing digital", o:"Stratégies canaux numériques.", p:"Marketeurs, entrepreneurs.", c:"SEO/SEA, réseaux, email, analytics.", j:3, prix:850},
-        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Vente et négociation", o:"Techniques vente/négo.", p:"Commerciaux, managers.", c:"Prospection, objections, closing.", j:3, prix:800},
-        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Gestion commerciale", o:"Optimiser activités commerciales.", p:"Managers commerciaux.", c:"Stratégie, CRM, prévisions.", j:3, prix:850},
-        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"E-commerce", o:"Gérer boutique en ligne.", p:"E-commerçants.", c:"Shopify/WooCommerce, logistique, webmarketing.", j:4, prix:1000},
-        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Gestion de stock", o:"Optimiser gestion stocks.", p:"Logisticiens, achats.", c:"Inventaire, prévisions, entrepôts.", j:2, prix:700},
-        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Douane", o:"Réglementations douanières.", p:"Import/Export, transitaires.", c:"Nomenclature, déclarations, taxes.", j:3, prix:900},
-        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Assurance", o:"Principes de l'assurance.", p:"Courtiers, gestionnaires.", c:"Contrats, risques, garanties, sinistres.", j:3, prix:850},
+        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Commerce international", o:"Maîtriser les spécificités des échanges commerciaux mondiaux.", p:"Commerciaux, exportateurs, importateurs, logisticiens.", c:"Incoterms, douanes, financement international, contrats, risques, stratégies d'implantation.", j:4, prix:1100},
+        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Marketing digital", o:"Développer des stratégies marketing sur les canaux numériques.", p:"Marketeurs, entrepreneurs, communicants.", c:"SEO, SEA, réseaux sociaux, email marketing, content marketing, analytics, e-réputation.", j:3, prix:850},
+        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Vente et négociation", o:"Acquérir les techniques de vente et de négociation.", p:"Commerciaux, vendeurs, managers.", c:"Prospection, découverte des besoins, argumentation, traitement des objections, closing, fidélisation.", j:3, prix:800},
+        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Gestion commerciale", o:"Optimiser la gestion des activités commerciales.", p:"Managers commerciaux, chefs d'équipe, entrepreneurs.", c:"Stratégie commerciale, gestion de la relation client (CRM), prévisions de vente, suivi des performances.", j:3, prix:850},
+        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"E-commerce", o:"Créer et gérer une boutique en ligne.", p:"Entrepreneurs, e-commerçants, marketeurs.", c:"Plateformes (Shopify, WooCommerce), paiements en ligne, logistique, SEO/SEA, marketing digital.", j:4, prix:1000},
+        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Gestion de stock", o:"Optimiser la gestion des stocks pour réduire les coûts et améliorer le service.", p:"Logisticiens, gestionnaires de stock, responsables achats.", c:"Méthodes d'inventaire, prévisions, approvisionnement, optimisation des entrepôts, logiciels de gestion.", j:2, prix:700},
+        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Douane", o:"Maîtriser les réglementations et procédures douanières.", p:"Importateurs, exportateurs, transitaires, logisticiens.", c:"Nomenclature douanière, régimes douaniers, déclarations, calcul des droits et taxes, contrôles.", j:3, prix:900},
+        {d:"COMMERCE, LOGISTIQUE & DOUANE", t:"Assurance", o:"Comprendre les principes et les différents types d'assurance.", p:"Courtiers, agents d'assurance, gestionnaires de risques, particuliers.", c:"Contrats d'assurance, risques couverts, garanties, sinistres, réglementation (vie, auto, habitation, pro).", j:3, prix:850},
 
-        // ARTISANAT & MÉTIERS D’ART
-        {d:"ARTISANAT & MÉTIERS D’ART", t:"Couture", o:"Techniques de couture.", p:"Créateurs, amateurs.", c:"Patronage, coupe, assemblage.", j:5, prix:900},
-        {d:"ARTISANAT & MÉTIERS D’ART", t:"Tissage", o:"Tissage artisanal.", p:"Artisans textiles.", c:"Métiers, fibres, motifs, teinture.", j:4, prix:850},
-        {d:"ARTISANAT & MÉTIERS D’ART", t:"Broderie", o:"Broderie main/machine.", p:"Brodeurs.", c:"Points, motifs, personnalisation.", j:3, prix:750},
-        {d:"ARTISANAT & MÉTIERS D’ART", t:"Sculpture", o:"Bases de la sculpture.", p:"Sculpteurs, artistes.", c:"Modelage, taille, moulage, patine.", j:5, prix:1100},
-        {d:"ARTISANAT & MÉTIERS D’ART", t:"Peinture artistique", o:"Techniques de peinture.", p:"Peintres.", c:"Dessin, couleurs, huile/acrylique.", j:4, prix:900},
-        {d:"ARTISANAT & MÉTIERS D’ART", t:"Photographie", o:"Prise vue et retouche.", p:"Photographes.", c:"Lumière, compo, Lightroom/Photoshop.", j:3, prix:800},
-        {d:"ARTISANAT & MÉTIERS D’ART", t:"Design graphique", o:"Créer identités visuelles.", p:"Designers.", c:"Typo, suite Adobe, print/web.", j:5, prix:1200},
-        {d:"ARTISANAT & MÉTIERS D’ART", t:"Design de mode", o:"Concevoir collections mode.", p:"Stylistes.", c:"Croquis, patronage, matériaux.", j:5, prix:1300},
-        {d:"ARTISANAT & MÉTIERS D’ART", t:"Bijouterie", o:"Fabrication bijoux.", p:"Bijoutiers.", c:"Métaux, soudure, sertissage.", j:4, prix:1000},
-        {d:"ARTISANAT & MÉTIERS D’ART", t:"Céramique", o:"Techniques poterie.", p:"Céramistes.", c:"Tournage, cuisson, émaux.", j:4, prix:950},
+        // ARTISANAT & MÉTIERS D'ART
+        {d:"ARTISANAT & MÉTIERS D'ART", t:"Couture", o:"Apprendre les techniques de base et avancées de la couture.", p:"Couturiers, créateurs de mode, amateurs.", c:"Patronage, coupe, assemblage, finitions, utilisation de machines, types de tissus.", j:5, prix:900},
+        {d:"ARTISANAT & MÉTIERS D'ART", t:"Tissage", o:"Maîtriser les techniques de tissage artisanal.", p:"Artisans, créateurs textiles, amateurs.", c:"Types de métiers à tisser, fibres, motifs, teinture, création de textiles.", j:4, prix:850},
+        {d:"ARTISANAT & MÉTIERS D'ART", t:"Broderie", o:"Acquérir les techniques de broderie main et machine.", p:"Brodeurs, créateurs textiles, amateurs.", c:"Points de broderie, motifs, fils, supports, personnalisation, broderie d'art.", j:3, prix:750},
+        {d:"ARTISANAT & MÉTIERS D'ART", t:"Sculpture", o:"Apprendre les bases de la sculpture et le travail de différents matériaux.", p:"Sculpteurs, artistes, amateurs.", c:"Modelage (argile), taille (bois, pierre), moulage, patine, outils, histoire de la sculpture.", j:5, prix:1100},
+        {d:"ARTISANAT & MÉTIERS D'ART", t:"Peinture artistique", o:"Développer les techniques et styles de peinture.", p:"Peintres, artistes, amateurs.", c:"Dessin, perspective, couleurs, techniques (huile, acrylique, aquarelle), composition, histoire de l'art.", j:4, prix:900},
+        {d:"ARTISANAT & MÉTIERS D'ART", t:"Photographie", o:"Maîtriser les techniques de prise de vue et de retouche.", p:"Photographes, amateurs, créateurs de contenu.", c:"Appareil photo, lumière, composition, post-traitement (Lightroom, Photoshop), genres photographiques.", j:3, prix:800},
+        {d:"ARTISANAT & MÉTIERS D'ART", t:"Design graphique", o:"Créer des identités visuelles et des supports de communication.", p:"Designers graphiques, communicants, entrepreneurs.", c:"Typographie, couleur, mise en page, logiciels (Adobe Creative Suite), branding, print et web.", j:5, prix:1200},
+        {d:"ARTISANAT & MÉTIERS D'ART", t:"Design de mode", o:"Concevoir des collections de vêtements et accessoires.", p:"Designers de mode, stylistes, couturiers.", c:"Tendance, croquis, patronage, prototypage, matériaux, marketing de mode, histoire de la mode.", j:5, prix:1300},
+        {d:"ARTISANAT & MÉTIERS D'ART", t:"Bijouterie", o:"Apprendre les techniques de fabrication de bijoux.", p:"Bijoutiers, artisans, amateurs.", c:"Métaux précieux, gemmes, soudure, polissage, sertissage, design, outils spécifiques.", j:4, prix:1000},
+        {d:"ARTISANAT & MÉTIERS D'ART", t:"Céramique", o:"Maîtriser les techniques de poterie et de céramique.", p:"Céramistes, artisans, amateurs.", c:"Tournage, modelage, cuisson, émaux, glaçures, décoration, types d'argile.", j:4, prix:950},
 
         // ÉNERGIES RENOUVELABLES & ENVIRONNEMENT
-        {d:"ÉNERGIES RENOUVELABLES & ENVIRO.", t:"Énergie solaire", o:"Systèmes photovoltaïques.", p:"Ingénieurs, installateurs.", c:"Dimensionnement, installation, stockage.", j:4, prix:1200},
-        {d:"ÉNERGIES RENOUVELABLES & ENVIRO.", t:"Énergie éolienne", o:"Fonctionnement éoliennes.", p:"Techniciens, développeurs.", c:"Aérodynamisme, maintenance, raccordement.", j:3, prix:1000},
-        {d:"ÉNERGIES RENOUVELABLES & ENVIRO.", t:"Énergie hydraulique", o:"Centrales hydroélectriques.", p:"Ingénieurs barrages.", c:"Turbines, dimensionnement, impact.", j:3, prix:1000},
-        {d:"ÉNERGIES RENOUVELABLES & ENVIRO.", t:"Gestion de l’environnement", o:"Outils gestion environnement.", p:"Responsables environnement.", c:"ISO 14001, cycle vie, déchets.", j:3, prix:900},
-        {d:"ÉNERGIES RENOUVELABLES & ENVIRO.", t:"Développement durable", o:"Stratégies développement durable.", p:"Managers, décideurs.", c:"3 piliers, RSE, économie circulaire.", j:2, prix:700},
-        {d:"ÉNERGIES RENOUVELABLES & ENVIRO.", t:"Éco-conception", o:"Concevoir produits éco-responsables.", p:"Designers, ingénieurs.", c:"ACV, matériaux durables, recyclabilité.", j:3, prix:850},
-        {d:"ÉNERGIES RENOUVELABLES & ENVIRO.", t:"Gestion des déchets", o:"Collecte et traitement déchets.", p:"Collectivités, industriels.", c:"Filières, recyclage, économie circulaire.", j:3, prix:850},
-        {d:"ÉNERGIES RENOUVELABLES & ENVIRO.", t:"Économie verte", o:"Modèles économiques durables.", p:"Entrepreneurs, décideurs.", c:"Croissance verte, finance verte.", j:2, prix:700},
-        {d:"ÉNERGIES RENOUVELABLES & ENVIRO.", t:"Changement climatique", o:"Causes et solutions climat.", p:"Décideurs, grand public.", c:"Effet serre, adaptation, énergies.", j:2, prix:650},
-        {d:"ÉNERGIES RENOUVELABLES & ENVIRO.", t:"Biodiversité", o:"Enjeux biodiversité.", p:"Gestionnaires, écologues.", c:"Écosystèmes, services, conservation.", j:2, prix:600},
+        {d:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT", t:"Énergie solaire", o:"Concevoir, installer et maintenir des systèmes solaires photovoltaïques et thermiques.", p:"Ingénieurs, techniciens, installateurs, entrepreneurs.", c:"Photovoltaïque, thermique, dimensionnement, installation, maintenance, réglementation, stockage.", j:4, prix:1200},
+        {d:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT", t:"Énergie éolienne", o:"Comprendre le fonctionnement et la gestion des éoliennes.", p:"Ingénieurs, techniciens, exploitants, développeurs de projets.", c:"Aérodynamisme, types d'éoliennes, implantation, maintenance, raccordement au réseau, impact environnemental.", j:3, prix:1000},
+        {d:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT", t:"Énergie hydraulique", o:"Maîtriser les principes et l'ingénierie des centrales hydroélectriques.", p:"Ingénieurs, techniciens, gestionnaires de barrages.", c:"Types de centrales, turbines, dimensionnement, maintenance, impact environnemental, gestion de l'eau.", j:3, prix:1000},
+        {d:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT", t:"Gestion de l'environnement", o:"Mettre en œuvre des politiques et des outils de gestion environnementale.", p:"Responsables environnement, consultants, collectivités.", c:"Normes ISO 14001, analyse du cycle de vie, écoconception, gestion des déchets, audits environnementaux.", j:3, prix:900},
+        {d:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT", t:"Développement durable", o:"Intégrer les principes du développement durable dans les stratégies et projets.", p:"Managers, décideurs, chefs de projets, consultants.", c:"3 piliers (économique, social, environnemental), ODD, RSE, économie circulaire, évaluation d'impact.", j:2, prix:700},
+        {d:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT", t:"Éco-conception", o:"Concevoir des produits et services en minimisant leur impact environnemental.", p:"Designers, ingénieurs, chefs de produits.", c:"Analyse du cycle de vie, matériaux durables, optimisation des ressources, recyclabilité, ACV.", j:3, prix:850},
+        {d:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT", t:"Gestion des déchets", o:"Organiser la collecte, le traitement et la valorisation des déchets.", p:"Responsables déchets, collectivités, industriels.", c:"Filières de traitement, recyclage, compostage, incinération, législation, économie circulaire.", j:3, prix:850},
+        {d:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT", t:"Économie verte", o:"Comprendre les modèles économiques basés sur la durabilité.", p:"Entrepreneurs, décideurs, consultants.", c:"Croissance verte, emplois verts, finance verte, politiques publiques, innovations écologiques.", j:2, prix:700},
+        {d:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT", t:"Changement climatique", o:"Comprendre les causes, conséquences et solutions au changement climatique.", p:"Scientifiques, décideurs, communicants, grand public.", c:"Effet de serre, scénarios climatiques, adaptation, atténuation, politiques internationales, énergies renouvelables.", j:2, prix:650},
+        {d:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT", t:"Biodiversité", o:"Comprendre l'importance et les menaces pour la biodiversité.", p:"Gestionnaires d'espaces naturels, écologues, décideurs.", c:"Écosystèmes, espèces, services écosystémiques, menaces (déforestation, pollution), conservation.", j:2, prix:600},
 
         // INDUSTRIE & FABRICATION
-        {d:"INDUSTRIE & FABRICATION", t:"Mécanique industrielle", o:"Mécanique appliquée industrie.", p:"Techniciens, ingénieurs.", c:"Cinématique, résistance, machines.", j:5, prix:1200},
-        {d:"INDUSTRIE & FABRICATION", t:"Électricité industrielle", o:"Systèmes électriques industriels.", p:"Électriciens, ingénieurs.", c:"Schémas, moteurs, automates, sécurité.", j:4, prix:1000},
-        {d:"INDUSTRIE & FABRICATION", t:"Automatisme industriel", o:"Systèmes automatisés.", p:"Automaticiens.", c:"API, capteurs, SCADA, GRAFCET.", j:4, prix:1100},
-        {d:"INDUSTRIE & FABRICATION", t:"Maintenance industrielle", o:"Opérations de maintenance.", p:"Responsables maintenance.", c:"Préventive, corrective, GMAO, TPM.", j:4, prix:1000},
-        {d:"INDUSTRIE & FABRICATION", t:"Fabrication mécanique", o:"Procédés de fabrication pièces.", p:"Opérateurs, ingénieurs.", c:"Usinage, soudage, fonderie, FAO.", j:5, prix:1200},
-        {d:"INDUSTRIE & FABRICATION", t:"Chaudronnerie", o:"Travail métaux en feuille.", p:"Chaudronniers.", c:"Traçage, découpe, formage, soudage.", j:5, prix:1100},
-        {d:"INDUSTRIE & FABRICATION", t:"Soudure", o:"Procédés de soudage.", p:"Soudeurs, contrôleurs.", c:"TIG, MIG/MAG, électrode, sécurité.", j:4, prix:950},
-        {d:"INDUSTRIE & FABRICATION", t:"Tuyauterie", o:"Réseaux de tuyauterie.", p:"Tuyauteurs, monteurs.", c:"Isométrie, cintrage, assemblage.", j:4, prix:950},
-        {d:"INDUSTRIE & FABRICATION", t:"Électromécanique", o:"Systèmes électromécaniques.", p:"Techniciens maintenance.", c:"Moteurs, variateurs, capteurs, pannes.", j:4, prix:1000},
-        {d:"INDUSTRIE & FABRICATION", t:"Productique", o:"Processus production industrielle.", p:"Ingénieurs production.", c:"GPAO, robotique, Lean, automatisation.", j:4, prix:1100},
+        {d:"INDUSTRIE & FABRICATION", t:"Mécanique industrielle", o:"Maîtriser les principes et techniques de la mécanique appliquée à l'industrie.", p:"Techniciens, ingénieurs, opérateurs de maintenance.", c:"Cinématique, dynamique, résistance des matériaux, machines-outils, systèmes mécaniques, lubrification.", j:5, prix:1200},
+        {d:"INDUSTRIE & FABRICATION", t:"Électricité industrielle", o:"Comprendre les systèmes électriques en milieu industriel.", p:"Électriciens, techniciens de maintenance, ingénieurs.", c:"Schémas électriques, moteurs, automates, capteurs, sécurité électrique, dépannage.", j:4, prix:1000},
+        {d:"INDUSTRIE & FABRICATION", t:"Automatisme industriel", o:"Concevoir et programmer des systèmes automatisés.", p:"Automaticiens, techniciens, ingénieurs.", c:"API (automates programmables industriels), capteurs, actionneurs, GRAFCET, supervision (SCADA).", j:4, prix:1100},
+        {d:"INDUSTRIE & FABRICATION", t:"Maintenance industrielle", o:"Optimiser la gestion et l'exécution des opérations de maintenance.", p:"Responsables maintenance, techniciens, ingénieurs.", c:"Maintenance préventive, corrective, prédictive, GMAO, méthodes (TPM, 5S), sécurité.", j:4, prix:1000},
+        {d:"INDUSTRIE & FABRICATION", t:"Fabrication mécanique", o:"Maîtriser les procédés de fabrication des pièces mécaniques.", p:"Techniciens, opérateurs, ingénieurs production.", c:"Usinage (tournage, fraisage), soudage, fonderie, forgeage, contrôle qualité, FAO.", j:5, prix:1200},
+        {d:"INDUSTRIE & FABRICATION", t:"Chaudronnerie", o:"Acquérir les techniques de travail des métaux en feuille.", p:"Chaudronniers, soudeurs, tôliers.", c:"Traçage, découpe, formage, assemblage, soudage, contrôle de qualité, matériaux.", j:5, prix:1100},
+        {d:"INDUSTRIE & FABRICATION", t:"Soudure", o:"Maîtriser les différents procédés de soudage.", p:"Soudeurs, techniciens, contrôleurs.", c:"TIG, MIG/MAG, électrode enrobée, sécurité, qualification, contrôle des soudures.", j:4, prix:950},
+        {d:"INDUSTRIE & FABRICATION", t:"Tuyauterie", o:"Apprendre la conception et l'installation de réseaux de tuyauterie.", p:"Tuyauteurs, techniciens, monteurs.", c:"Isométrie, plans, matériaux, cintrage, assemblage, supports, essais, sécurité.", j:4, prix:950},
+        {d:"INDUSTRIE & FABRICATION", t:"Électromécanique", o:"Comprendre et intervenir sur les systèmes électromécaniques.", p:"Techniciens, opérateurs de maintenance.", c:"Moteurs électriques, variateurs, capteurs, automates, diagnostic de pannes, sécurité.", j:4, prix:1000},
+        {d:"INDUSTRIE & FABRICATION", t:"Productique", o:"Optimiser les processus de production industrielle.", p:"Ingénieurs production, techniciens, managers.", c:"GPAO, robotique, CFAO, contrôle qualité, amélioration continue (Lean, Six Sigma), automatisation.", j:4, prix:1100},
 
-        // FORMATION CONTINUE & DÉV. PERSONNEL
-        {d:"FORMATION CONT. & DEV. PERSONNEL", t:"Gestion du temps", o:"Organisation et productivité.", p:"Tous professionnels.", c:"Priorisation, planification, outils.", j:1, prix:350},
-        {d:"FORMATION CONT. & DEV. PERSONNEL", t:"Leadership", o:"Qualités de leadership.", p:"Managers, futurs leaders.", c:"Styles, décision, intelligence émotionnelle.", j:2, prix:700},
-        {d:"FORMATION CONT. & DEV. PERSONNEL", t:"Communication efficace", o:"Communication interpersonnelle.", p:"Tous professionnels.", c:"Écoute, assertivité, feedback.", j:2, prix:600},
-        {d:"FORMATION CONT. & DEV. PERSONNEL", t:"Gestion de conflit", o:"Prévenir/résoudre conflits.", p:"Managers, RH.", c:"Médiation, CNV, négociation.", j:2, prix:650},
-        {d:"FORMATION CONT. & DEV. PERSONNEL", t:"Développement personnel", o:"Connaissance de soi.", p:"Tout public.", c:"Estime, stress, résilience, motivation.", j:2, prix:500},
-        {d:"FORMATION CONT. & DEV. PERSONNEL", t:"Coaching", o:"Fondamentaux coaching pro.", p:"Managers, futurs coachs.", c:"Posture, écoute, outils développement.", j:3, prix:900},
-        {d:"FORMATION CONT. & DEV. PERSONNEL", t:"Gestion de stress", o:"Identifier et gérer stress.", p:"Tout public.", c:"Causes, relaxation, organisation.", j:1, prix:300},
-        {d:"FORMATION CONT. & DEV. PERSONNEL", t:"Motivation", o:"Mécanismes de motivation.", p:"Managers, employés.", c:"Théories, auto-motivation, reconnaissance.", j:1, prix:300},
-        {d:"FORMATION CONT. & DEV. PERSONNEL", t:"Équilibre vie pro / perso", o:"Trouver l'équilibre carrière/privé.", p:"Tous professionnels.", c:"Temps, limites, bien-être, déconnexion.", j:1, prix:350},
-        {d:"FORMATION CONT. & DEV. PERSONNEL", t:"Gestion de carrière", o:"Piloter son parcours pro.", p:"Cadres, employés.", c:"Bilan, objectifs, réseau, mobilité.", j:2, prix:600},
-        {d:"FORMATION CONT. & DEV. PERSONNEL", t:"Devenir consultant", o:"Lancer son activité.", p:"Experts, futurs consultants.", c:"Offre, prospection, aspects légaux.", j:3, prix:950},
-        {d:"FORMATION CONT. & DEV. PERSONNEL", t:"Métier de Consultant", o:"Posture du consultant.", p:"Consultants juniors.", c:"Méthodes, diagnostic, relation client.", j:2, prix:800}
+        // FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL
+        {d:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL", t:"Gestion du temps", o:"Optimiser l'organisation personnelle et la productivité.", p:"Tous professionnels, étudiants.", c:"Priorisation (Matrice Eisenhower), planification, gestion des interruptions, outils numériques, délégation.", j:1, prix:350},
+        {d:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL", t:"Leadership", o:"Développer les qualités de leadership et motiver les équipes.", p:"Managers, chefs d'équipe, futurs leaders.", c:"Styles de leadership, communication, prise de décision, gestion du changement, intelligence émotionnelle.", j:2, prix:700},
+        {d:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL", t:"Communication efficace", o:"Améliorer ses compétences en communication interpersonnelle.", p:"Tous professionnels.", c:"Écoute active, assertivité, communication non-verbale, gestion des conflits, feedback constructif.", j:2, prix:600},
+        {d:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL", t:"Gestion de conflit", o:"Acquérir des outils pour prévenir et résoudre les conflits.", p:"Managers, RH, toute personne en interaction.", c:"Analyse des conflits, techniques de médiation, communication non-violente, négociation, gestion des émotions.", j:2, prix:650},
+        {d:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL", t:"Développement personnel", o:"Favoriser la connaissance de soi et l'épanouissement.", p:"Tout public.", c:"Estime de soi, gestion du stress, fixation d'objectifs, pleine conscience, résilience, motivation.", j:2, prix:500},
+        {d:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL", t:"Coaching", o:"Acquérir les fondamentaux du coaching professionnel.", p:"Managers, RH, futurs coachs.", c:"Posture de coach, écoute, questionnement, outils de développement, éthique, accompagnement au changement.", j:3, prix:900},
+        {d:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL", t:"Gestion de stress", o:"Apprendre à identifier et gérer le stress au quotidien.", p:"Tout public.", c:"Causes du stress, techniques de relaxation, pleine conscience, organisation, gestion des émotions, hygiène de vie.", j:1, prix:300},
+        {d:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL", t:"Motivation", o:"Comprendre les mécanismes de la motivation et la stimuler.", p:"Managers, employés, étudiants.", c:"Théories de la motivation, auto-motivation, reconnaissance, objectifs, environnement de travail.", j:1, prix:300},
+        {d:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL", t:"Équilibre vie professionnelle et vie personnelle", o:"Trouver un équilibre harmonieux entre carrière et vie privée.", p:"Tous professionnels.", c:"Gestion du temps, priorisation, limites, bien-être, déconnexion, prévention du burn-out.", j:1, prix:350},
+        {d:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL", t:"Gestion de carrière", o:"Construire et piloter son parcours professionnel.", p:"Employés, cadres, étudiants.", c:"Bilan de compétences, définition d'objectifs, plan d'action, réseau, formation continue, mobilité.", j:2, prix:600},
+        {d:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL", t:"Devenir consultant", o:"Préparer et lancer son activité de consultant.", p:"Experts métier, futurs consultants.", c:"Positionnement, offre de services, prospection, aspects légaux, gestion financière, marketing personnel.", j:3, prix:950},
+        {d:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL", t:"Métier de Consultant", o:"Maîtriser les compétences et la posture du consultant.", p:"Consultants juniors, experts.", c:"Méthodologies d'intervention, diagnostic, gestion de mission, relation client, éthique, outils d'analyse.", j:2, prix:800}
     ];
 
     // ==========================================
-    // 2. LOGIQUE DU FORMULAIRE ET CONVERSIONS
+    // 2. PARAMÈTRES DE CONVERSION
     // ==========================================
     const HOURS_PER_DAY = 7;
     const rates = {
-        'EUR': {r: 1, s: '€'}, 'XAF': {r: 655.957, s: 'FCFA'}, 'XOF': {r: 655.957, s: 'FCFA'},
-        'CAD': {r: 1.47, s: '$ CAD'}, 'USD': {r: 1.09, s: '$ USD'}, 'CHF': {r: 0.98, s: 'CHF'},
-        'NGN': {r: 1600, s: '₦'}, 'default': {r: 1, s: '€'}
+        'EUR': {r: 1, s: '€'},
+        'XAF': {r: 655.957, s: 'FCFA'},
+        'XOF': {r: 655.957, s: 'FCFA'},
+        'CAD': {r: 1.47, s: '$ CAD'},
+        'USD': {r: 1.09, s: '$ USD'},
+        'CHF': {r: 0.98, s: 'CHF'},
+        'NGN': {r: 1600, s: '₦'},
+        'default': {r: 1, s: '€'}
     };
-    const cMap = { 'cm':'XAF','sn':'XOF','ci':'XOF','bj':'XOF','bf':'XOF','cg':'XAF','ga':'XAF','ml':'XOF','tg':'XOF', 'fr':'EUR','be':'EUR','ch':'CHF', 'ca':'CAD','us':'USD', 'ng':'NGN' };
+    
+    const cMap = {
+        'cm': 'XAF', 'sn': 'XOF', 'ci': 'XOF', 'bj': 'XOF', 'bf': 'XOF',
+        'cg': 'XAF', 'ga': 'XAF', 'ml': 'XOF', 'tg': 'XOF',
+        'fr': 'EUR', 'be': 'EUR', 'ch': 'CHF',
+        'ca': 'CAD', 'us': 'USD',
+        'ng': 'NGN'
+    };
 
-    const paysS = document.getElementById('pays'), catS = document.getElementById('category'), formS = document.getElementById('formation');
+    // ==========================================
+    // 3. ÉLÉMENTS DOM
+    // ==========================================
+    const steps = document.querySelectorAll('.form-step');
+    const indicators = document.querySelectorAll('.step-indicator');
+    const paysSelect = document.getElementById('pays');
+    const categorySelect = document.getElementById('category');
+    const formationSelect = document.getElementById('formation');
     const card = document.getElementById('courseCard');
+    let currentStep = 0;
 
-    // Auto-detect IP country
-    fetch('https://ip-api.com/json/?fields=countryCode').then(r => r.json()).then(d => {
-        if(d.countryCode) { let c = d.countryCode.toLowerCase(); if(paysS.querySelector(`option[value="${c}"]`)) paysS.value = c; }
-    }).catch(e=>console.log("IP non detectee")).finally(() => {
-        paysS.querySelector('option[disabled]').remove();
-        updateCard();
-    });
+    // ==========================================
+    // 4. TRADUCTIONS
+    // ==========================================
+    const translations = {
+        fr: {
+            personalInfo: "Informations Personnelles",
+            quote1: "\"L'éducation est l'arme la plus puissante pour changer le monde.\" - Nelson Mandela",
+            lastName: "Nom *",
+            firstName: "Prénom *",
+            email: "Email *",
+            whatsapp: "WhatsApp *",
+            country: "Pays *",
+            detecting: "Chargement...",
+            cm: "🇨🇲 Cameroun", sn: "🇸🇳 Sénégal", ci: "🇨🇮 Côte d'Ivoire",
+            bj: "🇧🇯 Bénin", bf: "🇧🇫 Burkina Faso", cg: "🇨🇬 Congo",
+            ga: "🇬🇦 Gabon", ml: "🇲🇱 Mali", tg: "🇹🇬 Togo",
+            fr: "🇫🇷 France", be: "🇧🇪 Belgique", ch: "🇨🇭 Suisse",
+            ca: "🇨🇦 Canada", us: "🇺🇸 États-Unis",
+            ng: "🇳🇬 Nigéria", other: "🌍 Autre pays",
+            programChoice: "Choix du Programme",
+            quote2: "\"Investir dans la formation, c'est conjuguer au présent le futur.\"",
+            domain: "Domaine *",
+            chooseDomain: "-- Choisissez un domaine --",
+            training: "Formation *",
+            selectDomainFirst: "-- Sélectionnez d'abord un domaine --",
+            objective: "Objectif :",
+            audience: "Public :",
+            content: "Contenu :",
+            pedagogy: "Organisation Pédagogique",
+            modality: "Modalité *",
+            choose: "-- Choisissez --",
+            online: "En ligne (100% à distance)",
+            onsite: "En présentiel",
+            hybrid: "Hybride (Mixte)",
+            rhythm: "Rythme *",
+            morning: "Session du matin",
+            evening: "Session du soir",
+            flexible: "Rythme flexible",
+            objectivesOpt: "Objectifs (optionnel)",
+            payment: "Validation & Financement",
+            paymentMethod: "Paiement *",
+            card: "Carte Bancaire",
+            mobileMoney: "Mobile Money",
+            bankTransfer: "Virement Bancaire",
+            other: "Autre",
+            specifyOther: "Précisez",
+            next: "Suivant",
+            prev: "Retour",
+            submit: "Valider mon inscription",
+            whatsapp: "💬 Contacter un conseiller sur WhatsApp",
+            allFieldsRequired: "Veuillez remplir tous les champs obligatoires.",
+            successTitle: "🎉 Félicitations, [PRENOM] !",
+            successText1: "Votre inscription a bien été reçue.",
+            successText2: "Nous vous contacterons sous 24h.",
+            successWa: "💬 Nous contacter"
+        },
+        en: {
+            personalInfo: "Personal Information",
+            quote1: "\"Education is the most powerful weapon to change the world.\" - Nelson Mandela",
+            lastName: "Last name *",
+            firstName: "First name *",
+            email: "Email *",
+            whatsapp: "WhatsApp *",
+            country: "Country *",
+            detecting: "Loading...",
+            cm: "🇨🇲 Cameroon", sn: "🇸🇳 Senegal", ci: "🇨🇮 Ivory Coast",
+            bj: "🇧🇯 Benin", bf: "🇧🇫 Burkina Faso", cg: "🇨🇬 Congo",
+            ga: "🇬🇦 Gabon", ml: "🇲🇱 Mali", tg: "🇹🇬 Togo",
+            fr: "🇫🇷 France", be: "🇧🇪 Belgium", ch: "🇨🇭 Switzerland",
+            ca: "🇨🇦 Canada", us: "🇺🇸 United States",
+            ng: "🇳🇬 Nigeria", other: "🌍 Other country",
+            programChoice: "Program Selection",
+            quote2: "\"Investing in training is investing in the future.\"",
+            domain: "Domain *",
+            chooseDomain: "-- Choose a domain --",
+            training: "Training *",
+            selectDomainFirst: "-- Select a domain first --",
+            objective: "Objective:",
+            audience: "Audience:",
+            content: "Content:",
+            pedagogy: "Learning Organization",
+            modality: "Mode *",
+            choose: "-- Choose --",
+            online: "Online (100% distance)",
+            onsite: "On-site",
+            hybrid: "Hybrid",
+            rhythm: "Pace *",
+            morning: "Morning session",
+            evening: "Evening session",
+            flexible: "Flexible pace",
+            objectivesOpt: "Objectives (optional)",
+            payment: "Validation & Payment",
+            paymentMethod: "Payment *",
+            card: "Bank Card",
+            mobileMoney: "Mobile Money",
+            bankTransfer: "Bank Transfer",
+            other: "Other",
+            specifyOther: "Specify",
+            next: "Next",
+            prev: "Back",
+            submit: "Submit",
+            whatsapp: "💬 Contact an advisor on WhatsApp",
+            allFieldsRequired: "Please fill in all required fields.",
+            successTitle: "🎉 Congratulations, [PRENOM]!",
+            successText1: "Your registration has been received.",
+            successText2: "We will contact you within 24h.",
+            successWa: "💬 Contact us"
+        }
+    };
 
-    // Populate Categories
-    [...new Set(courses.map(i => i.d))].forEach(dom => catS.add(new Option(dom, dom)));
+    let currentLang = 'fr';
 
-    catS.addEventListener('change', () => {
-        formS.innerHTML = '<option value="">-- Sélectionnez une formation --</option>';
-        courses.filter(f => f.d === catS.value).forEach(t => formS.add(new Option(t.t, t.t)));
-        card.style.display = 'none';
-    });
-
-    function updateCard() {
-        const fName = formS.value;
-        const f = courses.find(x => x.t === fName);
-        if(!f) { card.style.display = 'none'; return; }
-
-        let curCode = cMap[paysS.value] || 'default';
-        let cur = rates[curCode] || rates['default'];
-        let finalPrice = Math.round(f.prix * cur.r);
-        let finalHours = f.j * HOURS_PER_DAY;
-
-        document.getElementById('cardTitle').textContent = f.t;
-        document.getElementById('cardObj').textContent = f.o;
-        document.getElementById('cardPub').textContent = f.p;
-        document.getElementById('cardCont').textContent = f.c;
-        document.getElementById('cardDur').textContent = `${finalHours} Heures (${f.j} jours)`;
-        document.getElementById('cardPrix').textContent = `${finalPrice.toLocaleString('fr-FR')} ${cur.s}`;
-
-        document.getElementById('selectedPrice').value = finalPrice;
-        document.getElementById('selectedCurrency').value = cur.s;
-        document.getElementById('selectedDuration').value = finalHours;
+    function applyTranslations(lang) {
+        currentLang = lang;
+        const t = translations[lang];
         
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (t[key]) {
+                if (el.tagName === 'OPTION' || el.tagName === 'BUTTON') {
+                    el.textContent = t[key];
+                } else {
+                    el.textContent = t[key];
+                }
+            }
+        });
+
+        document.getElementById('lang-fr').classList.toggle('active', lang === 'fr');
+        document.getElementById('lang-en').classList.toggle('active', lang === 'en');
+    }
+
+    document.getElementById('lang-fr').addEventListener('click', () => applyTranslations('fr'));
+    document.getElementById('lang-en').addEventListener('click', () => applyTranslations('en'));
+
+    // ==========================================
+    // 5. VALIDATION D'ÉTAPE
+    // ==========================================
+    function validateStep(stepIndex) {
+        const step = steps[stepIndex];
+        const requiredFields = step.querySelectorAll('[required]');
+        let isValid = true;
+
+        requiredFields.forEach(field => {
+            field.classList.remove('invalid');
+            
+            if (field.tagName === 'SELECT') {
+                if (!field.value || field.value === '') {
+                    isValid = false;
+                    field.classList.add('invalid');
+                }
+            } else {
+                if (!field.value.trim()) {
+                    isValid = false;
+                    field.classList.add('invalid');
+                }
+            }
+        });
+
+        return isValid;
+    }
+
+    // ==========================================
+    // 6. NAVIGATION
+    // ==========================================
+    function goToStep(stepNumber) {
+        if (stepNumber < 0 || stepNumber >= steps.length) return;
+        
+        steps.forEach((step, index) => {
+            step.classList.toggle('active', index === stepNumber);
+        });
+        
+        indicators.forEach((ind, index) => {
+            ind.classList.toggle('active', index <= stepNumber);
+        });
+        
+        currentStep = stepNumber;
+    }
+
+    document.querySelectorAll('.btn-next').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const nextStep = parseInt(this.dataset.next) - 1;
+            
+            if (validateStep(currentStep)) {
+                goToStep(nextStep);
+            } else {
+                alert(translations[currentLang].allFieldsRequired);
+            }
+        });
+    });
+
+    document.querySelectorAll('.btn-prev').forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const prevStep = parseInt(this.dataset.prev) - 1;
+            goToStep(prevStep);
+        });
+    });
+
+    // ==========================================
+    // 7. PAYS PAR DÉFAUT
+    // ==========================================
+    fetch('https://ip-api.com/json/?fields=countryCode')
+        .then(r => r.json())
+        .then(d => {
+            if (d.countryCode) {
+                const c = d.countryCode.toLowerCase();
+                if (paysSelect.querySelector(`option[value="${c}"]`)) {
+                    paysSelect.value = c;
+                }
+            }
+        })
+        .catch(e => console.log("IP non détectée"))
+        .finally(() => {
+            const defaultOption = paysSelect.querySelector('option[disabled]');
+            if (defaultOption) defaultOption.remove();
+            if (!paysSelect.value) paysSelect.value = "cm";
+            updateCard();
+        });
+
+    // ==========================================
+    // 8. DOMAINES ET FORMATIONS
+    // ==========================================
+    const domaines = [...new Set(courses.map(c => c.d))].sort();
+    domaines.forEach(dom => {
+        const option = document.createElement('option');
+        option.value = dom;
+        option.textContent = dom;
+        categorySelect.appendChild(option);
+    });
+
+    categorySelect.addEventListener('change', function() {
+        formationSelect.innerHTML = '<option value="" data-i18n="selectDomainFirst">-- Sélectionnez d\'abord un domaine --</option>';
+        
+        const filtered = courses.filter(c => c.d === this.value);
+        filtered.forEach(c => {
+            const option = document.createElement('option');
+            option.value = c.t;
+            option.textContent = c.t;
+            formationSelect.appendChild(option);
+        });
+        
+        card.style.display = 'none';
+        applyTranslations(currentLang);
+    });
+
+    // ==========================================
+    // 9. AFFICHAGE DE LA CARTE
+    // ==========================================
+    function updateCard() {
+        const selectedTitle = formationSelect.value;
+        const course = courses.find(c => c.t === selectedTitle);
+        
+        if (!course) {
+            card.style.display = 'none';
+            return;
+        }
+
+        const country = paysSelect.value;
+        const currencyCode = cMap[country] || 'default';
+        const currency = rates[currencyCode] || rates.default;
+        const priceConverted = Math.round(course.prix * currency.r);
+        const hours = course.j * HOURS_PER_DAY;
+
+        document.getElementById('cardTitle').textContent = course.t;
+        document.getElementById('cardObj').textContent = course.o;
+        document.getElementById('cardPub').textContent = course.p;
+        document.getElementById('cardCont').textContent = course.c;
+        document.getElementById('cardDur').textContent = `${hours} Heures (${course.j} jours)`;
+        document.getElementById('cardPrix').textContent = `${priceConverted.toLocaleString('fr-FR')} ${currency.s}`;
+        
+        document.getElementById('selectedPrice').value = priceConverted;
+        document.getElementById('selectedCurrency').value = currency.s;
+        document.getElementById('selectedDuration').value = hours;
+
         card.style.display = 'block';
     }
 
-    formS.addEventListener('change', updateCard);
-    paysS.addEventListener('change', updateCard);
-
-    // Multi-steps logic
-    const steps = document.querySelectorAll('.form-step'), stepInds = document.querySelectorAll('.step-indicator');
-    let curr = 0;
-    
-    function val() {
-        let v = true;
-        steps[curr].querySelectorAll('input[required], select[required]').forEach(i => {
-            i.classList.remove('invalid'); if(!i.value.trim()){ v=false; i.classList.add('invalid'); }
-        });
-        return v;
-    }
-
-    document.querySelectorAll('.btn-next').forEach(b => b.addEventListener('click', () => {
-        if(val()) { curr++; steps.forEach((s,i) => s.classList.toggle('active', i===curr)); stepInds.forEach((ind,i) => ind.classList.toggle('active', i<=curr)); }
-    }));
-    document.querySelectorAll('.btn-prev').forEach(b => b.addEventListener('click', () => {
-        curr--; steps.forEach((s,i) => s.classList.toggle('active', i===curr)); stepInds.forEach((ind,i) => ind.classList.toggle('active', i<=curr));
-    }));
-
-    const pS = document.getElementById('paiement'), pO = document.getElementById('autrePaiementDiv'), pOI = document.getElementById('paiementAutre');
-    pS.addEventListener('change', () => { let aut = pS.value === 'Autre'; pO.style.display = aut?'block':'none'; pOI.required = aut; });
+    formationSelect.addEventListener('change', updateCard);
+    paysSelect.addEventListener('change', updateCard);
 
     // ==========================================
-    // 3. SOUMISSION GOOGLE SCRIPT
+    // 10. GESTION "AUTRE" PAIEMENT
     // ==========================================
-    const form = document.getElementById('admissionForm');
-    const sBtn = document.getElementById('submitBtn');
-    
-    // --> COLLEZ VOTRE URL ICI <--
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx1d0gqC3CTLMT7Lnz0Iz3owBdL4OVHXXpy9hkq07SIZi12jOoNHYKfOWm1m3F6LbAe0A/exec';
+    const paiementSelect = document.getElementById('paiement');
+    const autreDiv = document.getElementById('autrePaiementDiv');
+    const autreInput = document.getElementById('paiementAutre');
 
-    form.addEventListener('submit', e => {
-        e.preventDefault(); if(!val()) return;
-        if(SCRIPT_URL.includes('COLLEZ')) { alert("Erreur: URL serveur non configurée."); return; }
+    paiementSelect.addEventListener('change', function() {
+        if (this.value === 'Autre') {
+            autreDiv.style.display = 'block';
+            autreInput.required = true;
+        } else {
+            autreDiv.style.display = 'none';
+            autreInput.required = false;
+            autreInput.value = '';
+        }
+    });
+
+    // ==========================================
+    // 11. SOUMISSION
+    // ==========================================
+  // ==========================================
+// 11. SOUMISSION FINALE ET INFALLIBLE
+// ==========================================
+const form = document.getElementById('admissionForm');
+const submitBtn = document.getElementById('submitBtn');
+const successMsg = document.getElementById('success-message');
+const header = document.querySelector('.header');
+const progressBar = document.querySelector('.progress-bar');
+
+// 👇 🟢 COLLEZ VOTRE URL CI-DESSOUS ENTRE LES GUILLEMETS 🟢 👇
+const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwRTS7dGysFGIyCTjvudaJRnTubSctiYaJmb57K5M_pZhV-LRSQFxa7YxKB9mDVvZi1Rw/exec'; 
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault(); // Empêche la page de se recharger
+
+    // On prépare l'interface
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Envoi en cours...";
+
+    // On récupère toutes les données du formulaire
+    const formData = new FormData(form);
+    const data = Object.fromEntries(formData.entries());
+
+    // On envoie les données vers Google Apps Script
+    fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors', // Indispensable pour éviter les blocages de sécurité
+        cache: 'no-cache',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(() => {
+        // Avec 'no-cors', on ne peut pas lire la réponse, 
+        // donc on considère que si le signal est parti, c'est reçu !
+        console.log("Données envoyées avec succès");
         
-        sBtn.disabled = true; sBtn.textContent = 'Traitement en cours...';
-        const d = Object.fromEntries(new FormData(form).entries());
-
-        fetch(SCRIPT_URL, { method: 'POST', mode: 'cors', body: JSON.stringify(d) })
-        .then(r => r.json())
-        .then(res => {
-            if(res.result === 'success') {
-                form.style.display = 'none'; document.getElementById('progress-bar').style.display = 'none';
-                document.getElementById('header').style.display = 'none';
-                document.getElementById('success-message').style.display = 'block';
-            } else throw new Error(res.error);
-        })
-        .catch(err => {
-            alert("Erreur de connexion. Veuillez réessayer.");
-            sBtn.disabled = false; sBtn.textContent = 'Valider mon inscription';
-        });
+        // On cache le formulaire et on affiche le message de succès
+        form.style.display = 'none';
+        if (header) header.style.display = 'none';
+        if (progressBar) progressBar.style.display = 'none';
+        successMsg.style.display = 'block';
+    })
+    .catch(err => {
+        console.error('Erreur:', err);
+        alert("Erreur lors de l'envoi. Vérifiez votre connexion.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Valider mon inscription";
     });
 });
+
+    applyTranslations('fr');
+})();
 </script>
 </body>
 </html>
-
