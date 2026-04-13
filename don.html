@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Faire un don — ONG Monde et Bonheur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+
+<!--
+╔══════════════════════════════════════════════════════════════════════╗
+║   GUIDE DÉVELOPPEUR — PAGE DON ONG MONDE ET BONHEUR                 ║
+╚══════════════════════════════════════════════════════════════════════╝
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  A. DEVISE PAR RÉGION — DÉTECTION AUTOMATIQUE PAR IP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  SERVICE UTILISÉ : https://ipapi.co/json/
+  → Gratuit jusqu'à 1 000 req/jour. Clé payante pour production.
+  → Retourne : { country_code:"CM", currency:"XAF", city:"Yaoundé" }
+  
+  ALTERNATIVE GRATUITE (sans limite) : https://ip-api.com/json/
+  → Retourne : { countryCode:"CM", currency:"XAF" }
+  
+  FALLBACK : Si l'API échoue → EUR par défaut.
+  L'utilisateur peut toujours changer via le <select> dans le header.
+
+  DEVISES SUPPORTÉES :
+    EUR  France, Belgique, zone euro
+    XAF  FCFA — Cameroun, Gabon, Congo, Tchad, RCA, Guinée éq.
+    USD  USA, fallback mondial
+    GBP  Royaume-Uni
+    CAD  Canada
+    CHF  Suisse
+    AKL  AKL Lumi (CBDC diaspora africaine, 1 AKL ≈ 15.96 USD)
+
+  TAUX : mis à jour manuellement dans DEVISES{}.toEUR
+  Pour taux live : appeler https://api.exchangerate-api.com/v4/latest/EUR
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  B. PASSERELLE DE PAIEMENT RECOMMANDÉE : STRIPE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  POURQUOI STRIPE (stripe.com) ?
+    ✅ Carte bancaire (Visa/MC/Amex), Apple Pay, Google Pay
+    ✅ SEPA Direct Debit (virements EU)
+    ✅ Dons récurrents natifs (Stripe Subscriptions)
+    ✅ Reçus automatiques par email
+    ✅ Dashboard admin simple
+    ✅ 1.4% + 0.25€ pour cartes EU / 2.9% hors EU
+    ✅ Webhook → déclencher envoi rapport d'impact
+
+  POUR COMMENCER SANS SERVEUR (le plus rapide) :
+    1. Créer compte sur stripe.com
+    2. Dashboard → Payment Links → Créer un lien
+    3. Copier l'URL générée (https://buy.stripe.com/xxx)
+    4. Remplacer window.location.href dans handleDon() ci-dessous
+
+  POUR INTÉGRATION COMPLÈTE (avec serveur) :
+    1. Ajouter <script src="https://js.stripe.com/v3/"></script>
+    2. Dans handleDon() :
+       const stripe = Stripe('pk_live_VOTRE_CLE_PUBLIQUE');
+       const {error} = await stripe.redirectToCheckout({
+         lineItems: [{price: 'price_ID_STRIPE', quantity: 1}],
+         mode: recCourante === 'mensuel' ? 'subscription' : 'payment',
+         successUrl: 'https://votre-site.org/merci',
+         cancelUrl:  'https://votre-site.org/don',
+       });
+
+  POUR MOBILE MONEY (Afrique) — Stripe ne couvre pas encore l'Afrique :
+    → Flutterwave (flutterwave.com) : MTN, Orange Money, M-Pesa
+      <script src="https://checkout.flutterwave.com/v3.js"></script>
+      FlutterwaveCheckout({public_key:'FLWPUBK_TEST_xxxx',...})
+    → NotchPay (notchpay.co) : solution camerounaise native
+    → CinetPay : Afrique francophone
+
+  POUR CRYPTO :
+    → Coinbase Commerce (commerce.coinbase.com) : gratuit, 0% commission
+      Créer un "Checkout" → copier l'URL → mettre dans le bouton crypto
+    → BTCPay Server : auto-hébergé, 0 frais
+
+  POUR AKL LUMI :
+    → HanyPay (hanypay.io) : créer compte marchand → QR AKL
+    → Swifin Platform (connect.swifin.com)
+    → Contact direct WhatsApp en attendant l'intégration API
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  C. BOUTON WHATSAPP
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Format URL : https://wa.me/{numero_sans_+}?text={message_encode}
+  Numéro MB  : +237 682 18 03 63 → 237682180363
+  Le message est pré-encodé avec encodeURIComponent()
+  Pour changer : modifier href dans .whatsapp-btn
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  D. ANONYMAT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Si coché :
+    - Champs prénom/nom désactivés, valeur forcée à "Anonyme"
+    - Ticker affiche "Un donateur anonyme"
+    - Rapports publics : "Un donateur anonyme"
+    - Email TOUJOURS requis (reçu fiscal = obligation légale)
+    - L'anonymat est PUBLIC uniquement, pas fiscal ni comptable
+-->
+
+<style>
+:root{
+  --v:#1a5c3a;--vc:#2d8a58;--vp:#e8f5ee;
+  --o:#c8860a;--oc:#f5a623;--op:#fdf3e3;
+  --br:#3d2b1f;--wh:#fdfcf8;--gr:#f0ede6;
+  --tx:#1a1a18;--td:#4a4a44;--tp:#8a8a82;
+  --rouge:#c0392b;--crypto:#f7931a;--akl:#2d6a4f;
+  --haut:64px;--r:12px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--wh);color:var(--tx);overflow-x:hidden;}
+[data-lang="fr"] .en{display:none!important;}
+[data-lang="en"] .fr{display:none!important;}
+
+/* ── Header ── */
+.mh{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--haut);background:rgba(253,252,248,.97);backdrop-filter:blur(12px);border-bottom:1px solid rgba(26,92,58,.1);display:flex;align-items:center;justify-content:space-between;padding:0 2rem;gap:.8rem;}
+.mh-logo{display:flex;align-items:center;gap:10px;text-decoration:none;}
+.mh-disk{width:40px;height:40px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:13px;color:white;border:2px solid var(--vc);}
+.mh-txt strong{font-family:'Playfair Display',serif;font-size:14px;color:var(--v);display:block;line-height:1.15;}
+.mh-txt span{font-size:10px;color:var(--tp);letter-spacing:.06em;}
+.mh-r{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;}
+/* Sélecteur devise — fallback manuel si détection IP échoue */
+.dsel{padding:5px 26px 5px 10px;border-radius:8px;border:1px solid rgba(26,92,58,.2);font-size:12px;font-weight:700;background:white;color:var(--v);cursor:pointer;font-family:'Space Mono',monospace;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%231a5c3a' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 8px center;}
+.lt{display:flex;align-items:center;background:var(--gr);border-radius:20px;padding:3px;border:1px solid rgba(26,92,58,.1);}
+.lb{padding:4px 11px;border-radius:16px;border:none;background:none;font-size:11px;font-weight:700;cursor:pointer;color:var(--tp);font-family:'Space Mono',monospace;transition:all .2s;}
+.lb.active{background:var(--v);color:white;}
+.back{display:flex;align-items:center;gap:6px;font-size:13px;color:var(--td);padding:7px 14px;border-radius:8px;border:1px solid rgba(26,92,58,.15);text-decoration:none;transition:all .2s;}
+.back:hover{background:var(--vp);color:var(--v);}
+
+/* ── Hero ── */
+.hero{min-height:55vh;padding:calc(var(--haut)+60px) 8% 70px;background:linear-gradient(160deg,rgba(192,57,43,.88) 0%,rgba(61,43,31,.85) 50%,rgba(26,92,58,.8) 100%),url('https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1400&q=80') center/cover no-repeat;display:flex;flex-direction:column;justify-content:center;position:relative;overflow:hidden;}
+.hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:70px;background:linear-gradient(transparent,var(--wh));}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.4);color:#f5d087;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;padding:5px 13px;border-radius:20px;margin-bottom:1.4rem;}
+.pdot{width:7px;height:7px;background:var(--oc);border-radius:50%;animation:pulse 2s infinite;}
+.hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:900;color:white;line-height:1.1;max-width:700px;margin-bottom:1.2rem;}
+.hero h1 em{font-style:italic;color:#f5d087;}
+.hero p{font-size:clamp(.95rem,1.5vw,1.1rem);color:rgba(255,255,255,.82);max-width:540px;line-height:1.75;font-weight:300;}
+.lc{display:flex;gap:2px;margin-top:2.2rem;flex-wrap:wrap;}
+.lcb{background:rgba(253,252,248,.12);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);padding:12px 18px;text-align:center;border-radius:4px;}
+.lcb:first-child{border-radius:8px 4px 4px 8px;}.lcb:last-child{border-radius:4px 8px 8px 4px;}
+.lcn{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;color:#f5d087;display:block;line-height:1;}
+.lcl{font-size:10px;color:rgba(255,255,255,.65);margin-top:3px;}
+
+/* ── Ticker ── */
+.tkw{background:var(--v);overflow:hidden;padding:10px 0;}
+.tk{display:flex;animation:ticker 30s linear infinite;white-space:nowrap;}
+.tki{display:inline-flex;align-items:center;gap:8px;padding:0 2rem;font-size:13px;color:rgba(255,255,255,.85);flex-shrink:0;}
+.tki strong{color:var(--oc);}
+.tsep{color:rgba(255,255,255,.25);padding:0 .3rem;}
+
+/* ── Layout ── */
+.main{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:1fr 420px;gap:3rem;padding:3rem 2rem 5rem;align-items:start;}
+.lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--o);text-transform:uppercase;margin-bottom:.8rem;}
+.left h2{font-family:'Playfair Display',serif;font-size:1.9rem;font-weight:700;line-height:1.2;margin-bottom:.5rem;}
+.left>p{font-size:15px;color:var(--td);line-height:1.7;margin-bottom:1.8rem;max-width:520px;}
+
+/* ── Bandeau devise détectée ── */
+.dbanner{display:flex;align-items:center;gap:10px;padding:10px 16px;background:var(--op);border:1px solid rgba(200,134,10,.2);border-radius:10px;margin-bottom:1.4rem;font-size:13px;color:var(--o);}
+.dbanner strong{color:var(--br);}
+.dchange{margin-left:auto;font-size:12px;cursor:pointer;text-decoration:underline;}
+
+/* ── Montants ── */
+.mg{display:grid;grid-template-columns:repeat(3,1fr);gap:.8rem;margin-bottom:1.2rem;}
+.mc{border:2px solid rgba(26,92,58,.12);border-radius:var(--r);padding:1.2rem 1rem;cursor:pointer;transition:all .2s;background:white;text-align:center;position:relative;}
+.mc:hover{border-color:var(--vc);background:var(--vp);}
+.mc.sel{border-color:var(--v);background:var(--vp);box-shadow:0 0 0 3px rgba(26,92,58,.12);}
+.mc.pop::before{content:attr(data-pop);position:absolute;top:-1px;left:50%;transform:translateX(-50%);background:var(--o);color:white;font-size:9px;font-weight:700;padding:2px 10px;border-radius:0 0 8px 8px;font-family:'Space Mono',monospace;letter-spacing:.06em;white-space:nowrap;}
+.mcv{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--v);line-height:1;}
+.mci{font-size:11.5px;color:var(--td);margin-top:.4rem;line-height:1.4;}
+.mci strong{color:var(--v);display:block;font-size:12px;}
+
+/* Montant libre */
+.mlibre{display:flex;align-items:center;gap:.8rem;margin-bottom:1.8rem;flex-wrap:wrap;}
+.mlibre label{font-size:14px;color:var(--td);font-weight:500;}
+.idev{display:flex;align-items:center;border:2px solid rgba(26,92,58,.15);border-radius:9px;overflow:hidden;background:white;flex:1;min-width:160px;max-width:260px;transition:border-color .2s;}
+.idev:focus-within{border-color:var(--v);}
+.dpfx{padding:0 12px;font-size:14px;color:var(--td);font-weight:700;background:var(--gr);border-right:1px solid rgba(26,92,58,.1);height:48px;display:flex;align-items:center;min-width:56px;justify-content:center;font-family:'Space Mono',monospace;}
+.idev input{border:none;outline:none;padding:0 14px;font-size:18px;font-weight:600;color:var(--v);font-family:'DM Sans',sans-serif;width:100%;height:48px;background:white;}
+
+/* Impact dynamique */
+.idyn{background:linear-gradient(135deg,var(--vp),white);border:1.5px solid rgba(26,92,58,.15);border-radius:var(--r);padding:1.4rem;margin-bottom:2rem;}
+.idyn h4{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--v);margin-bottom:.8rem;}
+.irow{display:flex;align-items:flex-start;gap:.8rem;font-size:13.5px;color:var(--td);opacity:0;transform:translateX(-8px);transition:all .4s;line-height:1.5;}
+.irow.vis{opacity:1;transform:none;}
+.irow .ic{font-size:17px;width:26px;flex-shrink:0;margin-top:1px;}
+
+/* Récurrence */
+.rg{display:flex;gap:.6rem;margin-bottom:1.8rem;}
+.rb{flex:1;padding:10px 8px;border-radius:9px;border:2px solid rgba(26,92,58,.12);background:white;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--td);transition:all .2s;text-align:center;}
+.rb:hover{border-color:var(--vc);background:var(--vp);}
+.rb.active{border-color:var(--v);background:var(--vp);color:var(--v);font-weight:600;}
+
+/* ── Modes de paiement ── */
+.pm-tabs{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1rem;}
+.pt{display:flex;align-items:center;gap:6px;padding:7px 13px;border-radius:9px;border:1.5px solid rgba(26,92,58,.12);background:white;font-size:12.5px;font-weight:500;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif;color:var(--td);}
+.pt:hover{border-color:var(--vc);}
+.pt.active{border-color:var(--v);background:var(--vp);color:var(--v);font-weight:600;}
+.pt.cp.active{border-color:var(--crypto);background:#fff8f0;color:var(--crypto);}
+.pt.ak.active{border-color:var(--akl);background:#f0fff8;color:var(--akl);}
+.pinfo{background:var(--gr);border-radius:10px;padding:1rem 1.2rem;font-size:13px;color:var(--td);line-height:1.65;border-left:3px solid var(--vc);}
+.pinfo.cri{border-left-color:var(--crypto);}
+.pinfo.aki{border-left-color:var(--akl);}
+.pinfo strong{display:block;margin-bottom:.35rem;font-size:13.5px;color:var(--tx);}
+.pinfo code{background:rgba(0,0,0,.06);padding:1px 5px;border-radius:4px;font-size:11.5px;font-family:'Space Mono',monospace;}
+.pinfo a{color:var(--v);text-decoration:underline;}
+.pinfo-btn{display:inline-flex;align-items:center;gap:6px;margin-top:.8rem;color:white;padding:9px 18px;border-radius:8px;font-size:13px;font-weight:700;text-decoration:none;}
+
+/* Affectation */
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:2rem;}
+.ac{border:1.5px solid rgba(26,92,58,.12);border-radius:10px;padding:1rem;cursor:pointer;transition:all .2s;background:white;display:flex;align-items:flex-start;gap:.7rem;}
+.ac:hover{border-color:var(--vc);background:var(--vp);}
+.ac.sel{border-color:var(--v);background:var(--vp);}
+.ac input[type="radio"]{margin-top:3px;accent-color:var(--v);flex-shrink:0;}
+.al{font-size:13px;font-weight:600;color:var(--tx);line-height:1.3;}
+.as{font-size:11.5px;color:var(--tp);margin-top:2px;}
+
+/* ── Formulaire droit ── */
+.scard{position:sticky;top:calc(var(--haut)+20px);}
+.fc{background:white;border-radius:16px;border:1px solid rgba(26,92,58,.1);overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.07);}
+.fh{background:var(--v);padding:1.3rem 1.6rem;display:flex;align-items:center;justify-content:space-between;}
+.fht{font-family:'Playfair Display',serif;font-size:1.15rem;font-weight:700;color:white;}
+.fha{background:rgba(255,255,255,.15);border-radius:8px;padding:6px 14px;text-align:center;}
+.fhan{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:#f5d087;line-height:1;}
+.fhal{font-size:10px;color:rgba(255,255,255,.65);letter-spacing:.05em;}
+.fb{padding:1.5rem;}
+.fg{margin-bottom:.9rem;}
+.fg label{display:block;font-size:13px;font-weight:500;color:var(--td);margin-bottom:.3rem;}
+.fg input,.fg select{width:100%;padding:10px 14px;border:1.5px solid rgba(26,92,58,.15);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--tx);background:white;outline:none;transition:border-color .2s;}
+.fg input:focus,.fg select:focus{border-color:var(--v);}
+.fg input:disabled{background:var(--gr);color:var(--tp);cursor:not-allowed;}
+.fgr{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;}
+
+/* Anonymat */
+.abox{background:var(--gr);border-radius:10px;padding:1rem 1.2rem;margin-bottom:1rem;border:1.5px solid transparent;transition:all .2s;}
+.abox.on{background:#fff8f0;border-color:rgba(200,134,10,.3);}
+.alabel{display:flex;align-items:center;gap:.7rem;cursor:pointer;font-size:13.5px;font-weight:500;color:var(--tx);}
+.alabel input{accent-color:var(--o);width:16px;height:16px;flex-shrink:0;}
+.anote{display:none;font-size:12px;color:var(--tp);margin-top:.4rem;line-height:1.5;padding-left:1.6rem;}
+.anote.show{display:block;}
+
+.cbl{display:flex;align-items:flex-start;gap:.6rem;font-size:12.5px;color:var(--td);line-height:1.5;cursor:pointer;margin-bottom:.7rem;}
+.cbl input{margin-top:2px;accent-color:var(--v);flex-shrink:0;}
+.bdf{width:100%;padding:14px;background:var(--rouge);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:10px;transition:all .25s;margin-top:.3rem;}
+.bdf:hover{background:#a93226;transform:translateY(-2px);box-shadow:0 8px 24px rgba(192,57,43,.35);}
+.ba{font-family:'Playfair Display',serif;font-size:1.15rem;}
+.sn{display:flex;align-items:center;justify-content:center;gap:6px;font-size:11px;color:var(--tp);margin-top:.7rem;}
+.cbdg{display:flex;align-items:center;justify-content:center;gap:.6rem;flex-wrap:wrap;padding:.9rem 1.6rem;border-top:1px solid rgba(26,92,58,.07);background:var(--gr);}
+.cb{font-size:10px;font-weight:700;color:var(--tp);font-family:'Space Mono',monospace;padding:3px 9px;border-radius:6px;background:white;border:1px solid rgba(26,92,58,.1);}
+
+/* Témoignages */
+.sp{margin-top:1.2rem;}
+.spt{font-size:11px;font-weight:700;color:var(--tp);text-transform:uppercase;letter-spacing:.08em;margin-bottom:.7rem;font-family:'Space Mono',monospace;}
+.ti{background:white;border-radius:10px;padding:1rem;border:1px solid rgba(26,92,58,.08);margin-bottom:.7rem;}
+.tiq{font-size:13px;color:var(--td);line-height:1.6;font-style:italic;margin-bottom:.6rem;}
+.tia{display:flex;align-items:center;gap:.6rem;}
+.tav{width:30px;height:30px;border-radius:50%;background:var(--vp);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:700;font-size:12px;color:var(--v);flex-shrink:0;}
+.tn{font-size:12px;font-weight:600;color:var(--tx);}
+.tr{font-size:11px;color:var(--tp);}
+.st{color:#f5a623;font-size:11px;margin-left:auto;}
+
+/* ── WhatsApp flottant ── */
+/*
+  URL WhatsApp : https://wa.me/{numéro_sans_+}?text={message_encodé}
+  Numéro MB : +237 682 18 03 63 → 237682180363
+  Position : bas-gauche (le don flottant sera bas-droite si ajouté)
+*/
+.wa{position:fixed;bottom:24px;left:24px;z-index:800;background:#25D366;color:white;border:none;border-radius:50px;padding:12px 20px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;gap:9px;box-shadow:0 6px 24px rgba(37,211,102,.35);transition:all .25s;text-decoration:none;}
+.wa:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(37,211,102,.4);background:#20b858;}
+.wa svg{width:22px;height:22px;fill:white;flex-shrink:0;}
+.wa-txt{display:flex;flex-direction:column;line-height:1.15;}
+.wa-txt span:first-child{font-size:13px;font-weight:700;}
+.wa-txt span:last-child{font-size:10px;opacity:.85;font-weight:400;}
+
+/* ── Impact section ── */
+.isec{background:var(--vp);padding:70px 8%;}
+.isec .in{max-width:1200px;margin:0 auto;}
+.icg{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:2.5rem;}
+.icc{background:white;border-radius:var(--r);overflow:hidden;border:1px solid rgba(26,92,58,.08);transition:transform .25s,box-shadow .25s;}
+.icc:hover{transform:translateY(-4px);box-shadow:0 14px 40px rgba(26,92,58,.1);}
+.icim{width:100%;height:130px;object-fit:cover;}
+.icb{padding:1rem;}
+.icv{font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;color:var(--v);line-height:1;}
+.iceq{font-size:10px;color:var(--tp);margin:.25rem 0;font-family:'Space Mono',monospace;text-transform:uppercase;}
+.icr{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:.4rem;line-height:1.35;}
+.icd{font-size:12px;color:var(--td);line-height:1.5;}
+.icta{display:block;text-align:center;margin-top:.8rem;background:var(--v);color:white;padding:8px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;border:none;width:100%;font-family:'DM Sans',sans-serif;transition:background .2s;}
+.icta:hover{background:var(--vc);}
+
+/* ── Baromètre ── */
+.bs{background:var(--br);color:white;padding:60px 8%;text-align:center;}
+.bs .in{max-width:780px;margin:0 auto;}
+.blbl{font-family:'Space Mono',monospace;font-size:10px;color:var(--oc);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.7rem;}
+.bt{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,3.5vw,2.3rem);font-weight:700;margin-bottom:.7rem;}
+.bsub{font-size:14px;color:rgba(255,255,255,.7);line-height:1.7;margin-bottom:2rem;}
+.btr{background:rgba(255,255,255,.1);border-radius:20px;height:16px;overflow:hidden;margin-bottom:.7rem;}
+.bf{height:100%;background:linear-gradient(90deg,var(--vc),var(--oc));border-radius:20px;width:0;transition:width 1.5s ease;}
+.bll{display:flex;justify-content:space-between;font-size:11px;color:rgba(255,255,255,.5);font-family:'Space Mono',monospace;margin-bottom:1.8rem;}
+.bll strong{color:var(--oc);}
+.bng{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-bottom:2rem;}
+.bn{background:rgba(255,255,255,.07);border-radius:10px;padding:1.1rem;}
+.bnv{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:900;color:#f5d087;display:block;line-height:1;}
+.bnl{font-size:11px;color:rgba(255,255,255,.6);margin-top:4px;}
+.btn-baro{display:inline-flex;align-items:center;gap:8px;background:var(--oc);color:white;padding:13px 28px;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .25s;}
+.btn-baro:hover{background:var(--o);transform:translateY(-2px);}
+
+/* ── FAQ ── */
+.fqs{padding:60px 8%;background:white;}
+.fqs .in{max-width:800px;margin:0 auto;}
+.fi{border-bottom:1px solid rgba(26,92,58,.1);}
+.fq{width:100%;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0;text-align:left;font-family:'DM Sans',sans-serif;}
+.fqt{font-size:15px;font-weight:600;color:var(--tx);padding-right:1rem;line-height:1.35;}
+.fqi{width:26px;height:26px;border-radius:50%;background:var(--vp);display:flex;align-items:center;justify-content:center;color:var(--v);font-size:17px;flex-shrink:0;transition:transform .3s;}
+.fi.open .fqi{transform:rotate(45deg);background:var(--v);color:white;}
+.fa{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;font-size:14px;color:var(--td);line-height:1.8;}
+.fi.open .fa{max-height:300px;padding-bottom:1.2rem;}
+
+/* ── PS + Footer ── */
+.ps{background:var(--o);padding:50px 8%;text-align:center;}
+.ps p{font-size:15px;color:white;max-width:680px;margin:0 auto;line-height:1.8;}
+.ps strong{color:#f5d087;}
+.bps{display:inline-flex;align-items:center;gap:8px;background:white;color:var(--o);padding:13px 28px;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .2s;margin-top:1.5rem;}
+.bps:hover{transform:translateY(-2px);}
+.mftr{background:#0f1a12;color:rgba(255,255,255,.5);padding:24px 8%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:12px;}
+.mftr a{color:rgba(255,255,255,.35);text-decoration:none;}
+
+/* ── Animations ── */
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.4);opacity:.6}}
+@keyframes ticker{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* ── Responsive ── */
+@media(max-width:900px){.main{grid-template-columns:1fr;}.scard{position:static;}.icg{grid-template-columns:1fr 1fr;}.bng{grid-template-columns:1fr 1fr;}.mg{grid-template-columns:repeat(2,1fr);}.ag{grid-template-columns:1fr;}}
+@media(max-width:560px){.icg{grid-template-columns:1fr;}.mg{grid-template-columns:1fr 1fr;}.fgr{grid-template-columns:1fr;}.bng{grid-template-columns:1fr;}.mh-txt{display:none;}:root{--haut:56px;}.wa-txt span:last-child{display:none;}}
+</style>
+</head>
+<body>
+
+<!-- ═══ WHATSAPP FLOTTANT ══════════════════════════════════════════════
+  Pour changer le numéro : modifier "237682180363" dans le href
+  Pour changer le message : modifier le paramètre ?text=
+  encodeURIComponent("Bonjour MB, je veux faire un don") en JS
+  ou utiliser un encodeur en ligne : urlencoder.org
+══════════════════════════════════════════════════════════════════════ -->
+<a class="wa"
+   href="https://wa.me/237682180363?text=Bonjour%20Monde%20et%20Bonheur%20%F0%9F%8C%8D%20Je%20souhaite%20faire%20un%20don%20et%20j%E2%80%99ai%20besoin%20d%E2%80%99assistance.%20Pouvez-vous%20m%E2%80%99aider%20%3F"
+   target="_blank" rel="noopener" aria-label="Assistance WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <div class="wa-txt">
+    <span class="fr">Assistance don</span><span class="en">Donation help</span>
+    <span class="fr">Réponse en quelques minutes</span><span class="en">Reply in minutes</span>
+  </div>
+</a>
+
+
+
+<!-- ═══ HERO ═══ -->
+<section class="hero">
+  <div class="hero-badge"><div class="pdot"></div><span class="fr">CHAQUE DON EST TRAÇABLE · RAPPORT D'IMPACT NOMINATIF</span><span class="en">EVERY DONATION IS TRACEABLE · NAMED IMPACT REPORT</span></div>
+  <h1 class="fr">Votre don construit<br>quelque chose de <em>réel</em>.</h1>
+  <h1 class="en">Your gift builds<br>something <em>real</em>.</h1>
+  <p class="fr">Pas une promesse. Une cuisinière. Une école. Une vie changée. Nous vous montrons exactement ce que votre argent a construit.</p>
+  <p class="en">Not a promise. A cooker. A school. A life changed. We show you exactly what your money built.</p>
+  <div class="lc">
+    <div class="lcb"><span class="lcn" id="cnt-d">1 247</span><div class="lcl fr">Donateurs 2025</div><div class="lcl en">2025 donors</div></div>
+    <div class="lcb"><span class="lcn" id="cnt-c">384</span><div class="lcl fr">Cuisinières financées</div><div class="lcl en">Cookers funded</div></div>
+    <div class="lcb"><span class="lcn" id="cnt-e">2 140</span><div class="lcl fr">Enfants bénéficiaires</div><div class="lcl en">Children benefited</div></div>
+    <div class="lcb"><span class="lcn">96%</span><div class="lcl fr">Fonds sur le terrain</div><div class="lcl en">Funds to the field</div></div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="tkw" aria-hidden="true"><div class="tk">
+  <span class="tki"><strong>Aminata S.</strong> (Paris) <span class="fr">vient de donner</span><span class="en">just gave</span> <strong>50€</strong><span class="tsep">·</span></span>
+  <span class="tki"><strong class="fr">Un donateur anonyme</strong><strong class="en">An anonymous donor</strong> <span class="fr">a financé 3 cuisinières</span><span class="en">funded 3 cookers</span><span class="tsep">·</span></span>
+  <span class="tki"><strong>Jean-Paul K.</strong> (Lyon) <strong>30€/mois</strong> · 12 mois<span class="tsep">·</span></span>
+  <span class="tki fr">🪙 14 dons <strong>AKL Lumi</strong> reçus ce mois<span class="tsep">·</span></span>
+  <span class="tki en">🪙 14 <strong>AKL Lumi</strong> donations this month<span class="tsep">·</span></span>
+  <span class="tki">₿ <span class="fr">Don crypto reçu :</span><span class="en">Crypto donation received:</span> <strong>0.0015 BTC</strong><span class="tsep">·</span></span>
+  <span class="tki"><strong>384 familles</strong> <span class="fr">ont une cuisinière propre</span><span class="en">have a clean cooker</span><span class="tsep">·</span></span>
+  <!-- Duplicate pour boucle -->
+  <span class="tki"><strong>Aminata S.</strong> (Paris) <span class="fr">vient de donner</span><span class="en">just gave</span> <strong>50€</strong><span class="tsep">·</span></span>
+  <span class="tki"><strong class="fr">Un donateur anonyme</strong><strong class="en">An anonymous donor</strong> <span class="fr">a financé 3 cuisinières</span><span class="en">funded 3 cookers</span><span class="tsep">·</span></span>
+  <span class="tki"><strong>Jean-Paul K.</strong> (Lyon) <strong>30€/mois</strong> · 12 mois<span class="tsep">·</span></span>
+  <span class="tki fr">🪙 14 dons <strong>AKL Lumi</strong> reçus ce mois<span class="tsep">·</span></span>
+  <span class="tki en">🪙 14 <strong>AKL Lumi</strong> donations this month<span class="tsep">·</span></span>
+  <span class="tki">₿ <span class="fr">Don crypto reçu :</span><span class="en">Crypto donation received:</span> <strong>0.0015 BTC</strong><span class="tsep">·</span></span>
+  <span class="tki"><strong>384 familles</strong> <span class="fr">ont une cuisinière propre</span><span class="en">have a clean cooker</span><span class="tsep">·</span></span>
+</div></div>
+
+<!-- ═══ MAIN ═══ -->
+<div class="main" id="don-form">
+
+  <!-- ══ GAUCHE ══ -->
+  <div class="left">
+    <!-- Bandeau devise détectée automatiquement -->
+    <div class="dbanner" id="dbanner">
+      🌍 <span class="fr">Devise détectée : <strong id="dname-fr">Euro (EUR)</strong></span>
+      <span class="en">Currency detected: <strong id="dname-en">Euro (EUR)</strong></span>
+      <span class="dchange fr" onclick="document.getElementById('devisePicker').focus()">Changer ↓</span>
+      <span class="dchange en" onclick="document.getElementById('devisePicker').focus()">Change ↓</span>
+       <!-- Sélecteur devise manuel — fallback si détection IP échoue -->
+        <span
+        <a href="change" class="dsel">
+    <select class="dsel" id="devisePicker" onchange="setDeviseManuellement(this.value)" aria-label="Devise">
+      <option value="EUR">€ EUR</option>
+      <option value="XAF">FCFA XAF</option>
+      <option value="USD">$ USD</option>
+      <option value="GBP">£ GBP</option>
+      <option value="CAD">CA$ CAD</option>
+      <option value="CHF">CHF</option>
+      <option value="AKL">🪙 AKL</option>
+    </select>
+</a>
+
+    </div>
+
+    <div class="lbl"><span class="fr">Choisissez votre impact</span><span class="en">Choose your impact</span></div>
+    <h2 class="fr">Ce que votre don construit</h2>
+    <h2 class="en">What your donation builds</h2>
+    <p class="fr">Chaque montant correspond à une action précise sur le terrain. Vous voyez exactement ce que vous financez.</p>
+    <p class="en">Every amount corresponds to a precise field action. You see exactly what you're funding.</p>
+
+    <div class="mg" id="mgrid"><!-- Injectés par JS --></div>
+
+    <div class="mlibre">
+      <label class="fr">Autre montant :</label><label class="en">Other amount:</label>
+      <div class="idev"><span class="dpfx" id="dpfx">€</span><input type="number" id="ilib" placeholder="0" min="1" oninput="onLibre(this.value)"></div>
+    </div>
+
+    <div class="idyn">
+      <h4><span class="fr">Avec <span id="ival-fr" style="color:var(--o)">50€</span> vous financez :</span><span class="en">With <span id="ival-en" style="color:var(--o)">€50</span> you fund:</span></h4>
+      <div id="iitems" style="display:flex;flex-direction:column;gap:.5rem"></div>
+    </div>
+
+    <div class="lbl"><span class="fr">Fréquence</span><span class="en">Frequency</span></div>
+    <div class="rg" style="margin-bottom:1.8rem">
+      <button class="rb" id="r-ponc" onclick="setRec('ponctuel')"><span class="fr">Don unique</span><span class="en">One-time</span></button>
+      <button class="rb active" id="r-mens" onclick="setRec('mensuel')">🔄 <span class="fr">Mensuel</span><span class="en">Monthly</span></button>
+      <button class="rb" id="r-ann" onclick="setRec('annuel')"><span class="fr">Annuel</span><span class="en">Annual</span></button>
+    </div>
+
+    <div class="lbl"><span class="fr">Mode de paiement</span><span class="en">Payment method</span></div>
+    <div class="pm-tabs">
+      <button class="pt active" onclick="setPM('card',this)">💳 <span class="fr">Carte</span><span class="en">Card</span></button>
+      <button class="pt" onclick="setPM('sepa',this)">🏦 SEPA</button>
+      <button class="pt" onclick="setPM('mobile',this)">📱 Mobile Money</button>
+      <button class="pt" onclick="setPM('paypal',this)">🟡 PayPal</button>
+      <button class="pt cp" onclick="setPM('crypto',this)">₿ Crypto</button>
+      <button class="pt ak" onclick="setPM('akl',this)">🪙 AKL Lumi</button>
+      <button class="pt" onclick="setPM('cheque',this)">📨 <span class="fr">Chèque</span><span class="en">Cheque</span></button>
+    </div>
+
+    <!-- Infos paiement — 1 visible à la fois -->
+    <div id="p-card" class="pinfo" style="margin-bottom:1.8rem">
+      <strong class="fr">💳 Carte bancaire — via Stripe</strong><strong class="en">💳 Card payment — via Stripe</strong>
+      <span class="fr">Paiement sécurisé 3D Secure. Visa, Mastercard, Amex, Apple Pay, Google Pay.<br><em style="color:var(--tp)">Intégration Stripe : remplacer le alert() dans handleDon() par stripe.redirectToCheckout(). Voir commentaires HTML.</em></span>
+      <span class="en">Secure 3D Secure payment. Visa, Mastercard, Amex, Apple Pay, Google Pay.<br><em style="color:var(--tp)">Stripe integration: replace the alert() in handleDon() with stripe.redirectToCheckout(). See HTML comments.</em></span>
+    </div>
+    <div id="p-sepa" class="pinfo" style="display:none;margin-bottom:1.8rem">
+      <strong>🏦 SEPA / <span class="fr">Virement bancaire</span><span class="en">Bank transfer</span></strong>
+      <span class="fr">IBAN : <code>FR76 XXXX XXXX XXXX XXXX XXXX XXX</code> (remplacer par le vrai IBAN MB)<br>BIC : <code>BNPAFRPPXXX</code> · Référence : <code>DON-MB-2026</code></span>
+      <span class="en">IBAN: <code>FR76 XXXX XXXX XXXX XXXX XXXX XXX</code> (replace with real MB IBAN)<br>BIC: <code>BNPAFRPPXXX</code> · Reference: <code>DON-MB-2026</code></span>
+    </div>
+    <div id="p-mobile" class="pinfo" style="display:none;margin-bottom:1.8rem">
+      <strong>📱 Mobile Money</strong>
+      <span class="fr">MTN Mobile Money / Orange Money : <code>+237 682 18 03 63</code><br>Ou via <a href="https://flutterwave.com" target="_blank">Flutterwave</a> (intégration API).<br><em style="color:var(--tp)">Pour intégrer : compte Flutterwave → clé <code>FLWPUBK_live_xxx</code> → FlutterwaveCheckout()</em></span>
+      <span class="en">MTN Mobile Money / Orange Money: <code>+237 682 18 03 63</code><br>Or via <a href="https://flutterwave.com" target="_blank">Flutterwave</a> (API integration).<br><em style="color:var(--tp)">To integrate: Flutterwave account → key <code>FLWPUBK_live_xxx</code> → FlutterwaveCheckout()</em></span>
+    </div>
+    <div id="p-paypal" class="pinfo" style="display:none;margin-bottom:1.8rem">
+      <strong>🟡 PayPal</strong>
+      <span class="fr">Email PayPal : <code>courrielmondeetbonheur@gmail.com</code><br><em style="color:var(--tp)">Ou bouton SDK : <code>&lt;script src="https://www.paypal.com/sdk/js?client-id=CLIENT_ID"&gt;</code></em></span>
+      <span class="en">PayPal email: <code>courrielmondeetbonheur@gmail.com</code><br><em style="color:var(--tp)">Or SDK button: <code>&lt;script src="https://www.paypal.com/sdk/js?client-id=CLIENT_ID"&gt;</code></em></span>
+    </div>
+    <div id="p-crypto" class="pinfo cri" style="display:none;margin-bottom:1.8rem">
+      <strong>₿ Crypto — <span class="fr">via Coinbase Commerce (0% commission)</span><span class="en">via Coinbase Commerce (0% fee)</span></strong>
+      <span class="fr">BTC : <code>bc1q...VOTRE_ADRESSE</code><br>ETH : <code>0x...VOTRE_ADRESSE</code><br>USDT (TRC20) : <code>T...VOTRE_ADRESSE</code><br><em style="color:var(--tp)">Intégration : compte commerce.coinbase.com → Checkout → URL à coller dans le bouton ci-dessous</em></span>
+      <span class="en">BTC: <code>bc1q...YOUR_ADDRESS</code><br>ETH: <code>0x...YOUR_ADDRESS</code><br>USDT (TRC20): <code>T...YOUR_ADDRESS</code><br><em style="color:var(--tp)">Integration: commerce.coinbase.com account → Checkout → paste URL in button below</em></span>
+      <!-- REMPLACER L'URL par votre vrai Coinbase Commerce Checkout ID -->
+      <a href="https://commerce.coinbase.com/checkout/VOTRE_CHECKOUT_ID" target="_blank" class="pinfo-btn" style="background:var(--crypto)">₿ <span class="fr">Payer en crypto →</span><span class="en">Pay with crypto →</span></a>
+    </div>
+    <div id="p-akl" class="pinfo aki" style="display:none;margin-bottom:1.8rem">
+      <strong>🪙 AKL Lumi — <span class="fr">Monnaie numérique de la diaspora africaine</span><span class="en">African diaspora digital currency</span></strong>
+      <span class="fr">1 AKL ≈ 15.96 USD · Indexé sur 4 grains d'or 24k · Émis par l'African Diaspora Central Bank.<br>Plateforme : <a href="https://hanypay.io" target="_blank">HanyPay</a> · <a href="https://connect.swifin.com" target="_blank">Swifin</a><br>Identifiant MB : <code>mondeetbonheur@hanypay</code> (à créer)<br><em style="color:var(--tp)">En attendant l'intégration, nous contacter via WhatsApp pour confirmer la réception.</em></span>
+      <span class="en">1 AKL ≈ USD 15.96 · Pegged to 4 grains of 24k gold · Issued by the African Diaspora Central Bank.<br>Platform: <a href="https://hanypay.io" target="_blank">HanyPay</a> · <a href="https://connect.swifin.com" target="_blank">Swifin</a><br>MB identifier: <code>mondeetbonheur@hanypay</code> (to be created)<br><em style="color:var(--tp)">While integration is pending, contact us via WhatsApp to confirm receipt.</em></span>
+      <a href="https://wa.me/237682180363?text=Je%20veux%20faire%20un%20don%20en%20AKL%20Lumi" target="_blank" class="pinfo-btn" style="background:var(--akl)">🪙 <span class="fr">Contacter pour AKL →</span><span class="en">Contact for AKL →</span></a>
+    </div>
+    <div id="p-cheque" class="pinfo" style="display:none;margin-bottom:1.8rem">
+      <strong class="fr">📨 Chèque</strong><strong class="en">📨 Cheque</strong>
+      <span class="fr">À l'ordre de : <code>ONG Monde et Bonheur</code><br>Adresse : 3 Clos des Chabrats, 24650 Chancelade, France<br>Joindre votre email pour recevoir le reçu fiscal.</span>
+      <span class="en">Payable to: <code>ONG Monde et Bonheur</code><br>Address: 3 Clos des Chabrats, 24650 Chancelade, France<br>Include your email to receive the fiscal receipt.</span>
+    </div>
+
+    <div class="lbl"><span class="fr">Affecter mon don à (optionnel)</span><span class="en">Direct my gift to (optional)</span></div>
+    <div class="ag">
+      <label class="ac sel" onclick="selAff(this)"><input type="radio" name="aff" checked><div><div class="al">🎯 <span class="fr">Là où le besoin est le plus urgent</span><span class="en">Where need is greatest</span></div><div class="as fr">MB décide l'affectation optimale</div><div class="as en">MB decides optimal allocation</div></div></label>
+      <label class="ac" onclick="selAff(this)"><input type="radio" name="aff"><div><div class="al">🔥 <span class="fr">Cuisinières</span><span class="en">Cookers</span></div><div class="as fr">Déforestation + fumée</div><div class="as en">Deforestation + smoke</div></div></label>
+      <label class="ac" onclick="selAff(this)"><input type="radio" name="aff"><div><div class="al">📚 <span class="fr">Éducation</span><span class="en">Education</span></div><div class="as fr">Baka + MetaScript</div><div class="as en">Baka + MetaScript</div></div></label>
+      <label class="ac" onclick="selAff(this)"><input type="radio" name="aff"><div><div class="al">👩 <span class="fr">Femmes entrepreneures</span><span class="en">Women entrepreneurs</span></div><div class="as fr">Formation + équipements</div><div class="as en">Training + equipment</div></div></label>
+    </div>
+  </div>
+
+  <!-- ══ DROITE ══ -->
+  <div>
+    <div class="scard">
+      <div class="fc">
+        <div class="fh">
+          <div class="fht fr">Mon don sécurisé</div><div class="fht en">My secure gift</div>
+          <div class="fha"><div class="fhan" id="d-montant">50€</div><div class="fhal" id="d-freq">/ mois</div></div>
+        </div>
+        <div class="fb">
+
+          <!-- ═══ ANONYMAT ════════════════════════════════════
+            Si coché : prénom/nom désactivés, valeur = "Anonyme"
+            Email toujours requis pour le reçu fiscal (RGPD)
+            Ticker/rapports publics : "Un donateur anonyme"
+          ══════════════════════════════════════════════════ -->
+          <div class="abox" id="abox">
+            <label class="alabel">
+              <input type="checkbox" id="acb" onchange="toggleAnon(this.checked)">
+              🎭 <span class="fr">Je souhaite rester anonyme</span><span class="en">I wish to remain anonymous</span>
+            </label>
+            <div class="anote" id="anote">
+              <span class="fr">Votre nom ne sera jamais publié. Email privé (reçu fiscal uniquement — obligation légale).</span>
+              <span class="en">Your name will never be published. Email private (fiscal receipt only — legal requirement).</span>
+            </div>
+          </div>
+
+          <div class="fgr">
+            <div class="fg"><label class="fr">Prénom *</label><label class="en">First name *</label><input type="text" id="f-prenom" placeholder="Hermine" autocomplete="given-name"></div>
+            <div class="fg"><label class="fr">Nom *</label><label class="en">Last name *</label><input type="text" id="f-nom" placeholder="Batjom" autocomplete="family-name"></div>
+          </div>
+          <div class="fg">
+            <label class="fr">Email * <span style="font-weight:400;opacity:.7">(reçu fiscal)</span></label>
+            <label class="en">Email * <span style="font-weight:400;opacity:.7">(receipt)</span></label>
+            <input type="email" id="f-email" placeholder="vous@email.com" autocomplete="email">
+          </div>
+          <div class="fg">
+            <label class="fr">Pays de résidence</label><label class="en">Country</label>
+            <select id="f-pays" onchange="onPays(this.value)">
+              <option value="FR" data-d="EUR">🇫🇷 France</option>
+              <option value="CM" data-d="XAF">🇨🇲 Cameroun</option>
+              <option value="BE" data-d="EUR">🇧🇪 Belgique</option>
+              <option value="CH" data-d="CHF">🇨🇭 Suisse</option>
+              <option value="CA" data-d="CAD">🇨🇦 Canada</option>
+              <option value="GB" data-d="GBP">🇬🇧 Royaume-Uni</option>
+              <option value="US" data-d="USD">🇺🇸 États-Unis</option>
+              <option value="GA" data-d="XAF">🇬🇦 Gabon</option>
+              <option value="CG" data-d="XAF">🇨🇬 Congo</option>
+              <option value="TD" data-d="XAF">🇹🇩 Tchad</option>
+              <option value="NG" data-d="USD">🇳🇬 Nigéria</option>
+              <option value="RW" data-d="USD">🇷🇼 Rwanda</option>
+              <option value="OTHER" data-d="USD">🌍 Autre</option>
+            </select>
+          </div>
+          <label class="cbl"><input type="checkbox" checked><span class="fr">Rapport d'impact photographié sous 60 jours.</span><span class="en">Photographed impact report within 60 days.</span></label>
+          <label class="cbl"><input type="checkbox"><span class="fr">Figurer dans le Registre des Donateurs 2026.</span><span class="en">Appear in the 2026 Donor Register.</span></label>
+          <label class="cbl"><input type="checkbox" checked><span class="fr">Recevoir les actualités MB (max 1/mois).</span><span class="en">Receive MB news (max 1/month).</span></label>
+
+          <!--
+            ═══════════════════════════════════════════════════
+            BOUTON DON — CONNEXION STRIPE
+            ───────────────────────────────────────────────────
+            OPTION 1 — Payment Link (sans serveur, le plus rapide) :
+              Remplacer alert() par :
+              window.location.href = 'https://buy.stripe.com/VOTRE_LIEN';
+
+            OPTION 2 — Stripe Checkout (avec serveur Node.js/PHP) :
+              const stripe = Stripe('pk_live_VOTRE_CLE');
+              const res = await fetch('/api/create-session', {
+                method:'POST',
+                body: JSON.stringify({amount: montantEUR*100, currency:'eur', mode: recCourante==='ponctuel'?'payment':'subscription'})
+              });
+              const {sessionId} = await res.json();
+              stripe.redirectToCheckout({sessionId});
+            ═══════════════════════════════════════════════════
+          -->
+          <button class="bdf" onclick="handleDon()">
+            ❤️ <span><span class="fr">Faire mon don de</span><span class="en">Make my gift of</span> <span class="ba" id="b-montant">50€</span></span>
+          </button>
+          <div class="sn">🔒 <span class="fr">Paiement sécurisé · Reçu fiscal sous 24h</span><span class="en">Secure payment · Receipt in 24h</span></div>
+        </div>
+        <div class="cbdg">
+          <span class="cb">✓ MINATD</span><span class="cb">✓ FORIM</span><span class="cb">✓ MINREX</span>
+          <span class="cb fr">✓ 96% TERRAIN</span><span class="cb en">✓ 96% FIELD</span>
+          <span class="cb">✓ RGPD</span>
+        </div>
+      </div>
+
+      <!-- Témoignages -->
+      <div class="sp">
+        <div class="spt fr">Ce que disent nos donateurs</div><div class="spt en">What our donors say</div>
+        <div class="ti">
+          <div class="tiq fr">"J'envoie 30€/mois depuis 2 ans. Chaque trimestre, une photo. Je vois exactement l'école se construire."</div>
+          <div class="tiq en">"I've sent €30/month for 2 years. Every quarter, a photo. I can see the school being built."</div>
+          <div class="tia"><div class="tav">A</div><div><div class="tn">Aminata S.</div><div class="tr fr">Diaspora · Paris</div><div class="tr en">Diaspora · Paris</div></div><div class="st">★★★★★</div></div>
+        </div>
+        <div class="ti">
+          <div class="tiq fr">"J'ai choisi de rester anonyme. MB m'a quand même envoyé mon rapport d'impact. Discrétion totale, impact réel."</div>
+          <div class="tiq en">"I chose to remain anonymous. MB still sent my personalised impact report. Total discretion, real impact."</div>
+          <div class="tia"><div class="tav">🎭</div><div><div class="tn fr">Donateur anonyme</div><div class="tn en">Anonymous donor</div><div class="tr fr">Suisse · AKL Lumi</div><div class="tr en">Switzerland · AKL Lumi</div></div><div class="st">★★★★★</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- IMPACT CARDS -->
+<section class="isec">
+  <div class="in">
+    <div class="lbl" style="text-align:center"><span class="fr">La preuve par les chiffres</span><span class="en">Proof by numbers</span></div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.5rem);font-weight:700;text-align:center;margin-bottom:.5rem"><span class="fr">Chaque euro a un visage</span><span class="en">Every euro has a face</span></h2>
+    <p style="text-align:center;color:var(--td);font-size:15px;max-width:520px;margin:0 auto;line-height:1.7"><span class="fr">Ce que les dons de notre communauté ont construit en 2025.</span><span class="en">What our community's donations built in 2025.</span></p>
+    <div class="icg">
+      <div class="icc reveal"><img class="icim" src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=400&q=70" alt="" loading="lazy" onerror="this.style.display='none'"><div class="icb"><div class="icv" id="icv1">30€</div><div class="iceq fr">= UNE CUISINIÈRE</div><div class="iceq en">= ONE COOKER</div><div class="icr fr">1 famille libérée de la fumée</div><div class="icr en">1 family freed from smoke</div><div class="icd fr">5 tonnes de bois/an · 3h/jour gagnées</div><div class="icd en">5 tonnes wood/yr · 3h daily gained</div><button class="icta" onclick="selectM(30);sForm()"><span class="fr">Financer</span><span class="en">Fund this</span></button></div></div>
+      <div class="icc reveal"><img class="icim" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=400&q=70" alt="" loading="lazy" onerror="this.style.display='none'"><div class="icb"><div class="icv" id="icv2">50€</div><div class="iceq fr">= 1 MOIS PARRAINAGE</div><div class="iceq en">= 1 MONTH SPONSORSHIP</div><div class="icr fr">1 enfant : école + repas + suivi</div><div class="icr en">1 child: school + meals + support</div><div class="icd fr">Nouvelles de l'enfant chaque trimestre</div><div class="icd en">Child updates every quarter</div><button class="icta" onclick="selectM(50);sForm()"><span class="fr">Parrainer</span><span class="en">Sponsor</span></button></div></div>
+      <div class="icc reveal"><img class="icim" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&q=70" alt="" loading="lazy" onerror="this.style.display='none'"><div class="icb"><div class="icv" id="icv3">100€</div><div class="iceq fr">= METASCRIPT 1 MOIS</div><div class="iceq en">= METASCRIPT 1 MONTH</div><div class="icr fr">20 enfants formés au code</div><div class="icr en">20 children trained in coding</div><div class="icd fr">+28% en Physique-Chimie · hors-ligne</div><div class="icd en">+28% in Physics-Chem · offline</div><button class="icta" onclick="selectM(100);sForm()"><span class="fr">Former</span><span class="en">Train</span></button></div></div>
+      <div class="icc reveal"><img class="icim" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&q=70" alt="" loading="lazy" onerror="this.style.display='none'"><div class="icb"><div class="icv" id="icv4">250€</div><div class="iceq fr">= 1 UNITÉ BIOGAZ</div><div class="iceq en">= 1 BIOGAS UNIT</div><div class="icr fr">1 famille : énergie propre + engrais</div><div class="icr en">1 family: clean energy + fertiliser</div><div class="icd fr">Déchets → biogaz + digestat</div><div class="icd en">Waste → biogas + digestate</div><button class="icta" onclick="selectM(250);sForm()"><span class="fr">Offrir</span><span class="en">Give</span></button></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- BAROMÈTRE -->
+<section class="bs"><div class="in">
+  <div class="blbl"><span class="fr">OBJECTIF NOVEMBRE 2026</span><span class="en">NOVEMBER 2026 TARGET</span></div>
+  <h2 class="bt fr">Gala de l'Impact — 500 Millions FCFA</h2><h2 class="bt en">Impact Gala — 500 Million FCFA</h2>
+  <p class="bsub fr">Chaque don rapproche cet objectif. Voici où nous en sommes.</p><p class="bsub en">Every donation brings this goal closer. Here's where we stand.</p>
+  <div class="btr"><div class="bf" id="bfill"></div></div>
+  <div class="bll"><span>0</span><span><strong>22%</strong> <span class="fr">atteint</span><span class="en">reached</span></span><span>500 M FCFA</span></div>
+  <div class="bng">
+    <div class="bn reveal"><span class="bnv">110M</span><div class="bnl fr">FCFA collectés</div><div class="bnl en">FCFA raised</div></div>
+    <div class="bn reveal"><span class="bnv">247</span><div class="bnl fr">Partenaires confirmés</div><div class="bnl en">Confirmed partners</div></div>
+    <div class="bn reveal"><span class="bnv">8</span><div class="bnl fr">Mois restants</div><div class="bnl en">Months remaining</div></div>
+  </div>
+  <button class="btn-baro" onclick="sForm()">❤️ <span class="fr">Je rejoins le mouvement</span><span class="en">I join the movement</span></button>
+</div></section>
+
+<!-- FAQ -->
+<section class="fqs"><div class="in">
+  <div class="lbl" style="text-align:center">FAQ</div>
+  <h2 style="font-family:'Playfair Display',serif;font-size:2rem;font-weight:700;text-align:center;margin-bottom:2rem"><span class="fr">Vos questions sur le don</span><span class="en">Your donation questions</span></h2>
+  <div class="fi"><button class="fq" onclick="tFaq(this)"><span class="fqt fr">Puis-je donner dans ma devise locale ?</span><span class="fqt en">Can I donate in my local currency?</span><span class="fqi">+</span></button><div class="fa fr">Oui. EUR, FCFA, USD, GBP, CAD, CHF et AKL Lumi. La devise est détectée automatiquement selon votre IP, mais vous pouvez la changer via le menu en haut. Pour les dons en AKL Lumi, contactez-nous via WhatsApp ou via HanyPay.</div><div class="fa en">Yes. EUR, FCFA, USD, GBP, CAD, CHF and AKL Lumi. Currency is auto-detected by IP but you can change it via the header menu. For AKL Lumi donations, contact us via WhatsApp or HanyPay.</div></div>
+  <div class="fi"><button class="fq" onclick="tFaq(this)"><span class="fqt fr">Comment fonctionne l'option "rester anonyme" ?</span><span class="fqt en">How does the "remain anonymous" option work?</span><span class="fqi">+</span></button><div class="fa fr">Votre nom n'apparaît jamais publiquement (site, ticker, rapports). Nous affichons "Un donateur anonyme". Votre email est requis pour le reçu fiscal (obligation légale RGPD) mais reste strictement confidentiel. Votre rapport d'impact vous est quand même envoyé.</div><div class="fa en">Your name never appears publicly (website, ticker, reports). We display "An anonymous donor". Your email is required for the fiscal receipt (GDPR legal obligation) but remains strictly confidential. Your impact report is still sent to you.</div></div>
+  <div class="fi"><button class="fq" onclick="tFaq(this)"><span class="fqt fr">Puis-je donner en crypto ou en AKL Lumi ?</span><span class="fqt en">Can I donate in crypto or AKL Lumi?</span><span class="fqi">+</span></button><div class="fa fr">Oui. Crypto via Coinbase Commerce (Bitcoin, Ethereum, USDT — aucun compte Coinbase requis). AKL Lumi via HanyPay ou WhatsApp. 1 AKL ≈ 15.96 USD, indexé sur 4 grains d'or 24k.</div><div class="fa en">Yes. Crypto via Coinbase Commerce (Bitcoin, Ethereum, USDT — no Coinbase account needed). AKL Lumi via HanyPay or WhatsApp. 1 AKL ≈ USD 15.96, pegged to 4 grains of 24k gold.</div></div>
+  <div class="fi"><button class="fq" onclick="tFaq(this)"><span class="fqt fr">Mon don est-il déductible des impôts ?</span><span class="fqt en">Is my donation tax-deductible?</span><span class="fqi">+</span></button><div class="fa fr">En France : 66% de réduction d'impôt (dans la limite de 20% du revenu imposable). Reçu fiscal émis sous 24h. Pour les autres pays, vérifier avec votre administration fiscale locale. L'anonymat ne supprime pas le droit au reçu fiscal.</div><div class="fa en">In France: 66% tax reduction (up to 20% of taxable income). Receipt issued within 24h. For other countries, check with your local tax authority. The anonymity option does not affect the right to a fiscal receipt.</div></div>
+  <div class="fi"><button class="fq" onclick="tFaq(this)"><span class="fqt fr">Puis-je annuler mon don mensuel ?</span><span class="fqt en">Can I cancel my monthly donation?</span><span class="fqi">+</span></button><div class="fa fr">Oui, à tout moment, sans frais, par email à courrielmondeetbonheur@gmail.com ou via WhatsApp. Aucune pénalité.</div><div class="fa en">Yes, at any time, free of charge, by emailing courrielmondeetbonheur@gmail.com or via WhatsApp. No penalties.</div></div>
+</div></section>
+
+<!-- PS -->
+<section class="ps">
+  <p class="fr"><strong>P.S. —</strong> Si vous attendez le "bon moment", sachez que chaque jour, une famille brûle encore du bois et un enfant apprend la chimie sans éprouvette. <strong>Le bon moment, c'est maintenant.</strong></p>
+  <p class="en"><strong>P.S. —</strong> If you're waiting for the "right moment", know that every day, a family still burns firewood and a child learns chemistry without a test tube. <strong>The right moment is now.</strong></p>
+  <button class="bps" onclick="sForm()">❤️ <span class="fr">Faire mon don maintenant</span><span class="en">Make my gift now</span></button>
+</section>
+
+<script>
+/* ═══════════════════════════════════
+   CONFIG DEVISES
+   Pour ajouter une devise : ajouter
+   une entrée avec sym, name, rates, toEUR
+═══════════════════════════════════ */
+const DEV = {
+  EUR:{sym:'€',name:{fr:'Euro (EUR)',en:'Euro (EUR)'},pfx:'€',rates:[15,30,50,100,250,500],toEUR:1},
+  XAF:{sym:'FCFA',name:{fr:'FCFA (XAF)',en:'FCFA (XAF)'},pfx:'FCFA',rates:[10000,20000,33000,65000,165000,330000],toEUR:1/655.957},
+  USD:{sym:'$',name:{fr:'Dollar USD',en:'US Dollar'},pfx:'$',rates:[15,30,50,100,260,530],toEUR:0.92},
+  GBP:{sym:'£',name:{fr:'Livre sterling',en:'Pound sterling'},pfx:'£',rates:[12,25,42,85,215,430],toEUR:1.17},
+  CAD:{sym:'CA$',name:{fr:'Dollar canadien',en:'Canadian Dollar'},pfx:'CA$',rates:[20,40,65,130,325,660],toEUR:0.68},
+  CHF:{sym:'CHF',name:{fr:'Franc suisse',en:'Swiss Franc'},pfx:'CHF',rates:[14,28,47,94,235,470],toEUR:1.04},
+  AKL:{sym:'AKL',name:{fr:'AKL Lumi',en:'AKL Lumi'},pfx:'AKL',rates:[1,2,3,6,16,32],toEUR:14.7}
+};
+const PAYS_DEV = {FR:'EUR',BE:'EUR',IT:'EUR',ES:'EUR',DE:'EUR',NL:'EUR',PT:'EUR',AT:'EUR',FI:'EUR',LU:'EUR',CM:'XAF',GA:'XAF',CG:'XAF',TD:'XAF',CF:'XAF',GQ:'XAF',GB:'GBP',US:'USD',CA:'CAD',CH:'CHF',AU:'USD',NG:'USD',GH:'USD',KE:'USD',RW:'USD',SN:'XAF',CI:'XAF'};
+
+let dCur='EUR', mEUR=50, rec='mensuel', anon=false;
+
+/* Données impact par seuil EUR */
+const IMP={
+  fr:{10:["💻 Session MetaScript pour 3 enfants.","📊 Rapport sous 30 jours.","🌍 Nom dans la newsletter MB."],
+      15:["📚 MetaScript pour 5 enfants.","📊 Rapport sous 30 jours.","🌍 Nom dans la newsletter MB."],
+      25:["🌱 Demi-mois de parrainage enfant.","🌳 Contribution kit scolaire complet.","📊 Actualité terrain sous 30 jours."],
+      30:["🔥 1 cuisinière pour 1 famille — fin de la fumée toxique.","🌳 5 tonnes de bois économisées sur 10 ans.","📊 Photo de la famille bénéficiaire sous 60 jours."],
+      50:["🌱 Parrainage d'1 enfant pendant 1 mois — école, repas, suivi.","📊 Rapport d'impact photographié sous 60 jours.","🌍 Nom dans le registre des donateurs 2026."],
+      100:["💻 20 enfants formés à MetaScript pendant 1 mois.","📈 +28% en Physique-Chimie (lycées pilotes 2025).","📊 Rapport avec photos des sessions sous 60 jours."],
+      200:["🔥 6 cuisinières pour 6 familles.","🌳 30 tonnes de bois économisées. 3 hectares préservés.","📊 Rapport d'impact groupé avec photos."],
+      250:["♻️ 1 unité biogaz domestique pour 1 famille rurale.","🌱 Déchets → biogaz (cuisson) + digestat (cultures).","📊 Rapport technique avec photos de l'installation."],
+      500:["⚡ 1 séchoir Flash pour 1 coopérative de femmes.","📦 +40% valeur marchande des récoltes. Indépendance météo.","📊 Suivi trimestriel + rapport annuel."]},
+  en:{10:["💻 MetaScript session for 3 children.","📊 Progress report within 30 days.","🌍 Name in MB monthly newsletter."],
+      15:["📚 MetaScript for 5 children.","📊 Progress report within 30 days.","🌍 Name in MB monthly newsletter."],
+      25:["🌱 Half a month's sponsorship for one child.","🌳 Contribution to 1 complete school kit.","📊 Field news within 30 days."],
+      30:["🔥 1 eco-cooker for 1 family — end of daily toxic smoke.","🌳 5 tonnes of wood saved over 10 years.","📊 Photo of beneficiary family within 60 days."],
+      50:["🌱 Sponsorship of 1 child for 1 month — school, meals, support.","📊 Photographed impact report within 60 days.","🌍 Name in the 2026 donor register."],
+      100:["💻 20 children trained in MetaScript for 1 month.","📈 +28% in Physics-Chemistry (2025 pilot schools).","📊 Report with session photos within 60 days."],
+      200:["🔥 6 cookers for 6 families.","🌳 30 tonnes of wood saved. 3 hectares preserved.","📊 Group impact report with photos."],
+      250:["♻️ 1 domestic biogas unit for 1 rural family.","🌱 Waste → biogas (cooking) + digestate (crops).","📊 Technical report with installation photos."],
+      500:["⚡ 1 Flash Dryer for 1 women's cooperative.","📦 +40% market value on harvests. Total weather independence.","📊 Quarterly follow-up + annual report."]}
+};
+const IMP_LBLS={fr:['📚 MetaScript · 5 enfants','🔥 1 Cuisinière','🌱 Parrainage 1 mois','💻 20 enfants formés','♻️ Biogaz domestique','⚡ Séchoir Flash'],
+                en:['📚 MetaScript · 5 kids','🔥 1 Eco-cooker','🌱 1-month sponsorship','💻 20 children trained','♻️ Domestic biogas','⚡ Flash Dryer']};
+
+/* ── Détection IP ── */
+async function detectDev(){
+  try{
+    /* API ipapi.co — gratuit 1000/j. Pour prod : clé payante ou ip-api.com */
+    const r=await fetch('https://ipapi.co/json/');
+    const d=await r.json();
+    if(DEV[d.currency]) appDev(d.currency);
+    else appDev('EUR');
+    if(d.country_code){
+      const s=document.getElementById('f-pays');
+      if(s) for(let i=0;i<s.options.length;i++) if(s.options[i].value===d.country_code){s.selectedIndex=i;break;}
+    }
+  }catch(e){appDev('EUR');}
+}
+
+function appDev(code){
+  if(!DEV[code]) return;
+  dCur=code;
+  const d=DEV[code],l=getLang();
+  const p=document.getElementById('devisePicker');
+  if(p) for(let i=0;i<p.options.length;i++) if(p.options[i].value===code){p.selectedIndex=i;break;}
+  const pfx=document.getElementById('dpfx');
+  if(pfx) pfx.textContent=d.pfx;
+  const nfr=document.getElementById('dname-fr'),nen=document.getElementById('dname-en');
+  if(nfr) nfr.textContent=d.name.fr;
+  if(nen) nen.textContent=d.name.en;
+  genMontants(code);
+  updateCards(code);
+}
+
+function setDeviseManuellement(code){appDev(code);}
+
+function onPays(v){
+  const s=document.getElementById('f-pays');
+  const opt=s.querySelector(`option[value="${v}"]`);
+  if(opt&&opt.dataset.d) appDev(opt.dataset.d);
+}
+
+function getLang(){return document.documentElement.getAttribute('data-lang')||'fr';}
+
+/* ── Montants ── */
+function genMontants(code){
+  const d=DEV[code],l=getLang();
+  const pop=l==='fr'?'LE PLUS CHOISI':'MOST CHOSEN';
+  const lbls=IMP_LBLS[l];
+  const g=document.getElementById('mgrid');
+  if(!g) return;
+  g.innerHTML='';
+  d.rates.forEach((v,i)=>{
+    const isPop=i===2;
+    const div=document.createElement('div');
+    div.className='mc'+(isPop?' pop':'')+(i===2?' sel':'');
+    if(isPop) div.setAttribute('data-pop',pop);
+    div.innerHTML=`<div class="mcv">${d.pfx} ${v.toLocaleString()}</div><div class="mci"><strong>${lbls[i]}</strong></div>`;
+    div.onclick=()=>selectM(v,div);
+    g.appendChild(div);
+  });
+  selectM(d.rates[2]);
+}
+
+function selectM(valLocal,card){
+  const d=DEV[dCur];
+  mEUR=valLocal*d.toEUR;
+  document.querySelectorAll('.mc').forEach(c=>c.classList.remove('sel'));
+  if(card) card.classList.add('sel');
+  document.getElementById('ilib').value=valLocal;
+  updDisp(valLocal);
+  showImpact(mEUR);
+}
+
+function onLibre(v){
+  const val=parseFloat(v)||0;
+  if(val<1) return;
+  mEUR=val*DEV[dCur].toEUR;
+  document.querySelectorAll('.mc').forEach(c=>c.classList.remove('sel'));
+  updDisp(val);
+  showImpact(mEUR);
+}
+
+function updDisp(val){
+  const d=DEV[dCur];
+  const sym=dCur==='AKL'?`${val} AKL`:`${d.pfx}${val.toLocaleString()}`;
+  ['d-montant','b-montant'].forEach(id=>{const e=document.getElementById(id);if(e) e.textContent=dCur==='AKL'?`${val} AKL`:`${d.pfx}${val.toLocaleString()}`;});
+  ['ival-fr','ival-en'].forEach(id=>{const e=document.getElementById(id);if(e) e.textContent=sym;});
+}
+
+function showImpact(eur){
+  const keys=[10,15,25,30,50,100,200,250,500];
+  let k=keys[0];
+  for(const x of keys) if(eur>=x) k=x;
+  const l=getLang();
+  const msgs=IMP[l][k];
+  const box=document.getElementById('iitems');
+  if(!box) return;
+  box.innerHTML='';
+  msgs.forEach((msg,i)=>{
+    const row=document.createElement('div');
+    row.className='irow';
+    row.innerHTML=`<span class="ic">${msg.slice(0,2)}</span><span>${msg.slice(3).trim()}</span>`;
+    row.style.transitionDelay=`${i*.09}s`;
+    box.appendChild(row);
+    requestAnimationFrame(()=>requestAnimationFrame(()=>row.classList.add('vis')));
+  });
+}
+
+function updateCards(code){
+  const d=DEV[code];
+  [[30,1],[50,2],[100,3],[250,4]].forEach(([eur,n])=>{
+    const local=Math.round(eur/d.toEUR);
+    const e=document.getElementById(`icv${n}`);
+    if(e) e.textContent=dCur==='AKL'?`${local} AKL`:`${d.pfx}${local.toLocaleString()}`;
+  });
+}
+
+/* ── Récurrence ── */
+function setRec(r){
+  rec=r;
+  document.querySelectorAll('.rb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('r-'+{ponctuel:'ponc',mensuel:'mens',annuel:'ann'}[r]).classList.add('active');
+  const lab={fr:{ponctuel:'don unique',mensuel:'/ mois',annuel:'/ an'},en:{ponctuel:'one-time',mensuel:'/ month',annuel:'/ year'}};
+  const e=document.getElementById('d-freq');
+  if(e) e.textContent=lab[getLang()][r];
+}
+
+/* ── Modes de paiement ── */
+function setPM(m,btn){
+  document.querySelectorAll('.pt').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  ['card','sepa','mobile','paypal','crypto','akl','cheque'].forEach(x=>{
+    const e=document.getElementById('p-'+x);
+    if(e) e.style.display=x===m?'block':'none';
+  });
+}
+
+function selAff(lbl){
+  document.querySelectorAll('.ac').forEach(c=>c.classList.remove('sel'));
+  lbl.classList.add('sel');
+}
+
+/* ── Anonymat ── */
+function toggleAnon(checked){
+  anon=checked;
+  const pr=document.getElementById('f-prenom'),nm=document.getElementById('f-nom');
+  const ab=document.getElementById('abox'),an=document.getElementById('anote');
+  const l=getLang();
+  if(checked){
+    pr.value=''; nm.value='';
+    pr.placeholder=l==='fr'?'Anonyme':'Anonymous';
+    nm.placeholder=l==='fr'?'Donateur·trice':'Donor';
+    pr.disabled=true; nm.disabled=true;
+    ab.classList.add('on'); an.classList.add('show');
+  } else {
+    pr.disabled=false; nm.disabled=false;
+    pr.placeholder='Hermine'; nm.placeholder='Batjom';
+    ab.classList.remove('on'); an.classList.remove('show');
+  }
+}
+
+/* ── Soumission ── */
+function handleDon(){
+  const email=document.getElementById('f-email').value;
+  if(!email||!email.includes('@')){
+    alert(getLang()==='fr'?'Veuillez entrer un email valide.':'Please enter a valid email.');
+    return;
+  }
+  const d=DEV[dCur];
+  const vLocal=Math.round(mEUR/d.toEUR);
+  const sym=dCur==='AKL'?`${vLocal} AKL`:`${d.pfx}${vLocal.toLocaleString()}`;
+  const prenom=anon?'':document.getElementById('f-prenom').value;
+  const l=getLang();
+  /*
+    ══════════════════════════════════════════════════
+    REMPLACER CE BLOC par l'intégration Stripe :
+    window.location.href = 'https://buy.stripe.com/VOTRE_LIEN';
+    ou Stripe Checkout (voir commentaires HTML en haut)
+    ══════════════════════════════════════════════════
+  */
+  alert(l==='fr'
+    ?`Merci ${prenom?prenom+' !':'!'} 🙏\n\nDon de ${sym} enregistré.\nReçu fiscal → ${email} sous 24h.\nRapport d'impact → sous 60 jours.\n\nPour finaliser le paiement :\nWhatsApp : +237 682 18 03 63\n✉️ courrielmondeetbonheur@gmail.com`
+    :`Thank you${prenom?' '+prenom:''}! 🙏\n\nGift of ${sym} registered.\nFiscal receipt → ${email} within 24h.\nImpact report → within 60 days.\n\nTo complete payment:\nWhatsApp: +237 682 18 03 63\n✉️ courrielmondeetbonheur@gmail.com`);
+}
+
+/* ── Langue ── */
+function setLang(l){
+  document.documentElement.setAttribute('data-lang',l);
+  document.documentElement.setAttribute('lang',l);
+  document.getElementById('btnFR').classList.toggle('active',l==='fr');
+  document.getElementById('btnEN').classList.toggle('active',l==='en');
+  genMontants(dCur);
+  showImpact(mEUR);
+  if(rec) setRec(rec);
+}
+
+/* ── FAQ ── */
+function tFaq(btn){
+  const item=btn.closest('.fi');
+  const open=item.classList.contains('open');
+  document.querySelectorAll('.fi.open').forEach(i=>i.classList.remove('open'));
+  if(!open) item.classList.add('open');
+}
+
+/* ── Utilitaires ── */
+function sForm(){document.getElementById('don-form').scrollIntoView({behavior:'smooth',block:'start'});}
+
+/* ── Scroll reveal ── */
+const rObs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);rObs.unobserve(e.target);}});
+},{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>rObs.observe(el));
+
+/* ── Compteurs animés ── */
+function animCnt(id,target,dur){
+  const el=document.getElementById(id);if(!el) return;
+  const s=Date.now();
+  const u=()=>{const p=Math.min((Date.now()-s)/dur,1);el.textContent=Math.round(target*p).toLocaleString('fr-FR');if(p<1) requestAnimationFrame(u);};
+  requestAnimationFrame(u);
+}
+
+/* ── Init ── */
+window.addEventListener('DOMContentLoaded',()=>{
+  detectDev();
+  setTimeout(()=>{animCnt('cnt-d',1247,1200);animCnt('cnt-c',384,1000);animCnt('cnt-e',2140,1400);},400);
+  setTimeout(()=>{const f=document.getElementById('bfill');if(f) f.style.width='22%';},800);
+  showImpact(mEUR);
+});
+</script> 
+<script src="mb-carrousel.js"></script>
+<script src="mb-nav.js"></script>
+
+    <script src="faq.js"></script>
+</body>
+</html>

@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partenaires — ONG Monde et Bonheur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --v:#1a5c3a;--vc:#2d8a58;--vp:#e8f5ee;--vd:#0d3320;
+  --o:#c8860a;--oc:#f5a623;--op:#fdf3e3;
+  --br:#3d2b1f;--wh:#fdfcf8;--gr:#f0ede6;
+  --tx:#1a1a18;--td:#4a4a44;--tp:#8a8a82;
+  --rouge:#c0392b;--haut:64px;--r:14px;
+  --sh:0 4px 24px rgba(0,0,0,.08);--sh-lg:0 16px 60px rgba(0,0,0,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--wh);color:var(--tx);overflow-x:hidden;}
+[data-lang="fr"] .en{display:none!important;}
+[data-lang="en"] .fr{display:none!important;}
+a{text-decoration:none;}
+
+/* HEADER */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--haut);background:rgba(253,252,248,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(26,92,58,.1);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;}
+.h-logo{display:flex;align-items:center;gap:10px;}
+.h-disk{width:38px;height:38px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:12px;color:white;border:2px solid var(--vc);flex-shrink:0;}
+.h-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--v);}
+.h-sub{font-size:10px;color:var(--tp);}
+.h-right{display:flex;align-items:center;gap:.8rem;}
+.lang-toggle{display:flex;background:var(--gr);border-radius:20px;padding:3px;border:1px solid rgba(26,92,58,.1);}
+.lang-btn{padding:4px 11px;border-radius:16px;border:none;background:none;font-size:11px;font-weight:700;cursor:pointer;color:var(--tp);font-family:'Space Mono',monospace;transition:all .2s;}
+.lang-btn.active{background:var(--v);color:white;}
+.btn-don-hdr{display:flex;align-items:center;gap:6px;background:var(--rouge);color:white;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-don-hdr:hover{background:#a93226;}
+.back-link{font-size:13px;color:var(--td);padding:7px 12px;border-radius:8px;border:1px solid rgba(26,92,58,.12);transition:all .2s;display:flex;align-items:center;gap:5px;}
+.back-link:hover{background:var(--vp);color:var(--v);}
+
+/* HERO */
+.part-hero{min-height:58vh;padding:calc(var(--haut)+80px) 8% 90px;background:linear-gradient(150deg,rgba(13,51,32,.95) 0%,rgba(26,92,58,.82) 55%,rgba(200,134,10,.75) 100%),url('https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=1400&q=80') center/cover no-repeat;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;position:relative;overflow:hidden;}
+.part-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:80px;background:linear-gradient(transparent,var(--wh));}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.35);color:#f5d087;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;padding:5px 14px;border-radius:20px;margin-bottom:1.4rem;}
+.hero-left h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.5rem);font-weight:900;color:white;line-height:1.1;margin-bottom:1.2rem;}
+.hero-left h1 em{font-style:italic;color:#f5d087;}
+.hero-left p{font-size:clamp(.95rem,1.4vw,1.05rem);color:rgba(255,255,255,.8);line-height:1.8;font-weight:300;max-width:480px;}
+.hero-right{display:flex;flex-direction:column;gap:.9rem;}
+.partner-pill{background:rgba(253,252,248,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.15);border-radius:12px;padding:1rem 1.3rem;display:flex;align-items:center;gap:1rem;cursor:pointer;transition:all .25s;}
+.partner-pill:hover{background:rgba(253,252,248,.18);transform:translateX(4px);}
+.pp-icon{font-size:1.8rem;width:44px;text-align:center;flex-shrink:0;}
+.pp-title{font-size:14px;font-weight:700;color:white;}
+.pp-sub{font-size:12px;color:rgba(255,255,255,.6);margin-top:2px;}
+.pp-arrow{margin-left:auto;color:rgba(255,255,255,.4);font-size:18px;transition:transform .2s;}
+.partner-pill:hover .pp-arrow{transform:translateX(4px);color:var(--oc);}
+
+/* TABS */
+.tabs-nav{background:white;border-bottom:2px solid rgba(26,92,58,.08);position:sticky;top:var(--haut);z-index:800;display:flex;overflow-x:auto;padding:0 8%;scrollbar-width:none;}
+.tabs-nav::-webkit-scrollbar{display:none;}
+.tab-btn{flex-shrink:0;padding:1.1rem 1.5rem;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--tp);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:all .2s;display:flex;align-items:center;gap:.5rem;white-space:nowrap;}
+.tab-btn:hover{color:var(--v);}
+.tab-btn.active{color:var(--v);border-bottom-color:var(--v);}
+
+/* PROFIL SECTIONS */
+.profil-section{padding:80px 8%;display:none;animation:fadeIn .35s ease;}
+.profil-section.active{display:block;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.section-lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--o);text-transform:uppercase;margin-bottom:.8rem;}
+.profil-header{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start;margin-bottom:3rem;padding-bottom:2rem;border-bottom:1px solid rgba(26,92,58,.1);}
+.ph-badge{display:inline-flex;align-items:center;gap:6px;background:var(--op);border:1px solid rgba(200,134,10,.2);color:var(--o);font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;padding:4px 12px;border-radius:16px;margin-bottom:.8rem;}
+.profil-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.6rem);font-weight:700;line-height:1.2;margin-bottom:.8rem;}
+.profil-header p{font-size:15px;color:var(--td);line-height:1.8;max-width:600px;}
+.ph-stat-box{background:var(--vp);border:1.5px solid rgba(26,92,58,.15);border-radius:var(--r);padding:1.5rem 2rem;text-align:center;min-width:190px;flex-shrink:0;}
+.ph-stat-num{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:var(--v);line-height:1;display:block;}
+.ph-stat-lbl{font-size:12px;color:var(--td);margin-top:.3rem;line-height:1.4;}
+
+/* OFFRES */
+.offres-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:3rem;}
+.offre-card{background:white;border:1.5px solid rgba(26,92,58,.1);border-radius:var(--r);overflow:hidden;transition:all .25s;display:flex;flex-direction:column;}
+.offre-card:hover{transform:translateY(-5px);box-shadow:var(--sh-lg);border-color:rgba(26,92,58,.2);}
+.offre-card.featured{border-color:var(--v);}
+.oc-ribbon{background:var(--v);color:white;text-align:center;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;padding:5px;}
+.oc-head{padding:1.4rem 1.4rem 1rem;border-bottom:1px solid rgba(26,92,58,.07);}
+.oc-icon{font-size:2rem;margin-bottom:.6rem;}
+.oc-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;line-height:1.3;margin-bottom:.3rem;}
+.oc-price{font-family:'Space Mono',monospace;font-size:.9rem;color:var(--o);font-weight:700;}
+.oc-body{padding:1.2rem 1.4rem;flex:1;}
+.oc-features{list-style:none;display:flex;flex-direction:column;gap:.55rem;}
+.oc-features li{display:flex;align-items:flex-start;gap:.6rem;font-size:13px;color:var(--td);line-height:1.5;}
+.oc-features li::before{content:'✓';color:var(--vc);font-weight:700;flex-shrink:0;margin-top:1px;}
+.oc-foot{padding:1rem 1.4rem;border-top:1px solid rgba(26,92,58,.07);}
+.oc-cta{display:block;width:100%;padding:11px;text-align:center;background:var(--vp);color:var(--v);border:1.5px solid rgba(26,92,58,.2);border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.oc-cta:hover{background:var(--v);color:white;border-color:var(--v);}
+.offre-card.featured .oc-cta{background:var(--v);color:white;border-color:var(--v);}
+.offre-card.featured .oc-cta:hover{background:var(--vc);}
+
+/* LIVRABLES */
+.livrables-row{background:var(--gr);border-radius:var(--r);padding:2rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:3rem;}
+.livrable-item{text-align:center;}
+.liv-icon{font-size:1.8rem;margin-bottom:.4rem;}
+.liv-title{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:.2rem;}
+.liv-sub{font-size:11.5px;color:var(--tp);line-height:1.4;}
+
+/* QUOTE */
+.partner-quote{background:linear-gradient(135deg,var(--vd),var(--v));border-radius:var(--r);padding:2rem 2.5rem;margin-bottom:2rem;display:flex;align-items:flex-start;gap:1.5rem;}
+.pq-icon{font-size:3rem;opacity:.35;flex-shrink:0;color:white;font-family:'Playfair Display',serif;}
+.pq-text{font-family:'Playfair Display',serif;font-size:1.1rem;font-style:italic;color:rgba(255,255,255,.9);line-height:1.7;}
+.pq-author{font-size:11.5px;color:rgba(255,255,255,.5);margin-top:.8rem;font-style:normal;font-family:'Space Mono',monospace;}
+
+/* DIASPORA */
+.diaspora-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-bottom:2rem;}
+.diasp-card{background:white;border:1.5px solid rgba(26,92,58,.1);border-radius:var(--r);padding:1.5rem;display:flex;align-items:flex-start;gap:1rem;transition:all .25s;}
+.diasp-card:hover{border-color:var(--vc);background:var(--vp);}
+.diasp-icon{font-size:1.8rem;flex-shrink:0;}
+.diasp-title{font-size:15px;font-weight:700;color:var(--tx);margin-bottom:.4rem;}
+.diasp-desc{font-size:13px;color:var(--td);line-height:1.6;}
+.diasp-val{display:inline-block;margin-top:.6rem;font-family:'Space Mono',monospace;font-size:11px;color:var(--o);background:var(--op);border-radius:6px;padding:3px 8px;}
+.pays-grid{display:flex;flex-wrap:wrap;gap:.6rem;margin-bottom:2rem;}
+.pays-tag{display:flex;align-items:center;gap:.4rem;background:white;border:1px solid rgba(26,92,58,.1);border-radius:8px;padding:6px 12px;font-size:13px;font-weight:500;}
+
+/* PROCESSUS */
+.process-section{background:var(--vp);padding:70px 8%;}
+.process-steps{max-width:900px;margin:2.5rem auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;position:relative;}
+.process-steps::before{content:'';position:absolute;top:27px;left:calc(12.5% + 20px);right:calc(12.5% + 20px);height:2px;background:linear-gradient(90deg,var(--vc),var(--oc));z-index:0;}
+.step{text-align:center;position:relative;z-index:1;}
+.step-num{width:54px;height:54px;border-radius:50%;background:white;border:3px solid var(--vc);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--v);margin:0 auto .9rem;}
+.step-title{font-size:13px;font-weight:700;color:var(--tx);margin-bottom:.3rem;}
+.step-sub{font-size:11.5px;color:var(--tp);line-height:1.5;}
+
+/* FORMULAIRE */
+.contact-section{padding:80px 8%;background:white;border-top:1px solid rgba(26,92,58,.08);}
+.contact-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.4fr;gap:4rem;align-items:start;}
+.contact-left h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;line-height:1.2;margin-bottom:1rem;}
+.contact-left p{font-size:15px;color:var(--td);line-height:1.8;margin-bottom:1.5rem;}
+.contact-infos{display:flex;flex-direction:column;gap:.8rem;}
+.ci-row{display:flex;align-items:center;gap:.8rem;font-size:14px;color:var(--td);}
+.ci-ico{font-size:1.3rem;width:36px;height:36px;background:var(--vp);border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.ci-row a{color:var(--v);font-weight:500;}
+.resp-card{background:var(--vp);border-radius:var(--r);padding:1.4rem;display:flex;align-items:center;gap:1rem;margin-top:1.5rem;border:1px solid rgba(26,92,58,.12);}
+.resp-avatar{width:52px;height:52px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:1.2rem;color:white;flex-shrink:0;}
+.resp-name{font-size:15px;font-weight:700;color:var(--tx);}
+.resp-role{font-size:12px;color:var(--tp);margin-top:2px;}
+.resp-delay{font-size:12px;color:var(--vc);margin-top:4px;font-weight:500;}
+.contact-form{background:white;border-radius:16px;border:1px solid rgba(26,92,58,.1);box-shadow:var(--sh-lg);overflow:hidden;}
+.cf-head{background:var(--v);padding:1.4rem 1.8rem;display:flex;align-items:center;justify-content:space-between;}
+.cf-head-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:white;}
+.cf-head-sub{font-size:12px;color:rgba(255,255,255,.65);margin-top:2px;}
+.cf-badge{background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);font-family:'Space Mono',monospace;font-size:10px;padding:4px 10px;border-radius:6px;letter-spacing:.06em;flex-shrink:0;}
+.cf-body{padding:1.8rem;}
+.cf-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
+.cf-field{margin-bottom:1.1rem;}
+.cf-field label{display:block;font-size:13px;font-weight:600;color:var(--td);margin-bottom:.35rem;}
+.cf-field label span{color:var(--rouge);}
+.cf-field input,.cf-field select,.cf-field textarea{width:100%;padding:11px 14px;border:1.5px solid rgba(26,92,58,.15);border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--tx);background:var(--wh);outline:none;transition:border-color .2s;}
+.cf-field input:focus,.cf-field select:focus,.cf-field textarea:focus{border-color:var(--v);background:white;}
+.cf-field select{appearance:none;cursor:pointer;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%238a8a82' stroke-width='1.5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;}
+.cf-field textarea{resize:vertical;min-height:100px;line-height:1.6;}
+.profil-chips{display:flex;flex-wrap:wrap;gap:.5rem;}
+.p-chip{padding:7px 14px;border:1.5px solid rgba(26,92,58,.15);border-radius:20px;font-size:12.5px;font-weight:500;cursor:pointer;background:white;color:var(--td);transition:all .2s;font-family:'DM Sans',sans-serif;}
+.p-chip:hover{border-color:var(--vc);background:var(--vp);color:var(--v);}
+.p-chip.active{background:var(--v);color:white;border-color:var(--v);}
+.dispo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;}
+.dispo-btn{padding:7px 4px;border:1.5px solid rgba(26,92,58,.12);border-radius:8px;font-size:11.5px;font-weight:500;cursor:pointer;background:white;color:var(--td);text-align:center;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.dispo-btn:hover{border-color:var(--vc);background:var(--vp);}
+.dispo-btn.active{background:var(--v);color:white;border-color:var(--v);}
+.cf-check{display:flex;align-items:flex-start;gap:.6rem;font-size:12.5px;color:var(--td);line-height:1.6;cursor:pointer;margin-bottom:.8rem;}
+.cf-check input{margin-top:2px;accent-color:var(--v);flex-shrink:0;}
+.cf-submit{width:100%;padding:15px;background:var(--rouge);color:white;border:none;border-radius:10px;font-size:15px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;display:flex;align-items:center;justify-content:center;gap:.6rem;transition:all .25s;}
+.cf-submit:hover{background:#a93226;transform:translateY(-2px);box-shadow:0 8px 24px rgba(192,57,43,.3);}
+.cf-secure{display:flex;align-items:center;justify-content:center;gap:5px;font-size:11px;color:var(--tp);margin-top:.8rem;}
+.form-success{display:none;text-align:center;padding:3rem 1.5rem;}
+.form-success.show{display:block;}
+.success-icon{font-size:4rem;margin-bottom:1rem;}
+.success-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--v);margin-bottom:.8rem;}
+.success-sub{font-size:14px;color:var(--td);line-height:1.8;max-width:340px;margin:0 auto;}
+
+/* CTA FINALE */
+.cta-finale{background:linear-gradient(135deg,var(--vd) 0%,var(--v) 60%,rgba(200,134,10,.6) 100%);padding:80px 8%;text-align:center;}
+.cta-finale h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:white;margin-bottom:1rem;}
+.cta-finale p{font-size:16px;color:rgba(255,255,255,.75);max-width:540px;margin:0 auto 2.5rem;line-height:1.8;}
+.cta-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;}
+.btn-cta-w{display:inline-flex;align-items:center;gap:8px;background:white;color:var(--v);padding:14px 28px;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .25s;}
+.btn-cta-w:hover{background:var(--op);transform:translateY(-2px);}
+.btn-cta-o{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:white;padding:14px 28px;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;border:1.5px solid rgba(255,255,255,.25);font-family:'DM Sans',sans-serif;transition:all .25s;}
+.btn-cta-o:hover{background:rgba(255,255,255,.2);transform:translateY(-2px);}
+.mini-footer{background:#0f1a12;color:rgba(255,255,255,.45);padding:28px 8%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:12px;}
+.mini-footer a{color:rgba(255,255,255,.3);}
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+@media(max-width:1000px){.part-hero{grid-template-columns:1fr;}.hero-right{display:none;}.offres-grid{grid-template-columns:1fr 1fr;}.livrables-row{grid-template-columns:1fr 1fr;}.contact-inner{grid-template-columns:1fr;}.process-steps{grid-template-columns:1fr 1fr;}.process-steps::before{display:none;}}
+@media(max-width:680px){.offres-grid{grid-template-columns:1fr;}.diaspora-grid{grid-template-columns:1fr;}.cf-row{grid-template-columns:1fr;}.profil-header{grid-template-columns:1fr;}.ph-stat-box{display:none;}.tabs-nav{padding:0 1rem;}:root{--haut:56px;}}
+</style>
+</head>
+<body>
+
+
+
+<!-- HERO -->
+<section class="part-hero">
+  <div class="hero-left">
+    <div class="hero-badge"><span class="fr">ALLIANCE STRATÉGIQUE · IMPACT MESURABLE</span><span class="en">STRATEGIC ALLIANCE · MEASURABLE IMPACT</span></div>
+    <h1 class="fr">Vous n'aidez pas<br>une ONG. Vous<br><em>bâtissez</em> l'Afrique.</h1>
+    <h1 class="en">You're not helping<br>an NGO. You're<br><em>building</em> Africa.</h1>
+    <p class="fr">Monde et Bonheur ne cherche pas des donateurs passifs. Nous cherchons des alliés stratégiques qui transforment leurs obligations (RSE, carbone, co-développement) en impact réel, visible et audité.</p>
+    <p class="en">Monde et Bonheur doesn't seek passive donors. We seek strategic allies who transform their obligations (CSR, carbon, co-development) into real, visible and audited impact.</p>
+  </div>
+  <div class="hero-right">
+    <div class="partner-pill" onclick="showTab('entreprises')">
+      <div class="pp-icon">🏭</div>
+      <div><div class="pp-title fr">Entreprises &amp; Industries</div><div class="pp-title en">Companies &amp; Industry</div><div class="pp-sub fr">RSE · Carbone · Mécénat</div><div class="pp-sub en">CSR · Carbon · Sponsorship</div></div>
+      <div class="pp-arrow">→</div>
+    </div>
+    <div class="partner-pill" onclick="showTab('banques')">
+      <div class="pp-icon">🏦</div>
+      <div><div class="pp-title fr">Banques &amp; Microfinances</div><div class="pp-title en">Banks &amp; Microfinance</div><div class="pp-sub fr">Crédit productif · Garantie terrain</div><div class="pp-sub en">Productive credit · Field guarantee</div></div>
+      <div class="pp-arrow">→</div>
+    </div>
+    <div class="partner-pill" onclick="showTab('diplomaties')">
+      <div class="pp-icon">🌐</div>
+      <div><div class="pp-title fr">Institutions &amp; Diplomaties</div><div class="pp-title en">Institutions &amp; Diplomacy</div><div class="pp-sub fr">ODD · Fonds verts · Subventions</div><div class="pp-sub en">SDGs · Green funds · Grants</div></div>
+      <div class="pp-arrow">→</div>
+    </div>
+    <div class="partner-pill" onclick="showTab('diaspora')">
+      <div class="pp-icon">🌍</div>
+      <div><div class="pp-title fr">Diaspora &amp; Particuliers</div><div class="pp-title en">Diaspora &amp; Individuals</div><div class="pp-sub fr">Parrainage · Co-développement</div><div class="pp-sub en">Sponsorship · Co-development</div></div>
+      <div class="pp-arrow">→</div>
+    </div>
+  </div>
+</section>
+
+<!-- TABS NAV -->
+<nav class="tabs-nav" id="tabs-nav">
+  <button class="tab-btn active" onclick="showTab('entreprises')">🏭 <span class="fr">Entreprises</span><span class="en">Companies</span></button>
+  <button class="tab-btn" onclick="showTab('banques')">🏦 <span class="fr">Banques</span><span class="en">Banks</span></button>
+  <button class="tab-btn" onclick="showTab('diplomaties')">🌐 <span class="fr">Institutions</span><span class="en">Institutions</span></button>
+  <button class="tab-btn" onclick="showTab('diaspora')">🌍 Diaspora</button>
+</nav>
+
+<!-- ===== PROFIL 1 : ENTREPRISES ===== -->
+<section class="profil-section active" id="tab-entreprises">
+  <div class="profil-header reveal">
+    <div>
+      <div class="ph-badge fr">🏭 ENTREPRISES · RSE · CARBONE</div><div class="ph-badge en">🏭 COMPANIES · CSR · CARBON</div>
+      <h2 class="fr">Vous avez une empreinte carbone à compenser.<br>Nous avons des forêts à protéger.</h2>
+      <h2 class="en">You have a carbon footprint to offset.<br>We have forests to protect.</h2>
+      <p class="fr">Nous ne vous proposons pas un "partenariat ONG" classique. Nous vous offrons un mécanisme de compensation carbone certifié, un rapport RSE auditable, et une visibilité terrain qui transforme votre obligation légale en avantage concurrentiel.</p>
+      <p class="en">We're not offering a classic "NGO partnership". We offer a certified carbon offset mechanism, an auditable CSR report, and field visibility that transforms your legal obligation into a competitive advantage.</p>
+    </div>
+    <div class="ph-stat-box"><span class="ph-stat-num">96%</span><div class="ph-stat-lbl fr">fonds investis<br>directement sur terrain</div><div class="ph-stat-lbl en">funds invested<br>directly in the field</div></div>
+  </div>
+  <div class="offres-grid">
+    <div class="offre-card reveal">
+      <div class="oc-head"><div class="oc-icon">🌱</div><div class="oc-name fr">Pack Éco-Responsable</div><div class="oc-name en">Eco-Responsible Pack</div><div class="oc-price fr">À partir de 5 000 €</div><div class="oc-price en">From €5,000</div></div>
+      <div class="oc-body"><ul class="oc-features">
+        <li class="fr">50 cuisinières financées — 250 t CO₂ évitées</li><li class="en">50 cookers funded — 250t CO₂ avoided</li>
+        <li class="fr">Certificat d'Impact Carbone nominatif auditable</li><li class="en">Named, auditable Carbon Impact Certificate</li>
+        <li class="fr">Logo sur les cuisinières + rapport terrain photos</li><li class="en">Logo on cookers + photo field report</li>
+        <li class="fr">Rapport RSE prêt à publier</li><li class="en">Ready-to-publish CSR report</li>
+      </ul></div>
+      <div class="oc-foot"><button class="oc-cta" onclick="openContact('entreprises','Pack Éco-Responsable')"><span class="fr">Demander un devis</span><span class="en">Request a quote</span></button></div>
+    </div>
+    <div class="offre-card featured reveal">
+      <div class="oc-ribbon fr">⭐ LE PLUS CHOISI</div><div class="oc-ribbon en">⭐ MOST CHOSEN</div>
+      <div class="oc-head"><div class="oc-icon">🔥</div><div class="oc-name fr">Pack Impact Industriel</div><div class="oc-name en">Industrial Impact Pack</div><div class="oc-price fr">15 000 € – 50 000 €</div><div class="oc-price en">€15,000 – €50,000</div></div>
+      <div class="oc-body"><ul class="oc-features">
+        <li class="fr">200–500 cuisinières + unités biogaz — impact forêt massif</li><li class="en">200–500 cookers + biogas units — massive forest impact</li>
+        <li class="fr">Convention mécénat fiscalement déductible (France)</li><li class="en">Tax-deductible sponsorship agreement (France)</li>
+        <li class="fr">Certification carbone internationale + crédits calculés</li><li class="en">International carbon certification + credits calculated</li>
+        <li class="fr">Visibilité : site MB, rapport annuel, presse locale</li><li class="en">Visibility: MB site, annual report, local press</li>
+        <li class="fr">Visite terrain pour vos équipes dirigeantes</li><li class="en">Field visit for your leadership team</li>
+      </ul></div>
+      <div class="oc-foot"><button class="oc-cta" onclick="openContact('entreprises','Pack Impact Industriel')"><span class="fr">Prendre rendez-vous</span><span class="en">Book a meeting</span></button></div>
+    </div>
+    <div class="offre-card reveal">
+      <div class="oc-head"><div class="oc-icon">⚡</div><div class="oc-name fr">Pack Partenaire Stratégique</div><div class="oc-name en">Strategic Partner Pack</div><div class="oc-price fr">+100 000 € / sur-mesure</div><div class="oc-price en">+€100,000 / bespoke</div></div>
+      <div class="oc-body"><ul class="oc-features">
+        <li class="fr">Co-construction d'une "Mini-Ville Autonome" à votre nom</li><li class="en">Co-construction of an "Autonomous Mini-Village" in your name</li>
+        <li class="fr">Naming d'une unité de production</li><li class="en">Production unit naming rights</li>
+        <li class="fr">Accès prioritaire aux crédits carbone générés</li><li class="en">Priority access to generated carbon credits</li>
+        <li class="fr">Siège au Comité Stratégique de l'ONG</li><li class="en">Seat on the NGO Strategic Committee</li>
+        <li class="fr">Reportage documentaire terrain 10 min pour votre communication</li><li class="en">10-min field documentary for your communications</li>
+      </ul></div>
+      <div class="oc-foot"><button class="oc-cta" onclick="openContact('entreprises','Pack Partenaire Stratégique')"><span class="fr">Discutons ensemble</span><span class="en">Let's talk</span></button></div>
+    </div>
+  </div>
+  <div class="livrables-row reveal">
+    <div class="livrable-item"><div class="liv-icon">📄</div><div class="liv-title fr">Convention signée</div><div class="liv-title en">Signed agreement</div><div class="liv-sub fr">Cadre légal sous 48h</div><div class="liv-sub en">Legal framework within 48h</div></div>
+    <div class="livrable-item"><div class="liv-icon">📸</div><div class="liv-title fr">Rapport photo terrain</div><div class="liv-title en">Field photo report</div><div class="liv-sub fr">Photos nominatives des équipements</div><div class="liv-sub en">Named photos of funded equipment</div></div>
+    <div class="livrable-item"><div class="liv-icon">🌿</div><div class="liv-title fr">Certificat Carbone</div><div class="liv-title en">Carbon Certificate</div><div class="liv-sub fr">Tonnes CO₂ évitées, auditables</div><div class="liv-sub en">CO₂ tonnes avoided, auditable</div></div>
+    <div class="livrable-item"><div class="liv-icon">📺</div><div class="liv-title fr">Visibilité médiatique</div><div class="liv-title en">Media visibility</div><div class="liv-sub fr">Site, réseaux, presse Cameroun</div><div class="liv-sub en">Website, social, Cameroonian press</div></div>
+  </div>
+  <div class="partner-quote reveal">
+    <div class="pq-icon">"</div>
+    <div>
+      <div class="pq-text fr">Notre entreprise a financé 100 cuisinières. MB nous a fourni un rapport carbone audité avec photos. Le DG l'a présenté en AG. Impact concret, zéro greenwashing, obligation RSE transformée en fierté d'entreprise.</div>
+      <div class="pq-text en">Our company funded 100 cookers. MB provided an audited carbon report with photos. The CEO presented it at the AGM. Concrete impact, zero greenwashing, CSR obligation turned into corporate pride.</div>
+      <div class="pq-author">Pierre L. — <span class="fr">Directeur RSE · Groupe industriel, Lyon</span><span class="en">CSR Director · Industrial Group, Lyon</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROFIL 2 : BANQUES ===== -->
+<section class="profil-section" id="tab-banques">
+  <div class="profil-header reveal">
+    <div>
+      <div class="ph-badge fr">🏦 BANQUES · MICROFINANCES · CRÉDIT VERT</div><div class="ph-badge en">🏦 BANKS · MICROFINANCE · GREEN CREDIT</div>
+      <h2 class="fr">Nos équipements génèrent du cash-flow.<br>Vos crédits seront remboursés.</h2>
+      <h2 class="en">Our equipment generates cash-flow.<br>Your loans will be repaid.</h2>
+      <p class="fr">La difficulté du crédit rural, c'est le risque de non-remboursement. Nos Cuisinières, Séchoirs et Digesteurs sont des actifs productifs qui génèrent des économies immédiates et des revenus mesurables. Nous sommes votre garantie terrain.</p>
+      <p class="en">The challenge of rural credit is default risk. Our Cookers, Dryers and Digesters are productive assets generating immediate savings and measurable revenues. We are your field guarantee.</p>
+    </div>
+    <div class="ph-stat-box"><span class="ph-stat-num">&lt;6</span><div class="ph-stat-lbl fr">mois pour amortir<br>un Séchoir Flash</div><div class="ph-stat-lbl en">months to recoup<br>a Flash Dryer</div></div>
+  </div>
+  <div class="offres-grid">
+    <div class="offre-card reveal">
+      <div class="oc-head"><div class="oc-icon">💳</div><div class="oc-name fr">Crédit Micro-Équipement</div><div class="oc-name en">Micro-Equipment Credit</div><div class="oc-price fr">50 000 – 500 000 FCFA</div><div class="oc-price en">50,000 – 500,000 FCFA</div></div>
+      <div class="oc-body"><ul class="oc-features">
+        <li class="fr">Financement d'1 cuisinière ou digesteur domestique par ménage</li><li class="en">Financing of 1 cooker or domestic digester per household</li>
+        <li class="fr">MB assure la formation et le suivi post-installation</li><li class="en">MB ensures training and post-installation follow-up</li>
+        <li class="fr">Modèle "Pay-as-you-save" : remboursement sur économies</li><li class="en">"Pay-as-you-save" model: repayment from actual savings</li>
+        <li class="fr">Taux de défaut estimé &lt;5% (actif productif garanti)</li><li class="en">Estimated default rate &lt;5% (guaranteed productive asset)</li>
+      </ul></div>
+      <div class="oc-foot"><button class="oc-cta" onclick="openContact('banques','Crédit Micro-Équipement')"><span class="fr">Démarrer le partenariat</span><span class="en">Start partnership</span></button></div>
+    </div>
+    <div class="offre-card featured reveal">
+      <div class="oc-ribbon fr">⭐ RECOMMANDÉ</div><div class="oc-ribbon en">⭐ RECOMMENDED</div>
+      <div class="oc-head"><div class="oc-icon">🌾</div><div class="oc-name fr">Crédit Coopérative Verte</div><div class="oc-name en">Green Cooperative Credit</div><div class="oc-price fr">2 M – 15 M FCFA / coopérative</div><div class="oc-price en">2M – 15M FCFA / cooperative</div></div>
+      <div class="oc-body"><ul class="oc-features">
+        <li class="fr">Financement d'un Séchoir Flash pour 1 coopérative de femmes</li><li class="en">Financing a Flash Dryer for 1 women's cooperative</li>
+        <li class="fr">MB garantit formation, maintenance et suivi de trésorerie</li><li class="en">MB guarantees training, maintenance and cash-flow monitoring</li>
+        <li class="fr">+40% revenus sur récoltes = capacité de remboursement prouvée</li><li class="en">+40% harvest revenues = proven repayment capacity</li>
+        <li class="fr">Rapport trimestriel de la coopérative transmis à la banque</li><li class="en">Quarterly cooperative report transmitted to the bank</li>
+        <li class="fr">Label Finance Verte sur votre portefeuille ODD</li><li class="en">Green Finance Label on your SDG portfolio</li>
+      </ul></div>
+      <div class="oc-foot"><button class="oc-cta" onclick="openContact('banques','Crédit Coopérative Verte')"><span class="fr">Prendre rendez-vous</span><span class="en">Book a meeting</span></button></div>
+    </div>
+    <div class="offre-card reveal">
+      <div class="oc-head"><div class="oc-icon">🏗️</div><div class="oc-name fr">Fonds de Roulement Rotatif</div><div class="oc-name en">Revolving Working Capital</div><div class="oc-price fr">50 M+ FCFA · impact régional</div><div class="oc-price en">50M+ FCFA · regional impact</div></div>
+      <div class="oc-body"><ul class="oc-features">
+        <li class="fr">Fonds commun Banque + MB pour pré-financer des grappes de villages</li><li class="en">Joint Bank + MB fund to pre-finance village clusters</li>
+        <li class="fr">MB opère la sélection des bénéficiaires et le déploiement terrain</li><li class="en">MB manages beneficiary selection and field deployment</li>
+        <li class="fr">Remboursements réinjectés automatiquement pour les villages suivants</li><li class="en">Repayments automatically recycled to next villages</li>
+        <li class="fr">Rapport semestriel audité + indicateurs ODD 7, 8, 13 documentés</li><li class="en">Bi-annual audited report + SDG 7, 8, 13 indicators documented</li>
+      </ul></div>
+      <div class="oc-foot"><button class="oc-cta" onclick="openContact('banques','Fonds de Roulement Rotatif')"><span class="fr">Discutons ensemble</span><span class="en">Let's talk</span></button></div>
+    </div>
+  </div>
+  <div class="livrables-row reveal">
+    <div class="livrable-item"><div class="liv-icon">📊</div><div class="liv-title fr">Business plan équipement</div><div class="liv-title en">Equipment business plan</div><div class="liv-sub fr">ROI et flux de trésorerie projetés</div><div class="liv-sub en">Projected ROI and cash flows</div></div>
+    <div class="livrable-item"><div class="liv-icon">🔒</div><div class="liv-title fr">Garantie formation MB</div><div class="liv-title en">MB training guarantee</div><div class="liv-sub fr">Emprunteur formé = risque réduit</div><div class="liv-sub en">Trained borrower = reduced risk</div></div>
+    <div class="livrable-item"><div class="liv-icon">📈</div><div class="liv-title fr">Suivi de trésorerie</div><div class="liv-title en">Cash-flow monitoring</div><div class="liv-sub fr">Reporting trimestriel par coopérative</div><div class="liv-sub en">Quarterly reporting per cooperative</div></div>
+    <div class="livrable-item"><div class="liv-icon">🌿</div><div class="liv-title fr">Label Finance Verte</div><div class="liv-title en">Green Finance Label</div><div class="liv-sub fr">Visibilité portefeuille ODD banque</div><div class="liv-sub en">Visibility on bank's SDG portfolio</div></div>
+  </div>
+  <div class="partner-quote reveal">
+    <div class="pq-icon">"</div>
+    <div>
+      <div class="pq-text fr">Un Séchoir Flash pour une coopérative de femmes génère +40% de revenus sur les récoltes. Le remboursement du crédit n'est pas une question de bonne volonté — c'est une certitude mathématique.</div>
+      <div class="pq-text en">A Flash Dryer for a women's cooperative generates +40% revenue on harvests. Loan repayment is not a matter of goodwill — it's a mathematical certainty.</div>
+      <div class="pq-author fr">Hermine Ngo Batjom · Présidente Fondatrice, ONG Monde et Bonheur</div>
+      <div class="pq-author en">Hermine Ngo Batjom · Founding President, ONG Monde et Bonheur</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROFIL 3 : DIPLOMATIES ===== -->
+<section class="profil-section" id="tab-diplomaties">
+  <div class="profil-header reveal">
+    <div>
+      <div class="ph-badge fr">🌐 INSTITUTIONS · DIPLOMATIES · FONDS VERTS</div><div class="ph-badge en">🌐 INSTITUTIONS · DIPLOMACY · GREEN FUNDS</div>
+      <h2 class="fr">Vous cherchez des indicateurs ODD concrets.<br>Nous les fabriquons.</h2>
+      <h2 class="en">You need concrete SDG indicators.<br>We manufacture them.</h2>
+      <p class="fr">Avec 20 ans d'ancrage local, des accréditations MINATD, MINREX et FORIM, et un modèle technique documenté, Monde et Bonheur transforme vos fonds en résultats mesurables sur 6 ODD simultanément.</p>
+      <p class="en">With 20 years of local presence, MINATD, MINREX and FORIM accreditations, and a documented technical model, MB transforms your funds into measurable results across 6 SDGs simultaneously.</p>
+    </div>
+    <div class="ph-stat-box"><span class="ph-stat-num">6</span><div class="ph-stat-lbl fr">ODD adressés<br>simultanément</div><div class="ph-stat-lbl en">SDGs addressed<br>simultaneously</div></div>
+  </div>
+  <div class="offres-grid">
+    <div class="offre-card reveal">
+      <div class="oc-head"><div class="oc-icon">🎯</div><div class="oc-name fr">Opérateur Terrain ODD</div><div class="oc-name en">SDG Field Operator</div><div class="oc-price fr">Sur cahier des charges</div><div class="oc-price en">Per specifications</div></div>
+      <div class="oc-body"><ul class="oc-features">
+        <li class="fr">Mise en œuvre ODD 1, 3, 4, 7, 13, 15 au Cameroun</li><li class="en">Implementation of SDG 1, 3, 4, 7, 13, 15 in Cameroon</li>
+        <li class="fr">Rapports trimestriels selon vos indicateurs de performance</li><li class="en">Quarterly reports per your performance indicators</li>
+        <li class="fr">Audit indépendant possible à tout moment</li><li class="en">Independent audit possible at any time</li>
+        <li class="fr">Représentation aux COP et forums ODD</li><li class="en">Representation at COPs and SDG forums</li>
+      </ul></div>
+      <div class="oc-foot"><button class="oc-cta" onclick="openContact('diplomaties','Opérateur Terrain ODD')"><span class="fr">Nous contacter</span><span class="en">Contact us</span></button></div>
+    </div>
+    <div class="offre-card featured reveal">
+      <div class="oc-ribbon fr">⭐ PRIORITAIRE</div><div class="oc-ribbon en">⭐ PRIORITY</div>
+      <div class="oc-head"><div class="oc-icon">🌱</div><div class="oc-name fr">Bouclier Climatique Villageois</div><div class="oc-name en">Village Climate Shield</div><div class="oc-price fr">Programme 3 ans · 50–200 villages</div><div class="oc-price en">3-year programme · 50–200 villages</div></div>
+      <div class="oc-body"><ul class="oc-features">
+        <li class="fr">Déploiement complet du modèle "Mini-Ville Autonome 7 ESAR" par village</li><li class="en">Full deployment of the "7 ESAR Autonomous Village" model per village</li>
+        <li class="fr">ODD 1, 3, 4, 7, 13, 15 documentés par village</li><li class="en">SDG 1, 3, 4, 7, 13, 15 documented per village</li>
+        <li class="fr">Accès prioritaire aux résultats pour vos rapports COP</li><li class="en">Priority access to results for your COP reports</li>
+        <li class="fr">Formation de techniciens locaux (50 emplois directs)</li><li class="en">Training of local technicians (50 direct jobs)</li>
+        <li class="fr">Certification carbone internationale des projets éligibles</li><li class="en">International carbon certification for eligible projects</li>
+      </ul></div>
+      <div class="oc-foot"><button class="oc-cta" onclick="openContact('diplomaties','Bouclier Climatique Villageois')"><span class="fr">Proposer un partenariat</span><span class="en">Propose a partnership</span></button></div>
+    </div>
+    <div class="offre-card reveal">
+      <div class="oc-head"><div class="oc-icon">🗺️</div><div class="oc-name fr">Expansion Panafricaine</div><div class="oc-name en">Pan-African Expansion</div><div class="oc-price fr">2026–2030 · 7 pays cibles</div><div class="oc-price en">2026–2030 · 7 target countries</div></div>
+      <div class="oc-body"><ul class="oc-features">
+        <li class="fr">Transfert du modèle vers Rwanda, Gabon, RDC, Tchad, RCA, Nigéria, Congo</li><li class="en">Transfer of model to Rwanda, Gabon, DRC, Chad, CAR, Nigeria, Congo</li>
+        <li class="fr">Co-développement avec opérateurs locaux identifiés</li><li class="en">Co-development with identified local operators</li>
+        <li class="fr">Positionnement commun sur les Fonds Verts (GCF, FEM)</li><li class="en">Joint positioning on Green Funds (GCF, GEF)</li>
+        <li class="fr">Ambassadeur officiel du modèle dans votre pays partenaire</li><li class="en">Official model ambassador in your partner country</li>
+      </ul></div>
+      <div class="oc-foot"><button class="oc-cta" onclick="openContact('diplomaties','Expansion Panafricaine')"><span class="fr">Discutons ensemble</span><span class="en">Let's talk</span></button></div>
+    </div>
+  </div>
+  <div class="livrables-row reveal">
+    <div class="livrable-item"><div class="liv-icon">📋</div><div class="liv-title fr">Rapport ODD structuré</div><div class="liv-title en">Structured SDG report</div><div class="liv-sub fr">Selon vos templates institutionnels</div><div class="liv-sub en">Per your institutional templates</div></div>
+    <div class="livrable-item"><div class="liv-icon">🔬</div><div class="liv-title fr">Audit indépendant</div><div class="liv-title en">Independent audit</div><div class="liv-sub fr">Commissaire aux comptes agréé</div><div class="liv-sub en">Certified accountant</div></div>
+    <div class="livrable-item"><div class="liv-icon">🌿</div><div class="liv-title fr">Certification Carbone</div><div class="liv-title en">Carbon Certification</div><div class="liv-sub fr">Processus GCF-compatible en cours</div><div class="liv-sub en">GCF-compatible process underway</div></div>
+    <div class="livrable-item"><div class="liv-icon">🤝</div><div class="liv-title fr">Co-représentation COP</div><div class="liv-title en">COP co-representation</div><div class="liv-sub fr">MB comme vitrine terrain à vos côtés</div><div class="liv-sub en">MB as field showcase alongside you</div></div>
+  </div>
+  <div class="partner-quote reveal">
+    <div class="pq-icon">"</div>
+    <div>
+      <div class="pq-text fr">Après 20 ans de validation terrain, notre modèle est documenté, auditable et prêt à être déployé à l'échelle. Nous cherchons des institutionnels qui veulent des résultats, pas des promesses.</div>
+      <div class="pq-text en">After 20 years of field validation, our model is documented, auditable and ready to scale. We seek institutions that want results, not promises.</div>
+      <div class="pq-author fr">Hermine Ngo Batjom · Présidente Fondatrice</div><div class="pq-author en">Hermine Ngo Batjom · Founding President</div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== PROFIL 4 : DIASPORA ===== -->
+<section class="profil-section" id="tab-diaspora">
+  <div class="profil-header reveal">
+    <div>
+      <div class="ph-badge fr">🌍 DIASPORA · CO-DÉVELOPPEMENT · PARRAINAGE</div><div class="ph-badge en">🌍 DIASPORA · CO-DEVELOPMENT · SPONSORSHIP</div>
+      <h2 class="fr">Vous êtes parti·e.<br>Votre village, lui, est resté.</h2>
+      <h2 class="en">You left.<br>Your village stayed behind.</h2>
+      <p class="fr">100€ envoyés de manière structurée via MB construisent 10× plus que 100€ envoyés de façon informelle. Rejoignez une communauté de 1 247 membres de la diaspora qui co-développent leur région d'origine avec un impact traçable.</p>
+      <p class="en">€100 sent in a structured way through MB builds 10× more than €100 sent informally. Join a community of 1,247 diaspora members co-developing their home region with traceable impact.</p>
+    </div>
+    <div class="ph-stat-box"><span class="ph-stat-num">1 247</span><div class="ph-stat-lbl fr">membres diaspora<br>déjà engagés</div><div class="ph-stat-lbl en">diaspora members<br>already engaged</div></div>
+  </div>
+  <div class="diaspora-grid reveal">
+    <div class="diasp-card"><div class="diasp-icon">🌱</div><div><div class="diasp-title fr">Parrainer un enfant</div><div class="diasp-title en">Sponsor a child</div><div class="diasp-desc fr">Vous choisissez un enfant dans votre région d'origine. Nom, classe, progrès — rapport trimestriel garanti. Vous êtes son pilier invisible.</div><div class="diasp-desc en">You choose a child from your home region. Name, class, progress — quarterly report guaranteed. You are their invisible pillar.</div><div class="diasp-val">30 – 50 €/mois</div></div></div>
+    <div class="diasp-card"><div class="diasp-icon">🔥</div><div><div class="diasp-title fr">Offrir une cuisinière</div><div class="diasp-title en">Gift a cooker</div><div class="diasp-desc fr">Vous financez une cuisinière "1 Bois / 3 Foyers" pour une famille de votre village. Elle la reçoit en votre nom. Photo de livraison garantie.</div><div class="diasp-desc en">You fund a "1 Wood / 3 Fires" cooker for a family in your village. They receive it in your name. Delivery photo guaranteed.</div><div class="diasp-val">Don unique 30 €</div></div></div>
+    <div class="diasp-card"><div class="diasp-icon">🏡</div><div><div class="diasp-title fr">Investir collectivement</div><div class="diasp-title en">Invest collectively</div><div class="diasp-desc fr">Rejoignez d'autres membres de la diaspora de votre village pour financer ensemble un digesteur ou un séchoir. Impact collectif, contribution individuelle accessible.</div><div class="diasp-desc en">Join other diaspora members from your village to collectively fund a digester or dryer. Collective impact, accessible individual contribution.</div><div class="diasp-val">Dès 50 € / personne</div></div></div>
+    <div class="diasp-card"><div class="diasp-icon">💼</div><div><div class="diasp-title fr">Apporter votre expertise</div><div class="diasp-title en">Bring your expertise</div><div class="diasp-desc fr">Ingénieur·e, médecin, enseignant·e ? MB vous permet d'offrir vos compétences à distance : mentorat, formation en ligne, consulting technique.</div><div class="diasp-desc en">Engineer, doctor, teacher? MB lets you offer your skills remotely: mentorship, online training, technical consulting.</div><div class="diasp-val">Bénévolat de compétences</div></div></div>
+  </div>
+  <div class="section-lbl" style="margin-bottom:.8rem"><span class="fr">COMMUNAUTÉS ACTIVES</span><span class="en">ACTIVE COMMUNITIES</span></div>
+  <div class="pays-grid reveal">
+    <div class="pays-tag">🇫🇷 France (Paris, Lyon, Bordeaux)</div>
+    <div class="pays-tag">🇧🇪 Belgique · Bruxelles</div>
+    <div class="pays-tag">🇨🇭 Suisse · Genève</div>
+    <div class="pays-tag">🇬🇧 UK · Londres</div>
+    <div class="pays-tag">🇩🇪 Allemagne · Berlin</div>
+    <div class="pays-tag">🇨🇦 Canada · Montréal</div>
+    <div class="pays-tag">🇺🇸 USA · New York</div>
+    <div class="pays-tag">🇳🇬 Nigéria · Lagos</div>
+  </div>
+  <div class="livrables-row reveal">
+    <div class="livrable-item"><div class="liv-icon">📧</div><div class="liv-title fr">Nouvelles de l'enfant</div><div class="liv-title en">Child updates</div><div class="liv-sub fr">Rapport trimestriel personnalisé</div><div class="liv-sub en">Personalised quarterly report</div></div>
+    <div class="livrable-item"><div class="liv-icon">📸</div><div class="liv-title fr">Photo de livraison</div><div class="liv-title en">Delivery photo</div><div class="liv-sub fr">Votre don avec un visage réel</div><div class="liv-sub en">Your gift with a real face</div></div>
+    <div class="livrable-item"><div class="liv-icon">📄</div><div class="liv-title fr">Reçu fiscal</div><div class="liv-title en">Tax receipt</div><div class="liv-sub fr">66% déductible (résidents France)</div><div class="liv-sub en">66% deductible (France residents)</div></div>
+    <div class="livrable-item"><div class="liv-icon">🏅</div><div class="liv-title fr">Registre des bâtisseurs</div><div class="liv-title en">Builders' register</div><div class="liv-sub fr">Votre nom dans l'histoire de MB</div><div class="liv-sub en">Your name in MB's history</div></div>
+  </div>
+  <div class="partner-quote reveal">
+    <div class="pq-icon">"</div>
+    <div>
+      <div class="pq-text fr">J'envoie 30€ par mois depuis 2 ans. Chaque trimestre, une photo et un rapport. Je vois l'école qui se construit à Batchenga. Je suis à Paris — mais avec MB, je bâtis leur avenir de loin, et je le vois.</div>
+      <div class="pq-text en">I've sent €30/month for 2 years. Every quarter, a photo and a report. I can see the school being built in Batchenga. I'm in Paris — but with MB, I'm building their future from afar, and I can see it.</div>
+      <div class="pq-author">Aminata S. — <span class="fr">Diaspora camerounaise, Paris</span><span class="en">Cameroonian diaspora, Paris</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSUS -->
+<section class="process-section">
+  <div style="max-width:1000px;margin:0 auto;text-align:center">
+    <div class="section-lbl"><span class="fr">COMMENT ÇA MARCHE</span><span class="en">HOW IT WORKS</span></div>
+    <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.3rem);font-weight:700;margin-bottom:.5rem"><span class="fr">De la prise de contact au premier impact</span><span class="en">From first contact to first impact</span></h2>
+    <p style="font-size:15px;color:var(--td)"><span class="fr">Nous nous adaptons à votre calendrier. Pas de bureaucratie inutile.</span><span class="en">We adapt to your schedule. No unnecessary bureaucracy.</span></p>
+  </div>
+  <div class="process-steps">
+    <div class="step"><div class="step-num">1</div><div class="step-title fr">Prise de contact</div><div class="step-title en">First contact</div><div class="step-sub fr">Formulaire ci-dessous · Réponse 48h</div><div class="step-sub en">Form below · Reply within 48h</div></div>
+    <div class="step"><div class="step-num">2</div><div class="step-title fr">Réunion découverte</div><div class="step-title en">Discovery meeting</div><div class="step-sub fr">Visio ou présentiel · 45 min · Sur-mesure</div><div class="step-sub en">Video or in-person · 45 min · Tailored</div></div>
+    <div class="step"><div class="step-num">3</div><div class="step-title fr">Proposition d'alliance</div><div class="step-title en">Alliance proposal</div><div class="step-sub fr">Offre chiffrée · Livrables précis · Calendrier</div><div class="step-sub en">Costed offer · Deliverables · Timeline</div></div>
+    <div class="step"><div class="step-num">4</div><div class="step-title fr">Premier impact</div><div class="step-title en">First impact</div><div class="step-sub fr">Déploiement terrain · Photo · Rapport J+60</div><div class="step-sub en">Field deployment · Photo · Report D+60</div></div>
+  </div>
+</section>
+
+<!-- FORMULAIRE -->
+<section class="contact-section" id="contact-rdv">
+  <div class="contact-inner">
+    <div class="contact-left">
+      <div class="section-lbl"><span class="fr">PRISE DE RENDEZ-VOUS</span><span class="en">BOOK A MEETING</span></div>
+      <h2 class="fr">Parlons de votre projet d'alliance.</h2>
+      <h2 class="en">Let's talk about your alliance project.</h2>
+      <p class="fr">Envoyez-nous vos coordonnées et le type de partenariat qui vous intéresse. Notre responsable partenariats vous répond sous 48h — pas un bot, une vraie personne.</p>
+      <p class="en">Send us your details and the partnership type you're interested in. Our partnerships manager replies within 48h — not a bot, a real person.</p>
+      <div class="contact-infos">
+        <div class="ci-row"><div class="ci-ico">📧</div><a href="mailto:courrielmondeetbonheur@gmail.com">courrielmondeetbonheur@gmail.com</a></div>
+        <div class="ci-row"><div class="ci-ico">📞</div><span>+237 682 18 03 63 · WhatsApp</span></div>
+        <div class="ci-row"><div class="ci-ico">📞</div><span>+33 6 23 92 21 71 (France)</span></div>
+        <div class="ci-row"><div class="ci-ico">📍</div><span class="fr">Yaoundé, Cameroun · Chancelade, France</span><span class="en">Yaoundé, Cameroon · Chancelade, France</span></div>
+      </div>
+      <div class="resp-card">
+        <div class="resp-avatar">H</div>
+        <div>
+          <div class="resp-name">Hermine Ngo Batjom</div>
+          <div class="resp-role fr">Présidente Fondatrice · Responsable Partenariats</div>
+          <div class="resp-role en">Founding President · Partnerships Lead</div>
+          <div class="resp-delay fr">⏱ Réponse garantie en 48h ouvrées</div>
+          <div class="resp-delay en">⏱ Reply guaranteed within 48 business hours</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="contact-form" id="contact-form-wrap">
+        <div class="cf-head">
+          <div><div class="cf-head-title fr">Demande de partenariat</div><div class="cf-head-title en">Partnership request</div><div class="cf-head-sub fr">Réponse personnalisée sous 48h</div><div class="cf-head-sub en">Personalised reply within 48h</div></div>
+          <div class="cf-badge fr">GRATUIT</div><div class="cf-badge en">FREE</div>
+        </div>
+        <div class="cf-body" id="cf-body">
+          <div class="cf-field">
+            <label class="fr">Vous êtes… <span>*</span></label><label class="en">You are… <span>*</span></label>
+            <div class="profil-chips">
+              <button type="button" class="p-chip" onclick="selectProfil(this)"><span class="fr">🏭 Entreprise</span><span class="en">🏭 Company</span></button>
+              <button type="button" class="p-chip" onclick="selectProfil(this)"><span class="fr">🏦 Banque / MFI</span><span class="en">🏦 Bank / MFI</span></button>
+              <button type="button" class="p-chip" onclick="selectProfil(this)"><span class="fr">🌐 Institution</span><span class="en">🌐 Institution</span></button>
+              <button type="button" class="p-chip" onclick="selectProfil(this)"><span class="fr">🌍 Diaspora</span><span class="en">🌍 Diaspora</span></button>
+              <button type="button" class="p-chip" onclick="selectProfil(this)"><span class="fr">🤝 Association</span><span class="en">🤝 Association</span></button>
+              <button type="button" class="p-chip" onclick="selectProfil(this)"><span class="fr">Autre</span><span class="en">Other</span></button>
+            </div>
+          </div>
+          <div class="cf-row">
+            <div class="cf-field"><label class="fr">Prénom <span>*</span></label><label class="en">First name <span>*</span></label><input type="text" id="cf-prenom" placeholder="Marie" autocomplete="given-name"></div>
+            <div class="cf-field"><label class="fr">Nom <span>*</span></label><label class="en">Last name <span>*</span></label><input type="text" id="cf-nom" placeholder="Dupont" autocomplete="family-name"></div>
+          </div>
+          <div class="cf-field"><label class="fr">Email <span>*</span></label><label class="en">Email <span>*</span></label><input type="email" id="cf-email" placeholder="vous@organisation.com" autocomplete="email"></div>
+          <div class="cf-row">
+            <div class="cf-field"><label class="fr">Organisation</label><label class="en">Organisation</label><input type="text" id="cf-org" placeholder="Nom de votre organisation"></div>
+            <div class="cf-field"><label class="fr">Pays</label><label class="en">Country</label>
+              <select id="cf-pays">
+                <option>France</option><option class="fr">Cameroun</option><option class="en">Cameroon</option>
+                <option>Belgique / Belgium</option><option>Suisse / Switzerland</option>
+                <option>Canada</option><option>UK</option><option class="fr">Autre</option><option class="en">Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="cf-field"><label class="fr">Type de partenariat souhaité</label><label class="en">Partnership type sought</label>
+            <select id="cf-type">
+              <option class="fr" value="">— Choisissez —</option><option class="en" value="">— Select —</option>
+              <option class="fr">RSE / Mécénat entreprise</option><option class="en">CSR / Corporate sponsorship</option>
+              <option class="fr">Compensation carbone</option><option class="en">Carbon offset</option>
+              <option class="fr">Crédit productif / Microfinance</option><option class="en">Productive credit / Microfinance</option>
+              <option class="fr">Subvention institutionnelle / ODD</option><option class="en">Institutional grant / SDGs</option>
+              <option class="fr">Parrainage enfant</option><option class="en">Child sponsorship</option>
+              <option class="fr">Don diaspora</option><option class="en">Diaspora donation</option>
+              <option class="fr">Bénévolat de compétences</option><option class="en">Skills volunteering</option>
+              <option class="fr">Autre / À définir</option><option class="en">Other / To be defined</option>
+            </select>
+          </div>
+          <div class="cf-field"><label class="fr">Budget envisagé (facultatif)</label><label class="en">Estimated budget (optional)</label>
+            <select id="cf-budget">
+              <option class="fr" value="">— Non précisé —</option><option class="en" value="">— Not specified —</option>
+              <option class="fr">&lt; 1 000 €</option><option class="en">&lt; €1,000</option>
+              <option class="fr">1 000 – 5 000 €</option><option class="en">€1,000 – €5,000</option>
+              <option class="fr">5 000 – 20 000 €</option><option class="en">€5,000 – €20,000</option>
+              <option class="fr">20 000 – 100 000 €</option><option class="en">€20,000 – €100,000</option>
+              <option class="fr">+ 100 000 €</option><option class="en">+ €100,000</option>
+            </select>
+          </div>
+          <div class="cf-field"><label class="fr">Disponibilités pour un appel</label><label class="en">Availability for a call</label>
+            <div class="dispo-grid">
+              <button type="button" class="dispo-btn" onclick="this.classList.toggle('active')"><span class="fr">Lun matin</span><span class="en">Mon AM</span></button>
+              <button type="button" class="dispo-btn" onclick="this.classList.toggle('active')"><span class="fr">Lun après-midi</span><span class="en">Mon PM</span></button>
+              <button type="button" class="dispo-btn" onclick="this.classList.toggle('active')"><span class="fr">Mar matin</span><span class="en">Tue AM</span></button>
+              <button type="button" class="dispo-btn" onclick="this.classList.toggle('active')"><span class="fr">Mar après-midi</span><span class="en">Tue PM</span></button>
+              <button type="button" class="dispo-btn" onclick="this.classList.toggle('active')"><span class="fr">Mer matin</span><span class="en">Wed AM</span></button>
+              <button type="button" class="dispo-btn" onclick="this.classList.toggle('active')"><span class="fr">Jeu / Ven</span><span class="en">Thu / Fri</span></button>
+            </div>
+          </div>
+          <div class="cf-field"><label class="fr">Votre message (facultatif)</label><label class="en">Your message (optional)</label><textarea id="cf-message" placeholder="Décrivez en quelques mots votre projet ou vos questions..."></textarea></div>
+          <label class="cf-check"><input type="checkbox" id="cf-rgpd"><span class="fr">J'accepte que Monde et Bonheur utilise mes coordonnées pour me recontacter dans le cadre de ce partenariat. Aucun démarchage. Données supprimées sur demande.</span><span class="en">I agree that Monde et Bonheur may use my contact details for this partnership. No sales calls. Data deleted on request.</span></label>
+          <button class="cf-submit" onclick="submitForm()">🤝 <span class="fr">Envoyer ma demande de partenariat</span><span class="en">Send my partnership request</span></button>
+          <div class="cf-secure">🔒 <span class="fr">Données protégées · Réponse sous 48h garantie</span><span class="en">Data protected · 48h reply guaranteed</span></div>
+        </div>
+        <div class="form-success" id="form-success">
+          <div class="success-icon">🎉</div>
+          <div class="success-title fr">Demande envoyée !</div><div class="success-title en">Request sent!</div>
+          <div class="success-sub fr">Notre équipe vous répond sous 48h ouvrées avec une proposition personnalisée.<br><br>En attendant, <a href="index.html" style="color:var(--v);font-weight:600">découvrez nos projets terrain</a>.</div>
+          <div class="success-sub en">Our team will reply within 48 business hours with a personalised proposal.<br><br>In the meantime, <a href="index.html" style="color:var(--v);font-weight:600">browse our field projects</a>.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINALE -->
+<section class="cta-finale">
+  <h2 class="fr">L'Afrique n'a plus besoin de tuteurs.<br>Elle a besoin d'alliés.</h2>
+  <h2 class="en">Africa no longer needs tutors.<br>It needs allies.</h2>
+  <p class="fr">Votre expertise + notre terrain = un impact que ni vous ni nous ne pourrions créer seuls.</p>
+  <p class="en">Your expertise + our field = an impact neither of us could create alone.</p>
+  <div class="cta-btns">
+    <button class="btn-cta-w" onclick="document.getElementById('contact-rdv').scrollIntoView({behavior:'smooth'})">🤝 <span class="fr">Devenir partenaire</span><span class="en">Become a partner</span></button>
+    <button class="btn-cta-o" onclick="location.href='don.html'">❤️ <span class="fr">Faire un don</span><span class="en">Donate</span></button>
+  </div>
+</section>
+
+
+<script>
+function setLang(l){document.documentElement.setAttribute('data-lang',l);document.getElementById('btnFR').classList.toggle('active',l==='fr');document.getElementById('btnEN').classList.toggle('active',l==='en');}
+
+function showTab(id){
+  document.querySelectorAll('.profil-section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  const sec=document.getElementById('tab-'+id);
+  if(sec){sec.classList.add('active');triggerReveal(sec);}
+  const tabs=['entreprises','banques','diplomaties','diaspora'];
+  const idx=tabs.indexOf(id);
+  const btns=document.querySelectorAll('.tab-btn');
+  if(btns[idx])btns[idx].classList.add('active');
+  document.getElementById('tabs-nav').scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+
+function triggerReveal(container){
+  container.querySelectorAll('.reveal:not(.visible)').forEach((el,i)=>{
+    setTimeout(()=>el.classList.add('visible'),i*80);
+  });
+}
+
+function selectProfil(btn){
+  document.querySelectorAll('.p-chip').forEach(c=>c.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+function openContact(profil,pack){
+  const l=document.documentElement.getAttribute('data-lang')||'fr';
+  const msg=document.getElementById('cf-message');
+  if(msg)msg.value=l==='fr'?`Je suis intéressé·e par le "${pack}".`:`I'm interested in the "${pack}".`;
+  document.getElementById('contact-rdv').scrollIntoView({behavior:'smooth'});
+}
+
+function submitForm(){
+  const email=document.getElementById('cf-email').value;
+  const prenom=document.getElementById('cf-prenom').value;
+  const nom=document.getElementById('cf-nom').value;
+  const rgpd=document.getElementById('cf-rgpd').checked;
+  const l=document.documentElement.getAttribute('data-lang')||'fr';
+  if(!prenom||!nom){alert(l==='fr'?'Merci de renseigner votre prénom et nom.':'Please fill in your name.');return;}
+  if(!email||!email.includes('@')){alert(l==='fr'?'Email invalide.':'Invalid email.');return;}
+  if(!rgpd){alert(l==='fr'?'Merci d\'accepter les conditions.':'Please accept the terms.');return;}
+  document.getElementById('cf-body').style.display='none';
+  document.getElementById('form-success').classList.add('show');
+}
+
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*70);obs.unobserve(e.target);}});
+},{threshold:.07});
+document.querySelectorAll('#tab-entreprises .reveal').forEach(el=>obs.observe(el));
+triggerReveal(document.getElementById('tab-entreprises'));
+</script>
+
+<script src="mb-nav.js"></script>
+<script src="mb-carrousel-images.js"></script>
+    <script src="faq.js"></script>
+</body>
+</html>

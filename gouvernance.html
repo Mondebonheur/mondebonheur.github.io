@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gouvernance & Transparence — ONG Monde et Bonheur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --v:#1a5c3a;--vc:#2d8a58;--vp:#e8f5ee;--vd:#0d3320;
+  --o:#c8860a;--oc:#f5a623;--op:#fdf3e3;
+  --br:#3d2b1f;--wh:#fdfcf8;--gr:#f0ede6;
+  --tx:#1a1a18;--td:#4a4a44;--tp:#8a8a82;
+  --rouge:#c0392b;--haut:64px;--r:14px;
+  --sh:0 4px 24px rgba(0,0,0,.08);
+  --sh-lg:0 16px 60px rgba(0,0,0,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--wh);color:var(--tx);overflow-x:hidden;}
+[data-lang="fr"] .en{display:none!important;}
+[data-lang="en"] .fr{display:none!important;}
+a{text-decoration:none;}
+
+/* ── HEADER ── */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--haut);background:rgba(253,252,248,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(26,92,58,.1);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;}
+.h-logo{display:flex;align-items:center;gap:10px;}
+.h-disk{width:38px;height:38px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:12px;color:white;border:2px solid var(--vc);}
+.h-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--v);}
+.h-sub{font-size:10px;color:var(--tp);}
+.h-right{display:flex;align-items:center;gap:.8rem;}
+.lang-toggle{display:flex;background:var(--gr);border-radius:20px;padding:3px;border:1px solid rgba(26,92,58,.1);}
+.lang-btn{padding:4px 11px;border-radius:16px;border:none;background:none;font-size:11px;font-weight:700;cursor:pointer;color:var(--tp);font-family:'Space Mono',monospace;transition:all .2s;}
+.lang-btn.active{background:var(--v);color:white;}
+.btn-don-hdr{display:flex;align-items:center;gap:6px;background:var(--rouge);color:white;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-don-hdr:hover{background:#a93226;}
+.back-link{font-size:13px;color:var(--td);padding:7px 12px;border-radius:8px;border:1px solid rgba(26,92,58,.12);transition:all .2s;display:flex;align-items:center;gap:5px;}
+.back-link:hover{background:var(--vp);color:var(--v);}
+
+/* ── HERO ── */
+.gov-hero{
+  padding:calc(var(--haut)+70px) 8% 80px;
+  background:
+    linear-gradient(155deg,rgba(13,51,32,.97) 0%,rgba(26,92,58,.88) 55%,rgba(61,43,31,.8) 100%),
+    url('https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1400&q=80') center/cover no-repeat;
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  position:relative;overflow:hidden;
+}
+.gov-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:70px;background:linear-gradient(transparent,var(--wh));}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);color:#f5d087;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;padding:5px 14px;border-radius:20px;margin-bottom:1.3rem;}
+.gov-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:900;color:white;line-height:1.1;margin-bottom:1rem;}
+.gov-hero h1 em{font-style:italic;color:#f5d087;}
+.gov-hero p{font-size:clamp(.95rem,1.4vw,1.05rem);color:rgba(255,255,255,.78);line-height:1.8;font-weight:300;max-width:480px;}
+/* Certifs hero */
+.hero-certs{display:flex;flex-direction:column;gap:.8rem;}
+.hc-item{display:flex;align-items:center;gap:1rem;background:rgba(253,252,248,.09);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:1rem 1.3rem;}
+.hc-icon{font-size:1.8rem;flex-shrink:0;}
+.hc-title{font-size:14px;font-weight:700;color:white;line-height:1.2;}
+.hc-sub{font-size:11.5px;color:rgba(255,255,255,.55);margin-top:2px;}
+.hc-check{margin-left:auto;width:24px;height:24px;border-radius:50%;background:var(--vc);display:flex;align-items:center;justify-content:center;font-size:12px;color:white;flex-shrink:0;}
+
+/* ── BANDEAU CONFIANCE ── */
+.confiance-band{background:var(--v);padding:1.2rem 8%;display:flex;align-items:center;justify-content:center;gap:1.5rem;flex-wrap:wrap;}
+.cb-item{display:flex;align-items:center;gap:.6rem;font-size:12.5px;color:rgba(255,255,255,.85);font-weight:500;}
+.cb-sep{color:rgba(255,255,255,.2);font-size:1.2rem;}
+
+/* ── SECTION LABELS ── */
+.section-lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--o);text-transform:uppercase;margin-bottom:.7rem;}
+
+/* ── RÉPARTITION DES FONDS ── */
+.fonds-section{padding:80px 8%;background:white;}
+.fonds-inner{max-width:1100px;margin:0 auto;}
+.fonds-layout{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;margin-top:2.5rem;}
+
+/* Donut animé */
+.donut-wrap{position:relative;width:280px;height:280px;margin:0 auto;}
+.donut-svg{transform:rotate(-90deg);}
+.donut-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;}
+.donut-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;color:var(--v);line-height:1;}
+.donut-lbl{font-size:12px;color:var(--td);line-height:1.4;margin-top:4px;}
+
+/* Légende donut */
+.donut-legend{display:flex;flex-direction:column;gap:1rem;}
+.dl-item{display:flex;align-items:center;gap:1rem;}
+.dl-bar-wrap{flex:1;background:var(--gr);border-radius:6px;height:8px;overflow:hidden;}
+.dl-bar{height:100%;border-radius:6px;transition:width 1.2s ease;}
+.dl-info{min-width:60px;text-align:right;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;}
+.dl-dot{width:14px;height:14px;border-radius:50%;flex-shrink:0;}
+.dl-label{font-size:13.5px;color:var(--td);flex:1;}
+
+/* ── ACCRÉDITATIONS ── */
+.accred-section{padding:80px 8%;background:var(--gr);}
+.accred-inner{max-width:1100px;margin:0 auto;}
+.accred-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2.5rem;}
+.accred-card{background:white;border-radius:var(--r);border:1px solid rgba(26,92,58,.1);padding:2rem 1.8rem;text-align:center;transition:all .25s;box-shadow:var(--sh);}
+.accred-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);}
+.accred-icon{font-size:2.5rem;margin-bottom:.8rem;}
+.accred-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.4rem;}
+.accred-num{font-family:'Space Mono',monospace;font-size:10px;color:var(--o);letter-spacing:.08em;margin-bottom:.7rem;}
+.accred-desc{font-size:13px;color:var(--td);line-height:1.7;}
+.accred-badge{display:inline-flex;align-items:center;gap:.4rem;background:var(--vp);border:1px solid rgba(26,92,58,.15);color:var(--v);font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.07em;padding:4px 10px;border-radius:10px;margin-top:.8rem;}
+
+/* ── RAPPORTS D'ACTIVITÉ ── */
+.rapports-section{padding:80px 8%;background:white;}
+.rapports-inner{max-width:1100px;margin:0 auto;}
+.rapports-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem;}
+.rapport-card{background:white;border:1.5px solid rgba(26,92,58,.1);border-radius:var(--r);overflow:hidden;transition:all .25s;cursor:pointer;}
+.rapport-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);border-color:rgba(26,92,58,.25);}
+.rc-header{padding:1.5rem 1.4rem 1rem;background:linear-gradient(135deg,var(--vd),var(--v));}
+.rc-year{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#f5d087;line-height:1;}
+.rc-type{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.5);letter-spacing:.1em;margin-top:3px;}
+.rc-body{padding:1.1rem 1.4rem;}
+.rc-highlights{list-style:none;display:flex;flex-direction:column;gap:.4rem;}
+.rc-highlights li{font-size:12.5px;color:var(--td);display:flex;align-items:baseline;gap:.4rem;line-height:1.4;}
+.rc-highlights li::before{content:'·';color:var(--vc);font-size:1.2rem;flex-shrink:0;}
+.rc-foot{padding:.9rem 1.4rem;border-top:1px solid rgba(26,92,58,.07);display:flex;gap:.5rem;}
+.rc-btn{flex:1;padding:8px;text-align:center;border-radius:7px;font-size:12px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;border:none;}
+.rc-btn-dl{background:var(--v);color:white;}
+.rc-btn-dl:hover{background:var(--vc);}
+.rc-btn-view{background:var(--vp);color:var(--v);border:1px solid rgba(26,92,58,.15);}
+.rc-btn-view:hover{background:var(--v);color:white;}
+
+/* Rapport actif (2026) */
+.rapport-card.current{border-color:var(--oc);position:relative;}
+.rapport-card.current::before{content:'';position:absolute;top:-1px;left:-1px;right:-1px;bottom:-1px;border-radius:var(--r);border:2px solid var(--oc);pointer-events:none;}
+.rapport-card.current .rc-header{background:linear-gradient(135deg,#3d2000,#7a4500);}
+
+/* ── GOUVERNANCE ── */
+.gouvernance-section{padding:80px 8%;background:var(--gr);}
+.gouv-inner{max-width:1100px;margin:0 auto;}
+.gouv-grid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;margin-top:2.5rem;}
+
+/* Organigramme */
+.orga-wrap{background:white;border-radius:var(--r);padding:2rem;border:1px solid rgba(26,92,58,.1);box-shadow:var(--sh);}
+.orga-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--tp);text-transform:uppercase;text-align:center;margin-bottom:1.5rem;}
+.orga-node{text-align:center;margin-bottom:1rem;}
+.orga-node-box{display:inline-flex;flex-direction:column;align-items:center;background:var(--v);color:white;border-radius:10px;padding:.8rem 1.4rem;min-width:200px;}
+.orga-node-box.lvl2{background:var(--vp);color:var(--v);border:1.5px solid rgba(26,92,58,.2);}
+.orga-node-box.lvl3{background:white;color:var(--td);border:1px solid rgba(26,92,58,.12);font-size:12px;}
+.orga-name{font-weight:700;font-size:14px;line-height:1.2;}
+.orga-role{font-size:11px;opacity:.7;margin-top:2px;}
+.orga-line{width:2px;height:20px;background:rgba(26,92,58,.2);margin:0 auto;}
+.orga-row{display:flex;justify-content:center;gap:1rem;}
+.orga-h-line{height:2px;background:rgba(26,92,58,.15);width:60%;margin:0 auto;}
+
+/* Principes */
+.principes-wrap{display:flex;flex-direction:column;gap:1rem;}
+.principe-item{background:white;border-radius:var(--r);padding:1.3rem 1.5rem;border:1.5px solid rgba(26,92,58,.08);display:flex;align-items:flex-start;gap:1rem;transition:all .2s;box-shadow:var(--sh);}
+.principe-item:hover{border-color:var(--vc);background:var(--vp);}
+.pi-icon{font-size:1.6rem;flex-shrink:0;}
+.pi-title{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:.3rem;}
+.pi-desc{font-size:13px;color:var(--td);line-height:1.6;}
+
+/* ── CHIFFRES CLÉS GLOBAUX ── */
+.chiffres-section{padding:80px 8%;background:linear-gradient(135deg,var(--vd),var(--v));}
+.ch-inner{max-width:1100px;margin:0 auto;}
+.ch-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;margin-top:2.5rem;}
+.ch-card{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.12);border-radius:var(--r);padding:1.5rem;text-align:center;transition:all .25s;}
+.ch-card:hover{background:rgba(255,255,255,.16);transform:translateY(-3px);}
+.ch-num{font-family:'Playfair Display',serif;font-size:2.4rem;font-weight:900;color:#f5d087;line-height:1;display:block;}
+.ch-lbl{font-size:12px;color:rgba(255,255,255,.65);margin-top:.4rem;line-height:1.4;}
+
+/* ── ENGAGEMENT QUALITÉ ── */
+.engagement-section{padding:80px 8%;background:white;}
+.eng-inner{max-width:1100px;margin:0 auto;}
+.eng-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem;}
+.eng-card{border-radius:var(--r);padding:1.8rem;text-align:center;border:1.5px solid rgba(26,92,58,.1);transition:all .25s;}
+.eng-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);}
+.eng-icon{font-size:2.2rem;margin-bottom:.8rem;}
+.eng-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--v);display:block;line-height:1;margin-bottom:.4rem;}
+.eng-title{font-size:14px;font-weight:700;color:var(--tx);margin-bottom:.4rem;}
+.eng-desc{font-size:12.5px;color:var(--td);line-height:1.6;}
+
+/* ── CONTACT GOUVERNANCE ── */
+.gov-contact{background:var(--gr);padding:60px 8%;}
+.gc-inner{max-width:800px;margin:0 auto;text-align:center;}
+.gc-inner h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;margin-bottom:.8rem;}
+.gc-inner p{font-size:15px;color:var(--td);line-height:1.8;margin-bottom:2rem;}
+.gc-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;}
+.btn-v{display:inline-flex;align-items:center;gap:.5rem;background:var(--v);color:white;padding:13px 26px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .25s;}
+.btn-v:hover{background:var(--vc);transform:translateY(-2px);}
+.btn-sec{display:inline-flex;align-items:center;gap:.5rem;background:white;color:var(--v);padding:13px 26px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;border:1.5px solid rgba(26,92,58,.2);font-family:'DM Sans',sans-serif;transition:all .25s;}
+.btn-sec:hover{background:var(--vp);transform:translateY(-2px);}
+
+/* ── FOOTER ── */
+.mini-footer{background:#0f1a12;color:rgba(255,255,255,.45);padding:28px 8%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:12px;}
+.mini-footer a{color:rgba(255,255,255,.3);}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* Responsive */
+@media(max-width:960px){
+  .gov-hero{grid-template-columns:1fr;}.hero-certs{display:none;}
+  .fonds-layout{grid-template-columns:1fr;}
+  .accred-grid{grid-template-columns:1fr 1fr;}
+  .rapports-grid{grid-template-columns:1fr 1fr;}
+  .gouv-grid{grid-template-columns:1fr;}
+  .ch-grid{grid-template-columns:repeat(3,1fr);}
+  .eng-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  .accred-grid{grid-template-columns:1fr;}
+  .rapports-grid{grid-template-columns:1fr 1fr;}
+  .ch-grid{grid-template-columns:1fr 1fr;}
+  .eng-grid{grid-template-columns:1fr 1fr;}
+  :root{--haut:56px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+
+
+<!-- HERO -->
+<section class="gov-hero">
+  <div>
+    <div class="hero-badge">🔒 <span class="fr">TRANSPARENCE TOTALE · AUDITÉE · CERTIFIÉE</span><span class="en">TOTAL TRANSPARENCY · AUDITED · CERTIFIED</span></div>
+    <h1 class="fr">La confiance ne se déclare pas.<br>Elle se <em>prouve</em>.</h1>
+    <h1 class="en">Trust is not declared.<br>It is <em>proven</em>.</h1>
+    <p class="fr">20 ans de gestion rigoureuse. Des accréditations officielles au plus haut niveau. 96% de vos dons vont directement sur le terrain. Voici les preuves — chiffres, documents, et noms.</p>
+    <p class="en">20 years of rigorous management. Official accreditations at the highest level. 96% of your donations go directly to the field. Here is the proof — figures, documents, and names.</p>
+  </div>
+  <div class="hero-certs">
+    <div class="hc-item">
+      <div class="hc-icon">🏛️</div>
+      <div><div class="hc-title fr">Agrément MINATD</div><div class="hc-title en">MINATD Approval</div><div class="hc-sub">N°00000404/A/MINATD/SG/DAP/SDLP/SAC · 2006</div></div>
+      <div class="hc-check">✓</div>
+    </div>
+    <div class="hc-item">
+      <div class="hc-icon">🌍</div>
+      <div><div class="hc-title">MINREX</div><div class="hc-sub fr">Répertoire officiel des ONG · Cameroun</div><div class="hc-sub en">Official NGO registry · Cameroon</div></div>
+      <div class="hc-check">✓</div>
+    </div>
+    <div class="hc-item">
+      <div class="hc-icon">🇫🇷</div>
+      <div><div class="hc-title fr">Label FORIM</div><div class="hc-title en">FORIM Label</div><div class="hc-sub fr">Forum des OSI issues des Migrations · France</div><div class="hc-sub en">Forum of Migrant-Led Development Orgs · France</div></div>
+      <div class="hc-check">✓</div>
+    </div>
+    <div class="hc-item">
+      <div class="hc-icon">📋</div>
+      <div><div class="hc-title fr">Loi 1901 · Association déclarée</div><div class="hc-title en">Law 1901 · Registered Association</div><div class="hc-sub fr">Siège France : Chancelade (24650) · Depuis 2005</div><div class="hc-sub en">France HQ: Chancelade (24650) · Since 2005</div></div>
+      <div class="hc-check">✓</div>
+    </div>
+  </div>
+</section>
+
+<!-- BANDEAU CONFIANCE -->
+<div class="confiance-band">
+  <div class="cb-item">✅ <span class="fr">Agrément MINATD 2006</span><span class="en">MINATD Approval 2006</span></div>
+  <span class="cb-sep">·</span>
+  <div class="cb-item">✅ MINREX</div>
+  <span class="cb-sep">·</span>
+  <div class="cb-item">✅ <span class="fr">Label FORIM</span><span class="en">FORIM Label</span></div>
+  <span class="cb-sep">·</span>
+  <div class="cb-item">✅ <span class="fr">Loi 1901 France</span><span class="en">French Law 1901</span></div>
+  <span class="cb-sep">·</span>
+  <div class="cb-item">✅ <span class="fr">Rapport annuel audité</span><span class="en">Annual audited report</span></div>
+  <span class="cb-sep">·</span>
+  <div class="cb-item">✅ <span class="fr">96% fonds terrain</span><span class="en">96% field funds</span></div>
+</div>
+
+<!-- RÉPARTITION DES FONDS -->
+<section class="fonds-section">
+  <div class="fonds-inner">
+    <div class="section-lbl reveal"><span class="fr">TRAÇABILITÉ FINANCIÈRE · EXERCICE 2022–2025</span><span class="en">FINANCIAL TRACEABILITY · 2022–2025</span></div>
+    <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;line-height:1.2;margin-bottom:.5rem">
+      <span class="fr">Où va votre argent ?<br>Exactement là où nous le promettons.</span>
+      <span class="en">Where does your money go?<br>Exactly where we promise.</span>
+    </h2>
+    <p class="reveal" style="font-size:15px;color:var(--td);line-height:1.8;max-width:600px;margin-bottom:0">
+      <span class="fr">Monde et Bonheur publie chaque année la répartition précise de ses dépenses. Voici la moyenne consolidée sur les 3 derniers exercices, certifiée par notre commissaire aux comptes.</span>
+      <span class="en">Monde et Bonheur publishes the precise breakdown of its expenditure every year. Here is the consolidated average over the last 3 financial years, certified by our auditor.</span>
+    </p>
+    <div class="fonds-layout">
+
+      <!-- Donut SVG animé -->
+      <div>
+        <div class="donut-wrap reveal">
+          <svg class="donut-svg" width="280" height="280" viewBox="0 0 280 280" id="donut-svg">
+            <!-- Cercle fond -->
+            <circle cx="140" cy="140" r="110" fill="none" stroke="var(--gr)" stroke-width="28"/>
+            <!-- Arc 96% terrain (vert) -->
+            <circle cx="140" cy="140" r="110" fill="none" stroke="var(--vc)" stroke-width="28"
+              stroke-dasharray="0 691.15" id="arc-terrain"
+              stroke-linecap="round"/>
+            <!-- Arc 3% fonctionnement (orange) -->
+            <circle cx="140" cy="140" r="110" fill="none" stroke="var(--oc)" stroke-width="28"
+              stroke-dasharray="0 691.15" id="arc-fonct"
+              stroke-linecap="round"/>
+            <!-- Arc 1% comm (brun) -->
+            <circle cx="140" cy="140" r="110" fill="none" stroke="#a08060" stroke-width="28"
+              stroke-dasharray="0 691.15" id="arc-comm"
+              stroke-linecap="round"/>
+          </svg>
+          <div class="donut-center">
+            <div class="donut-num" id="donut-pct">0%</div>
+            <div class="donut-lbl fr">des fonds<br>sur le terrain</div>
+            <div class="donut-lbl en">of funds<br>to the field</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Légende -->
+      <div class="donut-legend reveal">
+        <div style="font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;margin-bottom:1.2rem">
+          <span class="fr">Répartition des dépenses</span>
+          <span class="en">Expenditure breakdown</span>
+        </div>
+
+        <div class="dl-item">
+          <div class="dl-dot" style="background:var(--vc)"></div>
+          <div class="dl-label">
+            <div style="font-weight:700;font-size:14px;color:var(--tx)" class="fr">Projets terrain &amp; bénéficiaires</div>
+            <div style="font-weight:700;font-size:14px;color:var(--tx)" class="en">Field projects &amp; beneficiaries</div>
+            <div style="font-size:12px;color:var(--tp)" class="fr">Cuisinières, école, biogaz, MetaScript, santé…</div>
+            <div style="font-size:12px;color:var(--tp)" class="en">Cookers, school, biogas, MetaScript, health…</div>
+          </div>
+          <div class="dl-bar-wrap"><div class="dl-bar" style="background:var(--vc);width:0" id="bar-terrain"></div></div>
+          <div class="dl-info" style="color:var(--vc)">96%</div>
+        </div>
+
+        <div class="dl-item">
+          <div class="dl-dot" style="background:var(--oc)"></div>
+          <div class="dl-label">
+            <div style="font-weight:700;font-size:14px;color:var(--tx)" class="fr">Fonctionnement &amp; coordination</div>
+            <div style="font-weight:700;font-size:14px;color:var(--tx)" class="en">Operations &amp; coordination</div>
+            <div style="font-size:12px;color:var(--tp)" class="fr">Loyers, déplacements, gestion administrative</div>
+            <div style="font-size:12px;color:var(--tp)" class="en">Rent, travel, administrative management</div>
+          </div>
+          <div class="dl-bar-wrap"><div class="dl-bar" style="background:var(--oc);width:0" id="bar-fonct"></div></div>
+          <div class="dl-info" style="color:var(--oc)">3%</div>
+        </div>
+
+        <div class="dl-item">
+          <div class="dl-dot" style="background:#a08060"></div>
+          <div class="dl-label">
+            <div style="font-weight:700;font-size:14px;color:var(--tx)" class="fr">Communication &amp; plaidoyer</div>
+            <div style="font-weight:700;font-size:14px;color:var(--tx)" class="en">Communication &amp; advocacy</div>
+            <div style="font-size:12px;color:var(--tp)" class="fr">Site web, rapports, représentation institutionnelle</div>
+            <div style="font-size:12px;color:var(--tp)" class="en">Website, reports, institutional representation</div>
+          </div>
+          <div class="dl-bar-wrap"><div class="dl-bar" style="background:#a08060;width:0" id="bar-comm"></div></div>
+          <div class="dl-info" style="color:#a08060">1%</div>
+        </div>
+
+        <div style="margin-top:1.2rem;padding:1rem;background:var(--vp);border-radius:10px;border:1px solid rgba(26,92,58,.12)">
+          <div style="font-size:13px;color:var(--td);line-height:1.7" class="fr">
+            ℹ️ <strong>Principe sacré MB :</strong> 100% des bénéfices générés par nos activités sociales (vente de cuisinières, licences MetaScript) sont réinvestis dans la mission sociale.
+          </div>
+          <div style="font-size:13px;color:var(--td);line-height:1.7" class="en">
+            ℹ️ <strong>MB's sacred principle:</strong> 100% of profits generated by our social business activities (cooker sales, MetaScript licences) are reinvested into the social mission.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACCRÉDITATIONS -->
+<section class="accred-section">
+  <div class="accred-inner">
+    <div class="section-lbl reveal"><span class="fr">ACCRÉDITATIONS OFFICIELLES</span><span class="en">OFFICIAL ACCREDITATIONS</span></div>
+    <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;line-height:1.2">
+      <span class="fr">Reconnue aux plus hauts niveaux<br>institutionnels — France &amp; Cameroun</span>
+      <span class="en">Recognised at the highest institutional<br>levels — France &amp; Cameroon</span>
+    </h2>
+    <div class="accred-grid">
+
+      <div class="accred-card reveal">
+        <div class="accred-icon">🏛️</div>
+        <div class="accred-title">MINATD</div>
+        <div class="accred-num">N°00000404/A/MINATD/SG/DAP/SDLP/SAC</div>
+        <div class="accred-desc fr">Ministère de l'Administration Territoriale du Cameroun. ONG agréée depuis 2006 — première accréditation officielle de Monde et Bonheur sur le sol camerounais.</div>
+        <div class="accred-desc en">Ministry of Territorial Administration of Cameroon. NGO approved since 2006 — Monde et Bonheur's first official accreditation on Cameroonian soil.</div>
+        <div class="accred-badge">✓ <span class="fr">VALIDE DEPUIS 2006</span><span class="en">VALID SINCE 2006</span></div>
+      </div>
+
+      <div class="accred-card reveal">
+        <div class="accred-icon">🌍</div>
+        <div class="accred-title">MINREX</div>
+        <div class="accred-num fr">RÉPERTOIRE OFFICIEL DES ONG</div>
+        <div class="accred-num en">OFFICIAL NGO REGISTRY</div>
+        <div class="accred-desc fr">Ministère des Relations Extérieures du Cameroun. Inscription au répertoire officiel garantissant notre légitimité diplomatique et notre capacité à opérer avec les partenaires internationaux.</div>
+        <div class="accred-desc en">Ministry of External Relations of Cameroon. Registration in the official registry guaranteeing our diplomatic legitimacy and capacity to operate with international partners.</div>
+        <div class="accred-badge">✓ <span class="fr">DIPLOMATIE OFFICIELLE</span><span class="en">OFFICIAL DIPLOMACY</span></div>
+      </div>
+
+      <div class="accred-card reveal">
+        <div class="accred-icon">🇫🇷</div>
+        <div class="accred-title">FORIM</div>
+        <div class="accred-num fr">LABEL SOLIDARITÉ INTERNATIONALE</div>
+        <div class="accred-num en">INTERNATIONAL SOLIDARITY LABEL</div>
+        <div class="accred-desc fr">Forum des Organisations de Solidarité Internationale issues des Migrations. Label garantissant notre expertise reconnue en gestion de projets migratoires et de co-développement diaspora-pays d'origine.</div>
+        <div class="accred-desc en">Forum of International Solidarity Organisations from Migration. Label certifying our recognised expertise in managing migration projects and diaspora/origin-country co-development.</div>
+        <div class="accred-badge">✓ <span class="fr">LABEL CO-DÉVELOPPEMENT</span><span class="en">CO-DEVELOPMENT LABEL</span></div>
+      </div>
+
+      <div class="accred-card reveal">
+        <div class="accred-icon">📋</div>
+        <div class="accred-title fr">Loi 1901 · France</div>
+        <div class="accred-title en">French Law 1901</div>
+        <div class="accred-num fr">ASSOCIATION DE SOLIDARITÉ INTERNATIONALE</div>
+        <div class="accred-num en">INTERNATIONAL SOLIDARITY ASSOCIATION</div>
+        <div class="accred-desc fr">Déclarée en France depuis le 16 novembre 2005. Siège social : 3 Clos des Chabrats, 24650 Chancelade. Confère le droit d'émettre des reçus fiscaux (déduction 66% en France).</div>
+        <div class="accred-desc en">Registered in France since 16 November 2005. Registered office: 3 Clos des Chabrats, 24650 Chancelade. Grants the right to issue tax receipts (66% deduction in France).</div>
+        <div class="accred-badge">✓ <span class="fr">REÇUS FISCAUX LÉGAUX</span><span class="en">LEGAL TAX RECEIPTS</span></div>
+      </div>
+
+      <div class="accred-card reveal">
+        <div class="accred-icon">🌱</div>
+        <div class="accred-title fr">Fonds Verts · En cours</div>
+        <div class="accred-title en">Green Funds · In Progress</div>
+        <div class="accred-num fr">GCF · FONDS VERT POUR LE CLIMAT</div>
+        <div class="accred-num en">GCF · GREEN CLIMATE FUND</div>
+        <div class="accred-desc fr">Positionnement stratégique pour l'accréditation auprès du Fonds Vert pour le Climat (GCF) et participation aux Conférences des Parties (COP). Processus engagé en 2025.</div>
+        <div class="accred-desc en">Strategic positioning for accreditation with the Green Climate Fund (GCF) and participation in Conferences of the Parties (COP). Process initiated in 2025.</div>
+        <div class="accred-badge" style="background:var(--op);color:var(--o);border-color:rgba(200,134,10,.2)">⏳ <span class="fr">EN COURS 2025–2026</span><span class="en">IN PROGRESS 2025–2026</span></div>
+      </div>
+
+      <div class="accred-card reveal">
+        <div class="accred-icon">🔬</div>
+        <div class="accred-title fr">Audit Financier Annuel</div>
+        <div class="accred-title en">Annual Financial Audit</div>
+        <div class="accred-num fr">COMMISSAIRE AUX COMPTES INDÉPENDANT</div>
+        <div class="accred-num en">INDEPENDENT CERTIFIED AUDITOR</div>
+        <div class="accred-desc fr">Chaque exercice fait l'objet d'un audit par un commissaire aux comptes indépendant et agréé. Les rapports sont disponibles sur demande et communiqués aux partenaires financeurs.</div>
+        <div class="accred-desc en">Each financial year is audited by an independent certified accountant. Reports are available on request and communicated to financial partners.</div>
+        <div class="accred-badge">✓ <span class="fr">AUDIT ANNUEL</span><span class="en">ANNUAL AUDIT</span></div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- RAPPORTS D'ACTIVITÉ -->
+<section class="rapports-section">
+  <div class="rapports-inner">
+    <div class="section-lbl reveal"><span class="fr">RAPPORTS D'ACTIVITÉ · TÉLÉCHARGEABLES</span><span class="en">ACTIVITY REPORTS · DOWNLOADABLE</span></div>
+    <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;line-height:1.2;margin-bottom:.5rem">
+      <span class="fr">20 ans d'actions documentées.</span>
+      <span class="en">20 years of documented actions.</span>
+    </h2>
+    <p class="reveal" style="font-size:15px;color:var(--td);line-height:1.8;max-width:600px;margin-bottom:0">
+      <span class="fr">Chaque rapport détaille les projets réalisés, les bénéficiaires touchés, et les dépenses engagées. La transparence n'est pas optionnelle chez Monde et Bonheur.</span>
+      <span class="en">Each report details the projects completed, beneficiaries reached, and expenditure incurred. Transparency is not optional at Monde et Bonheur.</span>
+    </p>
+    <div class="rapports-grid">
+
+      <div class="rapport-card reveal">
+        <div class="rc-header">
+          <div class="rc-year">2026</div>
+          <div class="rc-type fr">RAPPORT EN COURS · GALA IMPACT</div>
+          <div class="rc-type en">ONGOING REPORT · IMPACT GALA</div>
+        </div>
+        <div class="rc-body">
+          <ul class="rc-highlights">
+            <li class="fr">Industrialisation 4 technologies Green-Tech</li>
+            <li class="en">Industrialisation of 4 Green-Tech innovations</li>
+            <li class="fr">Objectif Gala : 500M FCFA — Novembre 2026</li>
+            <li class="en">Gala target: 500M FCFA — November 2026</li>
+            <li class="fr">Déploiement panafricain 7 pays lancé</li>
+            <li class="en">Pan-African deployment in 7 countries launched</li>
+          </ul>
+        </div>
+        <div class="rc-foot">
+          <button class="rc-btn rc-btn-view" onclick="location.href='partenaires.html'">
+            <span class="fr">Rejoindre</span><span class="en">Join</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="rapport-card current reveal">
+        <div class="rc-header">
+          <div class="rc-year">2022</div>
+          <div class="rc-type fr">RAPPORT ANNUEL · AUDITÉ</div>
+          <div class="rc-type en">ANNUAL REPORT · AUDITED</div>
+        </div>
+        <div class="rc-body">
+          <ul class="rc-highlights">
+            <li class="fr">Déploiement MetaScript dans 12 lycées pilotes</li>
+            <li class="en">MetaScript deployed in 12 pilot schools</li>
+            <li class="fr">Séchoir Flash coopérative Batchenga opérationnel</li>
+            <li class="en">Batchenga cooperative Flash Dryer operational</li>
+            <li class="fr">10 000+ bénéficiaires cumulés documentés</li>
+            <li class="en">10,000+ cumulative beneficiaries documented</li>
+            <li class="fr">Ambulance remise aux Sapeurs-Pompiers</li>
+            <li class="en">Ambulance donated to Fire Brigade</li>
+          </ul>
+        </div>
+        <div class="rc-foot">
+          <button class="rc-btn rc-btn-dl" onclick="alert('Rapport 2022 disponible sur demande : courrielmondeetbonheur@gmail.com')">
+            📥 <span class="fr">Télécharger</span><span class="en">Download</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="rapport-card reveal">
+        <div class="rc-header">
+          <div class="rc-year" style="font-size:1.6rem">2013<br>–2014</div>
+          <div class="rc-type fr">RAPPORT BIENNAL</div>
+          <div class="rc-type en">BIENNIAL REPORT</div>
+        </div>
+        <div class="rc-body">
+          <ul class="rc-highlights">
+            <li class="fr">École Pygmées Baka (Lomié / Abakoum)</li>
+            <li class="en">Baka Pygmies School (Lomié / Abakoum)</li>
+            <li class="fr">40 → 100+ élèves réguliers documentés</li>
+            <li class="en">40 → 100+ regular pupils documented</li>
+            <li class="fr">Lycée de Bondjock — fondations construites</li>
+            <li class="en">Bondjock High School — foundations built</li>
+          </ul>
+        </div>
+        <div class="rc-foot">
+          <button class="rc-btn rc-btn-dl" onclick="alert('Rapport 2013-14 disponible sur demande : courrielmondeetbonheur@gmail.com')">
+            📥 <span class="fr">Télécharger</span><span class="en">Download</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="rapport-card reveal">
+        <div class="rc-header">
+          <div class="rc-year" style="font-size:1.4rem">Triennale<br>2006–09</div>
+          <div class="rc-type fr">RAPPORT FONDATEUR</div>
+          <div class="rc-type en">FOUNDING REPORT</div>
+        </div>
+        <div class="rc-body">
+          <ul class="rc-highlights">
+            <li class="fr">Fondation EFEACAM → Monde et Bonheur</li>
+            <li class="en">Foundation EFEACAM → Monde et Bonheur</li>
+            <li class="fr">Premiers projets humanitaires d'urgence</li>
+            <li class="en">First emergency humanitarian projects</li>
+            <li class="fr">Structuration CUMA Batchenga</li>
+            <li class="en">Batchenga CUMA structuring</li>
+            <li class="fr">Pivot vers le développement durable</li>
+            <li class="en">Pivot to sustainable development</li>
+          </ul>
+        </div>
+        <div class="rc-foot">
+          <button class="rc-btn rc-btn-dl" onclick="alert('Triennale disponible sur demande : courrielmondeetbonheur@gmail.com')">
+            📥 <span class="fr">Télécharger</span><span class="en">Download</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- GOUVERNANCE INTERNE -->
+<section class="gouvernance-section">
+  <div class="gouv-inner">
+    <div class="section-lbl reveal"><span class="fr">STRUCTURE DE GOUVERNANCE</span><span class="en">GOVERNANCE STRUCTURE</span></div>
+    <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;line-height:1.2;margin-bottom:0">
+      <span class="fr">Qui décide. Qui contrôle.<br>Qui rend des comptes.</span>
+      <span class="en">Who decides. Who controls.<br>Who is accountable.</span>
+    </h2>
+    <div class="gouv-grid">
+
+      <!-- Organigramme -->
+      <div class="orga-wrap reveal">
+        <div class="orga-title fr">ORGANIGRAMME SIMPLIFIÉ</div>
+        <div class="orga-title en">SIMPLIFIED ORGANISATION CHART</div>
+
+        <div class="orga-node">
+          <div class="orga-node-box">
+            <div class="orga-name">Assemblée Générale</div>
+            <div class="orga-role fr">Membres · Souveraineté suprême</div>
+            <div class="orga-role en">Members · Supreme sovereignty</div>
+          </div>
+        </div>
+        <div class="orga-line"></div>
+        <div class="orga-node">
+          <div class="orga-node-box">
+            <div class="orga-name">Conseil d'Administration</div>
+            <div class="orga-role fr">Stratégie · Contrôle · Validation</div>
+            <div class="orga-role en">Strategy · Control · Approval</div>
+          </div>
+        </div>
+        <div class="orga-line"></div>
+        <div class="orga-node">
+          <div class="orga-node-box" style="background:var(--oc);border-color:var(--o)">
+            <div class="orga-name">Hermine Ngo Batjom</div>
+            <div class="orga-role fr">Présidente Fondatrice · Direction Générale</div>
+            <div class="orga-role en">Founding President · General Management</div>
+          </div>
+        </div>
+        <div class="orga-line"></div>
+        <div class="orga-h-line"></div>
+        <div style="height:.5rem"></div>
+        <div class="orga-row">
+          <div class="orga-node-box lvl2" style="min-width:120px;padding:.6rem .9rem">
+            <div class="orga-name" style="font-size:12px" class="fr">Pôle France</div>
+            <div class="orga-role" style="font-size:10px">Chancelade · 24650</div>
+          </div>
+          <div class="orga-node-box lvl2" style="min-width:120px;padding:.6rem .9rem">
+            <div class="orga-name" style="font-size:12px" class="fr">Pôle Cameroun</div>
+            <div class="orga-role" style="font-size:10px">Yaoundé · BP 17663</div>
+          </div>
+          <div class="orga-node-box lvl2" style="min-width:120px;padding:.6rem .9rem">
+            <div class="orga-name" style="font-size:12px" class="fr">Audit Externe</div>
+            <div class="orga-role" style="font-size:10px">Commissaire indépendant</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Principes -->
+      <div class="principes-wrap reveal">
+        <div style="font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:1rem">
+          <span class="fr">Nos principes de gouvernance</span>
+          <span class="en">Our governance principles</span>
+        </div>
+
+        <div class="principe-item">
+          <div class="pi-icon">🔒</div>
+          <div>
+            <div class="pi-title fr">Séparation des pouvoirs</div><div class="pi-title en">Separation of powers</div>
+            <div class="pi-desc fr">Le Conseil d'Administration contrôle et valide indépendamment les décisions opérationnelles. Aucune décision financière majeure ne peut être prise par une seule personne.</div>
+            <div class="pi-desc en">The Board of Directors independently controls and approves operational decisions. No major financial decision can be made by a single person.</div>
+          </div>
+        </div>
+
+        <div class="principe-item">
+          <div class="pi-icon">📊</div>
+          <div>
+            <div class="pi-title fr">Rapport annuel public</div><div class="pi-title en">Public annual report</div>
+            <div class="pi-desc fr">Chaque exercice fiscal est documenté, audité par un commissaire aux comptes indépendant et mis à disposition des donateurs, partenaires et autorités sur demande.</div>
+            <div class="pi-desc en">Each fiscal year is documented, audited by an independent accountant and made available to donors, partners and authorities on request.</div>
+          </div>
+        </div>
+
+        <div class="principe-item">
+          <div class="pi-icon">💯</div>
+          <div>
+            <div class="pi-title fr">Principe de réinvestissement total</div><div class="pi-title en">Total reinvestment principle</div>
+            <div class="pi-desc fr">100% des bénéfices des activités commerciales (vente de cuisinières, licences MetaScript, produits agricoles) sont réinvestis dans la mission sociale. Aucune distribution de dividendes.</div>
+            <div class="pi-desc en">100% of commercial activity profits (cooker sales, MetaScript licences, agricultural products) are reinvested into the social mission. No dividend distribution.</div>
+          </div>
+        </div>
+
+        <div class="principe-item">
+          <div class="pi-icon">🤝</div>
+          <div>
+            <div class="pi-title fr">Intégrité &amp; parole donnée</div><div class="pi-title en">Integrity &amp; keeping commitments</div>
+            <div class="pi-desc fr">Valeur fondatrice de l'ONG depuis 2008 : quand Monde et Bonheur s'engage, elle tient ses engagements — même au prix d'un sacrifice personnel. L'abandon n'est pas une option.</div>
+            <div class="pi-desc en">Founding value of the NGO since 2008: when Monde et Bonheur commits, it keeps its commitments — even at personal cost. Abandonment is not an option.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CHIFFRES CLÉS -->
+<section class="chiffres-section">
+  <div class="ch-inner">
+    <div class="section-lbl" style="text-align:center;color:var(--oc)"><span class="fr">20 ANS EN CHIFFRES</span><span class="en">20 YEARS IN FIGURES</span></div>
+    <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:white;text-align:center;margin-bottom:0">
+      <span class="fr">Ce que 20 ans de rigueur produisent</span>
+      <span class="en">What 20 years of rigour produces</span>
+    </h2>
+    <div class="ch-grid">
+      <div class="ch-card reveal"><span class="ch-num" id="cn1">0</span><div class="ch-lbl fr">Vies impactées<br>depuis 2006</div><div class="ch-lbl en">Lives impacted<br>since 2006</div></div>
+      <div class="ch-card reveal"><span class="ch-num" id="cn2">0</span><div class="ch-lbl fr">Accréditations<br>officielles actives</div><div class="ch-lbl en">Active official<br>accreditations</div></div>
+      <div class="ch-card reveal"><span class="ch-num" id="cn3">0%</span><div class="ch-lbl fr">Fonds directement<br>investis terrain</div><div class="ch-lbl en">Funds directly<br>invested in field</div></div>
+      <div class="ch-card reveal"><span class="ch-num" id="cn4">0</span><div class="ch-lbl fr">Rapports d'activité<br>publiés &amp; audités</div><div class="ch-lbl en">Activity reports<br>published &amp; audited</div></div>
+      <div class="ch-card reveal"><span class="ch-num" id="cn5">0</span><div class="ch-lbl fr">Pays de présence<br>officielle</div><div class="ch-lbl en">Countries with<br>official presence</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ENGAGEMENTS QUALITÉ -->
+<section class="engagement-section">
+  <div class="eng-inner">
+    <div class="section-lbl reveal"><span class="fr">NOS ENGAGEMENTS ENVERS VOUS</span><span class="en">OUR COMMITMENTS TO YOU</span></div>
+    <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;line-height:1.2;margin-bottom:0">
+      <span class="fr">Ce que nous vous promettons.<br>Toujours. Sans exception.</span>
+      <span class="en">What we promise you.<br>Always. Without exception.</span>
+    </h2>
+    <div class="eng-grid">
+      <div class="eng-card reveal" style="border-color:rgba(26,92,58,.15);background:var(--vp)">
+        <div class="eng-icon">📸</div>
+        <span class="eng-num">60j</span>
+        <div class="eng-title fr">Rapport d'impact</div><div class="eng-title en">Impact report</div>
+        <div class="eng-desc fr">Chaque donateur reçoit un rapport personnalisé avec photos terrain dans les 60 jours suivant son don.</div>
+        <div class="eng-desc en">Every donor receives a personalised report with field photos within 60 days of their donation.</div>
+      </div>
+      <div class="eng-card reveal" style="border-color:rgba(200,134,10,.15);background:var(--op)">
+        <div class="eng-icon">📄</div>
+        <span class="eng-num">24h</span>
+        <div class="eng-title fr">Reçu fiscal</div><div class="eng-title en">Tax receipt</div>
+        <div class="eng-desc fr">Votre reçu fiscal est émis et envoyé par email dans les 24h suivant votre don. Déductible à 66% en France.</div>
+        <div class="eng-desc en">Your tax receipt is issued and emailed within 24h of your donation. 66% deductible in France.</div>
+      </div>
+      <div class="eng-card reveal" style="border-color:rgba(26,92,58,.15);background:var(--vp)">
+        <div class="eng-icon">💬</div>
+        <span class="eng-num">48h</span>
+        <div class="eng-title fr">Réponse garantie</div><div class="eng-title en">Guaranteed reply</div>
+        <div class="eng-desc fr">Toute question, demande de document ou demande de partenariat reçoit une réponse personnalisée sous 48h ouvrées.</div>
+        <div class="eng-desc en">Every question, document request or partnership enquiry receives a personalised reply within 48 business hours.</div>
+      </div>
+      <div class="eng-card reveal" style="border-color:rgba(61,43,31,.1);background:white">
+        <div class="eng-icon">🔓</div>
+        <span class="eng-num">100%</span>
+        <div class="eng-title fr">Données accessibles</div><div class="eng-title en">Open data</div>
+        <div class="eng-desc fr">Nos statuts, rapports d'activité et états financiers sont disponibles sur demande. Aucun document n'est confidentiel vis-à-vis de nos donateurs.</div>
+        <div class="eng-desc en">Our statutes, activity reports and financial statements are available on request. No document is confidential towards our donors.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT GOUVERNANCE -->
+<section class="gov-contact">
+  <div class="gc-inner reveal">
+    <div class="section-lbl" style="text-align:center"><span class="fr">VOUS AVEZ UNE QUESTION SUR NOTRE GESTION ?</span><span class="en">QUESTION ABOUT OUR MANAGEMENT?</span></div>
+    <h2 class="fr">Nous n'avons rien à cacher.<br>Demandez tout.</h2>
+    <h2 class="en">We have nothing to hide.<br>Ask anything.</h2>
+    <p class="fr">Statuts complets, derniers rapports d'activité audités, répartition détaillée des dépenses par projet — tout document est disponible sur demande et envoyé sous 48h.</p>
+    <p class="en">Full statutes, latest audited activity reports, detailed expenditure breakdown by project — every document is available on request and sent within 48h.</p>
+    <div class="gc-btns">
+      <button class="btn-v" onclick="window.location='mailto:courrielmondeetbonheur@gmail.com?subject=Demande%20de%20documents%20de%20gouvernance'">
+        📧 <span class="fr">Demander les documents</span><span class="en">Request documents</span>
+      </button>
+      <button class="btn-sec" onclick="location.href='don.html'">
+        ❤️ <span class="fr">Faire confiance &amp; donner</span><span class="en">Trust us &amp; give</span>
+      </button>
+    </div>
+  </div>
+</section>
+
+
+
+<script>
+/* ── Langue ── */
+function setLang(l){
+  document.documentElement.setAttribute('data-lang',l);
+  document.getElementById('btnFR').classList.toggle('active',l==='fr');
+  document.getElementById('btnEN').classList.toggle('active',l==='en');
+}
+
+/* ── Donut animation ── */
+const CIRC = 2 * Math.PI * 110; // ~691.15
+function animateDonut(){
+  const terrain = 0.96 * CIRC;
+  const fonct   = 0.03 * CIRC;
+  const comm    = 0.01 * CIRC;
+  let offset = 0;
+
+  // Arc terrain
+  const arcT = document.getElementById('arc-terrain');
+  arcT.setAttribute('stroke-dasharray', `0 ${CIRC}`);
+  arcT.setAttribute('stroke-dashoffset', '0');
+  setTimeout(()=>{
+    arcT.style.transition = 'stroke-dasharray 1.2s ease';
+    arcT.setAttribute('stroke-dasharray', `${terrain} ${CIRC - terrain}`);
+  }, 300);
+
+  // Arc fonctionnement
+  const arcF = document.getElementById('arc-fonct');
+  offset = terrain;
+  arcF.setAttribute('stroke-dasharray', `0 ${CIRC}`);
+  arcF.setAttribute('stroke-dashoffset', -offset);
+  setTimeout(()=>{
+    arcF.style.transition = 'stroke-dasharray 1.2s ease .3s';
+    arcF.setAttribute('stroke-dasharray', `${fonct} ${CIRC - fonct}`);
+  }, 300);
+
+  // Arc comm
+  const arcC = document.getElementById('arc-comm');
+  offset = terrain + fonct;
+  arcC.setAttribute('stroke-dasharray', `0 ${CIRC}`);
+  arcC.setAttribute('stroke-dashoffset', -offset);
+  setTimeout(()=>{
+    arcC.style.transition = 'stroke-dasharray 1.2s ease .6s';
+    arcC.setAttribute('stroke-dasharray', `${comm} ${CIRC - comm}`);
+  }, 300);
+
+  // Compteur %
+  const pctEl = document.getElementById('donut-pct');
+  let p = 0;
+  const tick = setInterval(()=>{
+    p = Math.min(p + 2, 96);
+    pctEl.textContent = p + '%';
+    if(p >= 96) clearInterval(tick);
+  }, 20);
+
+  // Barres
+  setTimeout(()=>{
+    document.getElementById('bar-terrain').style.transition='width 1.2s ease';
+    document.getElementById('bar-terrain').style.width='96%';
+    document.getElementById('bar-fonct').style.transition='width 1.2s ease .2s';
+    document.getElementById('bar-fonct').style.width='3%';
+    document.getElementById('bar-comm').style.transition='width 1.2s ease .4s';
+    document.getElementById('bar-comm').style.width='1%';
+  }, 400);
+}
+
+/* ── Compteurs chiffres clés ── */
+function animCount(id, target, suffix='', duration=1400){
+  const el = document.getElementById(id);
+  if(!el) return;
+  let start = null;
+  const step = ts => {
+    if(!start) start = ts;
+    const p = Math.min((ts-start)/duration, 1);
+    const v = Math.round(p * target);
+    el.textContent = v.toLocaleString('fr-FR') + suffix;
+    if(p < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+/* ── Scroll reveal ── */
+let donutDone = false;
+let chDone = false;
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>e.target.classList.add('visible'), i*75);
+      obs.unobserve(e.target);
+      // Déclencher le donut quand la section fonds est visible
+      if(e.target.closest('.fonds-section') && !donutDone){
+        donutDone = true;
+        animateDonut();
+      }
+      // Compteurs chiffres clés
+      if(e.target.closest('.chiffres-section') && !chDone){
+        chDone = true;
+        setTimeout(()=>{
+          animCount('cn1', 10000, '+');
+          animCount('cn2', 4, '');
+          animCount('cn3', 96, '%');
+          animCount('cn4', 8, '');
+          animCount('cn5', 2, '');
+        }, 200);
+      }
+    }
+  });
+},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+
+<script src="mb-nav.js"></script>
+<script src="mb-carrousel-images.js"></script>
+    <script src="faq.js"></script>
+</body>
+</html>

@@ -1,0 +1,1534 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formations Professionnelles – Monde et Bonheur ONG</title>
+
+  <!-- SEO & Open Graph -->
+  <meta name="description" content="Formations professionnelles certifiées proposées par Monde et Bonheur ONG. Inscrivez-vous et obtenez votre attestation de réussite.">
+  <meta property="og:title" content="Formations Professionnelles – Monde et Bonheur ONG">
+  <meta property="og:description" content="Découvrez nos formations certifiées dans plus de 15 domaines. Inscrivez-vous dès maintenant.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://via.placeholder.com/1200x630/004080/ffffff?text=Monde+et+Bonheur+ONG">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:ital,wght@0,300;0,700;1,300&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --navy: #003366;
+      --blue: #005BBB;
+      --sky: #E8F4FD;
+      --gold: #F39C12;
+      --gold-light: #FEF3DC;
+      --white: #ffffff;
+      --gray-100: #F6F8FB;
+      --gray-200: #E9EEF5;
+      --gray-400: #94A3B8;
+      --gray-700: #334155;
+      --success: #16A34A;
+      --radius: 14px;
+      --shadow: 0 4px 24px rgba(0,51,102,0.10);
+      --shadow-lg: 0 12px 40px rgba(0,51,102,0.16);
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--gray-100);
+      color: var(--gray-700);
+      line-height: 1.6;
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #005BBB 60%, #0072D2 100%);
+      color: white;
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 2.5rem;
+      position: relative;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 5px 14px;
+      border-radius: 50px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .hero-badge span { font-size: 1rem; }
+    .hero h1 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+    }
+    .hero h1 em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .hero p {
+      font-size: 1.05rem;
+      opacity: 0.88;
+      max-width: 620px;
+      margin-bottom: 2rem;
+    }
+    .hero-stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+    .stat-item { text-align: left; }
+    .stat-num {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .stat-label { font-size: 0.82rem; opacity: 0.75; margin-top: 2px; }
+
+    .hero-cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 2.5rem;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 13px 26px;
+      border-radius: 50px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-primary:hover { background: #d98c0e; transform: translateY(-2px); box-shadow: 0 8px 20px rgba(243,156,18,0.35); }
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: white;
+      font-weight: 600;
+      font-size: 0.95rem;
+      padding: 12px 24px;
+      border-radius: 50px;
+      border: 2px solid rgba(255,255,255,0.4);
+      text-decoration: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); border-color: white; }
+
+    /* ─── QUICK NAV ─── */
+    .quick-nav-wrap {
+      background: white;
+      border-bottom: 1px solid var(--gray-200);
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      box-shadow: 0 2px 12px rgba(0,51,102,0.08);
+    }
+    .quick-nav-inner {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 0.6rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .quick-nav-inner::-webkit-scrollbar { display: none; }
+    .qn-logo {
+      font-family: 'Fraunces', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      white-space: nowrap;
+      margin-right: 0.6rem;
+      padding-right: 0.8rem;
+      border-right: 2px solid var(--gray-200);
+    }
+    .qn-link {
+      white-space: nowrap;
+      padding: 5px 13px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--navy);
+      text-decoration: none;
+      background: var(--gray-100);
+      transition: all 0.2s;
+    }
+    .qn-link:hover, .qn-link.active { background: var(--navy); color: white; }
+
+    /* ─── SEARCH BAR ─── */
+    .search-wrap {
+      max-width: 1140px;
+      margin: 2rem auto 0;
+      padding: 0 1.5rem;
+    }
+    .search-box {
+      display: flex;
+      align-items: center;
+      background: white;
+      border: 2px solid var(--gray-200);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: border-color 0.2s;
+    }
+    .search-box:focus-within { border-color: var(--blue); }
+    .search-icon { padding: 0 1rem; color: var(--gray-400); font-size: 1.1rem; }
+    .search-box input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 14px 0;
+      font-size: 0.95rem;
+      font-family: inherit;
+      color: var(--gray-700);
+    }
+    .search-clear {
+      background: none;
+      border: none;
+      padding: 0 1rem;
+      color: var(--gray-400);
+      cursor: pointer;
+      font-size: 1.2rem;
+      display: none;
+    }
+    .search-count {
+      font-size: 0.8rem;
+      color: var(--gray-400);
+      white-space: nowrap;
+      padding: 0 1rem;
+      border-left: 1px solid var(--gray-200);
+    }
+
+    /* ─── CONTAINER ─── */
+    .main-container {
+      max-width: 1140px;
+      margin: 2rem auto 4rem;
+      padding: 0 1.5rem;
+    }
+
+    /* ─── DOMAINE SECTION ─── */
+    .domaine-section {
+      margin-bottom: 2.5rem;
+      opacity: 1;
+      transition: opacity 0.2s;
+    }
+    .domaine-section.hidden { display: none; }
+
+    .domaine-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .domaine-icon {
+      width: 46px;
+      height: 46px;
+      background: var(--navy);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      flex-shrink: 0;
+    }
+    .domaine-title-block h2 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+    }
+    .domaine-count {
+      font-size: 0.78rem;
+      color: var(--gray-400);
+      font-weight: 500;
+    }
+
+    /* ─── CARDS GRID ─── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+    }
+
+    .formation-card {
+      background: white;
+      border-radius: var(--radius);
+      border: 1.5px solid var(--gray-200);
+      overflow: hidden;
+      transition: all 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .formation-card:hover {
+      border-color: var(--blue);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+    }
+    .card-top {
+      padding: 1.2rem 1.2rem 0.8rem;
+      flex: 1;
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 0.4rem;
+      line-height: 1.3;
+    }
+    .card-objectif {
+      font-size: 0.82rem;
+      color: var(--gray-400);
+      line-height: 1.5;
+      margin-bottom: 0.8rem;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .card-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      margin-bottom: 0.8rem;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 0.74rem;
+      font-weight: 600;
+    }
+    .pill-duree { background: var(--sky); color: var(--blue); }
+    .pill-prix { background: var(--gold-light); color: #9A5E00; }
+
+    .card-bottom {
+      padding: 0.8rem 1.2rem;
+      border-top: 1px solid var(--gray-100);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+    .btn-register {
+      flex: 1;
+      text-align: center;
+      background: var(--navy);
+      color: white;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 9px 12px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-register:hover { background: var(--blue); }
+    .btn-share {
+      background: var(--gray-100);
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: var(--gray-700);
+      font-size: 0.9rem;
+      transition: all 0.2s;
+    }
+    .btn-share:hover { background: var(--sky); color: var(--blue); }
+
+    /* No results */
+    .no-results {
+      text-align: center;
+      padding: 4rem 1rem;
+      display: none;
+    }
+    .no-results.visible { display: block; }
+    .no-results h3 { font-size: 1.3rem; color: var(--navy); margin-bottom: 0.5rem; }
+    .no-results p { color: var(--gray-400); }
+
+    /* ─── MODAL ─── */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,30,60,0.55);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(4px);
+    }
+    .modal-overlay.open { display: flex; }
+    .modal-box {
+      background: white;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 580px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 60px rgba(0,30,60,0.25);
+      animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    @keyframes modalIn {
+      from { opacity:0; transform: scale(0.88) translateY(20px); }
+      to { opacity:1; transform: scale(1) translateY(0); }
+    }
+    .modal-head {
+      background: linear-gradient(135deg, var(--navy), var(--blue));
+      color: white;
+      padding: 1.5rem;
+      border-radius: 20px 20px 0 0;
+      position: relative;
+    }
+    .modal-head .modal-domaine {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+      margin-bottom: 0.3rem;
+    }
+    .modal-head h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255,255,255,0.2);
+      border: none;
+      color: white;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+    .modal-close:hover { background: rgba(255,255,255,0.35); }
+
+    .modal-pills-row {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      padding: 1rem 1.5rem 0;
+    }
+    .modal-body { padding: 1rem 1.5rem 1.5rem; }
+    .info-block { margin-bottom: 1rem; }
+    .info-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      font-weight: 700;
+      color: var(--blue);
+      margin-bottom: 0.2rem;
+    }
+    .info-text { font-size: 0.9rem; color: var(--gray-700); line-height: 1.6; }
+
+    .modal-footer {
+      border-top: 1px solid var(--gray-200);
+      padding: 1rem 1.5rem;
+    }
+    .modal-footer .notice {
+      background: var(--gold-light);
+      border: 1px solid #F9D689;
+      border-radius: 10px;
+      padding: 0.8rem 1rem;
+      font-size: 0.82rem;
+      color: #7A4800;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+    .modal-footer .notice strong { display: block; margin-bottom: 0.2rem; }
+    .action-row {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      gap: 0.6rem;
+    }
+    .btn-wa {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: #25D366;
+      color: white;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 10px 14px;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-wa:hover { background: #1da851; }
+    .btn-modal-register {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--navy);
+      color: white;
+      font-weight: 700;
+      font-size: 0.82rem;
+      padding: 10px 16px;
+      border-radius: 10px;
+      text-decoration: none;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-modal-register:hover { background: var(--blue); }
+    .btn-modal-share {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--gray-100);
+      color: var(--gray-700);
+      font-weight: 600;
+      font-size: 0.82rem;
+      padding: 10px 12px;
+      border-radius: 10px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .btn-modal-share:hover { background: var(--sky); color: var(--blue); }
+
+    /* ─── INSCRIPTION MODAL ─── */
+    .form-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,30,60,0.6);
+      z-index: 1100;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+      backdrop-filter: blur(4px);
+    }
+    .form-overlay.open { display: flex; }
+    .form-box {
+      background: white;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 560px;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 24px 60px rgba(0,30,60,0.3);
+      animation: modalIn 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .form-head {
+      background: linear-gradient(135deg, #1a1a2e, var(--navy));
+      color: white;
+      padding: 1.5rem;
+      border-radius: 20px 20px 0 0;
+      position: relative;
+    }
+    .form-head .back-btn {
+      position: absolute;
+      top: 1rem;
+      left: 1rem;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .form-head .back-btn:hover { background: rgba(255,255,255,0.25); }
+    .form-head .form-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(255,255,255,0.15);
+      border: none;
+      color: white;
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .form-head-inner {
+      text-align: center;
+      padding-top: 1rem;
+    }
+    .form-head .badge-form {
+      display: inline-block;
+      background: var(--gold);
+      color: white;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 50px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+    }
+    .form-head h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+    .form-head .form-subtitle { font-size: 0.82rem; opacity: 0.7; margin-top: 0.3rem; }
+
+    .form-body { padding: 1.5rem; }
+
+    /* Progress bar */
+    .progress-wrap { margin-bottom: 1.5rem; }
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--gray-400);
+      margin-bottom: 6px;
+    }
+    .progress-bar { height: 4px; background: var(--gray-200); border-radius: 2px; }
+    .progress-fill { height: 100%; background: var(--gold); border-radius: 2px; transition: width 0.4s; }
+
+    .form-step { display: none; }
+    .form-step.active { display: block; }
+
+    .form-group { margin-bottom: 1rem; }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--navy);
+      margin-bottom: 5px;
+    }
+    .form-group label .req { color: #E53E3E; margin-left: 2px; }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 10px;
+      font-size: 0.88rem;
+      font-family: inherit;
+      color: var(--gray-700);
+      background: var(--gray-100);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus { border-color: var(--blue); background: white; }
+    .form-group textarea { resize: vertical; min-height: 80px; }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+
+    .form-info-block {
+      background: var(--sky);
+      border: 1px solid #B8D9F0;
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.82rem;
+      color: var(--navy);
+    }
+    .form-info-block strong { display: block; margin-bottom: 0.3rem; }
+
+    .wa-payment-block {
+      background: #F0FFF4;
+      border: 1.5px solid #86EFAC;
+      border-radius: 12px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+    .wa-payment-block h4 { color: var(--success); font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .wa-payment-block p { font-size: 0.82rem; color: #166534; line-height: 1.5; }
+    .wa-payment-block .wa-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: #25D366;
+      color: white;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 9px 16px;
+      border-radius: 8px;
+      text-decoration: none;
+      margin-top: 0.7rem;
+      transition: background 0.2s;
+    }
+    .wa-payment-block .wa-link:hover { background: #1da851; }
+
+    .step-nav {
+      display: flex;
+      gap: 0.6rem;
+      justify-content: flex-end;
+      padding-top: 0.5rem;
+    }
+    .btn-prev {
+      background: var(--gray-100);
+      border: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      padding: 10px 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      color: var(--gray-700);
+      transition: background 0.2s;
+    }
+    .btn-prev:hover { background: var(--gray-200); }
+    .btn-next {
+      background: var(--navy);
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 0.85rem;
+      padding: 10px 22px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-next:hover { background: var(--blue); }
+
+    /* Share panel */
+    .share-panel {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,30,60,0.5);
+      z-index: 1200;
+      align-items: flex-end;
+      justify-content: center;
+      backdrop-filter: blur(4px);
+    }
+    .share-panel.open { display: flex; }
+    .share-box {
+      background: white;
+      border-radius: 20px 20px 0 0;
+      width: 100%;
+      max-width: 480px;
+      padding: 1.5rem;
+      animation: slideUp 0.3s ease;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .share-box h4 { font-size: 1rem; font-weight: 700; color: var(--navy); margin-bottom: 1rem; }
+    .share-options {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.6rem;
+      margin-bottom: 1rem;
+    }
+    .share-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      padding: 0.7rem 0.3rem;
+      border-radius: 12px;
+      border: none;
+      background: var(--gray-100);
+      cursor: pointer;
+      font-size: 0.73rem;
+      color: var(--gray-700);
+      font-weight: 600;
+      transition: all 0.2s;
+      text-decoration: none;
+    }
+    .share-option:hover { background: var(--sky); color: var(--blue); }
+    .share-option .share-icon { font-size: 1.4rem; }
+    .share-link-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .share-link-input {
+      flex: 1;
+      padding: 9px 12px;
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px;
+      font-size: 0.78rem;
+      color: var(--gray-400);
+      background: var(--gray-100);
+      outline: none;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+    .share-copy-btn {
+      background: var(--navy);
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 0.8rem;
+      padding: 9px 14px;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .share-cancel {
+      display: block;
+      width: 100%;
+      margin-top: 0.8rem;
+      background: none;
+      border: none;
+      color: var(--gray-400);
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 0.5rem;
+      text-align: center;
+    }
+
+    /* Toast */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--navy);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 9999;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* Footer */
+    .site-footer {
+      background: var(--navy);
+      color: rgba(255, 255, 255, 0.804);
+      text-align: center;
+      padding: 2rem 1.5rem;
+      font-size: 0.82rem;
+    }
+    .site-footer strong { color: white; }
+    .site-footer a { color: var(--gold); text-decoration: none; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 640px) {
+      .hero h1 { font-size: 1.7rem; }
+      .cards-grid { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      .action-row { grid-template-columns: 1fr 1fr; }
+      .btn-modal-register { grid-column: 1/-1; }
+      .share-options { grid-template-columns: repeat(4,1fr); }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge"><span>🎓</span> Formations Certifiées</div>
+    <h1>Développez vos<br><em>compétences professionnelles</em><br>avec Monde et Bonheur</h1>
+    <p>Des formations pratiques dans plus de 15 domaines d'excellence, encadrées par des experts. Obtenez votre <strong>attestation de réussite</strong> reconnue.</p>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-num" id="stat-total">120+</div>
+        <div class="stat-label">Formations disponibles</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">15+</div>
+        <div class="stat-label">Domaines couverts</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">100%</div>
+        <div class="stat-label">Attestation de réussite</div>
+      </div>
+    </div>
+    <div class="hero-cta-row">
+      <a href="#formations" class="btn-primary">📋 Voir les formations</a>
+      <a href="https://wa.me/2348106814709" target="_blank" class="btn-outline">💬 Nous contacter</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── QUICK NAV ─── -->
+<div class="quick-nav-wrap">
+  <div class="quick-nav-inner">
+    <div class="qn-logo">M&B ONG</div>
+    <div id="quick-nav-links"></div>
+  </div>
+</div>
+
+<!-- ─── SEARCH ─── -->
+<div class="search-wrap" id="formations">
+  <div class="search-box">
+    <span class="search-icon">🔍</span>
+    <input type="text" id="search-input" placeholder="Rechercher une formation, un domaine...">
+    <button class="search-clear" id="search-clear">✕</button>
+    <span class="search-count" id="search-count"></span>
+  </div>
+</div>
+
+<!-- ─── MAIN ─── -->
+<div class="main-container" id="main-container">
+  <div class="no-results" id="no-results">
+    <h3>Aucune formation trouvée</h3>
+    <p>Essayez d'autres mots-clés ou parcourez les domaines ci-dessus.</p>
+  </div>
+</div>
+
+<!-- ─── MODAL DÉTAIL FORMATION ─── -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div class="modal-domaine" id="modal-domaine"></div>
+      <h3 id="modal-titre"></h3>
+      <button class="modal-close" id="modal-close">✕</button>
+    </div>
+    <div class="modal-pills-row">
+      <span class="pill pill-duree">⏱ <span id="modal-duree"></span></span>
+      <span class="pill pill-prix">💰 <span id="modal-prix"></span></span>
+    </div>
+    <div class="modal-body">
+      <div class="info-block">
+        <div class="info-label">Objectif général</div>
+        <div class="info-text" id="modal-objectif"></div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Public cible</div>
+        <div class="info-text" id="modal-public"></div>
+      </div>
+      <div class="info-block">
+        <div class="info-label">Contenu de la formation</div>
+        <div class="info-text" id="modal-contenu"></div>
+      </div>
+    </div>
+    
+        <strong>📄 Attestation de réussite</strong>
+        Complétez le formulaire d'inscription et envoyez votre preuve de paiement via WhatsApp pour valider votre inscription et recevoir votre attestation.
+      </div>
+      <div class="action-row">
+        <button class="btn-modal-register" id="modal-btn-register">📝 S'inscrire à cette formation</button>
+        <a href="#" class="btn-wa" id="modal-btn-wa" target="_blank">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        </a>
+        <button class="btn-modal-share" id="modal-btn-share">📤</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FORMULAIRE INSCRIPTION ─── -->
+<div class="form-overlay" id="form-overlay">
+  <div class="form-box">
+    <div class="form-head">
+      <button class="back-btn" id="form-back">← Retour</button>
+      <button class="form-close" id="form-close">✕</button>
+      <div class="form-head-inner">
+        <div class="badge-form">Formulaire d'inscription</div>
+        <h3 id="form-titre-display">Nom de la formation</h3>
+        <div class="form-subtitle">Remplissez toutes les informations requises pour l'attestation</div>
+      </div>
+    </div>
+    <div class="form-body">
+      <!-- Barre de progression -->
+      <div class="progress-wrap">
+        <div class="progress-label">
+          <span id="progress-label-text">Étape 1 sur 3 – Informations personnelles</span>
+          <span id="progress-pct">33%</span>
+        </div>
+        <div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:33%"></div></div>
+      </div>
+
+      <!-- ÉTAPE 1 -->
+      <div class="form-step active" id="step-1">
+        <div class="form-info-block">
+          <strong>📋 Informations obligatoires pour l'attestation</strong>
+          Ces données seront utilisées pour établir votre attestation de réussite officielle.
+        </div>
+        <div class="form-grid">
+          <div class="form-group">
+            <label>Nom <span class="req">*</span></label>
+            <input type="text" id="f-nom" placeholder="Votre nom de famille">
+          </div>
+          <div class="form-group">
+            <label>Prénom(s) <span class="req">*</span></label>
+            <input type="text" id="f-prenom" placeholder="Votre prénom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Date de naissance <span class="req">*</span></label>
+          <input type="date" id="f-ddn">
+        </div>
+        <div class="form-group">
+          <label>Lieu de naissance <span class="req">*</span></label>
+          <input type="text" id="f-lieu-naissance" placeholder="Ex: Yaoundé, Cameroun">
+        </div>
+        <div class="form-group">
+          <label>Nationalité <span class="req">*</span></label>
+          <input type="text" id="f-nationalite" placeholder="Ex: Camerounaise">
+        </div>
+        <div class="step-nav">
+          <button class="btn-next" onclick="nextStep(2)">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 2 -->
+      <div class="form-step" id="step-2">
+        <div class="form-group">
+          <label>Téléphone / WhatsApp <span class="req">*</span></label>
+          <input type="tel" id="f-tel" placeholder="Ex: +237 6XX XXX XXX">
+        </div>
+        <div class="form-group">
+          <label>Email <span class="req">*</span></label>
+          <input type="email" id="f-email" placeholder="votre@email.com">
+        </div>
+        <div class="form-group">
+          <label>Profession / Poste actuel</label>
+          <input type="text" id="f-profession" placeholder="Ex: Ingénieur, Étudiant, Entrepreneur...">
+        </div>
+        <div class="form-group">
+          <label>Niveau d'études</label>
+          <select id="f-niveau">
+            <option value="">-- Sélectionnez --</option>
+            <option>BEPC / Brevet</option>
+            <option>BAC / Probatoire</option>
+            <option>BTS / DUT</option>
+            <option>Licence / Bachelor</option>
+            <option>Master</option>
+            <option>Doctorat</option>
+            <option>Autre</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Ville de résidence <span class="req">*</span></label>
+          <input type="text" id="f-ville" placeholder="Ex: Yaoundé, Douala...">
+        </div>
+        <div class="step-nav">
+          <button class="btn-prev" onclick="prevStep(1)">← Précédent</button>
+          <button class="btn-next" onclick="nextStep(3)">Suivant →</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 3 -->
+      <div class="form-step" id="step-3">
+        <div class="form-info-block">
+          <strong>📌 Formation sélectionnée</strong>
+          <span id="form-recap-formation">—</span>
+        </div>
+        <div class="form-group">
+          <label>Motivation / Pourquoi cette formation ?</label>
+          <textarea id="f-motivation" placeholder="Décrivez brièvement votre motivation pour cette formation..."></textarea>
+        </div>
+        <div class="wa-payment-block">
+          <h4>✅ Validation par preuve de paiement</h4>
+          <p>Une fois le formulaire soumis, envoyez votre <strong>preuve de paiement</strong> (capture d'écran du virement ou reçu) via WhatsApp pour valider définitivement votre inscription.</p>
+          <a href="#" class="wa-link" id="form-wa-link" target="_blank">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Envoyer ma preuve de paiement
+          </a>
+        </div>
+        <div class="step-nav">
+          <button class="btn-prev" onclick="prevStep(2)">← Précédent</button>
+          <button class="btn-next" id="btn-submit" onclick="submitForm()">✅ Soumettre ma pré-inscription</button>
+        </div>
+      </div>
+
+      <!-- ÉTAPE 4 : SUCCESS -->
+      <div class="form-step" id="step-4">
+        <div style="text-align:center;padding:1.5rem 0">
+          <div style="font-size:3rem;margin-bottom:1rem">🎉</div>
+          <h3 style="color:var(--navy);font-size:1.3rem;margin-bottom:0.5rem">Pré-inscription enregistrée !</h3>
+          <p style="color:var(--gray-400);font-size:0.9rem;margin-bottom:1.5rem">Merci <strong id="success-prenom"></strong>. Votre pré-inscription a bien été reçue. Envoyez maintenant votre preuve de paiement pour finaliser.</p>
+          <a href="#" class="wa-link" id="success-wa-link" target="_blank" style="display:inline-flex;margin:0 auto">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Valider avec ma preuve de paiement
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SHARE PANEL ─── -->
+<div class="share-panel" id="share-panel">
+  <div class="share-box">
+    <h4>📤 Partager cette formation</h4>
+    <div class="share-options">
+      <a class="share-option" id="share-wa" href="#" target="_blank">
+        <span class="share-icon">💬</span>WhatsApp
+      </a>
+      <a class="share-option" id="share-fb" href="#" target="_blank">
+        <span class="share-icon">📘</span>Facebook
+      </a>
+      <a class="share-option" id="share-tw" href="#" target="_blank">
+        <span class="share-icon">🐦</span>Twitter/X
+      </a>
+      <a class="share-option" id="share-li" href="#" target="_blank">
+        <span class="share-icon">💼</span>LinkedIn
+      </a>
+    </div>
+    <div class="share-link-row">
+      <input type="text" class="share-link-input" id="share-link-input" readonly>
+      <button class="share-copy-btn" onclick="copyShareLink()">Copier</button>
+    </div>
+    <button class="share-cancel" onclick="closeSharePanel()">Annuler</button>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+
+<script>
+// ─── DONNÉES ───
+const WA_NUMBER = "237671234567"; // <-- Remplacez par votre numéro WhatsApp
+
+const DOMAINE_ICONS = {
+  "BÂTIMENT & TRAVAUX PUBLICS": "🏗️",
+  "NUMÉRIQUE & INFORMATIQUE": "💻",
+  "SANTÉ & BIEN-ÊTRE": "🏥",
+  "AGRICULTURE & AGRO-ALIMENTAIRE": "🌱",
+  "ÉDUCATION & FORMATION": "📚",
+  "DROIT, GOUVERNANCE & FINANCE": "⚖️",
+  "COMMUNICATION PLURIELLE & MÉDIAS": "📡",
+  "COMMERCE, LOGISTIQUE & DOUANE": "🚚",
+  "ARTISANAT & MÉTIERS D'ART": "🎨",
+  "ÉNERGIES RENOUVELABLES & ENVIRONNEMENT": "♻️",
+  "INDUSTRIE & FABRICATION": "🏭",
+  "FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL": "🌟",
+};
+
+const courses = [
+  // BÂTIMENT & TRAVAUX PUBLICS
+  {domaine:"BÂTIMENT & TRAVAUX PUBLICS",titre:"Gestion de chantier",objectif:"Planifier, organiser et contrôler les travaux d'un chantier de construction.",public:"Conducteurs de travaux, chefs de chantier, maîtres d'œuvre.",contenu:"Planification (planning, GANTT), organisation, sécurité, gestion des ressources humaines et matérielles, suivi budgétaire, coordination des corps de métier.",duree:"5 jours",prix:"50.000 FCFA"},
+  {domaine:"BÂTIMENT & TRAVAUX PUBLICS",titre:"Topographie",objectif:"Maîtriser les techniques de mesure, de représentation et de relevé du terrain.",public:"Géomètres, ingénieurs, techniciens BTP.",contenu:"Levé topographique, GPS, théodolite, nivellement, cartographie, SIG, DAO.",duree:"10 jours",prix:"100.000 FCFA"},
+  {domaine:"BÂTIMENT & TRAVAUX PUBLICS",titre:"Dessin et architecture",objectif:"Produire des plans architecturaux et techniques selon les normes.",public:"Architectes, dessinateurs, techniciens BTP.",contenu:"Dessin technique, logiciels CAO (AutoCAD, Revit), normes de construction, plans d'exécution.",duree:"10 jours",prix:"100.000 FCFA"},
+  {domaine:"BÂTIMENT & TRAVAUX PUBLICS",titre:"Plomberie",objectif:"Installer et entretenir les réseaux d'eau et de gaz.",public:"Plombiers, techniciens de maintenance, entrepreneurs.",contenu:"Lecture de plans, installation sanitaire, réseaux d'eau froide/chaude, gaz, entretien et dépannage.",duree:"5 jours",prix:"30.000 FCFA"},
+  {domaine:"BÂTIMENT & TRAVAUX PUBLICS",titre:"Électricité bâtiment",objectif:"Réaliser des installations électriques conformes aux normes.",public:"Électriciens, techniciens de maintenance, artisans.",contenu:"Schémas électriques, normes NFC 15-100, tableaux, câblage, sécurité, domotique.",duree:"5 jours",prix:"30.000 FCFA"},
+  {domaine:"BÂTIMENT & TRAVAUX PUBLICS",titre:"Maçonnerie",objectif:"Maîtriser les techniques de construction en maçonnerie.",public:"Maçons, chefs d'équipe, artisans du bâtiment.",contenu:"Matériaux de construction, fondations, murs porteurs, enduits, dallages, isolation.",duree:"5 jours",prix:"20.000 FCFA"},
+  {domaine:"BÂTIMENT & TRAVAUX PUBLICS",titre:"Menuiserie",objectif:"Fabriquer et poser des ouvrages en bois et matériaux dérivés.",public:"Menuisiers, artisans, entrepreneurs.",contenu:"Lecture de plans, machines, assemblages, pose de portes/fenêtres, finitions, menuiserie aluminium.",duree:"5 jours",prix:"20.000 FCFA"},
+  {domaine:"BÂTIMENT & TRAVAUX PUBLICS",titre:"Carrelage",objectif:"Poser tous types de revêtements de sol et mural.",public:"Carreleurs, artisans, techniciens du bâtiment.",contenu:"Préparation des supports, pose, joints, matériaux (grès, faïence, marbre), étanchéité.",duree:"3 jours",prix:"15.000 FCFA"},
+  {domaine:"BÂTIMENT & TRAVAUX PUBLICS",titre:"Peinture bâtiment",objectif:"Réaliser des travaux de peinture et de décoration intérieure.",public:"Peintres, artisans, techniciens de décoration.",contenu:"Préparation des surfaces, produits, techniques d'application, effets décoratifs, sécurité.",duree:"3 jours",prix:"15.000 FCFA"},
+  {domaine:"BÂTIMENT & TRAVAUX PUBLICS",titre:"Couverture et étanchéité",objectif:"Réaliser des toitures et assurer l'étanchéité des bâtiments.",public:"Couvreurs, étanchéistes, techniciens du bâtiment.",contenu:"Types de couvertures, pose, matériaux d'étanchéité, entretien, sécurité en hauteur.",duree:"5 jours",prix:"30.000 FCFA"},
+  {domaine:"BÂTIMENT & TRAVAUX PUBLICS",titre:"Climatisation et froid",objectif:"Installer et entretenir les systèmes de climatisation et de réfrigération.",public:"Techniciens frigoristes, maintenanciers, électriciens.",contenu:"Thermodynamique appliquée, fluides frigorigènes, installation, maintenance, dépannage, normes.",duree:"10 jours",prix:"50.000 FCFA"},
+
+  // NUMÉRIQUE & INFORMATIQUE
+  {domaine:"NUMÉRIQUE & INFORMATIQUE",titre:"Développement web",objectif:"Concevoir et développer des sites et applications web modernes.",public:"Développeurs, informaticiens, entrepreneurs numériques.",contenu:"HTML, CSS, JavaScript, frameworks (React/Vue), backend (Node.js/PHP), bases de données, déploiement.",duree:"15 jours",prix:"150.000 FCFA"},
+  {domaine:"NUMÉRIQUE & INFORMATIQUE",titre:"Cybersécurité",objectif:"Protéger les systèmes d'information contre les cybermenaces.",public:"Informaticiens, administrateurs réseau, responsables IT.",contenu:"Menaces, cryptographie, firewalls, tests d'intrusion, gestion des incidents, conformité RGPD.",duree:"10 jours",prix:"100.000 FCFA"},
+  {domaine:"NUMÉRIQUE & INFORMATIQUE",titre:"Administration réseau",objectif:"Configurer et gérer des infrastructures réseau.",public:"Administrateurs réseau, techniciens informatique.",contenu:"TCP/IP, routage, switching, VLAN, Wi-Fi, VPN, supervision réseau, sécurité.",duree:"10 jours",prix:"100.000 FCFA"},
+  {domaine:"NUMÉRIQUE & INFORMATIQUE",titre:"Intelligence artificielle",objectif:"Comprendre et appliquer les concepts de l'IA et du machine learning.",public:"Data scientists, développeurs, ingénieurs.",contenu:"Machine learning, deep learning, Python (TensorFlow, Scikit-learn), traitement données, cas d'usage.",duree:"15 jours",prix:"200.000 FCFA"},
+  {domaine:"NUMÉRIQUE & INFORMATIQUE",titre:"Data Science",objectif:"Analyser et exploiter les données pour la prise de décision.",public:"Data analysts, statisticiens, informaticiens.",contenu:"Python/R, visualisation, statistiques, bases de données (SQL/NoSQL), dashboards, Big Data.",duree:"10 jours",prix:"150.000 FCFA"},
+  {domaine:"NUMÉRIQUE & INFORMATIQUE",titre:"Bureautique avancée",objectif:"Maîtriser les outils bureautiques pour optimiser la productivité.",public:"Secrétaires, assistants, tout professionnel.",contenu:"Word avancé, Excel (tableaux croisés, macros), PowerPoint, Outlook, outils collaboratifs (Drive, Teams).",duree:"5 jours",prix:"30.000 FCFA"},
+  {domaine:"NUMÉRIQUE & INFORMATIQUE",titre:"Maintenance informatique",objectif:"Diagnostiquer, réparer et maintenir les équipements informatiques.",public:"Techniciens informatique, maintenanciers.",contenu:"Hardware (PC, imprimantes), OS (Windows/Linux), dépannage, réseaux locaux, sécurité.",duree:"5 jours",prix:"30.000 FCFA"},
+  {domaine:"NUMÉRIQUE & INFORMATIQUE",titre:"Infographie & PAO",objectif:"Créer des supports visuels professionnels.",public:"Graphistes, communicants, créateurs de contenu.",contenu:"Adobe Photoshop, Illustrator, InDesign, Canva Pro, identité visuelle, supports print & web.",duree:"10 jours",prix:"80.000 FCFA"},
+  {domaine:"NUMÉRIQUE & INFORMATIQUE",titre:"Développement mobile",objectif:"Créer des applications mobiles pour Android et iOS.",public:"Développeurs, entrepreneurs numériques.",contenu:"Flutter/React Native, design UI/UX, APIs, publication sur stores, monétisation.",duree:"15 jours",prix:"150.000 FCFA"},
+
+  // SANTÉ & BIEN-ÊTRE
+  {domaine:"SANTÉ & BIEN-ÊTRE",titre:"Soins infirmiers",objectif:"Acquérir les compétences de base en soins infirmiers.",public:"Infirmiers, aides-soignants, personnel de santé.",contenu:"Anatomie, soins de base, hygiène hospitalière, administration des médicaments, urgences.",duree:"10 jours",prix:"60.000 FCFA"},
+  {domaine:"SANTÉ & BIEN-ÊTRE",titre:"Premiers secours",objectif:"Savoir réagir face à une situation d'urgence médicale.",public:"Tout public, secouristes, professionnels de santé.",contenu:"Gestes de premier secours, RCP, défibrillateur (DEA), gestion des hémorragies, brûlures.",duree:"3 jours",prix:"15.000 FCFA"},
+  {domaine:"SANTÉ & BIEN-ÊTRE",titre:"Nutrition et diététique",objectif:"Comprendre les principes de la nutrition pour promouvoir la santé.",public:"Nutritionnistes, professionnels de santé, coachs bien-être.",contenu:"Nutriments, équilibre alimentaire, maladies chroniques, régimes, éducation nutritionnelle.",duree:"5 jours",prix:"30.000 FCFA"},
+  {domaine:"SANTÉ & BIEN-ÊTRE",titre:"Santé communautaire",objectif:"Mettre en œuvre des programmes de santé au niveau communautaire.",public:"Agents de santé communautaire, ONG, responsables santé publique.",contenu:"Épidémiologie, prévention, sensibilisation, gestion de programmes, partenariats.",duree:"5 jours",prix:"25.000 FCFA"},
+  {domaine:"SANTÉ & BIEN-ÊTRE",titre:"Gestion hospitalière",objectif:"Optimiser la gestion des établissements de santé.",public:"Directeurs d'hôpitaux, gestionnaires médicaux, cadres de santé.",contenu:"Organisation hospitalière, gestion RH, qualité, finances, hygiène et sécurité, réglementation.",duree:"5 jours",prix:"50.000 FCFA"},
+  {domaine:"SANTÉ & BIEN-ÊTRE",titre:"Pharmacie et gestion des médicaments",objectif:"Gérer les approvisionnements et la dispensation des médicaments.",public:"Pharmaciens, gestionnaires de stocks, personnel de santé.",contenu:"Circuit du médicament, gestion des stocks, bonnes pratiques de dispensation, pharmacovigilance.",duree:"5 jours",prix:"30.000 FCFA"},
+  {domaine:"SANTÉ & BIEN-ÊTRE",titre:"Psychologie et bien-être",objectif:"Comprendre les mécanismes psychologiques et promouvoir le bien-être.",public:"Psychologues, coachs, assistants sociaux, tout professionnel.",contenu:"Bases de la psychologie, gestion des émotions, communication thérapeutique, soutien psychosocial.",duree:"5 jours",prix:"30.000 FCFA"},
+
+  // AGRICULTURE & AGRO-ALIMENTAIRE
+  {domaine:"AGRICULTURE & AGRO-ALIMENTAIRE",titre:"Agriculture durable",objectif:"Adopter des pratiques agricoles respectueuses de l'environnement.",public:"Agriculteurs, agronomes, responsables de coopératives.",contenu:"Agroécologie, gestion des sols, semences, biodiversité, certifications biologiques.",duree:"5 jours",prix:"25.000 FCFA"},
+  {domaine:"AGRICULTURE & AGRO-ALIMENTAIRE",titre:"Élevage",objectif:"Maîtriser les techniques modernes d'élevage.",public:"Éleveurs, vétérinaires, techniciens agricoles.",contenu:"Zootechnie, alimentation animale, reproduction, santé animale, gestion d'exploitation.",duree:"5 jours",prix:"25.000 FCFA"},
+  {domaine:"AGRICULTURE & AGRO-ALIMENTAIRE",titre:"Transformation alimentaire",objectif:"Transformer les produits agricoles en produits alimentaires commerciaux.",public:"Agro-industriels, entrepreneurs, techniciens agroalimentaires.",contenu:"Procédés de transformation, hygiène (HACCP), emballage, conservation, contrôle qualité.",duree:"5 jours",prix:"30.000 FCFA"},
+  {domaine:"AGRICULTURE & AGRO-ALIMENTAIRE",titre:"Gestion agricole",objectif:"Gérer efficacement une exploitation agricole.",public:"Agriculteurs, agronomes, gestionnaires de projets agricoles.",contenu:"Comptabilité agricole, planification des cultures, gestion financière, commercialisation.",duree:"5 jours",prix:"25.000 FCFA"},
+  {domaine:"AGRICULTURE & AGRO-ALIMENTAIRE",titre:"Irrigation et hydraulique agricole",objectif:"Concevoir et gérer des systèmes d'irrigation.",public:"Agronomes, ingénieurs hydrauliques, techniciens.",contenu:"Besoins en eau des cultures, systèmes d'irrigation (goutte-à-goutte, aspersion), pompage, entretien.",duree:"5 jours",prix:"30.000 FCFA"},
+  {domaine:"AGRICULTURE & AGRO-ALIMENTAIRE",titre:"Pisciculture",objectif:"Développer et gérer des exploitations aquacoles.",public:"Pisciculteurs, entrepreneurs, techniciens aquacoles.",contenu:"Espèces aquacoles, étangs, alimentation, santé des poissons, commercialisation, réglementation.",duree:"5 jours",prix:"30.000 FCFA"},
+
+  // ÉDUCATION & FORMATION
+  {domaine:"ÉDUCATION & FORMATION",titre:"Pédagogie active",objectif:"Adopter des méthodes d'enseignement centrées sur l'apprenant.",public:"Enseignants, formateurs, éducateurs.",contenu:"Apprentissage par problèmes, classe inversée, travail collaboratif, évaluation formative.",duree:"4 jours",prix:"25.000 FCFA"},
+  {domaine:"ÉDUCATION & FORMATION",titre:"Ingénierie de formation",objectif:"Concevoir et déployer des dispositifs de formation efficaces.",public:"Responsables formation, formateurs, DRH.",contenu:"Analyse des besoins, conception pédagogique, outils numériques, évaluation des formations.",duree:"5 jours",prix:"50.000 FCFA"},
+  {domaine:"ÉDUCATION & FORMATION",titre:"Formation de formateurs",objectif:"Développer les compétences pour animer des sessions de formation.",public:"Futurs formateurs, enseignants, managers.",contenu:"Conception de séquences pédagogiques, animation, gestion de groupe, évaluation.",duree:"5 jours",prix:"40.000 FCFA"},
+  {domaine:"ÉDUCATION & FORMATION",titre:"E-learning & MOOC",objectif:"Créer et déployer des formations en ligne.",public:"Formateurs, ingénieurs pédagogiques, responsables formation.",contenu:"LMS (Moodle, Canvas), contenus interactifs, vidéos pédagogiques, tutoriels, scénarisation.",duree:"5 jours",prix:"40.000 FCFA"},
+  {domaine:"ÉDUCATION & FORMATION",titre:"Gestion d'établissement scolaire",objectif:"Gérer efficacement un établissement scolaire.",public:"Directeurs, proviseurs, gestionnaires éducatifs.",contenu:"Leadership éducatif, gestion RH, finances, relations avec les parents, réglementation scolaire.",duree:"5 jours",prix:"40.000 FCFA"},
+
+  // DROIT, GOUVERNANCE & FINANCE
+  {domaine:"DROIT, GOUVERNANCE & FINANCE",titre:"Comptabilité générale",objectif:"Maîtriser les principes de la comptabilité d'entreprise.",public:"Comptables, gestionnaires, chefs d'entreprise.",contenu:"Plan comptable OHADA, journal, grand livre, bilan, compte de résultat, liasses fiscales.",duree:"10 jours",prix:"50.000 FCFA"},
+  {domaine:"DROIT, GOUVERNANCE & FINANCE",titre:"Fiscalité",objectif:"Comprendre et appliquer les règles fiscales applicables aux entreprises.",public:"Comptables, directeurs financiers, entrepreneurs.",contenu:"TVA, IS, IRPP, déclarations, contrôles fiscaux, optimisation, droit fiscal CEMAC.",duree:"5 jours",prix:"40.000 FCFA"},
+  {domaine:"DROIT, GOUVERNANCE & FINANCE",titre:"Audit et contrôle interne",objectif:"Mettre en place des systèmes de contrôle interne et réaliser des audits.",public:"Auditeurs, contrôleurs de gestion, directeurs financiers.",contenu:"Méthodologie d'audit, contrôle interne (COSO), gestion des risques, rapport d'audit.",duree:"8 jours",prix:"80.000 FCFA"},
+  {domaine:"DROIT, GOUVERNANCE & FINANCE",titre:"Gestion des ressources humaines",objectif:"Gérer le cycle de vie des collaborateurs dans l'entreprise.",public:"DRH, RH, managers, chefs d'entreprise.",contenu:"Recrutement, paie, formation, évaluation, droit social, GPEC, gestion des conflits.",duree:"8 jours",prix:"60.000 FCFA"},
+  {domaine:"DROIT, GOUVERNANCE & FINANCE",titre:"Droit des affaires",objectif:"Comprendre le cadre juridique régissant les activités commerciales.",public:"Juristes, chefs d'entreprise, managers.",contenu:"Droit commercial (OHADA), contrats, sociétés, propriété intellectuelle, résolution des litiges.",duree:"8 jours",prix:"60.000 FCFA"},
+  {domaine:"DROIT, GOUVERNANCE & FINANCE",titre:"Gestion de projet",objectif:"Planifier, exécuter et clôturer des projets avec succès.",public:"Chefs de projet, managers, consultants.",contenu:"Cycle de projet, WBS, planification (MS Project), gestion des risques, suivi, PMI/PRINCE2.",duree:"8 jours",prix:"60.000 FCFA"},
+  {domaine:"DROIT, GOUVERNANCE & FINANCE",titre:"Finance d'entreprise",objectif:"Analyser la situation financière et prendre des décisions d'investissement.",public:"Directeurs financiers, analystes, entrepreneurs.",contenu:"Analyse financière, ratios, tableaux de bord, financement, investissement, prévisions.",duree:"8 jours",prix:"80.000 FCFA"},
+  {domaine:"DROIT, GOUVERNANCE & FINANCE",titre:"Microfinance",objectif:"Comprendre les principes de la microfinance et gérer une institution.",public:"Agents de crédit, directeurs d'IMF, ONG.",contenu:"Produits de microfinance, analyse crédit, gestion des risques, réglementation COBAC.",duree:"5 jours",prix:"30.000 FCFA"},
+  {domaine:"DROIT, GOUVERNANCE & FINANCE",titre:"Bonne gouvernance",objectif:"Mettre en œuvre des pratiques de bonne gouvernance dans les organisations.",public:"Décideurs, élus, responsables d'ONG, managers publics.",contenu:"Principes de gouvernance, transparence, redevabilité, éthique, lutte contre la corruption.",duree:"5 jours",prix:"40.000 FCFA"},
+  {domaine:"DROIT, GOUVERNANCE & FINANCE",titre:"Passation des marchés publics",objectif:"Maîtriser les procédures de passation des marchés publics.",public:"Agents publics, fournisseurs, consultants.",contenu:"Code des marchés publics, appel d'offres, évaluation, exécution, contrôle, contentieux.",duree:"5 jours",prix:"40.000 FCFA"},
+
+  // COMMUNICATION PLURIELLE & MÉDIAS
+  {domaine:"COMMUNICATION PLURIELLE & MÉDIAS",titre:"Journalisme",objectif:"Acquérir les fondamentaux du métier de journaliste.",public:"Journalistes, communicants, blogueurs.",contenu:"Écriture journalistique, reportage, interview, éthique, droit de la presse, presse en ligne.",duree:"10 jours",prix:"80.000 FCFA"},
+  {domaine:"COMMUNICATION PLURIELLE & MÉDIAS",titre:"Communication institutionnelle",objectif:"Élaborer et mettre en œuvre une stratégie de communication institutionnelle.",public:"Responsables communication, chargés de com, attachés de presse.",contenu:"Stratégie de com, relations presse, relations publiques, gestion de crise, évaluation.",duree:"5 jours",prix:"50.000 FCFA"},
+  {domaine:"COMMUNICATION PLURIELLE & MÉDIAS",titre:"Réseaux sociaux",objectif:"Développer et gérer une présence efficace sur les réseaux sociaux.",public:"Community managers, marketeurs, entrepreneurs.",contenu:"Stratégie social media, création de contenu, publicité (Meta Ads, LinkedIn Ads), analytics.",duree:"5 jours",prix:"30.000 FCFA"},
+  {domaine:"COMMUNICATION PLURIELLE & MÉDIAS",titre:"Gestion de projet culturel",objectif:"Gérer des projets dans le secteur culturel et artistique.",public:"Chefs de projets culturels, artistes, administrateurs.",contenu:"Conception, financement, production, diffusion, communication, droit de la culture.",duree:"6 jours",prix:"80.000 FCFA"},
+  {domaine:"COMMUNICATION PLURIELLE & MÉDIAS",titre:"Médiation culturelle",objectif:"Favoriser l'accès à la culture et le dialogue avec les publics.",public:"Médiateurs culturels, animateurs, chargés de relations publiques.",contenu:"Publics, outils de médiation, communication, partenariats, valorisation du patrimoine.",duree:"4 jours",prix:"25.000 FCFA"},
+  {domaine:"COMMUNICATION PLURIELLE & MÉDIAS",titre:"Certificat au métier de cinéma",objectif:"Acquérir les bases des métiers du cinéma.",public:"Aspirants professionnels, étudiants.",contenu:"Scénario, réalisation, production, montage, son, lumière, post-production, distribution.",duree:"20 jours",prix:"200.000 FCFA"},
+
+  // COMMERCE, LOGISTIQUE & DOUANE
+  {domaine:"COMMERCE, LOGISTIQUE & DOUANE",titre:"Commerce international",objectif:"Maîtriser les spécificités des échanges commerciaux mondiaux.",public:"Commerciaux, exportateurs, importateurs, logisticiens.",contenu:"Incoterms, douanes, financement international, contrats, risques, stratégies d'implantation.",duree:"10 jours",prix:"50.000 FCFA"},
+  {domaine:"COMMERCE, LOGISTIQUE & DOUANE",titre:"Marketing digital",objectif:"Développer des stratégies marketing sur les canaux numériques.",public:"Marketeurs, entrepreneurs, communicants.",contenu:"SEO, SEA, réseaux sociaux, email marketing, content marketing, analytics, e-réputation.",duree:"6 jours",prix:"30.000 FCFA"},
+  {domaine:"COMMERCE, LOGISTIQUE & DOUANE",titre:"Vente et négociation",objectif:"Acquérir les techniques de vente et de négociation.",public:"Commerciaux, vendeurs, managers.",contenu:"Prospection, découverte des besoins, argumentation, traitement des objections, closing, fidélisation.",duree:"5 jours",prix:"30.000 FCFA"},
+  {domaine:"COMMERCE, LOGISTIQUE & DOUANE",titre:"E-commerce",objectif:"Créer et gérer une boutique en ligne.",public:"Entrepreneurs, e-commerçants, marketeurs.",contenu:"Plateformes (Shopify, WooCommerce), paiements en ligne, logistique, SEO/SEA, marketing digital.",duree:"8 jours",prix:"40.000 FCFA"},
+  {domaine:"COMMERCE, LOGISTIQUE & DOUANE",titre:"Gestion de stock",objectif:"Optimiser la gestion des stocks pour réduire les coûts et améliorer le service.",public:"Logisticiens, gestionnaires de stock, responsables achats.",contenu:"Méthodes d'inventaire, prévisions, approvisionnement, optimisation des entrepôts, logiciels de gestion.",duree:"4 jours",prix:"25.000 FCFA"},
+  {domaine:"COMMERCE, LOGISTIQUE & DOUANE",titre:"Douane",objectif:"Maîtriser les réglementations et procédures douanières.",public:"Importateurs, exportateurs, transitaires, logisticiens.",contenu:"Nomenclature douanière, régimes douaniers, déclarations, calcul des droits et taxes, contrôles.",duree:"6 jours",prix:"60.000 FCFA"},
+  {domaine:"COMMERCE, LOGISTIQUE & DOUANE",titre:"Assurance",objectif:"Comprendre les principes et les différents types d'assurance.",public:"Courtiers, agents d'assurance, gestionnaires de risques, particuliers.",contenu:"Contrats d'assurance, risques couverts, garanties, sinistres, réglementation.",duree:"6 jours",prix:"60.000 FCFA"},
+
+  // ARTISANAT & MÉTIERS D'ART
+  {domaine:"ARTISANAT & MÉTIERS D'ART",titre:"Couture",objectif:"Apprendre les techniques de base et avancées de la couture.",public:"Couturiers, créateurs de mode, amateurs.",contenu:"Patronage, coupe, assemblage, finitions, utilisation de machines, types de tissus.",duree:"10 jours",prix:"20.000 FCFA"},
+  {domaine:"ARTISANAT & MÉTIERS D'ART",titre:"Design graphique",objectif:"Créer des identités visuelles et des supports de communication.",public:"Designers graphiques, communicants, entrepreneurs.",contenu:"Typographie, couleur, mise en page, logiciels (Adobe Creative Suite), branding, print et web.",duree:"10 jours",prix:"80.000 FCFA"},
+  {domaine:"ARTISANAT & MÉTIERS D'ART",titre:"Photographie",objectif:"Maîtriser les techniques de prise de vue et de retouche.",public:"Photographes, amateurs, créateurs de contenu.",contenu:"Appareil photo, lumière, composition, post-traitement (Lightroom, Photoshop), genres photographiques.",duree:"6 jours",prix:"30.000 FCFA"},
+  {domaine:"ARTISANAT & MÉTIERS D'ART",titre:"Sculpture",objectif:"Apprendre les bases de la sculpture et le travail de différents matériaux.",public:"Sculpteurs, artistes, amateurs.",contenu:"Modelage (argile), taille (bois, pierre), moulage, patine, outils, histoire de la sculpture.",duree:"10 jours",prix:"40.000 FCFA"},
+  {domaine:"ARTISANAT & MÉTIERS D'ART",titre:"Bijouterie",objectif:"Apprendre les techniques de fabrication de bijoux.",public:"Bijoutiers, artisans, amateurs.",contenu:"Métaux précieux, gemmes, soudure, polissage, sertissage, design, outils spécifiques.",duree:"10 jours",prix:"50.000 FCFA"},
+  {domaine:"ARTISANAT & MÉTIERS D'ART",titre:"Design de mode",objectif:"Concevoir des collections de vêtements et accessoires.",public:"Designers de mode, stylistes, couturiers.",contenu:"Tendance, croquis, patronage, prototypage, matériaux, marketing de mode, histoire de la mode.",duree:"10 jours",prix:"100.000 FCFA"},
+
+  // ÉNERGIES RENOUVELABLES
+  {domaine:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT",titre:"Énergie solaire",objectif:"Concevoir, installer et maintenir des systèmes solaires photovoltaïques et thermiques.",public:"Ingénieurs, techniciens, installateurs, entrepreneurs.",contenu:"Photovoltaïque, thermique, dimensionnement, installation, maintenance, réglementation, stockage.",duree:"8 jours",prix:"80.000 FCFA"},
+  {domaine:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT",titre:"Gestion de l'environnement",objectif:"Mettre en œuvre des politiques et des outils de gestion environnementale.",public:"Responsables environnement, consultants, collectivités.",contenu:"Normes ISO 14001, analyse du cycle de vie, écoconception, gestion des déchets, audits environnementaux.",duree:"6 jours",prix:"60.000 FCFA"},
+  {domaine:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT",titre:"Développement durable",objectif:"Intégrer les principes du développement durable dans les stratégies et projets.",public:"Managers, décideurs, chefs de projets, consultants.",contenu:"3 piliers (économique, social, environnemental), ODD, RSE, économie circulaire, évaluation d'impact.",duree:"4 jours",prix:"40.000 FCFA"},
+  {domaine:"ÉNERGIES RENOUVELABLES & ENVIRONNEMENT",titre:"Changement climatique",objectif:"Comprendre les causes, conséquences et solutions au changement climatique.",public:"Scientifiques, décideurs, communicants, grand public.",contenu:"Effet de serre, scénarios climatiques, adaptation, atténuation, politiques internationales.",duree:"4 jours",prix:"40.000 FCFA"},
+
+  // INDUSTRIE & FABRICATION
+  {domaine:"INDUSTRIE & FABRICATION",titre:"Mécanique industrielle",objectif:"Maîtriser les principes et techniques de la mécanique appliquée à l'industrie.",public:"Techniciens, ingénieurs, opérateurs de maintenance.",contenu:"Cinématique, dynamique, résistance des matériaux, machines-outils, systèmes mécaniques, lubrification.",duree:"10 jours",prix:"100.000 FCFA"},
+  {domaine:"INDUSTRIE & FABRICATION",titre:"Électricité industrielle",objectif:"Comprendre les systèmes électriques en milieu industriel.",public:"Électriciens, techniciens de maintenance, ingénieurs.",contenu:"Schémas électriques, moteurs, automates, capteurs, sécurité électrique, dépannage.",duree:"8 jours",prix:"100.000 FCFA"},
+  {domaine:"INDUSTRIE & FABRICATION",titre:"Maintenance industrielle",objectif:"Optimiser la gestion et l'exécution des opérations de maintenance.",public:"Responsables maintenance, techniciens, ingénieurs.",contenu:"Maintenance préventive, corrective, prédictive, GMAO, méthodes (TPM, 5S), sécurité.",duree:"8 jours",prix:"100.000 FCFA"},
+  {domaine:"INDUSTRIE & FABRICATION",titre:"Soudure",objectif:"Maîtriser les différents procédés de soudage.",public:"Soudeurs, techniciens, contrôleurs.",contenu:"TIG, MIG/MAG, électrode enrobée, sécurité, qualification, contrôle des soudures.",duree:"8 jours",prix:"60.000 FCFA"},
+
+  // FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL
+  {domaine:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL",titre:"Leadership",objectif:"Développer les qualités de leadership et motiver les équipes.",public:"Managers, chefs d'équipe, futurs leaders.",contenu:"Styles de leadership, communication, prise de décision, gestion du changement, intelligence émotionnelle.",duree:"4 jours",prix:"30.000 FCFA"},
+  {domaine:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL",titre:"Communication efficace",objectif:"Améliorer ses compétences en communication interpersonnelle.",public:"Tous professionnels.",contenu:"Écoute active, assertivité, communication non-verbale, gestion des conflits, feedback constructif.",duree:"4 jours",prix:"25.000 FCFA"},
+  {domaine:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL",titre:"Gestion du temps",objectif:"Optimiser l'organisation personnelle et la productivité.",public:"Tous professionnels, étudiants.",contenu:"Priorisation (Matrice Eisenhower), planification, gestion des interruptions, outils numériques, délégation.",duree:"2 jours",prix:"15.000 FCFA"},
+  {domaine:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL",titre:"Développement personnel",objectif:"Favoriser la connaissance de soi et l'épanouissement.",public:"Tout public.",contenu:"Estime de soi, gestion du stress, fixation d'objectifs, pleine conscience, résilience, motivation.",duree:"4 jours",prix:"20.000 FCFA"},
+  {domaine:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL",titre:"Devenir consultant",objectif:"Préparer et lancer son activité de consultant.",public:"Experts métier, futurs consultants.",contenu:"Positionnement, offre de services, prospection, aspects légaux, gestion financière, marketing personnel.",duree:"10 jours",prix:"100.000 FCFA"},
+  {domaine:"FORMATION CONTINUE & DÉVELOPPEMENT PERSONNEL",titre:"Gestion de carrière",objectif:"Construire et piloter son parcours professionnel.",public:"Employés, cadres, étudiants.",contenu:"Bilan de compétences, définition d'objectifs, plan d'action, réseau, formation continue, mobilité.",duree:"4 jours",prix:"20.000 FCFA"},
+];
+
+// ─── ÉTAT ───
+let currentFormation = null;
+let currentStep = 1;
+
+// ─── BUILD PAGE ───
+function buildPage() {
+  const container = document.getElementById('main-container');
+  const navLinks = document.getElementById('quick-nav-links');
+  const domaines = [...new Set(courses.map(c => c.domaine))];
+
+  document.getElementById('stat-total').textContent = courses.length + '+';
+
+  domaines.forEach(dom => {
+    const slug = dom.replace(/\s+/g, '-').replace(/[&]/g, '').toLowerCase();
+    const formations = courses.filter(c => c.domaine === dom);
+
+    // Quick nav
+    const a = document.createElement('a');
+    a.href = '#' + slug;
+    a.className = 'qn-link';
+    const shortName = dom.split(' ')[0];
+    a.textContent = (DOMAINE_ICONS[dom] || '📂') + ' ' + shortName;
+    navLinks.appendChild(a);
+
+    // Section
+    const section = document.createElement('section');
+    section.className = 'domaine-section';
+    section.id = slug;
+    section.dataset.domaine = dom.toLowerCase();
+
+    const icon = DOMAINE_ICONS[dom] || '📂';
+    section.innerHTML = `
+      <div class="domaine-header">
+        <div class="domaine-icon">${icon}</div>
+        <div class="domaine-title-block">
+          <h2>${dom}</h2>
+          <div class="domaine-count">${formations.length} formation${formations.length > 1 ? 's' : ''}</div>
+        </div>
+      </div>
+      <div class="cards-grid" id="grid-${slug}"></div>
+    `;
+    container.appendChild(section);
+
+    const grid = document.getElementById('grid-' + slug);
+    formations.forEach(f => {
+      const card = document.createElement('div');
+      card.className = 'formation-card';
+      card.dataset.search = (f.titre + ' ' + f.objectif + ' ' + f.public + ' ' + dom).toLowerCase();
+      card.innerHTML = `
+        <div class="card-top">
+          <div class="card-title">${f.titre}</div>
+          <div class="card-objectif">${f.objectif}</div>
+          <div class="card-pills">
+            <span class="pill pill-duree">⏱ ${f.duree}</span>
+            <span class="pill pill-prix">💰 ${f.prix}</span>
+          </div>
+        </div>
+        <div class="card-bottom">
+          <button class="btn-register" onclick='openModal(${JSON.stringify(f)})'>📋 En savoir plus</button>
+          <button class="btn-share" title="Partager" onclick='openSharePanel(${JSON.stringify(f)})'>📤</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+  });
+}
+
+// ─── MODAL ───
+function openModal(f) {
+  currentFormation = f;
+  document.getElementById('modal-domaine').textContent = f.domaine;
+  document.getElementById('modal-titre').textContent = f.titre;
+  document.getElementById('modal-duree').textContent = f.duree;
+  document.getElementById('modal-prix').textContent = f.prix;
+  document.getElementById('modal-objectif').textContent = f.objectif;
+  document.getElementById('modal-public').textContent = f.public;
+  document.getElementById('modal-contenu').textContent = f.contenu;
+
+  const msg = encodeURIComponent(`Bonjour Monde et Bonheur ONG 👋\nJe souhaite des informations sur la formation : *${f.titre}*\nDurée : ${f.duree} | Coût : ${f.prix}`);
+  document.getElementById('modal-btn-wa').href = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+
+  document.getElementById('modal-overlay').classList.add('open');
+}
+
+document.getElementById('modal-close').onclick = () => document.getElementById('modal-overlay').classList.remove('open');
+document.getElementById('modal-overlay').onclick = (e) => { if (e.target.id === 'modal-overlay') document.getElementById('modal-overlay').classList.remove('open'); };
+document.getElementById('modal-btn-register').onclick = () => {
+  document.getElementById('modal-overlay').classList.remove('open');
+  openForm(currentFormation);
+};
+document.getElementById('modal-btn-share').onclick = () => {
+  document.getElementById('modal-overlay').classList.remove('open');
+  openSharePanel(currentFormation);
+};
+
+// ─── FORMULAIRE ───
+function openForm(f) {
+  currentFormation = f;
+  currentStep = 1;
+  showStep(1);
+  document.getElementById('form-titre-display').textContent = f.titre;
+  document.getElementById('form-recap-formation').textContent = `${f.titre} – ${f.duree} – ${f.prix}`;
+
+  const msg = encodeURIComponent(`Bonjour ! Je viens de remplir ma pré-inscription pour la formation *${f.titre}* (${f.prix}). Voici ma preuve de paiement :`);
+  const waLink = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+  document.getElementById('form-wa-link').href = waLink;
+  document.getElementById('success-wa-link').href = waLink;
+
+  document.getElementById('form-overlay').classList.add('open');
+}
+
+function closeForm() { document.getElementById('form-overlay').classList.remove('open'); }
+document.getElementById('form-close').onclick = closeForm;
+document.getElementById('form-back').onclick = () => {
+  closeForm();
+  if (currentFormation) openModal(currentFormation);
+};
+
+function showStep(n) {
+  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-' + n).classList.add('active');
+  currentStep = n;
+
+  const labels = ['', 'Informations personnelles', 'Coordonnées', 'Paiement & Validation'];
+  const pct = Math.round((n / 3) * 100);
+  if (n <= 3) {
+    document.getElementById('progress-label-text').textContent = `Étape ${n} sur 3 – ${labels[n]}`;
+    document.getElementById('progress-pct').textContent = pct + '%';
+    document.getElementById('progress-fill').style.width = pct + '%';
+  }
+}
+
+function nextStep(n) {
+  if (n === 2) {
+    if (!document.getElementById('f-nom').value.trim() ||
+        !document.getElementById('f-prenom').value.trim() ||
+        !document.getElementById('f-ddn').value ||
+        !document.getElementById('f-lieu-naissance').value.trim() ||
+        !document.getElementById('f-nationalite').value.trim()) {
+      showToast('⚠️ Veuillez remplir tous les champs obligatoires');
+      return;
+    }
+  }
+  if (n === 3) {
+    if (!document.getElementById('f-tel').value.trim() ||
+        !document.getElementById('f-email').value.trim() ||
+        !document.getElementById('f-ville').value.trim()) {
+      showToast('⚠️ Veuillez remplir tous les champs obligatoires');
+      return;
+    }
+  }
+  showStep(n);
+}
+
+function prevStep(n) { showStep(n); }
+
+function submitForm() {
+  const nom = document.getElementById('f-nom').value.trim();
+  const prenom = document.getElementById('f-prenom').value.trim();
+  document.getElementById('success-prenom').textContent = prenom || nom;
+
+  const details = [
+    `Formation : *${currentFormation.titre}*`,
+    `Durée : ${currentFormation.duree} | Coût : ${currentFormation.prix}`,
+    `Nom complet : ${prenom} ${nom}`,
+    `Téléphone : ${document.getElementById('f-tel').value}`,
+    `Email : ${document.getElementById('f-email').value}`,
+    `Ville : ${document.getElementById('f-ville').value}`,
+  ].join('\n');
+
+  const msg = encodeURIComponent(`Bonjour Monde et Bonheur ONG 👋\nPré-inscription :\n${details}\n\nCi-joint ma preuve de paiement pour valider mon inscription.`);
+  document.getElementById('success-wa-link').href = `https://wa.me/${WA_NUMBER}?text=${msg}`;
+
+  document.querySelector('.progress-wrap').style.display = 'none';
+  document.querySelectorAll('.form-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('step-4').classList.add('active');
+  showToast('✅ Pré-inscription enregistrée !');
+}
+
+// ─── SHARE ───
+let shareFormation = null;
+function openSharePanel(f) {
+  shareFormation = f;
+  const pageUrl = window.location.href.split('?')[0];
+  const url = `${pageUrl}?f=${encodeURIComponent(f.titre)}`;
+  const text = `🎓 Formation : *${f.titre}* chez Monde et Bonheur ONG\n⏱ Durée : ${f.duree} | 💰 ${f.prix}\n\n`;
+
+  document.getElementById('share-wa').href = `https://wa.me/?text=${encodeURIComponent(text + url)}`;
+  document.getElementById('share-fb').href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}&quote=${encodeURIComponent(text)}`;
+  document.getElementById('share-tw').href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}`;
+  document.getElementById('share-li').href = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+  document.getElementById('share-link-input').value = url;
+
+  document.getElementById('share-panel').classList.add('open');
+}
+
+function closeSharePanel() { document.getElementById('share-panel').classList.remove('open'); }
+document.getElementById('share-panel').onclick = (e) => { if (e.target.id === 'share-panel') closeSharePanel(); };
+
+function copyShareLink() {
+  const inp = document.getElementById('share-link-input');
+  inp.select();
+  document.execCommand('copy');
+  showToast('✅ Lien copié !');
+}
+
+// ─── SEARCH ───
+document.getElementById('search-input').addEventListener('input', function() {
+  const q = this.value.trim().toLowerCase();
+  const clearBtn = document.getElementById('search-clear');
+  const countEl = document.getElementById('search-count');
+  clearBtn.style.display = q ? 'block' : 'none';
+
+  let total = 0;
+  document.querySelectorAll('.formation-card').forEach(card => {
+    const match = !q || card.dataset.search.includes(q);
+    card.style.display = match ? '' : 'none';
+    if (match) total++;
+  });
+
+  document.querySelectorAll('.domaine-section').forEach(sec => {
+    const visible = [...sec.querySelectorAll('.formation-card')].some(c => c.style.display !== 'none');
+    sec.classList.toggle('hidden', !visible);
+  });
+
+  const noRes = document.getElementById('no-results');
+  noRes.classList.toggle('visible', total === 0 && !!q);
+  countEl.textContent = q ? `${total} résultat${total !== 1 ? 's' : ''}` : '';
+});
+
+document.getElementById('search-clear').onclick = function() {
+  document.getElementById('search-input').value = '';
+  document.getElementById('search-input').dispatchEvent(new Event('input'));
+};
+
+// ─── TOAST ───
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ─── URL PARAMS (lien formation direct) ───
+function checkUrlParams() {
+  const params = new URLSearchParams(window.location.search);
+  const fName = params.get('f');
+  if (fName) {
+    const f = courses.find(c => c.titre.toLowerCase() === decodeURIComponent(fName).toLowerCase());
+    if (f) setTimeout(() => openModal(f), 400);
+  }
+}
+
+// ─── STICKY NAV ACTIVE ───
+function updateActiveNav() {
+  const sections = document.querySelectorAll('.domaine-section');
+  let current = '';
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < 120) current = sec.id;
+  });
+  document.querySelectorAll('.qn-link').forEach(a => {
+    const href = a.getAttribute('href').replace('#', '');
+    a.classList.toggle('active', href === current);
+  });
+}
+window.addEventListener('scroll', updateActiveNav, { passive: true });
+
+// ─── INIT ───
+buildPage();
+checkUrlParams();
+</script>
+<script src="mb-nav.js"></script>
+</body>
+</html>

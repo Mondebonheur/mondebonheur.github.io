@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Actualités & Événements — ONG Monde et Bonheur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --v:#1a5c3a;--vc:#2d8a58;--vp:#e8f5ee;--vd:#0d3320;
+  --o:#c8860a;--oc:#f5a623;--op:#fdf3e3;
+  --br:#3d2b1f;--wh:#fdfcf8;--gr:#f0ede6;
+  --tx:#1a1a18;--td:#4a4a44;--tp:#8a8a82;
+  --rouge:#c0392b;--haut:64px;--r:14px;
+  --sh:0 4px 24px rgba(0,0,0,.08);
+  --sh-lg:0 16px 60px rgba(0,0,0,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--wh);color:var(--tx);overflow-x:hidden;}
+[data-lang="fr"] .en{display:none!important;}
+[data-lang="en"] .fr{display:none!important;}
+a{text-decoration:none;}
+img{display:block;max-width:100%;}
+
+/* ── HEADER ── */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--haut);background:rgba(253,252,248,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(26,92,58,.1);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;}
+.h-logo{display:flex;align-items:center;gap:10px;}
+.h-disk{width:38px;height:38px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:12px;color:white;border:2px solid var(--vc);}
+.h-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--v);}
+.h-sub{font-size:10px;color:var(--tp);}
+.h-right{display:flex;align-items:center;gap:.8rem;}
+.lang-toggle{display:flex;background:var(--gr);border-radius:20px;padding:3px;border:1px solid rgba(26,92,58,.1);}
+.lang-btn{padding:4px 11px;border-radius:16px;border:none;background:none;font-size:11px;font-weight:700;cursor:pointer;color:var(--tp);font-family:'Space Mono',monospace;transition:all .2s;}
+.lang-btn.active{background:var(--v);color:white;}
+.btn-don-hdr{display:flex;align-items:center;gap:6px;background:var(--rouge);color:white;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-don-hdr:hover{background:#a93226;}
+.back-link{font-size:13px;color:var(--td);padding:7px 12px;border-radius:8px;border:1px solid rgba(26,92,58,.12);transition:all .2s;display:flex;align-items:center;gap:5px;}
+.back-link:hover{background:var(--vp);color:var(--v);}
+
+/* ── HERO ── */
+.actu-hero{
+  padding:calc(var(--haut)+70px) 8% 80px;
+  background:linear-gradient(155deg,#0d1f14 0%,#1a3d22 50%,rgba(61,43,31,.85) 100%);
+  display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;
+  position:relative;overflow:hidden;
+}
+.actu-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 70% at 80% 50%,rgba(200,134,10,.1) 0%,transparent 65%);}
+.actu-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(transparent,var(--wh));}
+.hero-lbl{display:inline-flex;align-items:center;gap:7px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);color:#f5d087;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;padding:5px 14px;border-radius:20px;margin-bottom:1.3rem;position:relative;}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--oc);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(1.4)}}
+.actu-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,4.5vw,3.4rem);font-weight:900;color:white;line-height:1.1;margin-bottom:1rem;position:relative;}
+.actu-hero h1 em{font-style:italic;color:#f5d087;}
+.actu-hero p{font-size:clamp(.95rem,1.4vw,1.05rem);color:rgba(255,255,255,.75);line-height:1.8;font-weight:300;max-width:460px;position:relative;}
+/* Mini-grille hero droite */
+.hero-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;position:relative;}
+.hmg-card{background:rgba(255,255,255,.08);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:1rem;cursor:pointer;transition:all .25s;}
+.hmg-card:hover{background:rgba(255,255,255,.15);transform:translateY(-2px);}
+.hmg-cat{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.08em;margin-bottom:.4rem;}
+.hmg-title{font-size:12.5px;font-weight:700;color:white;line-height:1.35;}
+.hmg-date{font-size:10.5px;color:rgba(255,255,255,.45);margin-top:.4rem;}
+
+/* ── FILTRES ── */
+.filtres-bar{background:white;border-bottom:1px solid rgba(26,92,58,.08);padding:0 8%;display:flex;align-items:center;gap:0;overflow-x:auto;scrollbar-width:none;position:sticky;top:var(--haut);z-index:800;}
+.filtres-bar::-webkit-scrollbar{display:none;}
+.filtre-btn{flex-shrink:0;padding:1rem 1.3rem;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:600;color:var(--tp);cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-1px;transition:all .2s;white-space:nowrap;display:flex;align-items:center;gap:.4rem;}
+.filtre-btn:hover{color:var(--v);}
+.filtre-btn.active{color:var(--v);border-bottom-color:var(--v);}
+.filtre-count{font-size:10px;background:var(--vp);color:var(--v);border-radius:10px;padding:1px 6px;font-family:'Space Mono',monospace;}
+.filtre-btn.active .filtre-count{background:var(--v);color:white;}
+
+/* ── ARTICLE À LA UNE ── */
+.une-section{padding:50px 8% 0;background:white;}
+.une-inner{max-width:1200px;margin:0 auto;}
+.section-lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--o);text-transform:uppercase;margin-bottom:.7rem;}
+.une-card{display:grid;grid-template-columns:1.3fr 1fr;gap:0;border-radius:16px;overflow:hidden;border:1px solid rgba(26,92,58,.1);box-shadow:var(--sh-lg);margin-top:1.5rem;}
+.une-img{width:100%;height:380px;object-fit:cover;background:var(--vp);}
+.une-img-ph{width:100%;height:380px;background:linear-gradient(135deg,var(--vd),var(--v));display:flex;align-items:center;justify-content:center;font-size:4rem;}
+.une-body{padding:2.5rem;display:flex;flex-direction:column;justify-content:space-between;background:white;}
+.une-meta{display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;margin-bottom:1rem;}
+.cat-badge{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.07em;padding:3px 9px;border-radius:10px;font-weight:700;}
+.une-date{font-size:12px;color:var(--tp);}
+.une-title{font-family:'Playfair Display',serif;font-size:1.7rem;font-weight:700;line-height:1.25;margin-bottom:.8rem;color:var(--tx);}
+.une-excerpt{font-size:14.5px;color:var(--td);line-height:1.8;flex:1;margin-bottom:1.2rem;}
+.une-read-btn{display:inline-flex;align-items:center;gap:.5rem;background:var(--v);color:white;padding:11px 22px;border-radius:9px;font-size:13.5px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.une-read-btn:hover{background:var(--vc);}
+
+/* ── GRILLE ARTICLES ── */
+.articles-section{padding:50px 8% 80px;background:white;}
+.articles-inner{max-width:1200px;margin:0 auto;}
+.articles-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.4rem;margin-top:1.5rem;}
+.article-card{background:white;border:1.5px solid rgba(26,92,58,.09);border-radius:var(--r);overflow:hidden;transition:all .25s;display:flex;flex-direction:column;}
+.article-card:hover{transform:translateY(-5px);box-shadow:var(--sh-lg);border-color:rgba(26,92,58,.2);}
+.article-card.hidden{display:none;}
+.ac-img{width:100%;height:180px;object-fit:cover;background:var(--vp);}
+.ac-img-ph{width:100%;height:180px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
+.ac-body{padding:1.3rem;flex:1;display:flex;flex-direction:column;}
+.ac-meta{display:flex;align-items:center;gap:.5rem;margin-bottom:.7rem;flex-wrap:wrap;}
+.ac-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;line-height:1.3;color:var(--tx);margin-bottom:.5rem;flex:1;}
+.ac-excerpt{font-size:13px;color:var(--td);line-height:1.7;flex:1;margin-bottom:.8rem;}
+.ac-footer{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:.7rem;border-top:1px solid rgba(26,92,58,.06);}
+.ac-source{font-size:11px;color:var(--tp);display:flex;align-items:center;gap:.3rem;}
+.ac-link{font-size:12.5px;font-weight:600;color:var(--v);cursor:pointer;display:flex;align-items:center;gap:.3rem;transition:color .2s;}
+.ac-link:hover{color:var(--vc);}
+
+/* Catégorie couleurs */
+.cat-terrain{background:#e8f5ee;color:#1a5c3a;}
+.cat-tech{background:#e8f0ff;color:#3a3a9a;}
+.cat-media{background:#fff0e8;color:#8a3a00;}
+.cat-event{background:var(--op);color:var(--o);}
+.cat-partenaire{background:#f0e8ff;color:#6b3d9a;}
+.cat-urgent{background:#ffe8e8;color:#c0392b;}
+
+/* ── ÉVÉNEMENTS À VENIR ── */
+.events-section{padding:70px 8%;background:var(--gr);}
+.events-inner{max-width:1200px;margin:0 auto;}
+.events-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem;}
+.event-card{background:white;border-radius:var(--r);overflow:hidden;border:1px solid rgba(26,92,58,.08);box-shadow:var(--sh);display:flex;flex-direction:column;transition:all .25s;}
+.event-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);}
+.event-card.featured{border-color:var(--oc);}
+.ev-header{padding:1.4rem;background:linear-gradient(135deg,var(--vd),var(--v));position:relative;}
+.ev-header.gala{background:linear-gradient(135deg,#3d2000,#8a5000);}
+.ev-header.cop{background:linear-gradient(135deg,#0d2040,#1a4a6b);}
+.ev-date-box{display:inline-flex;flex-direction:column;align-items:center;background:rgba(255,255,255,.15);border-radius:10px;padding:.6rem .9rem;min-width:60px;}
+.ev-day{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:white;line-height:1;}
+.ev-month{font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,.65);letter-spacing:.08em;}
+.ev-badge-new{position:absolute;top:1rem;right:1rem;background:var(--oc);color:white;font-family:'Space Mono',monospace;font-size:9px;padding:3px 8px;border-radius:8px;letter-spacing:.06em;}
+.ev-body{padding:1.3rem;flex:1;}
+.ev-type{font-family:'Space Mono',monospace;font-size:9px;color:var(--o);letter-spacing:.09em;margin-bottom:.4rem;}
+.ev-title{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--tx);margin-bottom:.4rem;line-height:1.3;}
+.ev-desc{font-size:13px;color:var(--td);line-height:1.6;margin-bottom:.8rem;}
+.ev-lieu{display:flex;align-items:center;gap:.4rem;font-size:12px;color:var(--tp);margin-bottom:.5rem;}
+.ev-foot{padding:.9rem 1.3rem;border-top:1px solid rgba(26,92,58,.07);display:flex;gap:.5rem;}
+.ev-btn{flex:1;padding:9px;text-align:center;border-radius:8px;font-size:12.5px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.ev-btn-primary{background:var(--v);color:white;}
+.ev-btn-primary:hover{background:var(--vc);}
+.ev-btn-sec{background:var(--vp);color:var(--v);border:1px solid rgba(26,92,58,.15);}
+.ev-btn-sec:hover{background:var(--v);color:white;}
+
+/* ── NEWSLETTER ── */
+.newsletter-section{background:var(--v);padding:60px 8%;}
+.nl-inner{max-width:700px;margin:0 auto;text-align:center;}
+.nl-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;color:white;margin-bottom:.8rem;}
+.nl-sub{font-size:15px;color:rgba(255,255,255,.72);line-height:1.8;margin-bottom:2rem;}
+.nl-form{display:flex;gap:.6rem;max-width:480px;margin:0 auto;}
+.nl-input{flex:1;padding:13px 16px;border:none;border-radius:9px;font-size:14px;font-family:'DM Sans',sans-serif;outline:none;background:white;color:var(--tx);}
+.nl-btn{padding:13px 22px;background:var(--oc);color:white;border:none;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap;}
+.nl-btn:hover{background:var(--o);}
+.nl-note{font-size:12px;color:rgba(255,255,255,.45);margin-top:1rem;}
+
+/* ── MÉDIAS & PRESSE ── */
+.presse-section{padding:70px 8%;background:white;}
+.presse-inner{max-width:1200px;margin:0 auto;}
+.presse-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2rem;}
+.presse-card{border:1.5px solid rgba(26,92,58,.09);border-radius:var(--r);padding:1.5rem;transition:all .25s;cursor:pointer;}
+.presse-card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);border-color:rgba(26,92,58,.2);}
+.pc-media{font-family:'Space Mono',monospace;font-size:10px;color:var(--o);letter-spacing:.07em;margin-bottom:.5rem;}
+.pc-title{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;color:var(--tx);line-height:1.35;margin-bottom:.4rem;}
+.pc-date{font-size:11.5px;color:var(--tp);}
+.pc-link{font-size:12px;color:var(--v);font-weight:600;margin-top:.7rem;display:flex;align-items:center;gap:.3rem;}
+
+/* ── CARROUSEL (aussi dans autres pages) ── */
+.mb-carrousel-section{
+  padding:60px 8%;
+  background:var(--gr);
+  overflow:hidden;
+}
+.mb-carrousel-section.dark{background:linear-gradient(135deg,var(--vd),#1a3d22);}
+.mbc-header{max-width:1200px;margin:0 auto 1.8rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;}
+.mbc-title{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:700;color:var(--tx);}
+.mb-carrousel-section.dark .mbc-title{color:white;}
+.mbc-controls{display:flex;align-items:center;gap:.5rem;}
+.mbc-btn{width:38px;height:38px;border-radius:50%;border:1.5px solid rgba(26,92,58,.2);background:white;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:16px;transition:all .2s;}
+.mbc-btn:hover{background:var(--v);color:white;border-color:var(--v);}
+.mb-carrousel-section.dark .mbc-btn{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:white;}
+.mb-carrousel-section.dark .mbc-btn:hover{background:var(--vc);}
+.mbc-see-all{font-size:13px;font-weight:600;color:var(--v);cursor:pointer;display:flex;align-items:center;gap:.3rem;}
+.mb-carrousel-section.dark .mbc-see-all{color:rgba(255,255,255,.7);}
+.mbc-track-wrap{max-width:1200px;margin:0 auto;overflow:hidden;position:relative;}
+.mbc-track{display:flex;gap:1.2rem;transition:transform .45s cubic-bezier(.25,.46,.45,.94);will-change:transform;}
+.mbc-card{
+  flex-shrink:0;width:300px;
+  background:white;border-radius:var(--r);
+  overflow:hidden;border:1px solid rgba(26,92,58,.08);
+  box-shadow:var(--sh);transition:all .25s;cursor:pointer;
+}
+.mb-carrousel-section.dark .mbc-card{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.1);}
+.mbc-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);}
+.mbc-card-img{width:100%;height:160px;object-fit:cover;background:var(--vp);}
+.mbc-card-img-ph{width:100%;height:160px;display:flex;align-items:center;justify-content:center;font-size:2.5rem;}
+.mbc-card-body{padding:1.1rem;}
+.mbc-meta{display:flex;align-items:center;gap:.5rem;margin-bottom:.5rem;flex-wrap:wrap;}
+.mbc-cat{font-family:'Space Mono',monospace;font-size:8.5px;letter-spacing:.06em;padding:2px 7px;border-radius:8px;font-weight:700;}
+.mbc-date{font-size:11px;color:var(--tp);}
+.mb-carrousel-section.dark .mbc-date{color:rgba(255,255,255,.4);}
+.mbc-title-card{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700;line-height:1.3;color:var(--tx);margin-bottom:.3rem;}
+.mb-carrousel-section.dark .mbc-title-card{color:white;}
+.mbc-excerpt{font-size:12px;color:var(--td);line-height:1.6;}
+.mb-carrousel-section.dark .mbc-excerpt{color:rgba(255,255,255,.55);}
+/* Dots nav */
+.mbc-dots{display:flex;justify-content:center;gap:.4rem;margin-top:1.2rem;}
+.mbc-dot{width:7px;height:7px;border-radius:50%;background:rgba(26,92,58,.2);cursor:pointer;transition:all .25s;}
+.mbc-dot.active{background:var(--v);width:20px;border-radius:4px;}
+.mb-carrousel-section.dark .mbc-dot{background:rgba(255,255,255,.2);}
+.mb-carrousel-section.dark .mbc-dot.active{background:var(--oc);}
+
+/* ── FOOTER ── */
+.mini-footer{background:#0f1a12;color:rgba(255,255,255,.45);padding:28px 8%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:12px;}
+.mini-footer a{color:rgba(255,255,255,.3);}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* Responsive */
+@media(max-width:960px){
+  .actu-hero{grid-template-columns:1fr;}.hero-mini-grid{display:none;}
+  .une-card{grid-template-columns:1fr;}
+  .une-img,.une-img-ph{height:240px;}
+  .articles-grid{grid-template-columns:1fr 1fr;}
+  .events-grid{grid-template-columns:1fr 1fr;}
+  .presse-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  .articles-grid{grid-template-columns:1fr;}
+  .events-grid{grid-template-columns:1fr;}
+  .presse-grid{grid-template-columns:1fr 1fr;}
+  .nl-form{flex-direction:column;}
+  :root{--haut:56px;}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+
+
+<!-- HERO -->
+<section class="actu-hero">
+  <div>
+    <div class="hero-lbl">
+      <div class="pulse-dot"></div>
+      <span class="fr">ACTUALITÉS EN DIRECT · MARS 2026</span>
+      <span class="en">LIVE NEWS · MARCH 2026</span>
+    </div>
+    <h1 class="fr">Ce qui se passe.<br>Ce qui se construit.<br><em>Ce que vous rendez possible.</em></h1>
+    <h1 class="en">What's happening.<br>What's being built.<br><em>What you make possible.</em></h1>
+    <p class="fr">Terrain, médias, événements, partenariats — toute l'actualité de Monde et Bonheur en temps réel. Parce que la transparence, c'est aussi vous tenir informé·e de chaque avancée.</p>
+    <p class="en">Field updates, media, events, partnerships — all Monde et Bonheur news in real time. Because transparency also means keeping you informed of every development.</p>
+  </div>
+
+  <!-- Mini grille hero -->
+  <div class="hero-mini-grid">
+    <div class="hmg-card" onclick="filterArticles('event')">
+      <div class="hmg-cat" style="color:#f5d087">🗓 <span class="fr">ÉVÉNEMENT</span><span class="en">EVENT</span></div>
+      <div class="hmg-title fr">Gala de l'Impact — Novembre 2026 · Yaoundé</div>
+      <div class="hmg-title en">Impact Gala — November 2026 · Yaoundé</div>
+      <div class="hmg-date">Nov 15, 2026</div>
+    </div>
+    <div class="hmg-card" onclick="filterArticles('terrain')">
+      <div class="hmg-cat" style="color:#86d0a0">🌾 <span class="fr">TERRAIN</span><span class="en">FIELD</span></div>
+      <div class="hmg-title fr">Séchoir Flash opérationnel à Batchenga</div>
+      <div class="hmg-title en">Flash Dryer operational in Batchenga</div>
+      <div class="hmg-date fr">Fév 2026</div><div class="hmg-date en">Feb 2026</div>
+    </div>
+    <div class="hmg-card" onclick="filterArticles('media')">
+      <div class="hmg-cat" style="color:#f5a623">📺 <span class="fr">MÉDIA</span><span class="en">MEDIA</span></div>
+      <div class="hmg-title fr">RFI — Cuisinières écologiques au Cameroun</div>
+      <div class="hmg-title en">RFI — Eco-cookers in Cameroon</div>
+      <div class="hmg-date fr">Jan 2026</div><div class="hmg-date en">Jan 2026</div>
+    </div>
+    <div class="hmg-card" onclick="filterArticles('tech')">
+      <div class="hmg-cat" style="color:#a0a0f0">💻 METASCRIPT</div>
+      <div class="hmg-title fr">+28% en Physique-Chimie — Lycée Bondjock</div>
+      <div class="hmg-title en">+28% in Physics-Chemistry — Bondjock School</div>
+      <div class="hmg-date fr">Déc 2025</div><div class="hmg-date en">Dec 2025</div>
+    </div>
+  </div>
+</section>
+
+<!-- FILTRES -->
+<nav class="filtres-bar" id="filtres-bar">
+  <button class="filtre-btn active" onclick="filterArticles('all',this)">
+    <span class="fr">Tous</span><span class="en">All</span>
+    <span class="filtre-count" id="cnt-all">12</span>
+  </button>
+  <button class="filtre-btn" onclick="filterArticles('terrain',this)">
+    🌾 <span class="fr">Terrain</span><span class="en">Field</span>
+    <span class="filtre-count" id="cnt-terrain">4</span>
+  </button>
+  <button class="filtre-btn" onclick="filterArticles('tech',this)">
+    💻 <span class="fr">Technologies</span><span class="en">Tech</span>
+    <span class="filtre-count" id="cnt-tech">3</span>
+  </button>
+  <button class="filtre-btn" onclick="filterArticles('media',this)">
+    📺 <span class="fr">Médias</span><span class="en">Media</span>
+    <span class="filtre-count" id="cnt-media">3</span>
+  </button>
+  <button class="filtre-btn" onclick="filterArticles('event',this)">
+    🗓 <span class="fr">Événements</span><span class="en">Events</span>
+    <span class="filtre-count" id="cnt-event">2</span>
+  </button>
+</nav>
+
+<!-- À LA UNE -->
+<section class="une-section">
+  <div class="une-inner">
+    <div class="section-lbl reveal"><span class="fr">🔥 À LA UNE</span><span class="en">🔥 TOP STORY</span></div>
+    <div class="une-card reveal">
+      <img class="une-img" src="portrait.JPEG"
+           alt="Gala Impact 2026"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+      <div class="une-img-ph" style="display:none">🎉</div>
+      <div class="une-body">
+        <div>
+          <div class="une-meta">
+            <span class="cat-badge cat-event fr">🗓 ÉVÉNEMENT</span>
+            <span class="cat-badge cat-event en">🗓 EVENT</span>
+            <span class="une-date fr">15 Novembre 2026 · Yaoundé, Cameroun</span>
+            <span class="une-date en">November 15, 2026 · Yaoundé, Cameroon</span>
+          </div>
+          <div class="une-title fr">Gala de l'Impact — Les 20 ans de Monde et Bonheur</div>
+          <div class="une-title en">Impact Gala — Monde et Bonheur's 20th Anniversary</div>
+          <div class="une-excerpt fr">
+            À l'occasion de ses 20 ans, Monde et Bonheur organise le <strong>Gala de l'Impact</strong> — un événement de fundraising d'envergure pour lever <strong>500 Millions de FCFA</strong> destinés à l'industrialisation de nos 4 technologies et au déploiement panafricain du modèle "Mini-Ville Autonome". Entreprises, ambassades, diaspora, institutions — rejoignez l'alliance stratégique de la résilience africaine.
+          </div>
+          <div class="une-excerpt en">
+            For its 20th anniversary, Monde et Bonheur is organising the <strong>Impact Gala</strong> — a major fundraising event to raise <strong>500 Million FCFA</strong> for the industrialisation of our 4 technologies and pan-African rollout of the "Autonomous Mini-Village" model. Companies, embassies, diaspora, institutions — join the strategic alliance for African resilience.
+          </div>
+        </div>
+        <div>
+          <button class="une-read-btn" onclick="location.href='partenaires.html'">
+            🎟 <span class="fr">Réserver votre place</span><span class="en">Reserve your place</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<video autoplay muted loop playsinline style="width: 100%; border-radius: 20px;">
+
+    <source src="video 20 ans.mp4" type="video/mp4">
+
+</video>
+<!-- GRILLE ARTICLES -->
+<section class="articles-section">
+  <div class="articles-inner">
+    <div class="section-lbl reveal"><span class="fr">DERNIÈRES ACTUALITÉS</span><span class="en">LATEST NEWS</span></div>
+    <div class="articles-grid" id="articles-grid">
+
+      <!-- Article 1 — terrain -->
+      <div class="article-card reveal" data-cat="terrain">
+        <img class="ac-img" src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=500&q=70" alt="Séchoir Batchenga" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="ac-img-ph" style="display:none;background:linear-gradient(135deg,#e8f5ee,#c8f0d8)">🌾</div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="cat-badge cat-terrain fr">🌾 TERRAIN</span><span class="cat-badge cat-terrain en">🌾 FIELD</span>
+            <span class="ac-date" style="font-size:11px;color:var(--tp)" class="fr">Fév 2026</span><span class="ac-date" style="font-size:11px;color:var(--tp)" class="en">Feb 2026</span>
+          </div>
+          <div class="ac-title fr">Séchoir Flash opérationnel : la coopérative de Batchenga double ses revenus</div>
+          <div class="ac-title en">Flash Dryer operational: Batchenga cooperative doubles its income</div>
+          <div class="ac-excerpt fr">Depuis janvier 2026, la CUMA de Batchenga utilise son Séchoir Flash MB. Résultat : zéro perte sur les récoltes de poisson fumé et +40% de valeur marchande. Les 14 femmes de la coopérative ont remboursé 30% du coût de l'équipement en 6 semaines.</div>
+          <div class="ac-excerpt en">Since January 2026, the Batchenga CUMA has been using its MB Flash Dryer. Result: zero loss on smoked fish harvests and +40% market value. The cooperative's 14 women repaid 30% of the equipment cost in 6 weeks.</div>
+          <div class="ac-footer">
+            <span class="ac-source">📍 <span class="fr">Batchenga, Région Centre</span><span class="en">Batchenga, Central Region</span></span>
+            <span class="ac-link" onclick="location.href='carte.html'"><span class="fr">Lire</span><span class="en">Read</span> →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 2 — tech -->
+      <div class="article-card reveal" data-cat="tech">
+        <img class="ac-img" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&q=70" alt="MetaScript Bondjock" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="ac-img-ph" style="display:none;background:linear-gradient(135deg,#e8f0ff,#d0d8ff)">💻</div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="cat-badge cat-tech fr">💻 TECH</span><span class="cat-badge cat-tech en">💻 TECH</span>
+            <span style="font-size:11px;color:var(--tp)" class="fr">Déc 2025</span><span style="font-size:11px;color:var(--tp)" class="en">Dec 2025</span>
+          </div>
+          <div class="ac-title fr">MetaScript : +28% en Physique-Chimie dans les lycées pilotes camerounais</div>
+          <div class="ac-title en">MetaScript: +28% in Physics-Chemistry in Cameroonian pilot schools</div>
+          <div class="ac-excerpt fr">Les résultats du 2ème semestre 2025 dans les 12 lycées pilotes équipés de MetaScript sont publiés. Progression moyenne de +28% en Physique-Chimie. Premier bilan documenté de l'impact du laboratoire virtuel sur les apprentissages.</div>
+          <div class="ac-excerpt en">2nd semester 2025 results from the 12 MetaScript-equipped pilot schools are published. Average +28% improvement in Physics-Chemistry. First documented assessment of the virtual lab's learning impact.</div>
+          <div class="ac-footer">
+            <span class="ac-source">💻 MetaScript · MB</span>
+            <span class="ac-link" onclick="location.href='technologies.html#metascript'"><span class="fr">Lire</span><span class="en">Read</span> →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 3 — média -->
+      <div class="article-card reveal" data-cat="media">
+        <div class="ac-img-ph" style="background:linear-gradient(135deg,#2d1a00,#7a4500)">📻</div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="cat-badge cat-media fr">📺 MÉDIA</span><span class="cat-badge cat-media en">📺 MEDIA</span>
+            <span style="font-size:11px;color:var(--tp)" class="fr">Jan 2026</span><span style="font-size:11px;color:var(--tp)" class="en">Jan 2026</span>
+          </div>
+          <div class="ac-title fr">RFI Afrique : "Les cuisinières écologiques qui sauvent les forêts camerounaises"</div>
+          <div class="ac-title en">RFI Africa: "The eco-cookers saving Cameroonian forests"</div>
+          <div class="ac-excerpt fr">Radio France Internationale consacre un reportage de 8 minutes à l'innovation "1 Bois / 3 Foyers" de Monde et Bonheur. La présidente Hermine Ngo Batjom explique comment cette technologie frugale réduit de 90% la consommation de biomasse.</div>
+          <div class="ac-excerpt en">Radio France Internationale dedicates an 8-minute feature to Monde et Bonheur's "1 Wood / 3 Fires" innovation. President Hermine Ngo Batjom explains how this frugal technology reduces biomass consumption by 90%.</div>
+          <div class="ac-footer">
+            <span class="ac-source">📻 RFI Afrique</span>
+            <span class="ac-link">Écouter →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 4 — terrain -->
+      <div class="article-card reveal" data-cat="terrain">
+        <img class="ac-img" src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&q=70" alt="École Baka" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="ac-img-ph" style="display:none;background:linear-gradient(135deg,#0d3320,#1a5c3a)">🌿</div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="cat-badge cat-terrain fr">🌾 TERRAIN</span><span class="cat-badge cat-terrain en">🌾 FIELD</span>
+            <span style="font-size:11px;color:var(--tp)" class="fr">Nov 2025</span><span style="font-size:11px;color:var(--tp)" class="en">Nov 2025</span>
+          </div>
+          <div class="ac-title fr">École Baka de Lomié : 107 élèves inscrits — record historique</div>
+          <div class="ac-title en">Baka School in Lomié: 107 pupils enrolled — all-time record</div>
+          <div class="ac-excerpt fr">L'école primaire construite par MB à Lomié/Abakoum enregistre 107 élèves Baka inscrits pour l'année 2025–2026, soit un record depuis la construction. La scolarisation des filles a progressé de 40% grâce aux ateliers de sensibilisation des familles.</div>
+          <div class="ac-excerpt en">The primary school built by MB in Lomié/Abakoum records 107 Baka pupils enrolled for 2025–2026, an all-time record since construction. Girls' enrolment rose 40% thanks to family awareness workshops.</div>
+          <div class="ac-footer">
+            <span class="ac-source">📍 <span class="fr">Lomié, Région Est</span><span class="en">Lomié, Eastern Region</span></span>
+            <span class="ac-link" onclick="location.href='carte.html'"><span class="fr">Lire</span><span class="en">Read</span> →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 5 — tech -->
+      <div class="article-card reveal" data-cat="tech">
+        <div class="ac-img-ph" style="background:linear-gradient(135deg,#1e0d35,#4a2080)">♻️</div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="cat-badge cat-tech fr">💻 TECH</span><span class="cat-badge cat-tech en">💻 TECH</span>
+            <span style="font-size:11px;color:var(--tp)" class="fr">Oct 2025</span><span style="font-size:11px;color:var(--tp)" class="en">Oct 2025</span>
+          </div>
+          <div class="ac-title fr">Bondjock : le méthaniseur pilote produit ses premiers m³ de biogaz</div>
+          <div class="ac-title en">Bondjock: pilot digester produces first cubic metres of biogas</div>
+          <div class="ac-excerpt fr">Le digesteur pilote installé sur le site du Lycée de Bondjock a produit ses premiers mètres cubes de biogaz. Les salles de classe seront éclairées à partir du biogaz dès le trimestre prochain — une première au Cameroun pour un lycée rural.</div>
+          <div class="ac-excerpt en">The pilot digester installed at Bondjock High School has produced its first cubic metres of biogas. Classrooms will be lit from biogas from next term — a first in Cameroon for a rural secondary school.</div>
+          <div class="ac-footer">
+            <span class="ac-source">📍 Bondjock · MB</span>
+            <span class="ac-link" onclick="location.href='technologies.html#biogaz'"><span class="fr">Lire</span><span class="en">Read</span> →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 6 — média -->
+      <div class="article-card reveal" data-cat="media">
+        <div class="ac-img-ph" style="background:linear-gradient(135deg,#0d2040,#1a4a6b)">📰</div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="cat-badge cat-media fr">📺 MÉDIA</span><span class="cat-badge cat-media en">📺 MEDIA</span>
+            <span style="font-size:11px;color:var(--tp)" class="fr">Sep 2025</span><span style="font-size:11px;color:var(--tp)" class="en">Sep 2025</span>
+          </div>
+          <div class="ac-title fr">Le Monde Afrique : "MetaScript, le laboratoire virtuel qui démocratise les sciences en Afrique"</div>
+          <div class="ac-title en">Le Monde Africa: "MetaScript, the virtual lab democratising science in Africa"</div>
+          <div class="ac-excerpt fr">Le quotidien Le Monde consacre une double page à MetaScript, la plateforme éducative développée par Monde et Bonheur. Article illustré d'un reportage photo dans les classes de Bondjock.</div>
+          <div class="ac-excerpt en">Le Monde newspaper dedicates a double-page spread to MetaScript, the educational platform developed by Monde et Bonheur. Article illustrated with a photo feature in Bondjock classrooms.</div>
+          <div class="ac-footer">
+            <span class="ac-source">📰 Le Monde Afrique</span>
+            <span class="ac-link">Lire l'article →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 7 — terrain -->
+      <div class="article-card reveal" data-cat="terrain">
+        <img class="ac-img" src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=500&q=70" alt="Coopérative femmes" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="ac-img-ph" style="display:none;background:var(--vp)">👩</div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="cat-badge cat-terrain fr">🌾 TERRAIN</span><span class="cat-badge cat-terrain en">🌾 FIELD</span>
+            <span style="font-size:11px;color:var(--tp)" class="fr">Août 2025</span><span style="font-size:11px;color:var(--tp)" class="en">Aug 2025</span>
+          </div>
+          <div class="ac-title fr">Formation CUMA : 23 femmes de Batchenga certifiées en gestion agricole</div>
+          <div class="ac-title en">CUMA training: 23 Batchenga women certified in agricultural management</div>
+          <div class="ac-excerpt fr">Clôture de la formation en gestion d'entreprise agricole pour les 23 membres de la CUMA de Batchenga. Programme de 3 mois co-financé par le FORIM et dispensé par MB. Taux de présence : 97%.</div>
+          <div class="ac-excerpt en">Completion of the agricultural business management training for all 23 members of the Batchenga CUMA. 3-month programme co-funded by FORIM and delivered by MB. Attendance rate: 97%.</div>
+          <div class="ac-footer">
+            <span class="ac-source">📍 Batchenga · FORIM</span>
+            <span class="ac-link"><span class="fr">Lire</span><span class="en">Read</span> →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 8 — media -->
+      <div class="article-card reveal" data-cat="media">
+        <div class="ac-img-ph" style="background:linear-gradient(135deg,#1a2a00,#3a5a00)">🌿</div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="cat-badge cat-media fr">📺 MÉDIA</span><span class="cat-badge cat-media en">📺 MEDIA</span>
+            <span style="font-size:11px;color:var(--tp)" class="fr">Juil 2025</span><span style="font-size:11px;color:var(--tp)" class="en">Jul 2025</span>
+          </div>
+          <div class="ac-title fr">CRTV Cameroun — Reportage sur la Biométhanisation à Bondjock</div>
+          <div class="ac-title en">CRTV Cameroon — Feature on Biodigestion in Bondjock</div>
+          <div class="ac-excerpt fr">La Cameroon Radio Television (CRTV) diffuse un reportage de 12 minutes sur le projet méthaniseur pilote de Bondjock. Le reportage est diffusé en prime time et touche 2 millions de téléspectateurs.</div>
+          <div class="ac-excerpt en">Cameroon Radio Television (CRTV) airs a 12-minute feature on the Bondjock pilot digester project, broadcast in prime time and reaching 2 million viewers.</div>
+          <div class="ac-footer">
+            <span class="ac-source">📺 CRTV Cameroun</span>
+            <span class="ac-link">Voir →</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Article 9 — tech -->
+      <div class="article-card reveal" data-cat="tech">
+        <div class="ac-img-ph" style="background:linear-gradient(135deg,#3d2b1f,#7a5020)">🔥</div>
+        <div class="ac-body">
+          <div class="ac-meta">
+            <span class="cat-badge cat-tech fr">💻 TECH</span><span class="cat-badge cat-tech en">💻 TECH</span>
+            <span style="font-size:11px;color:var(--tp)" class="fr">Juin 2025</span><span style="font-size:11px;color:var(--tp)" class="en">Jun 2025</span>
+          </div>
+          <div class="ac-title fr">384 cuisinières "1 Bois / 3 Foyers" distribuées en 2025 — bilan de mi-année</div>
+          <div class="ac-title en">384 "1 Wood / 3 Fires" cookers distributed in 2025 — mid-year report</div>
+          <div class="ac-excerpt fr">Au 30 juin 2025, Monde et Bonheur a distribué 384 cuisinières écologiques dans les zones de Batchenga, Bondjock et Kribi. Impact estimé : 1 920 tonnes de CO₂ évitées, 1 152 heures quotidiennes économisées pour les femmes.</div>
+          <div class="ac-excerpt en">As at 30 June 2025, Monde et Bonheur had distributed 384 eco-cookers across Batchenga, Bondjock and Kribi. Estimated impact: 1,920 tonnes CO₂ avoided, 1,152 daily hours saved for women.</div>
+          <div class="ac-footer">
+            <span class="ac-source">📊 Rapport MB 2025</span>
+            <span class="ac-link" onclick="location.href='technologies.html'"><span class="fr">Lire</span><span class="en">Read</span> →</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Bouton charger plus -->
+    <div style="text-align:center;margin-top:2.5rem" id="load-more-wrap">
+      <button id="load-more-btn" onclick="loadMore()" style="display:inline-flex;align-items:center;gap:.5rem;background:white;color:var(--v);padding:13px 28px;border-radius:9px;font-size:14px;font-weight:600;border:1.5px solid rgba(26,92,58,.2);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;">
+        <span class="fr">Charger plus d'actualités</span><span class="en">Load more news</span> ↓
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- ÉVÉNEMENTS À VENIR -->
+<section class="events-section">
+  <div class="events-inner">
+    <div class="section-lbl reveal"><span class="fr">📅 ÉVÉNEMENTS À VENIR</span><span class="en">📅 UPCOMING EVENTS</span></div>
+    <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.4rem);font-weight:700;line-height:1.2;margin-bottom:0">
+      <span class="fr">Rencontrez-nous. Rejoignez le mouvement.</span>
+      <span class="en">Meet us. Join the movement.</span>
+    </h2>
+    <div class="events-grid">
+
+      <div class="event-card featured reveal">
+        <div class="ev-header gala">
+          <div class="ev-date-box"><div class="ev-day">15</div><div class="ev-month fr">NOV 2026</div><div class="ev-month en">NOV 2026</div></div>
+          <div class="ev-badge-new fr">PHARE</div><div class="ev-badge-new en">FLAGSHIP</div>
+        </div>
+        <div class="ev-body">
+          <div class="ev-type fr">🎉 GALA DE FUNDRAISING</div><div class="ev-type en">🎉 FUNDRAISING GALA</div>
+          <div class="ev-title fr">Gala de l'Impact — Les 20 Ans</div>
+          <div class="ev-title en">Impact Gala — The 20th Anniversary</div>
+          <div class="ev-desc fr">Soirée de gala, discours, démonstrations live des 4 technologies, remise du "Prix de la Résilience Africaine". Objectif : lever 500M FCFA en une soirée.</div>
+          <div class="ev-desc en">Gala evening, speeches, live demonstrations of 4 technologies, presentation of the "African Resilience Award". Target: raise 500M FCFA in one evening.</div>
+          <div class="ev-lieu">📍 <span class="fr">Yaoundé, Cameroun — Salle des Conférences</span><span class="en">Yaoundé, Cameroon — Conference Hall</span></div>
+        </div>
+        <div class="ev-foot">
+          <button class="ev-btn ev-btn-primary" onclick="location.href='partenaires.html'">
+            🎟 <span class="fr">Réserver</span><span class="en">Reserve</span>
+          </button>
+          <button class="ev-btn ev-btn-sec" onclick="location.href='don.html'">
+            ❤️ <span class="fr">Soutenir</span><span class="en">Support</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="event-card reveal">
+        <div class="ev-header cop">
+          <div class="ev-date-box"><div class="ev-day">10</div><div class="ev-month fr">MAI 2026</div><div class="ev-month en">MAY 2026</div></div>
+        </div>
+        <div class="ev-body">
+          <div class="ev-type fr">🌍 CONFÉRENCE INTERNATIONALE</div><div class="ev-type en">🌍 INTERNATIONAL CONFERENCE</div>
+          <div class="ev-title fr">Forum Africain des Solutions Climatiques</div>
+          <div class="ev-title en">African Climate Solutions Forum</div>
+          <div class="ev-desc fr">Monde et Bonheur présentera le modèle "Mini-Ville Autonome 7 ESAR" comme solution climatique frugale scalable pour l'Afrique subsaharienne.</div>
+          <div class="ev-desc en">Monde et Bonheur will present the "7 ESAR Autonomous Mini-Village" model as a scalable frugal climate solution for sub-Saharan Africa.</div>
+          <div class="ev-lieu">📍 <span class="fr">Abidjan, Côte d'Ivoire</span><span class="en">Abidjan, Côte d'Ivoire</span></div>
+        </div>
+        <div class="ev-foot">
+          <button class="ev-btn ev-btn-primary" onclick="location.href='partenaires.html'">
+            <span class="fr">Participer</span><span class="en">Attend</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="event-card reveal">
+        <div class="ev-header">
+          <div class="ev-date-box"><div class="ev-day">28</div><div class="ev-month fr">MAR 2026</div><div class="ev-month en">MAR 2026</div></div>
+        </div>
+        <div class="ev-body">
+          <div class="ev-type fr">🎓 FORMATION & DÉMO</div><div class="ev-type en">🎓 TRAINING & DEMO</div>
+          <div class="ev-title fr">Journée Portes Ouvertes — Biogaz Bondjock</div>
+          <div class="ev-title en">Open Day — Bondjock Biogas</div>
+          <div class="ev-desc fr">Visite du digesteur pilote du Lycée de Bondjock, démonstration live de la production de biogaz, formation rapide MetaScript pour les enseignants visiteurs.</div>
+          <div class="ev-desc en">Visit to Bondjock High School's pilot digester, live biogas production demonstration, rapid MetaScript training for visiting teachers.</div>
+          <div class="ev-lieu">📍 <span class="fr">Bondjock, Nyong-et-Kéllé</span><span class="en">Bondjock, Nyong-et-Kéllé</span></div>
+        </div>
+        <div class="ev-foot">
+          <button class="ev-btn ev-btn-primary" onclick="window.location='mailto:courrielmondeetbonheur@gmail.com?subject=Inscription Portes Ouvertes Bondjock'">
+            <span class="fr">S'inscrire</span><span class="en">Register</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CARROUSEL ACTUALITÉS (même composant que dans les autres pages) -->
+<section class="mb-carrousel-section dark" id="carrousel-home">
+  <div class="mbc-header">
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--oc);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem" class="fr">REVUE DE PRESSE</div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:var(--oc);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.4rem" class="en">PRESS REVIEW</div>
+      <div class="mbc-title fr">Monde et Bonheur dans les médias</div>
+      <div class="mbc-title en">Monde et Bonheur in the media</div>
+    </div>
+    <div class="mbc-controls">
+      <button class="mbc-btn" id="carr-prev" onclick="carrouselMove(-1)">←</button>
+      <button class="mbc-btn" id="carr-next" onclick="carrouselMove(1)">→</button>
+      <span class="mbc-see-all" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+        <span class="fr">Toutes les actus</span><span class="en">All news</span> ↑
+      </span>
+    </div>
+  </div>
+  <div class="mbc-track-wrap">
+    <div class="mbc-track" id="carr-track"></div>
+  </div>
+  <div class="mbc-dots" id="carr-dots"></div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter-section">
+  <div class="nl-inner reveal">
+    <div class="nl-title fr">Restez informé·e de chaque victoire terrain.</div>
+    <div class="nl-title en">Stay informed of every field victory.</div>
+    <div class="nl-sub fr">Maximum 1 email par mois. Des photos, des chiffres, des noms. Pas du spam — de l'impact.</div>
+    <div class="nl-sub en">Maximum 1 email per month. Photos, figures, names. Not spam — impact.</div>
+    <div class="nl-form">
+      <input type="email" class="nl-input" id="nl-email" placeholder="votre@email.com" autocomplete="email">
+      <button class="nl-btn" onclick="subscribeNewsletter()">
+        <span class="fr">Je m'abonne</span><span class="en">Subscribe</span>
+      </button>
+    </div>
+    <div class="nl-note fr">🔒 Pas de revente. Désinscription en 1 clic. RGPD respecté.</div>
+    <div class="nl-note en">🔒 No resale. Unsubscribe in 1 click. GDPR compliant.</div>
+  </div>
+</section>
+
+<!-- PRESSE & MÉDIAS -->
+<section class="presse-section">
+  <div class="presse-inner">
+    <div class="section-lbl reveal"><span class="fr">PRESSE & MÉDIAS · REVUE DE CITATIONS</span><span class="en">PRESS & MEDIA · CITATION REVIEW</span></div>
+    <h2 class="reveal" style="font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.2rem);font-weight:700;margin-bottom:0">
+      <span class="fr">Ils parlent de nous.</span><span class="en">They talk about us.</span>
+    </h2>
+    <div class="presse-grid">
+      <div class="presse-card reveal">
+        <div class="pc-media">📻 RFI AFRIQUE</div>
+        <div class="pc-title fr">"Une ONG qui transforme la boue en or et la fumée en lumière"</div>
+        <div class="pc-title en">"An NGO that turns mud into gold and smoke into light"</div>
+        <div class="pc-date fr">Janvier 2026</div><div class="pc-date en">January 2026</div>
+        <div class="pc-link">Écouter →</div>
+      </div>
+      <div class="presse-card reveal">
+        <div class="pc-media">📰 LE MONDE AFRIQUE</div>
+        <div class="pc-title fr">"MetaScript, le laboratoire virtuel qui réconcilie la jeunesse africaine avec les sciences"</div>
+        <div class="pc-title en">"MetaScript, the virtual lab reconciling African youth with science"</div>
+        <div class="pc-date fr">Septembre 2025</div><div class="pc-date en">September 2025</div>
+        <div class="pc-link">Lire →</div>
+      </div>
+      <div class="presse-card reveal">
+        <div class="pc-media">📺 CRTV CAMEROUN</div>
+        <div class="pc-title fr">"Bondjock, le premier lycée camerounais alimenté au biogaz"</div>
+        <div class="pc-title en">"Bondjock, the first Cameroonian high school powered by biogas"</div>
+        <div class="pc-date fr">Juillet 2025</div><div class="pc-date en">July 2025</div>
+        <div class="pc-link">Voir →</div>
+      </div>
+      <div class="presse-card reveal">
+        <div class="pc-media">🌍 JEUNE AFRIQUE</div>
+        <div class="pc-title fr">"Les 10 ONG africaines qui innovent pour le climat en 2025"</div>
+        <div class="pc-title en">"10 African NGOs innovating for the climate in 2025"</div>
+        <div class="pc-date fr">Juin 2025</div><div class="pc-date en">June 2025</div>
+        <div class="pc-link">Lire →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- Inclure le composant carrousel partagé -->
+<script src="mb-carrousel.js"></script>
+<script>
+/* ── Langue ── */
+function setLang(l){
+  document.documentElement.setAttribute('data-lang',l);
+  document.getElementById('btnFR').classList.toggle('active',l==='fr');
+  document.getElementById('btnEN').classList.toggle('active',l==='en');
+}
+
+/* ── Filtres ── */
+function filterArticles(cat, btn){
+  if(btn){
+    document.querySelectorAll('.filtre-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  }
+  document.querySelectorAll('.article-card').forEach(card=>{
+    if(cat==='all'||card.dataset.cat===cat){
+      card.classList.remove('hidden');
+    } else {
+      card.classList.add('hidden');
+    }
+  });
+}
+
+/* ── Charger plus ── */
+function loadMore(){
+  const btn = document.getElementById('load-more-btn');
+  const l = document.documentElement.getAttribute('data-lang')||'fr';
+  btn.textContent = l==='fr'?'Chargement…':'Loading…';
+  setTimeout(()=>{
+    document.getElementById('load-more-wrap').innerHTML =
+      `<p style="font-size:14px;color:var(--tp);font-style:italic">${l==='fr'?'Toutes les actualités sont affichées.':'All news is displayed.'}</p>`;
+  }, 800);
+}
+
+/* ── Newsletter ── */
+function subscribeNewsletter(){
+  const email = document.getElementById('nl-email').value;
+  const l = document.documentElement.getAttribute('data-lang')||'fr';
+  if(!email||!email.includes('@')){
+    alert(l==='fr'?'Merci d\'entrer un email valide.':'Please enter a valid email.');
+    return;
+  }
+  document.querySelector('.nl-form').innerHTML =
+    `<p style="color:white;font-size:15px;font-weight:600">✅ ${l==='fr'?'Abonnement confirmé ! Premier email sous 24h.':'Subscription confirmed! First email within 24h.'}</p>`;
+}
+
+/* ── Carrousel ── */
+let carrIdx = 0;
+const CARR_ITEMS = window.MB_NEWS_ITEMS || [];
+function buildCarrousel(){
+  const track = document.getElementById('carr-track');
+  const dots  = document.getElementById('carr-dots');
+  if(!track||!dots||!CARR_ITEMS.length) return;
+  track.innerHTML = CARR_ITEMS.map(item=>`
+    <div class="mbc-card">
+      <div class="mbc-card-img-ph" style="background:${item.bg}">${item.emoji}</div>
+      <div class="mbc-card-body">
+        <div class="mbc-meta">
+          <span class="mbc-cat ${item.catClass} fr">${item.catFR}</span>
+          <span class="mbc-cat ${item.catClass} en">${item.catEN}</span>
+          <span class="mbc-date fr">${item.dateFR}</span>
+          <span class="mbc-date en">${item.dateEN}</span>
+        </div>
+        <div class="mbc-title-card fr">${item.titleFR}</div>
+        <div class="mbc-title-card en">${item.titleEN}</div>
+        <div class="mbc-excerpt fr">${item.excerptFR}</div>
+        <div class="mbc-excerpt en">${item.excerptEN}</div>
+      </div>
+    </div>`).join('');
+  const pages = Math.ceil(CARR_ITEMS.length / 3);
+  dots.innerHTML = Array.from({length:pages},(_,i)=>
+    `<div class="mbc-dot ${i===0?'active':''}" onclick="carrouselGoTo(${i})"></div>`
+  ).join('');
+}
+function carrouselMove(dir){
+  const pages = Math.ceil(CARR_ITEMS.length/3);
+  carrIdx = (carrIdx + dir + pages) % pages;
+  carrouselGoTo(carrIdx);
+}
+function carrouselGoTo(i){
+  carrIdx = i;
+  const track = document.getElementById('carr-track');
+  if(track) track.style.transform = `translateX(calc(-${i}*(300px + 1.2rem)*3))`;
+  document.querySelectorAll('#carr-dots .mbc-dot').forEach((d,j)=>d.classList.toggle('active',j===i));
+}
+
+/* ── Scroll reveal ── */
+const obs = new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*70);obs.unobserve(e.target);}
+  });
+},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* Init */
+buildCarrousel();
+</script>
+<script src="mb-nav.js"></script>
+    <script src="faq.js"></script>
+    <script src="mb-carrousel-images.js"></script>
+</body>
+</html>

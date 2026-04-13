@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nos Zones d'Intervention — ONG Monde et Bonheur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --v:#1a5c3a;--vc:#2d8a58;--vp:#e8f5ee;--vd:#0d3320;
+  --o:#c8860a;--oc:#f5a623;--op:#fdf3e3;
+  --br:#3d2b1f;--wh:#fdfcf8;--gr:#f0ede6;
+  --tx:#1a1a18;--td:#4a4a44;--tp:#8a8a82;
+  --rouge:#c0392b;--haut:64px;--r:14px;
+  --sh:0 4px 24px rgba(0,0,0,.09);
+  --sh-lg:0 16px 60px rgba(0,0,0,.13);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--wh);color:var(--tx);overflow-x:hidden;}
+[data-lang="fr"] .en{display:none!important;}
+[data-lang="en"] .fr{display:none!important;}
+a{text-decoration:none;}
+
+/* HEADER */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--haut);background:rgba(253,252,248,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(26,92,58,.1);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;}
+.h-logo{display:flex;align-items:center;gap:10px;}
+.h-disk{width:38px;height:38px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:12px;color:white;border:2px solid var(--vc);}
+.h-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--v);}
+.h-sub{font-size:10px;color:var(--tp);}
+.h-right{display:flex;align-items:center;gap:.8rem;}
+.lang-toggle{display:flex;background:var(--gr);border-radius:20px;padding:3px;border:1px solid rgba(26,92,58,.1);}
+.lang-btn{padding:4px 11px;border-radius:16px;border:none;background:none;font-size:11px;font-weight:700;cursor:pointer;color:var(--tp);font-family:'Space Mono',monospace;transition:all .2s;}
+.lang-btn.active{background:var(--v);color:white;}
+.btn-don-hdr{display:flex;align-items:center;gap:6px;background:var(--rouge);color:white;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-don-hdr:hover{background:#a93226;}
+.back-link{font-size:13px;color:var(--td);padding:7px 12px;border-radius:8px;border:1px solid rgba(26,92,58,.12);transition:all .2s;display:flex;align-items:center;gap:5px;}
+.back-link:hover{background:var(--vp);color:var(--v);}
+
+/* HERO */
+.map-hero{padding:calc(var(--haut)+60px) 8% 50px;background:linear-gradient(150deg,var(--vd) 0%,var(--v) 60%,rgba(200,134,10,.5) 100%);text-align:center;position:relative;}
+.map-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:60px;background:linear-gradient(transparent,var(--wh));}
+.hero-lbl{display:inline-flex;align-items:center;gap:8px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);color:#f5d087;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;padding:5px 14px;border-radius:20px;margin-bottom:1.2rem;}
+.map-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4.5vw,3.4rem);font-weight:900;color:white;line-height:1.1;margin-bottom:1rem;}
+.map-hero h1 em{font-style:italic;color:#f5d087;}
+.map-hero p{font-size:15px;color:rgba(255,255,255,.78);max-width:520px;margin:0 auto;line-height:1.8;font-weight:300;}
+
+/* LAYOUT PRINCIPAL */
+.map-main{max-width:1280px;margin:0 auto;padding:3rem 2rem 5rem;display:grid;grid-template-columns:1fr 420px;gap:2.5rem;align-items:start;}
+
+/* COLONNE CARTE */
+.map-col{}
+.zone-tabs{display:flex;gap:.5rem;margin-bottom:1.2rem;flex-wrap:wrap;}
+.zone-tab{padding:8px 16px;border-radius:20px;border:1.5px solid rgba(26,92,58,.15);background:white;font-size:13px;font-weight:600;cursor:pointer;font-family:'DM Sans',sans-serif;color:var(--td);transition:all .2s;display:flex;align-items:center;gap:.4rem;}
+.zone-tab:hover{border-color:var(--vc);background:var(--vp);color:var(--v);}
+.zone-tab.active{background:var(--v);color:white;border-color:var(--v);}
+.zone-tab .zdot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* SVG Carte */
+.carte-wrap{background:white;border-radius:var(--r);border:1px solid rgba(26,92,58,.1);overflow:hidden;box-shadow:var(--sh);position:relative;}
+.carte-wrap svg{display:block;width:100%;}
+.carte-legende{display:flex;gap:1rem;padding:.8rem 1.2rem;background:var(--gr);flex-wrap:wrap;}
+.leg-item{display:flex;align-items:center;gap:.4rem;font-size:11.5px;color:var(--td);}
+.leg-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
+.map-hint{font-size:11px;color:var(--tp);margin-left:auto;font-style:italic;}
+
+/* COLONNE FICHE */
+.fiche-col{}
+.fiche-sticky{position:sticky;top:calc(var(--haut)+16px);}
+
+/* Fiche de zone */
+.fiche{display:none;animation:slideIn .3s ease;}
+.fiche.active{display:block;}
+@keyframes slideIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+
+.fiche-card{background:white;border-radius:var(--r);border:1px solid rgba(26,92,58,.1);overflow:hidden;box-shadow:var(--sh);}
+.fiche-img-wrap{position:relative;height:200px;overflow:hidden;}
+.fiche-img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s;}
+.fiche-card:hover .fiche-img{transform:scale(1.04);}
+.fiche-img-overlay{position:absolute;inset:0;background:linear-gradient(transparent 40%,rgba(13,51,32,.85));display:flex;flex-direction:column;justify-content:flex-end;padding:1.2rem;}
+.fiche-region{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.65);letter-spacing:.12em;margin-bottom:.2rem;}
+.fiche-name{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:white;line-height:1.2;}
+.fiche-tag{display:inline-flex;align-items:center;background:rgba(245,166,35,.2);border:1px solid rgba(245,166,35,.3);color:#f5d087;font-size:10px;font-family:'Space Mono',monospace;letter-spacing:.06em;padding:3px 8px;border-radius:6px;margin-top:.4rem;}
+
+.fiche-body{padding:1.4rem;}
+.fiche-section-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--o);text-transform:uppercase;margin-bottom:.6rem;margin-top:1rem;}
+.fiche-section-title:first-child{margin-top:0;}
+.fiche-desc{font-size:14px;color:var(--td);line-height:1.75;margin-bottom:.6rem;}
+
+/* Stats mini */
+.fiche-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:.8rem;}
+.fstat{background:var(--vp);border-radius:9px;padding:.8rem .6rem;text-align:center;border:1px solid rgba(26,92,58,.08);}
+.fstat-num{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:900;color:var(--v);line-height:1;display:block;}
+.fstat-lbl{font-size:10px;color:var(--td);margin-top:.2rem;line-height:1.3;}
+
+/* Projets liste */
+.projet-list{display:flex;flex-direction:column;gap:.5rem;margin-bottom:.8rem;}
+.projet-item{display:flex;align-items:flex-start;gap:.7rem;padding:.7rem;background:var(--gr);border-radius:9px;font-size:13px;line-height:1.5;}
+.projet-item .pi-icon{font-size:1.1rem;flex-shrink:0;margin-top:.05rem;}
+.pi-name{font-weight:600;color:var(--tx);display:block;margin-bottom:.1rem;}
+.pi-desc{color:var(--td);}
+.pi-status{font-family:'Space Mono',monospace;font-size:9px;padding:2px 7px;border-radius:5px;margin-top:.3rem;display:inline-block;}
+.pi-status.done{background:var(--vp);color:var(--vc);}
+.pi-status.ongoing{background:var(--op);color:var(--o);}
+.pi-status.planned{background:rgba(26,92,58,.06);color:var(--tp);}
+
+/* Témoignage mini */
+.fiche-testi{background:linear-gradient(135deg,var(--vd),var(--v));border-radius:10px;padding:1rem;margin-bottom:.8rem;}
+.ft-quote{font-size:13px;color:rgba(255,255,255,.85);font-style:italic;line-height:1.7;margin-bottom:.5rem;}
+.ft-author{font-size:11px;color:rgba(255,255,255,.5);font-family:'Space Mono',monospace;}
+
+/* CTA fiche */
+.fiche-cta{display:flex;gap:.6rem;flex-wrap:wrap;}
+.btn-fiche-p{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:.4rem;background:var(--v);color:white;padding:11px;border-radius:9px;font-size:13px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-fiche-p:hover{background:var(--vc);}
+.btn-fiche-s{flex:1;min-width:120px;display:flex;align-items:center;justify-content:center;gap:.4rem;background:white;color:var(--v);padding:11px;border-radius:9px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid rgba(26,92,58,.2);font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-fiche-s:hover{background:var(--vp);border-color:var(--vc);}
+
+/* Welcome card */
+.welcome-card{background:var(--vp);border:1.5px dashed rgba(26,92,58,.2);border-radius:var(--r);padding:2rem;text-align:center;display:none;}
+.welcome-card.active{display:block;}
+.wc-icon{font-size:2.5rem;margin-bottom:.8rem;}
+.wc-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--v);margin-bottom:.5rem;}
+.wc-sub{font-size:13.5px;color:var(--td);line-height:1.7;}
+
+/* STATS GLOBALES */
+.global-stats{background:var(--v);padding:60px 8%;}
+.gs-inner{max-width:1100px;margin:0 auto;}
+.gs-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.2rem);font-weight:700;color:white;text-align:center;margin-bottom:.5rem;}
+.gs-sub{font-size:14.5px;color:rgba(255,255,255,.7);text-align:center;margin-bottom:2.5rem;}
+.gs-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1rem;}
+.gs-card{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:var(--r);padding:1.4rem;text-align:center;}
+.gs-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#f5d087;display:block;line-height:1;}
+.gs-lbl{font-size:11.5px;color:rgba(255,255,255,.65);margin-top:.4rem;line-height:1.4;}
+
+/* EXPANSION */
+.expansion-section{padding:70px 8%;background:var(--gr);}
+.exp-inner{max-width:1100px;margin:0 auto;}
+.exp-header{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:center;margin-bottom:2.5rem;}
+.exp-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;line-height:1.2;}
+.exp-header p{font-size:15px;color:var(--td);line-height:1.8;}
+.pays-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:.8rem;}
+.pays-card{background:white;border-radius:var(--r);border:1px solid rgba(26,92,58,.08);padding:1.1rem;text-align:center;transition:all .25s;}
+.pays-card:hover{transform:translateY(-3px);box-shadow:var(--sh);}
+.pays-flag{font-size:2rem;margin-bottom:.4rem;}
+.pays-name{font-size:13px;font-weight:700;color:var(--tx);}
+.pays-status{font-family:'Space Mono',monospace;font-size:9px;padding:2px 8px;border-radius:5px;margin-top:.3rem;display:inline-block;}
+.pays-status.pilot{background:var(--vp);color:var(--vc);}
+.pays-status.target{background:var(--op);color:var(--o);}
+.pays-status.explore{background:rgba(26,92,58,.06);color:var(--tp);}
+
+/* CTA finale */
+.cta-finale{background:linear-gradient(135deg,var(--vd),var(--v));padding:70px 8%;text-align:center;}
+.cta-finale h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:white;margin-bottom:1rem;}
+.cta-finale p{font-size:15px;color:rgba(255,255,255,.72);max-width:520px;margin:0 auto 2rem;line-height:1.8;}
+.cta-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;}
+.btn-cta-w{display:inline-flex;align-items:center;gap:8px;background:white;color:var(--v);padding:14px 28px;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .25s;}
+.btn-cta-w:hover{background:var(--op);transform:translateY(-2px);}
+.btn-cta-o{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);color:white;padding:14px 28px;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;border:1.5px solid rgba(255,255,255,.22);font-family:'DM Sans',sans-serif;transition:all .25s;}
+.btn-cta-o:hover{background:rgba(255,255,255,.2);transform:translateY(-2px);}
+
+.mini-footer{background:#0f1a12;color:rgba(255,255,255,.45);padding:28px 8%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:12px;}
+.mini-footer a{color:rgba(255,255,255,.3);}
+
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .5s ease,transform .5s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+@media(max-width:1024px){.map-main{grid-template-columns:1fr;}.fiche-sticky{position:static;}.exp-header{grid-template-columns:1fr;}.pays-grid{grid-template-columns:repeat(3,1fr);}.gs-grid{grid-template-columns:repeat(3,1fr);}}
+@media(max-width:640px){.pays-grid{grid-template-columns:1fr 1fr;}.gs-grid{grid-template-columns:1fr 1fr;}.fiche-stats{grid-template-columns:1fr 1fr;}:root{--haut:56px;}}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+
+
+<!-- HERO -->
+<section class="map-hero">
+  <div class="hero-lbl"><span class="fr">🗺️ PRÉSENCE TERRAIN · 20 ANS D'ANCRAGE LOCAL</span><span class="en">🗺️ FIELD PRESENCE · 20 YEARS OF LOCAL ROOTS</span></div>
+  <h1 class="fr">Nous sommes là<br>où les autres <em>ne vont pas</em>.</h1>
+  <h1 class="en">We are where others<br><em>don't go</em>.</h1>
+  <p class="fr">Des zones rurales enclavées aux populations autochtones oubliées — cliquez sur une zone pour découvrir nos projets, nos équipes et les visages de nos bénéficiaires.</p>
+  <p class="en">From remote rural areas to forgotten indigenous communities — click a zone to discover our projects, teams and the faces of our beneficiaries.</p>
+</section>
+
+<!-- MAIN MAP + FICHES -->
+<div class="map-main">
+
+  <!-- CARTE -->
+  <div class="map-col">
+    <div class="zone-tabs">
+      <button class="zone-tab" id="tab-all" onclick="selectZone('all')">
+        🌍 <span class="fr">Toutes les zones</span><span class="en">All zones</span>
+      </button>
+      <button class="zone-tab" id="tab-batchenga" onclick="selectZone('batchenga')">
+        <div class="zdot" style="background:#2d8a58"></div>
+        Batchenga
+      </button>
+      <button class="zone-tab" id="tab-bondjock" onclick="selectZone('bondjock')">
+        <div class="zdot" style="background:#c8860a"></div>
+        Bondjock
+      </button>
+      <button class="zone-tab" id="tab-lomie" onclick="selectZone('lomie')">
+        <div class="zdot" style="background:#c0392b"></div>
+        Lomié / Abakoum
+      </button>
+    </div>
+
+    <div class="carte-wrap">
+      <!-- SVG Carte Cameroun stylisée avec zones MB -->
+      <svg viewBox="0 0 580 620" xmlns="http://www.w3.org/2000/svg" id="map-svg">
+        <defs>
+          <filter id="glow-green"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <filter id="glow-orange"><feGaussianBlur stdDeviation="4" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+          <radialGradient id="pulse-green" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#2d8a58" stop-opacity=".4"/><stop offset="100%" stop-color="#2d8a58" stop-opacity="0"/></radialGradient>
+          <radialGradient id="pulse-orange" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c8860a" stop-opacity=".4"/><stop offset="100%" stop-color="#c8860a" stop-opacity="0"/></radialGradient>
+          <radialGradient id="pulse-rouge" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#c0392b" stop-opacity=".4"/><stop offset="100%" stop-color="#c0392b" stop-opacity="0"/></radialGradient>
+        </defs>
+
+        <!-- Fond Cameroun (forme simplifiée approximative) -->
+        <rect width="580" height="620" fill="#f0ede6"/>
+
+        <!-- Silhouette Cameroun simplifiée -->
+        <path d="
+          M 185 30
+          L 380 30
+          L 420 50
+          L 460 80
+          L 480 120
+          L 510 140
+          L 540 160
+          L 545 200
+          L 520 230
+          L 500 260
+          L 480 280
+          L 490 310
+          L 470 350
+          L 450 380
+          L 430 420
+          L 410 460
+          L 390 510
+          L 370 560
+          L 330 585
+          L 290 580
+          L 250 565
+          L 210 540
+          L 180 510
+          L 150 480
+          L 130 450
+          L 110 420
+          L 90 390
+          L 80 350
+          L 75 310
+          L 80 270
+          L 70 240
+          L 60 210
+          L 70 180
+          L 90 150
+          L 100 120
+          L 120 90
+          L 145 60
+          Z
+        " fill="#dde8d8" stroke="#b8cdb5" stroke-width="1.5"/>
+
+        <!-- Grandes régions (fond légèrement coloré) -->
+        <!-- Région Centre -->
+        <ellipse cx="260" cy="340" rx="110" ry="90" fill="#c8dcbf" opacity=".5"/>
+        <text x="260" y="345" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#5a7a52" opacity=".8">Région du Centre</text>
+
+        <!-- Région Est -->
+        <ellipse cx="420" cy="380" rx="90" ry="100" fill="#c5d8bc" opacity=".4"/>
+        <text x="420" y="385" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#5a7a52" opacity=".8">Région de l'Est</text>
+
+        <!-- Région Sud -->
+        <ellipse cx="250" cy="510" rx="100" ry="60" fill="#c8dcbf" opacity=".35"/>
+        <text x="250" y="515" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#5a7a52" opacity=".8">Région du Sud</text>
+
+        <!-- Yaoundé (capitale) -->
+        <circle cx="255" cy="335" r="7" fill="#8a8a82" opacity=".7"/>
+        <circle cx="255" cy="335" r="3" fill="white"/>
+        <text x="265" y="330" font-family="DM Sans,sans-serif" font-size="11" fill="#5a5a50">Yaoundé</text>
+
+        <!-- BATCHENGA — Zone 1 (Région du Centre) -->
+        <circle id="pulse-b" cx="275" cy="285" r="30" fill="url(#pulse-green)" opacity=".6" class="pulse-anim-green"/>
+        <circle id="pin-batchenga" cx="275" cy="285" r="14" fill="#1a5c3a" stroke="white" stroke-width="2.5" cursor="pointer" style="transition:r .2s,fill .2s" onclick="selectZone('batchenga')"/>
+        <text x="275" y="290" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="white" font-weight="700" pointer-events="none">B</text>
+        <text x="295" y="278" font-family="DM Sans,sans-serif" font-size="12" fill="#1a5c3a" font-weight="700" cursor="pointer" onclick="selectZone('batchenga')">Batchenga</text>
+
+        <!-- BONDJOCK — Zone 2 (Nyong-et-Kéllé) -->
+        <circle cx="195" cy="370" r="30" fill="url(#pulse-orange)" opacity=".6" class="pulse-anim-orange"/>
+        <circle id="pin-bondjock" cx="195" cy="370" r="14" fill="#c8860a" stroke="white" stroke-width="2.5" cursor="pointer" style="transition:r .2s,fill .2s" onclick="selectZone('bondjock')"/>
+        <text x="195" y="375" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="white" font-weight="700" pointer-events="none">J</text>
+        <text x="215" y="363" font-family="DM Sans,sans-serif" font-size="12" fill="#c8860a" font-weight="700" cursor="pointer" onclick="selectZone('bondjock')">Bondjock</text>
+
+        <!-- LOMIE — Zone 3 (Région de l'Est) -->
+        <circle cx="430" cy="355" r="30" fill="url(#pulse-rouge)" opacity=".6" class="pulse-anim-rouge"/>
+        <circle id="pin-lomie" cx="430" cy="355" r="14" fill="#c0392b" stroke="white" stroke-width="2.5" cursor="pointer" style="transition:r .2s,fill .2s" onclick="selectZone('lomie')"/>
+        <text x="430" y="360" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="white" font-weight="700" pointer-events="none">L</text>
+        <text x="450" y="348" font-family="DM Sans,sans-serif" font-size="12" fill="#c0392b" font-weight="700" cursor="pointer" onclick="selectZone('lomie')">Lomié</text>
+
+        <!-- Kribi (mention) -->
+        <circle cx="215" cy="510" r="8" fill="#1a5c3a" opacity=".4" stroke="white" stroke-width="1.5"/>
+        <text x="225" y="505" font-family="DM Sans,sans-serif" font-size="10" fill="#5a7a52" opacity=".8">Kribi</text>
+
+        <!-- Lignes de connexion (réseau MB) -->
+        <path d="M275 285 L195 370" stroke="#1a5c3a" stroke-width="1" stroke-dasharray="4,3" opacity=".25" fill="none"/>
+        <path d="M275 285 L430 355" stroke="#1a5c3a" stroke-width="1" stroke-dasharray="4,3" opacity=".25" fill="none"/>
+        <path d="M195 370 L215 495" stroke="#1a5c3a" stroke-width="1" stroke-dasharray="4,3" opacity=".2" fill="none"/>
+
+        <!-- Echelle / Compass -->
+        <g opacity=".5">
+          <line x1="60" y1="575" x2="130" y2="575" stroke="#5a7a52" stroke-width="1.5"/>
+          <line x1="60" y1="570" x2="60" y2="580" stroke="#5a7a52" stroke-width="1.5"/>
+          <line x1="130" y1="570" x2="130" y2="580" stroke="#5a7a52" stroke-width="1.5"/>
+          <text x="95" y="570" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#5a7a52">~200 km</text>
+        </g>
+        <!-- Nord -->
+        <text x="540" y="55" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="14" fill="#8a8a82">N ↑</text>
+
+        <style>
+          @keyframes pulse-g{0%,100%{r:28;opacity:.5}50%{r:40;opacity:.2}}
+          @keyframes pulse-o{0%,100%{r:26;opacity:.5}50%{r:38;opacity:.2}}
+          @keyframes pulse-r{0%,100%{r:26;opacity:.5}50%{r:38;opacity:.2}}
+          .pulse-anim-green{animation:pulse-g 2.5s ease-in-out infinite;}
+          .pulse-anim-orange{animation:pulse-o 2.8s ease-in-out infinite .4s;}
+          .pulse-anim-rouge{animation:pulse-r 2.6s ease-in-out infinite .8s;}
+          #pin-batchenga:hover{fill:#2d8a58;}
+          #pin-bondjock:hover{fill:#e09a20;}
+          #pin-lomie:hover{fill:#d4504b;}
+        </style>
+      </svg>
+
+      <div class="carte-legende">
+        <div class="leg-item"><div class="leg-dot" style="background:#2d8a58"></div> Batchenga</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#c8860a"></div> Bondjock</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#c0392b"></div> Lomié / Abakoum</div>
+        <div class="leg-item"><div class="leg-dot" style="background:#8a8a82"></div><span class="fr">Capitale</span><span class="en">Capital</span></div>
+        <div class="map-hint fr">← Cliquez sur un point</div>
+        <div class="map-hint en">← Click on a marker</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FICHES -->
+  <div class="fiche-col">
+    <div class="fiche-sticky">
+
+      <!-- Message d'accueil -->
+      <div class="welcome-card active" id="welcome">
+        <div class="wc-icon">🗺️</div>
+        <div class="wc-title fr">Explorez nos zones d'action</div>
+        <div class="wc-title en">Explore our action zones</div>
+        <div class="wc-sub fr">Cliquez sur un marqueur ou un onglet pour découvrir les projets, chiffres d'impact et témoignages de chaque zone d'intervention.</div>
+        <div class="wc-sub en">Click on a marker or a tab to discover the projects, impact figures and testimonials from each zone of intervention.</div>
+      </div>
+
+      <!-- FICHE BATCHENGA -->
+      <div class="fiche" id="fiche-batchenga">
+        <div class="fiche-card">
+          <div class="fiche-img-wrap">
+            <img class="fiche-img" src="https://images.unsplash.com/photo-1592598419690-8b4a78bcc659?w=600&q=75" alt="Batchenga" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=75'">
+            <div class="fiche-img-overlay">
+              <div class="fiche-region fr">RÉGION DU CENTRE · CAMEROUN</div>
+              <div class="fiche-region en">CENTRAL REGION · CAMEROON</div>
+              <div class="fiche-name">Batchenga</div>
+              <div class="fiche-tag fr">🌿 LABORATOIRE DE L'AGRICULTURE FÉMININE</div>
+              <div class="fiche-tag en">🌿 WOMEN'S AGRICULTURE LABORATORY</div>
+            </div>
+          </div>
+          <div class="fiche-body">
+            <div class="fiche-section-title fr">CHIFFRES CLÉS 2025</div>
+            <div class="fiche-section-title en">KEY FIGURES 2025</div>
+            <div class="fiche-stats">
+              <div class="fstat"><span class="fstat-num">+40%</span><div class="fstat-lbl fr">surfaces cultivées</div><div class="fstat-lbl en">cultivated area</div></div>
+              <div class="fstat"><span class="fstat-num">80+</span><div class="fstat-lbl fr">femmes formées</div><div class="fstat-lbl en">women trained</div></div>
+              <div class="fstat"><span class="fstat-num">2006</span><div class="fstat-lbl fr">depuis</div><div class="fstat-lbl en">since</div></div>
+            </div>
+
+            <div class="fiche-section-title fr">PROJETS EN COURS</div>
+            <div class="fiche-section-title en">ACTIVE PROJECTS</div>
+            <div class="projet-list">
+              <div class="projet-item"><div class="pi-icon">🌾</div><div><span class="pi-name fr">CUMA — Coopérative Agricole Féminine</span><span class="pi-name en">CUMA — Women's Agricultural Cooperative</span><span class="pi-desc fr">Mécanisation partagée, négociation collective, accès aux marchés régionaux.</span><span class="pi-desc en">Shared mechanisation, collective bargaining, regional market access.</span><div class="pi-status done fr">✓ OPÉRATIONNEL</div><div class="pi-status done en">✓ OPERATIONAL</div></div></div>
+              <div class="projet-item"><div class="pi-icon">🌳</div><div><span class="pi-name fr">Reboisement en Teck</span><span class="pi-name en">Teak Reforestation</span><span class="pi-desc fr">Capital bois durable — épargne verte pour les générations futures.</span><span class="pi-desc en">Sustainable wood capital — green savings for future generations.</span><div class="pi-status ongoing fr">⟳ EN COURS</div><div class="pi-status ongoing en">⟳ ONGOING</div></div></div>
+              <div class="projet-item"><div class="pi-icon">🔥</div><div><span class="pi-name fr">Distribution Cuisinières Écologiques</span><span class="pi-name en">Eco-Cooker Distribution</span><span class="pi-desc fr">150 foyers équipés. Objectif 300 d'ici fin 2026.</span><span class="pi-desc en">150 households equipped. Target: 300 by end of 2026.</span><div class="pi-status ongoing fr">⟳ 150/300</div><div class="pi-status ongoing en">⟳ 150/300</div></div></div>
+            </div>
+
+            <div class="fiche-testi">
+              <div class="ft-quote fr">"Avant la CUMA, je vendais ma récolte au bord du champ, au prix qu'on voulait bien me donner. Maintenant on négocie ensemble, on fixe notre prix. J'ai triplé mon revenu en deux saisons."</div>
+              <div class="ft-quote en">"Before the CUMA, I sold my harvest at the field's edge, at whatever price they'd give me. Now we negotiate together, we set our own price. My income tripled in two seasons."</div>
+              <div class="ft-author">Cécile M. — <span class="fr">Agricultrice, Batchenga</span><span class="en">Farmer, Batchenga</span></div>
+            </div>
+
+            <div class="fiche-cta">
+              <button class="btn-fiche-p" onclick="location.href='don.html'">❤️ <span class="fr">Soutenir Batchenga</span><span class="en">Support Batchenga</span></button>
+              <button class="btn-fiche-s" onclick="location.href='technologies.html'">🌿 <span class="fr">Nos technologies</span><span class="en">Our tech</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FICHE BONDJOCK -->
+      <div class="fiche" id="fiche-bondjock">
+        <div class="fiche-card">
+          <div class="fiche-img-wrap">
+            <img class="fiche-img" src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?w=600&q=75" alt="Bondjock école" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&q=75'">
+            <div class="fiche-img-overlay">
+              <div class="fiche-region fr">NYONG-ET-KÉLLÉ · RÉGION DU CENTRE</div>
+              <div class="fiche-region en">NYONG-ET-KÉLLÉ · CENTRAL REGION</div>
+              <div class="fiche-name">Bondjock</div>
+              <div class="fiche-tag fr">🔬 INCUBATEUR TECHNOLOGIQUE PILOTE</div>
+              <div class="fiche-tag en">🔬 PILOT TECHNOLOGY INCUBATOR</div>
+            </div>
+          </div>
+          <div class="fiche-body">
+            <div class="fiche-section-title fr">CHIFFRES CLÉS 2025</div>
+            <div class="fiche-section-title en">KEY FIGURES 2025</div>
+            <div class="fiche-stats">
+              <div class="fstat"><span class="fstat-num">1</span><div class="fstat-lbl fr">lycée renforcé</div><div class="fstat-lbl en">strengthened school</div></div>
+              <div class="fstat"><span class="fstat-num">2026</span><div class="fstat-lbl fr">biogaz pilote</div><div class="fstat-lbl en">pilot biogas</div></div>
+              <div class="fstat"><span class="fstat-num">12+</span><div class="fstat-lbl fr">lycées MetaScript</div><div class="fstat-lbl en">MetaScript schools</div></div>
+            </div>
+
+            <div class="fiche-section-title fr">PROJETS EN COURS</div>
+            <div class="fiche-section-title en">ACTIVE PROJECTS</div>
+            <div class="projet-list">
+              <div class="projet-item"><div class="pi-icon">🏫</div><div><span class="pi-name fr">Lycée de Bondjock — Bloc Administratif</span><span class="pi-name en">Bondjock High School — Admin Block</span><span class="pi-desc fr">Construction des fondations du bloc administratif. Dignité pour les enseignants.</span><span class="pi-desc en">Construction of the administrative block foundations. Dignity for teachers.</span><div class="pi-status done fr">✓ FONDATIONS POSÉES</div><div class="pi-status done en">✓ FOUNDATIONS COMPLETE</div></div></div>
+              <div class="projet-item"><div class="pi-icon">♻️</div><div><span class="pi-name fr">Méthaniseur Pilote — Énergie du Lycée</span><span class="pi-name en">Pilot Digester — School Energy</span><span class="pi-desc fr">Le lycée produira sa propre énergie à partir de ses déchets organiques.</span><span class="pi-desc en">The school will produce its own energy from organic waste.</span><div class="pi-status planned fr">◎ LANCEMENT 2026</div><div class="pi-status planned en">◎ LAUNCH 2026</div></div></div>
+              <div class="projet-item"><div class="pi-icon">💻</div><div><span class="pi-name fr">MetaScript — Déploiement Lycées</span><span class="pi-name en">MetaScript — School Rollout</span><span class="pi-desc fr">12 lycées équipés de tablettes MetaScript. +28% en Physique-Chimie.</span><span class="pi-desc en">12 schools equipped with MetaScript tablets. +28% in Physics-Chemistry.</span><div class="pi-status ongoing fr">⟳ 12 LYCÉES</div><div class="pi-status ongoing en">⟳ 12 SCHOOLS</div></div></div>
+            </div>
+
+            <div class="fiche-testi">
+              <div class="ft-quote fr">"Avec MetaScript, mes élèves font des expériences de chimie sur tablette. L'un d'eux m'a posé une question sur la thermodynamique que je n'aurais jamais attendu avant l'université. C'est révolutionnaire."</div>
+              <div class="ft-quote en">"With MetaScript, my students do chemistry experiments on tablets. One asked me a thermodynamics question I'd never have expected before university level. It's revolutionary."</div>
+              <div class="ft-author">Prof. Emmanuel T. — <span class="fr">Lycée de Bondjock</span><span class="en">Bondjock High School</span></div>
+            </div>
+
+            <div class="fiche-cta">
+              <button class="btn-fiche-p" onclick="location.href='don.html'">❤️ <span class="fr">Soutenir Bondjock</span><span class="en">Support Bondjock</span></button>
+              <button class="btn-fiche-s" onclick="location.href='technologies.html#metascript'">💻 MetaScript</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- FICHE LOMIE -->
+      <div class="fiche" id="fiche-lomie">
+        <div class="fiche-card">
+          <div class="fiche-img-wrap">
+            <img class="fiche-img" src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=75" alt="Enfants Baka Lomié" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&q=75'">
+            <div class="fiche-img-overlay">
+              <div class="fiche-region fr">RÉGION DE L'EST · HAUT-NYONG</div>
+              <div class="fiche-region en">EASTERN REGION · HAUT-NYONG</div>
+              <div class="fiche-name">Lomié / Abakoum</div>
+              <div class="fiche-tag fr">❤️ DIGNITÉ DES PEUPLES AUTOCHTONES BAKA</div>
+              <div class="fiche-tag en">❤️ DIGNITY OF BAKA INDIGENOUS PEOPLE</div>
+            </div>
+          </div>
+          <div class="fiche-body">
+            <div class="fiche-section-title fr">CHIFFRES CLÉS 2025</div>
+            <div class="fiche-section-title en">KEY FIGURES 2025</div>
+            <div class="fiche-stats">
+              <div class="fstat"><span class="fstat-num">100+</span><div class="fstat-lbl fr">élèves réguliers</div><div class="fstat-lbl en">regular pupils</div></div>
+              <div class="fstat"><span class="fstat-num">40→</span><div class="fstat-lbl fr">avant MB</div><div class="fstat-lbl en">before MB</div></div>
+              <div class="fstat"><span class="fstat-num">+150%</span><div class="fstat-lbl fr">scolarisation</div><div class="fstat-lbl en">enrolment</div></div>
+            </div>
+
+            <div class="fiche-section-title fr">PROJETS EN COURS</div>
+            <div class="fiche-section-title en">ACTIVE PROJECTS</div>
+            <div class="projet-list">
+              <div class="projet-item"><div class="pi-icon">🏫</div><div><span class="pi-name fr">École Primaire Pygmées Baka</span><span class="pi-name en">Baka Pygmy Primary School</span><span class="pi-desc fr">De l'école sous l'arbre à une école en dur avec matériaux durables. De 40 à 100+ élèves réguliers.</span><span class="pi-desc en">From school under a tree to a solid building with durable materials. From 40 to 100+ regular pupils.</span><div class="pi-status done fr">✓ OPÉRATIONNEL</div><div class="pi-status done en">✓ OPERATIONAL</div></div></div>
+              <div class="projet-item"><div class="pi-icon">🌽</div><div><span class="pi-name fr">Agriculture Communautaire</span><span class="pi-name en">Community Agriculture</span><span class="pi-desc fr">Champs de manioc communautaires. Sécurité alimentaire face à la raréfaction du gibier.</span><span class="pi-desc en">Communal cassava fields. Food security amid declining game animals.</span><div class="pi-status ongoing fr">⟳ EN COURS</div><div class="pi-status ongoing en">⟳ ONGOING</div></div></div>
+              <div class="projet-item"><div class="pi-icon">🤝</div><div><span class="pi-name fr">Intégration Républicaine</span><span class="pi-name en">Civic Integration</span><span class="pi-desc fr">Accompagnement vers la sédentarisation dans le respect de la culture Baka.</span><span class="pi-desc en">Support for settlement respecting Baka cultural identity.</span><div class="pi-status ongoing fr">⟳ CONTINU</div><div class="pi-status ongoing en">⟳ ONGOING</div></div></div>
+            </div>
+
+            <div class="fiche-testi">
+              <div class="ft-quote fr">"Avant l'école, mes enfants passaient leurs journées en forêt. Ils ne savaient ni lire ni écrire. Maintenant mon fils aîné veut devenir médecin. L'école a changé notre vision du futur."</div>
+              <div class="ft-quote en">"Before the school, my children spent their days in the forest. They couldn't read or write. Now my eldest son wants to become a doctor. The school changed our vision of the future."</div>
+              <div class="ft-author">Marguerite K. — <span class="fr">Mère de famille Baka, Lomié</span><span class="en">Baka mother, Lomié</span></div>
+            </div>
+
+            <div class="fiche-cta">
+              <button class="btn-fiche-p" onclick="location.href='don.html'" style="background:#c0392b">❤️ <span class="fr">Soutenir les Baka</span><span class="en">Support the Baka</span></button>
+              <button class="btn-fiche-s" onclick="location.href='partenaires.html'">🌍 <span class="fr">Devenir partenaire</span><span class="en">Become partner</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /fiche-sticky -->
+  </div><!-- /fiche-col -->
+
+</div><!-- /map-main -->
+
+<!-- STATS GLOBALES -->
+<section class="global-stats">
+  <div class="gs-inner">
+    <h2 class="gs-title fr">Notre empreinte au Cameroun</h2>
+    <h2 class="gs-title en">Our footprint in Cameroon</h2>
+    <p class="gs-sub fr">Chiffres cumulés depuis 2006 — vérifiables dans nos rapports d'activité annuels.</p>
+    <p class="gs-sub en">Cumulative figures since 2006 — verifiable in our annual activity reports.</p>
+    <div class="gs-grid reveal">
+      <div class="gs-card"><span class="gs-num">10 000+</span><div class="gs-lbl fr">Vies directement impactées</div><div class="gs-lbl en">Lives directly impacted</div></div>
+      <div class="gs-card"><span class="gs-num">3</span><div class="gs-lbl fr">Zones d'intervention actives</div><div class="gs-lbl en">Active intervention zones</div></div>
+      <div class="gs-card"><span class="gs-num">384</span><div class="gs-lbl fr">Cuisinières déployées (2025)</div><div class="gs-lbl en">Cookers deployed (2025)</div></div>
+      <div class="gs-card"><span class="gs-num">2 140</span><div class="gs-lbl fr">Enfants formés MetaScript</div><div class="gs-lbl en">Children trained MetaScript</div></div>
+      <div class="gs-card"><span class="gs-num">20</span><div class="gs-lbl fr">Ans d'ancrage local continu</div><div class="gs-lbl en">Years of continuous local roots</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPANSION PANAFRICAINE -->
+<section class="expansion-section">
+  <div class="exp-inner">
+    <div class="exp-header reveal">
+      <div>
+        <div style="font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--o);text-transform:uppercase;margin-bottom:.7rem">
+          <span class="fr">VISION 2026–2030</span><span class="en">VISION 2026–2030</span>
+        </div>
+        <h2 class="fr">Le Cameroun était le laboratoire.<br>L'Afrique est la destination.</h2>
+        <h2 class="en">Cameroon was the laboratory.<br>Africa is the destination.</h2>
+      </div>
+      <p class="fr">Les problèmes que nous résolvons au Cameroun — déforestation, pluies imprévisibles, manque d'éducation scientifique — sont les mêmes dans 20 pays africains. Nous exportons le modèle, pas la dépendance.</p>
+      <p class="en">The problems we solve in Cameroon — deforestation, unpredictable rainfall, lack of science education — are the same in 20 African countries. We export the model, not dependency.</p>
+    </div>
+    <div class="pays-grid reveal">
+      <div class="pays-card"><div class="pays-flag">🇨🇲</div><div class="pays-name">Cameroun</div><div class="pays-status pilot fr">✓ PILOTE ACTIF</div><div class="pays-status pilot en">✓ ACTIVE PILOT</div></div>
+      <div class="pays-card"><div class="pays-flag">🇷🇼</div><div class="pays-name">Rwanda</div><div class="pays-status target fr">→ 2026</div><div class="pays-status target en">→ 2026</div></div>
+      <div class="pays-card"><div class="pays-flag">🇬🇦</div><div class="pays-name">Gabon</div><div class="pays-status target fr">→ 2027</div><div class="pays-status target en">→ 2027</div></div>
+      <div class="pays-card"><div class="pays-flag">🇨🇩</div><div class="pays-name">RDC</div><div class="pays-status target fr">→ 2027</div><div class="pays-status target en">→ 2027</div></div>
+      <div class="pays-card"><div class="pays-flag">🇨🇬</div><div class="pays-name">Congo</div><div class="pays-status explore fr">◎ 2028</div><div class="pays-status explore en">◎ 2028</div></div>
+      <div class="pays-card"><div class="pays-flag">🇹🇩</div><div class="pays-name">Tchad</div><div class="pays-status explore fr">◎ 2028</div><div class="pays-status explore en">◎ 2028</div></div>
+      <div class="pays-card"><div class="pays-flag">🇨🇫</div><div class="pays-name">RCA</div><div class="pays-status explore fr">◎ 2029</div><div class="pays-status explore en">◎ 2029</div></div>
+      <div class="pays-card"><div class="pays-flag">🇳🇬</div><div class="pays-name">Nigéria</div><div class="pays-status explore fr">◎ 2029</div><div class="pays-status explore en">◎ 2029</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINALE -->
+<section class="cta-finale">
+  <h2 class="fr">Ces communautés existent.<br>Elles attendent votre soutien.</h2>
+  <h2 class="en">These communities exist.<br>They are waiting for your support.</h2>
+  <p class="fr">Vous venez de voir où va votre argent. Maintenant, décidez pour qui vous voulez agir.</p>
+  <p class="en">You've just seen where your money goes. Now decide who you want to act for.</p>
+  <div class="cta-btns">
+    <button class="btn-cta-w" onclick="location.href='don.html'">❤️ <span class="fr">Faire un don ciblé</span><span class="en">Make a targeted gift</span></button>
+    <button class="btn-cta-o" onclick="location.href='partenaires.html'">🤝 <span class="fr">Devenir partenaire terrain</span><span class="en">Become a field partner</span></button>
+  </div>
+</section>
+
+
+
+<script>
+function setLang(l){
+  document.documentElement.setAttribute('data-lang',l);
+  document.getElementById('btnFR').classList.toggle('active',l==='fr');
+  document.getElementById('btnEN').classList.toggle('active',l==='en');
+}
+
+function selectZone(id){
+  /* Tabs */
+  document.querySelectorAll('.zone-tab').forEach(t=>t.classList.remove('active'));
+  const tab=document.getElementById('tab-'+(id==='all'?'all':id));
+  if(tab)tab.classList.add('active');
+
+  /* Fiches */
+  document.getElementById('welcome').classList.toggle('active', id==='all');
+  ['batchenga','bondjock','lomie'].forEach(z=>{
+    const f=document.getElementById('fiche-'+z);
+    if(f)f.classList.toggle('active', id===z);
+  });
+
+  /* Pins sur la carte */
+  const sizes={batchenga:18,bondjock:18,lomie:18};
+  ['batchenga','bondjock','lomie'].forEach(z=>{
+    const pin=document.getElementById('pin-'+z);
+    if(!pin)return;
+    if(id===z){pin.setAttribute('r','18');pin.style.strokeWidth='3';}
+    else{pin.setAttribute('r','14');pin.style.strokeWidth='2.5';}
+  });
+
+  /* Scroll vers fiche sur mobile */
+  if(id!=='all'&&window.innerWidth<1024){
+    const f=document.getElementById('fiche-'+id);
+    if(f)setTimeout(()=>f.scrollIntoView({behavior:'smooth',block:'start'}),100);
+  }
+}
+
+/* Reveal */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target);}
+  });
+},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+/* Auto-sélection si hash dans l'URL */
+const hash=location.hash.replace('#','');
+if(['batchenga','bondjock','lomie'].includes(hash))selectZone(hash);
+</script>
+
+<script src="mb-nav.js"></script>
+
+    <script src="faq.js"></script>
+    <script src="mb-carrousel-images.js"></script>
+</body>
+</html>

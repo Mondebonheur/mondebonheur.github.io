@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nos Technologies — ONG Monde et Bonheur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --v:#1a5c3a;--vc:#2d8a58;--vp:#e8f5ee;--vd:#0d3320;
+  --o:#c8860a;--oc:#f5a623;--op:#fdf3e3;
+  --br:#3d2b1f;--wh:#fdfcf8;--gr:#f0ede6;
+  --tx:#1a1a18;--td:#4a4a44;--tp:#8a8a82;
+  --rouge:#c0392b;--bleu:#1a3a5c;--bp:#e8f0f8;
+  --haut:64px;--r:14px;
+  --sh:0 4px 24px rgba(0,0,0,.08);
+  --sh-lg:0 16px 60px rgba(0,0,0,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--wh);color:var(--tx);overflow-x:hidden;}
+[data-lang="fr"] .en{display:none!important;}
+[data-lang="en"] .fr{display:none!important;}
+a{text-decoration:none;}
+
+/* ══════════════════════════════════════
+   HEADER
+══════════════════════════════════════ */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:900;height:var(--haut);background:rgba(253,252,248,.97);backdrop-filter:blur(14px);border-bottom:1px solid rgba(26,92,58,.1);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;}
+.h-logo{display:flex;align-items:center;gap:10px;}
+.h-disk{width:38px;height:38px;border-radius:50%;background:var(--v);display:flex;align-items:center;justify-content:center;font-family:'Playfair Display',serif;font-weight:900;font-size:12px;color:white;border:2px solid var(--vc);}
+.h-name{font-family:'Playfair Display',serif;font-size:14px;font-weight:700;color:var(--v);}
+.h-sub{font-size:10px;color:var(--tp);}
+.h-right{display:flex;align-items:center;gap:.8rem;}
+.lang-toggle{display:flex;background:var(--gr);border-radius:20px;padding:3px;border:1px solid rgba(26,92,58,.1);}
+.lang-btn{padding:4px 11px;border-radius:16px;border:none;background:none;font-size:11px;font-weight:700;cursor:pointer;color:var(--tp);font-family:'Space Mono',monospace;transition:all .2s;}
+.lang-btn.active{background:var(--v);color:white;}
+.btn-don-hdr{display:flex;align-items:center;gap:6px;background:var(--rouge);color:white;padding:8px 16px;border-radius:8px;font-size:13px;font-weight:600;border:none;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.btn-don-hdr:hover{background:#a93226;}
+.back-link{font-size:13px;color:var(--td);padding:7px 12px;border-radius:8px;border:1px solid rgba(26,92,58,.12);transition:all .2s;display:flex;align-items:center;gap:5px;}
+.back-link:hover{background:var(--vp);color:var(--v);}
+
+/* ══════════════════════════════════════
+   HERO TECHNOLOGIES
+══════════════════════════════════════ */
+.tech-hero{
+  padding:calc(var(--haut)+70px) 8% 80px;
+  background:linear-gradient(150deg,var(--vd) 0%,#1a3d25 50%,rgba(200,134,10,.4) 100%);
+  text-align:center;position:relative;overflow:hidden;
+}
+.tech-hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 120%,rgba(45,138,88,.25) 0%,transparent 70%);}
+.tech-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:70px;background:linear-gradient(transparent,var(--wh));}
+.hero-lbl{display:inline-flex;align-items:center;gap:8px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);color:#f5d087;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;padding:5px 14px;border-radius:20px;margin-bottom:1.4rem;}
+.tech-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:900;color:white;line-height:1.1;margin-bottom:1.2rem;position:relative;}
+.tech-hero h1 em{font-style:italic;color:#f5d087;}
+.tech-hero p{font-size:clamp(.95rem,1.5vw,1.1rem);color:rgba(255,255,255,.78);max-width:580px;margin:0 auto 2.5rem;line-height:1.8;font-weight:300;position:relative;}
+
+/* Tech pills nav */
+.tech-pills{display:flex;justify-content:center;gap:.7rem;flex-wrap:wrap;position:relative;z-index:1;}
+.tech-pill{display:flex;align-items:center;gap:.5rem;background:rgba(255,255,255,.1);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.18);color:white;padding:10px 18px;border-radius:30px;font-size:13.5px;font-weight:600;cursor:pointer;transition:all .25s;font-family:'DM Sans',sans-serif;}
+.tech-pill:hover,.tech-pill.active{background:rgba(255,255,255,.22);border-color:rgba(255,255,255,.4);transform:translateY(-2px);}
+.tech-pill .pill-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+
+/* ══════════════════════════════════════
+   TECH SECTION BASE
+══════════════════════════════════════ */
+.tech-section{padding:90px 8%;border-bottom:1px solid rgba(26,92,58,.07);}
+.tech-section:nth-child(even){background:var(--gr);}
+.ts-inner{max-width:1200px;margin:0 auto;}
+.section-lbl{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.15em;color:var(--o);text-transform:uppercase;margin-bottom:.7rem;}
+.ts-header{display:grid;grid-template-columns:1fr auto;gap:2rem;align-items:start;margin-bottom:3.5rem;}
+.ts-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:900;line-height:1.1;margin-bottom:.8rem;}
+.ts-subtitle{font-size:15px;color:var(--td);line-height:1.8;max-width:560px;}
+.ts-badge{text-align:center;background:white;border-radius:var(--r);border:1px solid rgba(26,92,58,.1);padding:1.4rem 1.8rem;min-width:180px;flex-shrink:0;box-shadow:var(--sh);}
+.ts-badge-num{font-family:'Playfair Display',serif;font-size:2.8rem;font-weight:900;line-height:1;display:block;}
+.ts-badge-lbl{font-size:12px;color:var(--td);margin-top:.3rem;line-height:1.4;}
+
+/* Diagnostic vs Solution */
+.diag-sol{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-bottom:3rem;}
+.diag-box,.sol-box{border-radius:var(--r);padding:2rem;position:relative;overflow:hidden;}
+.diag-box{background:linear-gradient(135deg,#2c0e0e,#4a1515);border:1px solid rgba(192,57,43,.2);}
+.diag-box::before{content:'⚠';position:absolute;top:-10px;right:-10px;font-size:5rem;opacity:.06;}
+.sol-box{background:linear-gradient(135deg,var(--vd),#1a5030);border:1px solid rgba(45,138,88,.2);}
+.sol-box::before{content:'✓';position:absolute;top:-15px;right:-5px;font-size:5rem;opacity:.07;color:white;}
+.ds-label{font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.15em;margin-bottom:.8rem;display:flex;align-items:center;gap:.4rem;}
+.diag-box .ds-label{color:rgba(240,100,80,.7);}
+.sol-box .ds-label{color:rgba(100,220,140,.7);}
+.ds-title{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:700;color:white;margin-bottom:.8rem;}
+.ds-points{list-style:none;display:flex;flex-direction:column;gap:.5rem;}
+.ds-points li{font-size:13.5px;color:rgba(255,255,255,.75);line-height:1.5;padding-left:1.2rem;position:relative;}
+.diag-box .ds-points li::before{content:'×';color:rgba(240,100,80,.7);position:absolute;left:0;font-weight:700;}
+.sol-box .ds-points li::before{content:'✓';color:rgba(100,220,140,.8);position:absolute;left:0;font-weight:700;}
+
+/* Chiffres impact */
+.impact-nums{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:3rem;}
+.in-card{background:white;border-radius:var(--r);border:1px solid rgba(26,92,58,.08);padding:1.5rem;text-align:center;transition:all .25s;box-shadow:var(--sh);}
+.in-card:hover{transform:translateY(-4px);box-shadow:var(--sh-lg);}
+.in-icon{font-size:1.8rem;margin-bottom:.5rem;}
+.in-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;line-height:1;display:block;}
+.in-lbl{font-size:12px;color:var(--td);margin-top:.3rem;line-height:1.4;}
+
+/* Schéma / Diagramme */
+.schema-wrap{background:white;border-radius:var(--r);border:1px solid rgba(26,92,58,.1);padding:2rem;margin-bottom:3rem;box-shadow:var(--sh);}
+.schema-title{font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--tp);text-transform:uppercase;margin-bottom:1.5rem;text-align:center;}
+
+/* Témoignage inline */
+.tech-testi{display:flex;align-items:flex-start;gap:1.2rem;background:var(--vp);border-radius:var(--r);border:1px solid rgba(26,92,58,.12);padding:1.6rem;margin-bottom:3rem;}
+.tt-quote-mark{font-family:'Playfair Display',serif;font-size:4rem;color:var(--vc);line-height:.7;flex-shrink:0;margin-top:.2rem;}
+.tt-text{font-size:14.5px;color:var(--td);line-height:1.75;font-style:italic;}
+.tt-author{font-size:12px;font-weight:700;color:var(--v);margin-top:.6rem;font-style:normal;}
+
+/* CTA Technologie */
+.tech-cta-row{display:flex;gap:1rem;flex-wrap:wrap;margin-top:1rem;}
+.btn-tech-primary{display:inline-flex;align-items:center;gap:.5rem;background:var(--v);color:white;padding:13px 24px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .25s;}
+.btn-tech-primary:hover{background:var(--vc);transform:translateY(-2px);}
+.btn-tech-sec{display:inline-flex;align-items:center;gap:.5rem;background:white;color:var(--v);padding:13px 24px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer;border:1.5px solid rgba(26,92,58,.2);font-family:'DM Sans',sans-serif;transition:all .25s;}
+.btn-tech-sec:hover{background:var(--vp);border-color:var(--vc);}
+
+/* ══════════════════════════════════════
+   COULEURS PAR TECH
+══════════════════════════════════════ */
+/* Cuisinière → orange feu */
+#cuisiniere .ts-badge-num{color:var(--o);}
+#cuisiniere .in-num{color:var(--o);}
+/* Séchoir → bleu électrique */
+#sechoir .ts-badge-num{color:#1a6b9a;}
+#sechoir .in-num{color:#1a6b9a;}
+#sechoir .sol-box{background:linear-gradient(135deg,#0d2d4a,#1a4a6b);}
+#sechoir .sol-box .ds-label{color:rgba(100,180,255,.7);}
+#sechoir .ds-label{color:rgba(100,180,255,.7);}
+#sechoir .tech-testi{background:var(--bp);border-color:rgba(26,107,154,.15);}
+#sechoir .tt-quote-mark{color:#1a6b9a;}
+#sechoir .tt-author{color:#1a6b9a;}
+/* Biogaz → violet énergie */
+#biogaz .ts-badge-num{color:#6b3d9a;}
+#biogaz .in-num{color:#6b3d9a;}
+#biogaz .sol-box{background:linear-gradient(135deg,#1e0d35,#3d1a6b);}
+/* MetaScript → vert digital */
+#metascript .ts-badge-num{color:var(--v);}
+#metascript .in-num{color:var(--v);}
+
+/* ══════════════════════════════════════
+   SECTION SYNTHÈSE
+══════════════════════════════════════ */
+.synthese-section{background:linear-gradient(150deg,var(--vd),var(--v));padding:80px 8%;color:white;}
+.sy-inner{max-width:1100px;margin:0 auto;}
+.sy-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;margin-bottom:1rem;text-align:center;}
+.sy-sub{font-size:15px;color:rgba(255,255,255,.72);text-align:center;max-width:560px;margin:0 auto 3rem;line-height:1.8;}
+.sy-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;}
+.sy-card{background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.14);border-radius:var(--r);padding:1.5rem;text-align:center;cursor:pointer;transition:all .25s;}
+.sy-card:hover{background:rgba(255,255,255,.16);transform:translateY(-4px);}
+.sy-icon{font-size:2.2rem;margin-bottom:.7rem;}
+.sy-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:white;margin-bottom:.5rem;}
+.sy-stat{font-family:'Space Mono',monospace;font-size:.85rem;color:var(--oc);}
+
+/* Cercle vertueux */
+.cercle-section{padding:80px 8%;background:var(--gr);}
+.cv-inner{max-width:900px;margin:0 auto;text-align:center;}
+
+/* CTA finale */
+.cta-finale{background:var(--br);padding:70px 8%;text-align:center;}
+.cta-finale h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:white;margin-bottom:1rem;}
+.cta-finale p{font-size:15px;color:rgba(255,255,255,.7);max-width:520px;margin:0 auto 2rem;line-height:1.8;}
+.cta-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;}
+.btn-cta-w{display:inline-flex;align-items:center;gap:8px;background:white;color:var(--v);padding:14px 28px;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .25s;}
+.btn-cta-w:hover{background:var(--op);transform:translateY(-2px);}
+.btn-cta-o{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);color:white;padding:14px 28px;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;border:1.5px solid rgba(255,255,255,.2);font-family:'DM Sans',sans-serif;transition:all .25s;}
+.btn-cta-o:hover{background:rgba(255,255,255,.18);transform:translateY(-2px);}
+.mini-footer{background:#0f1a12;color:rgba(255,255,255,.45);padding:28px 8%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.8rem;font-size:12px;}
+.mini-footer a{color:rgba(255,255,255,.3);}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .55s ease,transform .55s ease;}
+.reveal.visible{opacity:1;transform:none;}
+
+/* Responsive */
+@media(max-width:900px){.diag-sol{grid-template-columns:1fr;}.impact-nums{grid-template-columns:1fr 1fr;}.ts-header{grid-template-columns:1fr;}.ts-badge{display:none;}.sy-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:600px){.impact-nums{grid-template-columns:1fr 1fr;}.tech-pills{gap:.5rem;}.tech-pill{font-size:12px;padding:8px 14px;}.sy-grid{grid-template-columns:1fr 1fr;}:root{--haut:56px;}}
+</style>
+</head>
+<body>
+
+
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section class="tech-hero">
+  <div class="hero-lbl"><span class="fr">🔬 PÔLE GREEN-TECH · INNOVATIONS MB 2026</span><span class="en">🔬 GREEN-TECH UNIT · MB INNOVATIONS 2026</span></div>
+  <h1 class="fr">4 technologies qui changent<br>la vie de <em>vraies personnes</em>.</h1>
+  <h1 class="en">4 technologies that change<br>the lives of <em>real people</em>.</h1>
+  <p class="fr">Pas des prototypes de laboratoire. Des innovations frugales, testées sur le terrain depuis des années, conçues pour fonctionner sans électricité stable, sans internet, et avec des matériaux disponibles localement.</p>
+  <p class="en">Not lab prototypes. Frugal innovations, field-tested for years, designed to work without stable electricity, without internet, using locally available materials.</p>
+  <div class="tech-pills">
+    <div class="tech-pill" onclick="scrollTo('cuisiniere')"><div class="pill-dot" style="background:#f5a623"></div>🔥 <span class="fr">Cuisinière</span><span class="en">Cooker</span></div>
+    <div class="tech-pill" onclick="scrollTo('sechoir')"><div class="pill-dot" style="background:#5aaae7"></div>⚡ <span class="fr">Séchoir Flash</span><span class="en">Flash Dryer</span></div>
+    <div class="tech-pill" onclick="scrollTo('biogaz')"><div class="pill-dot" style="background:#a070d0"></div>♻️ <span class="fr">Biométhanisation</span><span class="en">Biodigestion</span></div>
+    <div class="tech-pill" onclick="scrollTo('metascript')"><div class="pill-dot" style="background:#2d8a58"></div>💻 MetaScript</div>
+  </div>
+</section>
+<!-- ======================================================
+  DON FLOTTANT
+====================================================== -->
+<a href="don.html" class="don-float" onclick="showPage('home');scrollTo('don');return false">
+  <span class="f-heart">❤️</span><span class="f-smile">😊</span>
+  <span class="f-txt-default fr">Faire un don</span>
+  <span class="f-txt-default en">Donate</span>
+  <span class="f-txt-hover fr">Votre don change une vie aujourd'hui</span>
+  <span class="f-txt-hover en">Your gift changes a life today</span>
+</a>^
+
+
+<div class="img-container" style="width: 100%; height: 800px; border-radius: 15px; overflow: hidden;">
+    <img src="C:\Users\Windows\OneDrive\Desktop\fix.html\images\carrousel\0.jpg" alt="cusiniere" style="width: 100%; height: 100%; object-fit: cover;">
+</div>
+
+
+<!-- ══════════════════════════════════════
+     TECH 1 : CUISINIÈRE
+══════════════════════════════════════ -->
+<section class="tech-section" id="cuisiniere">
+  <div class="ts-inner">
+    <div class="ts-header reveal">
+      <div>
+        <div class="section-lbl fr">🔥 INNOVATION N°1 · ATTÉNUATION CLIMATIQUE</div>
+        <div class="section-lbl en">🔥 INNOVATION #1 · CLIMATE MITIGATION</div>
+        <h2 class="ts-title fr">La Cuisinière<br><em style="font-style:italic;color:var(--o)">"1 Bois / 3 Foyers"</em></h2>
+        <h2 class="ts-title en">The Cooker<br><em style="font-style:italic;color:var(--o)">"1 Wood / 3 Fires"</em></h2>
+        <p class="ts-subtitle fr">Une chambre de combustion en céramique réfractaire qui maximise la pyrolyse du bois et distribue la chaleur vers trois points de cuisson simultanés. Simple. Radical. Efficace.</p>
+        <p class="ts-subtitle en">A refractory ceramic combustion chamber that maximises wood pyrolysis and distributes heat to three simultaneous cooking points. Simple. Radical. Effective.</p>
+      </div>
+      <div class="ts-badge"><span class="ts-badge-num">−90%</span><div class="ts-badge-lbl fr">de consommation<br>de biomasse</div><div class="ts-badge-lbl en">biomass consumption<br>reduction</div></div>
+    </div>
+
+    <div class="diag-sol reveal">
+      <div class="diag-box">
+        <div class="ds-label">⚠ <span class="fr">LE PROBLÈME</span><span class="en">THE PROBLEM</span></div>
+        <div class="ds-title fr">Le "Feu de 3 Pierres" tue silencieusement</div>
+        <div class="ds-title en">The "3-Stone Fire" kills silently</div>
+        <ul class="ds-points">
+          <li class="fr">90% de l'énergie du bois part en fumée — gaspillage pur</li>
+          <li class="en">90% of wood energy is wasted as smoke — pure waste</li>
+          <li class="fr">600 000 morts/an en Afrique par inhalation de fumées toxiques</li>
+          <li class="en">600,000 deaths/year in Africa from toxic smoke inhalation</li>
+          <li class="fr">Équivalent à fumer 2 paquets de cigarettes par jour pour la ménagère</li>
+          <li class="en">Equivalent to smoking 2 packs of cigarettes/day for the cook</li>
+          <li class="fr">3h/jour passées à collecter le bois — temps volé aux femmes</li>
+          <li class="en">3 hours/day spent collecting firewood — time stolen from women</li>
+          <li class="fr">Déforestation massive du Bassin du Congo</li>
+          <li class="en">Massive deforestation of the Congo Basin</li>
+        </ul>
+      </div>
+      <div class="sol-box">
+        <div class="ds-label">✓ <span class="fr">NOTRE SOLUTION</span><span class="en">OUR SOLUTION</span></div>
+        <div class="ds-title fr">Le secret : la pyrolyse contrôlée</div>
+        <div class="ds-title en">The secret: controlled pyrolysis</div>
+        <ul class="ds-points">
+          <li class="fr">Chambre isolée en céramique réfractaire ou fonte d'aluminium</li>
+          <li class="en">Chamber insulated in refractory ceramic or cast aluminium</li>
+          <li class="fr">Tirage forcé naturel : maximise la combustion complète du carbone</li>
+          <li class="en">Natural forced draft: maximises complete carbon combustion</li>
+          <li class="fr">1 kg de bois alimente 3 marmites en ébullition simultanée</li>
+          <li class="en">1 kg of wood fuels 3 pots boiling simultaneously</li>
+          <li class="fr">Combustion quasi-complète → zéro fumée visible, zéro particules fines</li>
+          <li class="en">Near-complete combustion → zero visible smoke, zero fine particles</li>
+          <li class="fr">Fabricable localement par des artisans formés en 3 jours</li>
+          <li class="en">Locally manufacturable by craftspeople trained in 3 days</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="impact-nums reveal">
+      <div class="in-card"><div class="in-icon">🌳</div><span class="in-num">5t</span><div class="in-lbl fr">bois économisées<br>par cuisinière / an</div><div class="in-lbl en">wood saved<br>per cooker / year</div></div>
+      <div class="in-card"><div class="in-icon">🫁</div><span class="in-num">0</span><div class="in-lbl fr">fumée visible.<br>Zéro particules fines</div><div class="in-lbl en">visible smoke.<br>Zero fine particles</div></div>
+      <div class="in-card"><div class="in-icon">⏰</div><span class="in-num">3h</span><div class="in-lbl fr">gagnées par jour<br>pour chaque femme</div><div class="in-lbl en">gained daily<br>per woman</div></div>
+      <div class="in-card"><div class="in-icon">🌿</div><span class="in-num">0.5ha</span><div class="in-lbl fr">de forêt préservée<br>sur 10 ans</div><div class="in-lbl en">of forest preserved<br>over 10 years</div></div>
+    </div>
+
+    <!-- Schéma SVG Cuisinière -->
+    <div class="schema-wrap reveal">
+      <div class="schema-title fr">COMMENT ÇA MARCHE — SCHÉMA DE PRINCIPE</div>
+      <div class="schema-title en">HOW IT WORKS — PRINCIPLE DIAGRAM</div>
+      <svg viewBox="0 0 800 320" xmlns="C:\Users\Windows\OneDrive\Desktop\fix.html\images\Roll-up n.jpeg" style="width:100%;max-width:800px;display:block;margin:0 auto;">
+        <!-- Fond -->
+        <rect width="800" height="320" fill="#fdfcf8" rx="8"/>
+        <!-- Légende titre -->
+        <text x="400" y="28" text-anchor="middle" font-family="Space Mono,monospace" font-size="11" fill="#8a8a82" letter-spacing="1">1 BOIS → 3 FOYERS SIMULTANÉS</text>
+        <!-- Corps de la cuisinière -->
+        <rect x="280" y="50" width="240" height="180" rx="12" fill="#3d2b1f" stroke="#c8860a" stroke-width="2"/>
+        <!-- Chambre céramique intérieure -->
+        <rect x="310" y="80" width="180" height="120" rx="8" fill="#1a5c3a" opacity=".9"/>
+        <text x="400" y="118" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="rgba(255,255,255,.8)">Chambre céramique</text>
+        <text x="400" y="133" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="rgba(255,255,255,.8)">réfractaire</text>
+        <!-- Flamme -->
+        <text x="400" y="175" text-anchor="middle" font-size="28">🔥</text>
+        <!-- Bois entrant -->
+        <rect x="370" y="222" width="60" height="14" rx="4" fill="#8B4513" opacity=".9"/>
+        <text x="400" y="232" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="9" fill="white">BOIS</text>
+        <!-- 3 marmites -->
+        <ellipse cx="180" cy="90" rx="55" ry="18" fill="#2d8a58" stroke="#1a5c3a" stroke-width="2"/>
+        <rect x="125" y="90" width="110" height="50" rx="4" fill="#2d8a58" stroke="#1a5c3a" stroke-width="2"/>
+        <ellipse cx="180" cy="140" rx="55" ry="10" fill="#1a5c3a"/>
+        <text x="180" y="112" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="white" font-weight="600">Marmite 1</text>
+        <ellipse cx="400" cy="40" rx="55" ry="18" fill="#2d8a58" stroke="#1a5c3a" stroke-width="2"/>
+        <rect x="345" y="40" width="110" height="16" rx="4" fill="#2d8a58" stroke="#1a5c3a" stroke-width="2"/>
+        <text x="400" y="35" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="white" font-weight="600">Marmite 2</text>
+        <ellipse cx="620" cy="90" rx="55" ry="18" fill="#2d8a58" stroke="#1a5c3a" stroke-width="2"/>
+        <rect x="565" y="90" width="110" height="50" rx="4" fill="#2d8a58" stroke="#1a5c3a" stroke-width="2"/>
+        <ellipse cx="620" cy="140" rx="55" ry="10" fill="#1a5c3a"/>
+        <text x="620" y="112" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="white" font-weight="600">Marmite 3</text>
+        <!-- Flèches chaleur -->
+        <path d="M280 110 L235 105" stroke="#f5a623" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr)"/>
+        <path d="M400 50 L400 56" stroke="#f5a623" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr)"/>
+        <path d="M520 110 L565 105" stroke="#f5a623" stroke-width="2" stroke-dasharray="5,3" marker-end="url(#arr)"/>
+        <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#f5a623"/></marker></defs>
+        <!-- Labels chaleur -->
+        <text x="255" y="96" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#f5a623">Chaleur</text>
+        <text x="620" y="96" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#f5a623">Chaleur</text>
+        <!-- Badge -90% -->
+        <rect x="310" y="260" width="180" height="40" rx="8" fill="#c8860a" opacity=".15"/>
+        <text x="400" y="277" text-anchor="middle" font-family="Playfair Display,serif" font-size="16" fill="#c8860a" font-weight="700">−90% de bois consommé</text>
+        <text x="400" y="293" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#8a8a82">vs. feu de 3 pierres traditionnel</text>
+      </svg>
+    </div>
+
+    <div class="tech-testi reveal">
+      <div class="tt-quote-mark">"</div>
+      <div>
+        <div class="tt-text fr">Avant, je passais 3 heures à chercher du bois chaque matin. Maintenant, je garde cet un seul morceau pour toute la journée. Et mes enfants ne toussent plus le matin. C'est comme si on avait changé de vie.</div>
+        <div class="tt-text en">Before, I spent 3 hours collecting firewood every morning. Now one piece lasts all day. And my children no longer cough in the morning. It's as if we've changed lives.</div>
+        <div class="tt-author fr">Madeleine B. — Bénéficiaire, Batchenga (Région du Centre, Cameroun)</div>
+        <div class="tt-author en">Madeleine B. — Beneficiary, Batchenga (Central Region, Cameroon)</div>
+      </div>
+    </div>
+
+    <div class="tech-cta-row reveal">
+      <button class="btn-tech-primary" onclick="location.href='don.html'">🔥 <span class="fr">Financer une cuisinière (30€)</span><span class="en">Fund a cooker (€30)</span></button>
+      <button class="btn-tech-sec" onclick="location.href='partenaires.html'">🏭 <span class="fr">Pack RSE Entreprises</span><span class="en">Corporate CSR Pack</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     TECH 2 : SÉCHOIR FLASH
+══════════════════════════════════════ -->
+<section class="tech-section" id="sechoir">
+  <div class="ts-inner">
+    <div class="ts-header reveal">
+      <div>
+        <div class="section-lbl fr">⚡ INNOVATION N°2 · ADAPTATION CLIMATIQUE</div>
+        <div class="section-lbl en">⚡ INNOVATION #2 · CLIMATE ADAPTATION</div>
+        <h2 class="ts-title fr">Le Séchoir Flash<br><em style="font-style:italic;color:#1a6b9a">"5 Minutes"</em></h2>
+        <h2 class="ts-title en">The Flash Dryer<br><em style="font-style:italic;color:#1a6b9a">"5 Minutes"</em></h2>
+        <p class="ts-subtitle fr">Un système de ventilation cyclonique à haute température qui extrait l'humidité au cœur du produit en 5 minutes chrono — sans le cuire. Ce qui prenait 3 à 5 jours au soleil se fait maintenant avant la prochaine averse.</p>
+        <p class="ts-subtitle en">A high-temperature cyclonic ventilation system that extracts moisture from the core of the product in exactly 5 minutes — without cooking it. What used to take 3 to 5 days in the sun now happens before the next downpour.</p>
+      </div>
+      <div class="ts-badge"><span class="ts-badge-num" style="color:#1a6b9a">5 min</span><div class="ts-badge-lbl fr">au lieu de<br>3–5 jours au soleil</div><div class="ts-badge-lbl en">instead of<br>3–5 days in the sun</div></div>
+    </div>
+
+    <div class="diag-sol reveal">
+      <div class="diag-box">
+        <div class="ds-label">⚠ <span class="fr">LE PROBLÈME</span><span class="en">THE PROBLEM</span></div>
+        <div class="ds-title fr">Le dérèglement climatique détruit les récoltes</div>
+        <div class="ds-title en">Climate disruption destroys harvests</div>
+        <ul class="ds-points">
+          <li class="fr">40% des récoltes perdues chaque année à cause des pluies imprévisibles</li>
+          <li class="en">40% of harvests lost annually due to unpredictable rainfall</li>
+          <li class="fr">Poisson, cacao, manioc séchés au soleil : vulnérables à la moindre averse</li>
+          <li class="en">Sun-dried fish, cocoa, cassava: vulnerable to any shower</li>
+          <li class="fr">Produits contaminés par insectes, poussière, moisissures</li>
+          <li class="en">Products contaminated by insects, dust, moulds</li>
+          <li class="fr">Perte de revenus directe pour les coopératives de femmes</li>
+          <li class="en">Direct income loss for women's cooperatives</li>
+        </ul>
+      </div>
+      <div class="sol-box" style="background:linear-gradient(135deg,#0d2d4a,#1a4a6b)">
+        <div class="ds-label" style="color:rgba(100,180,255,.7)">✓ <span class="fr">NOTRE SOLUTION</span><span class="en">OUR SOLUTION</span></div>
+        <div class="ds-title fr">La technologie "Flash Drying"</div>
+        <div class="ds-title en">The "Flash Drying" technology</div>
+        <ul class="ds-points">
+          <li class="fr">Ventilation cyclonique à haute température contrôlée</li>
+          <li class="en">High-temperature controlled cyclonic ventilation</li>
+          <li class="fr">Extraction de l'humidité depuis le cœur du produit</li>
+          <li class="en">Moisture extraction from the product's core</li>
+          <li class="fr">5 minutes au lieu de 3 à 5 jours — indépendance totale du soleil</li>
+          <li class="en">5 minutes instead of 3 to 5 days — total independence from sun</li>
+          <li class="fr">Produit stérilisé, doré, propre et emballable immédiatement</li>
+          <li class="en">Product sterilised, golden, clean and immediately packable</li>
+          <li class="fr">Alimenté au biogaz ou gaz — compatible avec l'écosystème MB</li>
+          <li class="en">Powered by biogas or gas — compatible with MB ecosystem</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="impact-nums reveal">
+      <div class="in-card"><div class="in-icon">📦</div><span class="in-num" style="color:#1a6b9a">0%</span><div class="in-lbl fr">perte post-récolte.<br>Indépendance météo totale</div><div class="in-lbl en">post-harvest loss.<br>Total weather independence</div></div>
+      <div class="in-card"><div class="in-icon">💰</div><span class="in-num" style="color:#1a6b9a">+40%</span><div class="in-lbl fr">valeur marchande<br>du produit séché</div><div class="in-lbl en">market value of<br>the dried product</div></div>
+      <div class="in-card"><div class="in-icon">⏱</div><span class="in-num" style="color:#1a6b9a">&lt;6</span><div class="in-lbl fr">mois pour amortir<br>l'équipement</div><div class="in-lbl en">months to recoup<br>the equipment</div></div>
+      <div class="in-card"><div class="in-icon">👩</div><span class="in-num" style="color:#1a6b9a">12+</span><div class="in-lbl fr">femmes par coopérative<br>économiquement émancipées</div><div class="in-lbl en">women per cooperative<br>economically empowered</div></div>
+    </div>
+
+    <!-- Schéma SVG Séchoir -->
+    <div class="schema-wrap reveal">
+      <div class="schema-title fr">PROCESSUS DE SÉCHAGE FLASH — COMPARAISON</div>
+      <div class="schema-title en">FLASH DRYING PROCESS — COMPARISON</div>
+      <svg viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:800px;display:block;margin:0 auto;">
+        <rect width="800" height="280" fill="#fdfcf8" rx="8"/>
+        <!-- Méthode traditionnelle -->
+        <rect x="30" y="40" width="330" height="200" rx="10" fill="#fff5f5" stroke="#e57373" stroke-width="1.5"/>
+        <text x="195" y="65" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#c0392b" letter-spacing=".5">MÉTHODE TRADITIONNELLE</text>
+        <text x="195" y="82" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="#4a4a44">☀️ Séchage au soleil</text>
+        <!-- Flèche temps traditionnel -->
+        <rect x="60" y="95" width="270" height="16" rx="8" fill="#ffcdd2"/>
+        <rect x="60" y="95" width="270" height="16" rx="8" fill="#e57373" opacity=".4"/>
+        <text x="195" y="107" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#c0392b" font-weight="700">3 à 5 JOURS</text>
+        <!-- Risques -->
+        <text x="80" y="135" font-family="DM Sans,sans-serif" font-size="11.5" fill="#4a4a44">🌧 Pluie → récolte perdue</text>
+        <text x="80" y="155" font-family="DM Sans,sans-serif" font-size="11.5" fill="#4a4a44">🪲 Insectes et moisissures</text>
+        <text x="80" y="175" font-family="DM Sans,sans-serif" font-size="11.5" fill="#4a4a44">💸 −40% valeur marchande</text>
+        <text x="80" y="195" font-family="DM Sans,sans-serif" font-size="11.5" fill="#4a4a44">😞 Dépendance totale météo</text>
+        <!-- Badge rouge -->
+        <rect x="100" y="215" width="190" height="16" rx="8" fill="#c0392b" opacity=".12"/>
+        <text x="195" y="227" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#c0392b" font-weight="700">40% DES RÉCOLTES PERDUES</text>
+        <!-- Séchoir Flash -->
+        <rect x="440" y="40" width="330" height="200" rx="10" fill="#e8f5ee" stroke="#2d8a58" stroke-width="1.5"/>
+        <text x="605" y="65" text-anchor="middle" font-family="Space Mono,monospace" font-size="10" fill="#1a5c3a" letter-spacing=".5">SÉCHOIR FLASH MB</text>
+        <text x="605" y="82" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="#4a4a44">⚡ Flash Drying cyclonique</text>
+        <!-- Barre temps flash -->
+        <rect x="470" y="95" width="270" height="16" rx="8" fill="#c8f0d8"/>
+        <rect x="470" y="95" width="32" height="16" rx="8" fill="#2d8a58"/>
+        <text x="605" y="107" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#1a5c3a" font-weight="700">5 MINUTES</text>
+        <!-- Avantages -->
+        <text x="490" y="135" font-family="DM Sans,sans-serif" font-size="11.5" fill="#4a4a44">✅ Indépendant de la météo</text>
+        <text x="490" y="155" font-family="DM Sans,sans-serif" font-size="11.5" fill="#4a4a44">✅ Produit stérilisé, propre</text>
+        <text x="490" y="175" font-family="DM Sans,sans-serif" font-size="11.5" fill="#4a4a44">✅ +40% valeur marchande</text>
+        <text x="490" y="195" font-family="DM Sans,sans-serif" font-size="11.5" fill="#4a4a44">✅ Emballable immédiatement</text>
+        <!-- Badge vert -->
+        <rect x="510" y="215" width="190" height="16" rx="8" fill="#2d8a58" opacity=".15"/>
+        <text x="605" y="227" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#1a5c3a" font-weight="700">ZÉRO PERTE POST-RÉCOLTE</text>
+        <!-- VS -->
+        <circle cx="400" cy="140" r="26" fill="#3d2b1f"/>
+        <text x="400" y="146" text-anchor="middle" font-family="Playfair Display,serif" font-size="16" fill="white" font-weight="700">VS</text>
+      </svg>
+    </div>
+
+    <div class="tech-testi reveal" style="background:var(--bp);border-color:rgba(26,107,154,.15)">
+      <div class="tt-quote-mark" style="color:#1a6b9a">"</div>
+      <div>
+        <div class="tt-text fr">Avant le séchoir, on perdait la moitié du poisson fumé quand il pleuvait. Maintenant, en 5 minutes, tout est sec et emballé. On vend au marché de Yaoundé, pas juste au village. Notre revenu a doublé en un an.</div>
+        <div class="tt-text en">Before the dryer, we lost half the smoked fish when it rained. Now in 5 minutes, everything is dry and packaged. We sell at the Yaoundé market, not just in the village. Our income doubled in a year.</div>
+        <div class="tt-author" style="color:#1a6b9a">Félicité N. — <span class="fr">Présidente de la CUMA, Batchenga</span><span class="en">CUMA President, Batchenga</span></div>
+      </div>
+    </div>
+
+    <div class="tech-cta-row reveal">
+      <button class="btn-tech-primary" onclick="location.href='don.html'" style="background:#1a6b9a">⚡ <span class="fr">Financer un séchoir (500€)</span><span class="en">Fund a dryer (€500)</span></button>
+      <button class="btn-tech-sec" onclick="location.href='partenaires.html'">🏦 <span class="fr">Crédit coopérative verte</span><span class="en">Green cooperative credit</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     TECH 3 : BIOMÉTHANISATION
+══════════════════════════════════════ -->
+<section class="tech-section" id="biogaz">
+  <div class="ts-inner">
+    <div class="ts-header reveal">
+      <div>
+        <div class="section-lbl fr">♻️ INNOVATION N°3 · ÉCONOMIE CIRCULAIRE</div>
+        <div class="section-lbl en">♻️ INNOVATION #3 · CIRCULAR ECONOMY</div>
+        <h2 class="ts-title fr">La Biométhanisation<br><em style="font-style:italic;color:#6b3d9a">"Tout-en-Un"</em></h2>
+        <h2 class="ts-title en">Biodigestion<br><em style="font-style:italic;color:#6b3d9a">"All-in-One"</em></h2>
+ <div class="img-container" style="width: 100%; height scrollbar-3dlight-color: 800px; border-radius: 15px; overflow: hidden;">
+    <img src="C:\Users\Windows\OneDrive\Desktop\fix.html\images\cusiniere.png" alt="Energie circulaire" style="width: 100%; height: 100%; object-fit: cover;">
+</div>
+
+        <p class="ts-subtitle fr">Les déchets organiques (excréments humains, animaux, déchets de cuisine) sont digérés en anaérobie pour produire deux biens précieux : du biogaz pour l'énergie propre, et du digestat pour fertiliser les terres.</p>
+        <p class="ts-subtitle en">Organic waste (human and animal excrement, kitchen scraps) is anaerobically digested to produce two precious goods: biogas for clean energy, and digestate to fertilise the land.</p>
+      </div>
+
+     
+
+      <div class="ts-badge"><span class="ts-badge-num" style="color:#6b3d9a">×25</span><div class="ts-badge-lbl fr">Le méthane est 25×<br>plus puissant que le CO₂</div><div class="ts-badge-lbl en">Methane is 25×<br>more potent than CO₂</div></div>
+    </div>
+
+    <div class="diag-sol reveal">
+      <div class="diag-box">
+        <div class="ds-label">⚠ <span class="fr">LE PROBLÈME</span><span class="en">THE PROBLEM</span></div>
+        <div class="ds-title fr">Les déchets : une bombe climatique qu'on ignore</div>
+        <div class="ds-title en">Waste: a climate bomb we ignore</div>
+        <ul class="ds-points">
+          <li class="fr">Les déchets organiques dégagent du méthane en pourrissant (GES ×25)</li>
+          <li class="en">Organic waste releases methane as it rots (GHG ×25 vs CO₂)</li>
+          <li class="fr">Contamination des nappes phréatiques → choléra, typhoïde</li>
+          <li class="en">Groundwater contamination → cholera, typhoid</li>
+          <li class="fr">Engrais chimiques importés = coût prohibitif + dépendance</li>
+          <li class="en">Imported chemical fertilisers = prohibitive cost + dependency</li>
+          <li class="fr">Absence d'électricité rurale → nourriture avariée, études impossibles le soir</li>
+          <li class="en">No rural electricity → food spoilage, impossible evening study</li>
+        </ul>
+      </div>
+      <div class="sol-box" style="background:linear-gradient(135deg,#1e0d35,#3d1a6b)">
+        <div class="ds-label" style="color:rgba(180,130,255,.7)">✓ <span class="fr">NOTRE SOLUTION</span><span class="en">OUR SOLUTION</span></div>
+        <div class="ds-title fr">Le digesteur "Tout-en-Un"</div>
+        <div class="ds-title en">The "All-in-One" digester</div>
+        <ul class="ds-points">
+          <li class="fr">Cuve hermétique : digestion anaérobie sans oxygène des déchets organiques</li>
+          <li class="en">Sealed tank: anaerobic digestion of organic waste without oxygen</li>
+          <li class="fr">Produit 1 → Biogaz : flamme bleue propre pour cuisiner ou générer l'électricité</li>
+          <li class="en">Product 1 → Biogas: clean blue flame for cooking or electricity generation</li>
+          <li class="fr">Produit 2 → Digestat : fertilisant liquide riche en azote et phosphore</li>
+          <li class="en">Product 2 → Digestate: liquid fertiliser rich in nitrogen and phosphorus</li>
+          <li class="fr">Élimine les pathogènes (choléra, typhoïde) avant qu'ils ne contaminent l'eau</li>
+          <li class="en">Eliminates pathogens (cholera, typhoid) before water contamination</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="impact-nums reveal">
+      <div class="in-card"><div class="in-icon">🔵</div><span class="in-num" style="color:#6b3d9a">100%</span><div class="in-lbl fr">énergie propre<br>pour la famille</div><div class="in-lbl en">clean energy<br>for the family</div></div>
+      <div class="in-card"><div class="in-icon">🌱</div><span class="in-num" style="color:#6b3d9a">+30%</span><div class="in-lbl fr">rendements agricoles<br>avec le digestat</div><div class="in-lbl en">agricultural yields<br>with digestate</div></div>
+      <div class="in-card"><div class="in-icon">💧</div><span class="in-num" style="color:#6b3d9a">0</span><div class="in-lbl fr">pathogène dans<br>les eaux traitées</div><div class="in-lbl en">pathogens in<br>treated water</div></div>
+      <div class="in-card"><div class="in-icon">☁️</div><span class="in-num" style="color:#6b3d9a">−25×</span><div class="in-lbl fr">impact climatique<br>méthane capturé</div><div class="in-lbl en">climate impact of<br>captured methane</div></div>
+    </div>
+
+    <!-- Schéma SVG Biogaz cycle -->
+    <div class="schema-wrap reveal">
+      <div class="schema-title fr">LE CYCLE BIOGAZ — RIEN NE SE PERD, TOUT SE TRANSFORME</div>
+      <div class="schema-title en">THE BIOGAS CYCLE — NOTHING IS WASTED, EVERYTHING TRANSFORMS</div>
+      <svg viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:800px;display:block;margin:0 auto;">
+        <rect width="800" height="300" fill="#fdfcf8" rx="8"/>
+        <!-- Digesteur central -->
+        <ellipse cx="400" cy="150" rx="70" ry="55" fill="#3d1a6b" stroke="#6b3d9a" stroke-width="2"/>
+        <text x="400" y="143" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="13" fill="white" font-weight="700">DIGESTEUR</text>
+        <text x="400" y="160" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="rgba(255,255,255,.6)">ANAÉROBIE</text>
+        <!-- Entrée déchets -->
+        <rect x="30" y="120" width="120" height="60" rx="10" fill="#5d3a1a" stroke="#8B4513" stroke-width="1.5"/>
+        <text x="90" y="145" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="white" font-weight="600">Déchets</text>
+        <text x="90" y="160" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="rgba(255,255,255,.7)">organiques</text>
+        <path d="M150 150 L330 150" stroke="#8B4513" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arb)"/>
+        <defs><marker id="arb" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#6b3d9a"/></marker></defs>
+        <!-- Sortie Biogaz (haut) -->
+        <rect x="310" y="20" width="180" height="55" rx="10" fill="#1a3d6b" stroke="#5aaae7" stroke-width="1.5"/>
+        <text x="400" y="43" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="white" font-weight="700">🔵 BIOGAZ</text>
+        <text x="400" y="62" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="rgba(255,255,255,.7)">Cuisson · Électricité · Lumière</text>
+        <path d="M400 95 L400 75" stroke="#5aaae7" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#arc)"/>
+        <defs><marker id="arc" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#5aaae7"/></marker></defs>
+        <!-- Sortie Digestat (bas) -->
+        <rect x="310" y="225" width="180" height="55" rx="10" fill="#1a4a1a" stroke="#2d8a58" stroke-width="1.5"/>
+        <text x="400" y="248" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="white" font-weight="700">🌱 DIGESTAT</text>
+        <text x="400" y="267" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="rgba(255,255,255,.7)">Engrais naturel · +30% rendements</text>
+        <path d="M400 205 L400 225" stroke="#2d8a58" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#ard)"/>
+        <defs><marker id="ard" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#2d8a58"/></marker></defs>
+        <!-- Résultat droite -->
+        <rect x="650" y="70" width="130" height="160" rx="10" fill="#fdf3e3" stroke="#c8860a" stroke-width="1.5"/>
+        <text x="715" y="100" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="11" fill="#c8860a" font-weight="700">RÉSULTAT</text>
+        <text x="715" y="120" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a4a44">✓ Énergie propre</text>
+        <text x="715" y="138" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a4a44">✓ Sol régénéré</text>
+        <text x="715" y="156" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a4a44">✓ Eau purifiée</text>
+        <text x="715" y="174" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a4a44">✓ Méthane capturé</text>
+        <text x="715" y="192" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a4a44">✓ Zéro déchet</text>
+        <path d="M470 150 L650 150" stroke="#c8860a" stroke-width="2" stroke-dasharray="6,3" marker-end="url(#are)"/>
+        <defs><marker id="are" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#c8860a"/></marker></defs>
+        <text x="250" y="145" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#8B4513">ENTRÉE →</text>
+        <text x="553" y="145" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#c8860a">→ SORTIE</text>
+      </svg>
+    </div>
+
+    <div class="tech-testi reveal" style="background:#f5f0ff;border-color:rgba(107,61,154,.15)">
+      <div class="tt-quote-mark" style="color:#6b3d9a">"</div>
+      <div>
+        <div class="tt-text fr">On a installé le digesteur il y a 8 mois. Maintenant, les déchets de nos animaux produisent le gaz pour cuire. Le digestat sur nos champs de maïs — on n'a plus besoin d'acheter d'engrais chimiques. C'est de la magie qui vient de nos propres poubelles.</div>
+        <div class="tt-text en">We installed the digester 8 months ago. Now our animals' waste produces the gas for cooking. The digestate on our maize fields — we no longer need to buy chemical fertilisers. It's magic that comes from our own rubbish.</div>
+        <div class="tt-author" style="color:#6b3d9a">Jean-Baptiste M. — <span class="fr">Agriculteur, Bondjock (Nyong-et-Kéllé)</span><span class="en">Farmer, Bondjock (Nyong-et-Kéllé)</span></div>
+      </div>
+    </div>
+
+    <div class="tech-cta-row reveal">
+      <button class="btn-tech-primary" onclick="location.href='don.html'" style="background:#6b3d9a">♻️ <span class="fr">Financer un digesteur (250€)</span><span class="en">Fund a digester (€250)</span></button>
+      <button class="btn-tech-sec" onclick="location.href='partenaires.html'">🌐 <span class="fr">Partenariat Fonds Verts</span><span class="en">Green Funds Partnership</span></button>
+    </div>
+  </div>
+</section>
+<div class="img-container" style="margin:auto; width:100%; height: auto; border-radius: 15px; overflow: hidden;">
+    <img src="C:\Users\Windows\OneDrive\Desktop\fix.html\images\Roll-up n.jpeg" alt="cusiniere" style="width: 100%; height: 100%; object-fit: cover;">
+</div>
+
+<!-- ══════════════════════════════════════
+     TECH 4 : METASCRIPT
+══════════════════════════════════════ -->
+<section class="tech-section" id="metascript">
+  <div class="ts-inner">
+    <div class="ts-header reveal">
+      <div>
+        <div class="section-lbl fr">💻 INNOVATION N°4 · RÉVOLUTION ÉDUCATIVE</div>
+        <div class="section-lbl en">💻 INNOVATION #4 · EDUCATIONAL REVOLUTION</div>
+        <h2 class="ts-title fr">MetaScript — Le laboratoire<br><em style="font-style:italic;color:var(--v)">dans la poche de chaque enfant</em></h2>
+        <h2 class="ts-title en">MetaScript — The laboratory<br><em style="font-style:italic;color:var(--v)">in every child's pocket</em></h2>
+        <p class="ts-subtitle fr">Un langage de programmation et une plateforme de simulation ultra-légère, conçue pour fonctionner sur des tablettes Android à 50 000 FCFA, sans internet, et transformer chaque enfant de consommateur de contenus en créateur de solutions.</p>
+        <p class="ts-subtitle en">A programming language and ultra-lightweight simulation platform, designed to run on Android tablets costing 50,000 FCFA, without internet, transforming every child from content consumer to solution creator.</p>
+      </div>
+      <div class="ts-badge"><span class="ts-badge-num">+28%</span><div class="ts-badge-lbl fr">progression en<br>Physique-Chimie (2025)</div><div class="ts-badge-lbl en">improvement in<br>Physics-Chemistry (2025)</div></div>
+    </div>
+
+    <div class="diag-sol reveal">
+      <div class="diag-box">
+        <div class="ds-label">⚠ <span class="fr">LE PROBLÈME</span><span class="en">THE PROBLEM</span></div>
+        <div class="ds-title fr">L'Afrique apprend la chimie au tableau noir</div>
+        <div class="ds-title en">Africa learns chemistry on a blackboard</div>
+        <ul class="ds-points">
+          <li class="fr">0 laboratoire de sciences dans 80% des écoles rurales camerounaises</li>
+          <li class="en">0 science lab in 80% of rural Cameroonian schools</li>
+          <li class="fr">Chimie, physique, biologie appris par cœur sans jamais expérimenter</li>
+          <li class="en">Chemistry, physics, biology learned by rote without ever experimenting</li>
+          <li class="fr">Fracture numérique croissante avec le reste du monde</li>
+          <li class="en">Growing digital divide with the rest of the world</li>
+          <li class="fr">Peu de vocations pour l'ingénierie malgré des besoins massifs</li>
+          <li class="en">Few engineering vocations despite massive needs</li>
+        </ul>
+      </div>
+      <div class="sol-box">
+        <div class="ds-label">✓ <span class="fr">NOTRE SOLUTION</span><span class="en">OUR SOLUTION</span></div>
+        <div class="ds-title fr">Le laboratoire virtuel universel</div>
+        <div class="ds-title en">The universal virtual laboratory</div>
+        <ul class="ds-points">
+          <li class="fr">Tourne sur tablette Android à 50 000 FCFA — sans internet (mode hors-ligne)</li>
+          <li class="en">Runs on 50,000 FCFA Android tablet — no internet (offline mode)</li>
+          <li class="fr">Simulations : chimie, physique, biologie, circuits électriques, biogaz</li>
+          <li class="en">Simulations: chemistry, physics, biology, electric circuits, biogas</li>
+          <li class="fr">L'enfant peut "faire exploser" des réactifs sans aucun danger physique</li>
+          <li class="en">The child can "explode" reagents with zero physical risk</li>
+          <li class="fr">Progression vers le code : l'élève crée ses propres scripts et simulations</li>
+          <li class="en">Progression to coding: pupils create their own scripts and simulations</li>
+          <li class="fr">Modules spécifiques liés au Pôle Green-Tech MB (biogaz, solaire, séchoir)</li>
+          <li class="en">Specific modules linked to MB's Green-Tech unit (biogas, solar, dryer)</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="impact-nums reveal">
+      <div class="in-card"><div class="in-icon">📊</div><span class="in-num">+28%</span><div class="in-lbl fr">progression<br>Physique-Chimie 2025</div><div class="in-lbl en">improvement in<br>Physics-Chemistry 2025</div></div>
+      <div class="in-card"><div class="in-icon">🏫</div><span class="in-num">12+</span><div class="in-lbl fr">lycées pilotes<br>équipés au Cameroun</div><div class="in-lbl en">pilot schools<br>equipped in Cameroon</div></div>
+      <div class="in-card"><div class="in-icon">👦</div><span class="in-num">2 140</span><div class="in-lbl fr">enfants formés<br>depuis 2023</div><div class="in-lbl en">children trained<br>since 2023</div></div>
+      <div class="in-card"><div class="in-icon">💻</div><span class="in-num">50k</span><div class="in-lbl fr">FCFA — coût tablette<br>compatible MetaScript</div><div class="in-lbl en">FCFA — cost of<br>compatible tablet</div></div>
+    </div>
+
+    <!-- Schéma SVG MetaScript parcours enfant -->
+    <div class="schema-wrap reveal">
+      <div class="schema-title fr">LE PARCOURS DE L'ENFANT — DE L'ÉLÈVE À L'INGÉNIEUR CLIMATIQUE</div>
+      <div class="schema-title en">THE CHILD'S JOURNEY — FROM PUPIL TO CLIMATE ENGINEER</div>
+      <svg viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-width:800px;display:block;margin:0 auto;">
+        <rect width="800" height="200" fill="#fdfcf8" rx="8"/>
+        <!-- Étape 1 -->
+        <rect x="20" y="50" width="150" height="100" rx="10" fill="#e8f5ee" stroke="#2d8a58" stroke-width="1.5"/>
+        <text x="95" y="90" text-anchor="middle" font-size="22">💻</text>
+        <text x="95" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="#1a5c3a" font-weight="700">Aujourd'hui</text>
+        <text x="95" y="127" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a4a44">Simule des</text>
+        <text x="95" y="141" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a4a44">expériences</text>
+        <!-- Flèche -->
+        <path d="M172 100 L210 100" stroke="#c8860a" stroke-width="2" marker-end="url(#arx)"/>
+        <defs><marker id="arx" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#c8860a"/></marker></defs>
+        <!-- Étape 2 -->
+        <rect x="215" y="50" width="150" height="100" rx="10" fill="#fdf3e3" stroke="#c8860a" stroke-width="1.5"/>
+        <text x="290" y="90" text-anchor="middle" font-size="22">🔧</text>
+        <text x="290" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="#c8860a" font-weight="700">Stage pratique</text>
+        <text x="290" y="127" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a4a44">Digesteur</text>
+        <text x="290" y="141" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a4a44">du village</text>
+        <!-- Flèche -->
+        <path d="M367 100 L405 100" stroke="#c8860a" stroke-width="2" marker-end="url(#arx2)"/>
+        <defs><marker id="arx2" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#c8860a"/></marker></defs>
+        <!-- Étape 3 -->
+        <rect x="410" y="50" width="150" height="100" rx="10" fill="#f0e8ff" stroke="#6b3d9a" stroke-width="1.5"/>
+        <text x="485" y="90" text-anchor="middle" font-size="22">📐</text>
+        <text x="485" y="110" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="#6b3d9a" font-weight="700">Ingénieur local</text>
+        <text x="485" y="127" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a4a44">Conception &amp;</text>
+        <text x="485" y="141" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="#4a4a44">maintenance</text>
+        <!-- Flèche -->
+        <path d="M562 100 L600 100" stroke="#c8860a" stroke-width="2" marker-end="url(#arx3)"/>
+        <defs><marker id="arx3" markerWidth="7" markerHeight="7" refX="4" refY="3.5" orient="auto"><path d="M0,0 L7,3.5 L0,7 Z" fill="#c8860a"/></marker></defs>
+        <!-- Étape 4 -->
+        <rect x="605" y="50" width="170" height="100" rx="10" fill="var(--v)" stroke="#2d8a58" stroke-width="2"/>
+        <text x="690" y="88" text-anchor="middle" font-size="22">🌍</text>
+        <text x="690" y="108" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="12" fill="white" font-weight="700">Expert climatique</text>
+        <text x="690" y="125" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="rgba(255,255,255,.8)">Centrales vertes</text>
+        <text x="690" y="140" text-anchor="middle" font-family="DM Sans,sans-serif" font-size="10" fill="rgba(255,255,255,.8)">de l'Afrique</text>
+        <!-- Label bas -->
+        <text x="400" y="185" text-anchor="middle" font-family="Space Mono,monospace" font-size="9" fill="#8a8a82">LE PLUS GRAND GISEMENT DE L'AFRIQUE : L'INTELLIGENCE DE SES ENFANTS</text>
+      </svg>
+    </div>
+
+    <div class="tech-testi reveal">
+      <div class="tt-quote-mark">"</div>
+      <div>
+        <div class="tt-text fr">J'ai 14 ans et sur ma tablette, j'ai déjà fait exploser du soufre avec de l'oxygène, simulé un circuit électrique et vu comment le biogaz se produit. Mon prof de chimie dit que je pose des questions de niveau lycée. Je n'ai jamais vu un vrai labo.</div>
+        <div class="tt-text en">I'm 14 and on my tablet I've already exploded sulphur with oxygen, simulated an electrical circuit and seen how biogas is produced. My chemistry teacher says I ask high-school level questions. I've never seen a real lab.</div>
+        <div class="tt-author fr">Etienne K. — Élève, Lycée de Bondjock (Cameroun)</div>
+        <div class="tt-author en">Etienne K. — Student, Lycée de Bondjock (Cameroon)</div>
+      </div>
+    </div>
+
+    <div class="tech-cta-row reveal">
+      <button class="btn-tech-primary" onclick="location.href='don.html'">💻 <span class="fr">Former 20 enfants (100€)</span><span class="en">Train 20 children (€100)</span></button>
+      <button class="btn-tech-sec" onclick="location.href='partenaires.html'">🎓 <span class="fr">Partenariat Éducation</span><span class="en">Education Partnership</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     SYNTHÈSE 4 TECHNOLOGIES
+══════════════════════════════════════ -->
+<section class="synthese-section">
+  <div class="sy-inner">
+    <div class="section-lbl" style="text-align:center;color:var(--oc)"><span class="fr">LE TRIPTYQUE EN ACTION</span><span class="en">THE TRIPTYCH IN ACTION</span></div>
+    <h2 class="sy-title fr">4 technologies. 1 écosystème. 0 déchet.</h2>
+    <h2 class="sy-title en">4 technologies. 1 ecosystem. 0 waste.</h2>
+    <p class="sy-sub fr">Chaque technologie est plus puissante quand elle est combinée avec les autres. C'est le principe de la Mini-Ville Autonome Monde et Bonheur.</p>
+    <p class="sy-sub en">Each technology is more powerful when combined with the others. This is the principle of the Monde et Bonheur Autonomous Mini-Village.</p>
+    <div class="sy-grid">
+      <div class="sy-card" onclick="scrollTo('cuisiniere')">
+        <div class="sy-icon">🔥</div>
+        <div class="sy-name fr">Cuisinière "1 Bois / 3 Foyers"</div>
+        <div class="sy-name en">Cooker "1 Wood / 3 Fires"</div>
+        <div class="sy-stat">−90% BIOMASSE</div>
+      </div>
+      <div class="sy-card" onclick="scrollTo('sechoir')">
+        <div class="sy-icon">⚡</div>
+        <div class="sy-name fr">Séchoir Flash "5 Minutes"</div>
+        <div class="sy-name en">Flash Dryer "5 Minutes"</div>
+        <div class="sy-stat">+40% REVENUS</div>
+      </div>
+      <div class="sy-card" onclick="scrollTo('biogaz')">
+        <div class="sy-icon">♻️</div>
+        <div class="sy-name fr">Biométhanisation "Tout-en-Un"</div>
+        <div class="sy-name en">Biodigestion "All-in-One"</div>
+        <div class="sy-stat">DÉCHETS → ÉNERGIE</div>
+      </div>
+      <div class="sy-card" onclick="scrollTo('metascript')">
+        <div class="sy-icon">💻</div>
+        <div class="sy-name fr">MetaScript</div>
+        <div class="sy-name en">MetaScript</div>
+        <div class="sy-stat">+28% RÉSULTATS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINALE -->
+<section class="cta-finale">
+  <h2 class="fr">Ces technologies existent.<br>Il manque juste votre soutien.</h2>
+  <h2 class="en">These technologies exist.<br>They just need your support.</h2>
+  <p class="fr">Choisissez celle qui vous parle le plus et financez-la directement. Ou devenez partenaire stratégique pour un impact à l'échelle d'une région entière.</p>
+  <p class="en">Choose the one that speaks to you and fund it directly. Or become a strategic partner for impact at the scale of an entire region.</p>
+  <div class="cta-btns">
+    <button class="btn-cta-w" onclick="location.href='don.html'">❤️ <span class="fr">Faire un don ciblé</span><span class="en">Make a targeted gift</span></button>
+    <button class="btn-cta-o" onclick="location.href='partenaires.html'">🤝 <span class="fr">Devenir partenaire</span><span class="en">Become a partner</span></button>
+  </div>
+</section>
+
+
+<script>
+function setLang(l){
+  document.documentElement.setAttribute('data-lang',l);
+  document.getElementById('btnFR').classList.toggle('active',l==='fr');
+  document.getElementById('btnEN').classList.toggle('active',l==='en');
+}
+function scrollTo(id){
+  const el=document.getElementById(id);
+  if(el){const top=el.getBoundingClientRect().top+window.scrollY-90;window.scrollTo({top,behavior:'smooth'});}
+}
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target);}
+  });
+},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+<script src="mb-nav.js"></script>
+<script src="mb-carrousel-images.js"></script>
+<script src="mb-faq.js"></script>
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!--
+═══════════════════════════════════════════════════════════════════
+  SNIPPET CARROUSEL MB — À COLLER DANS CHAQUE PAGE DU SITE
+  Juste avant le </body> ou avant le <footer>
+  
+  REQUIS : <script src="mb-carrousel.js"></script> avant ce bloc
+═══════════════════════════════════════════════════════════════════
+-->
+
+<!-- ═══════════════════════════════
+  VERSION FOND CLAIR (sur pages blanches/grises)
+  Utiliser sur : don.html, technologies.html, gouvernance.html
+════════════════════════════════ -->
+<section
+  class="mb-carrousel-section on-light"
+  data-carr-id="mb-carr-light"
+  data-carr-limit="9"
+  data-carr-autoplay="5000">
+  <div class="mbc-header">
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:#c8860a;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.4rem">
+        <span class="fr">ACTUALITÉS TERRAIN</span>
+        <span class="en">FIELD NEWS</span>
+      </div>
+      <div class="mbc-title">
+        <span class="fr">Ce qui se passe en ce moment</span>
+        <span class="en">What's happening right now</span>
+      </div>
+    </div>
+    <div class="mbc-controls">
+      <button class="mbc-btn" onclick="MBCarrousel.move('mb-carr-light',-1)">←</button>
+      <button class="mbc-btn" onclick="MBCarrousel.move('mb-carr-light', 1)">→</button>
+      <a href="actualites.html" class="mbc-see-all">
+        <span class="fr">Toutes les actualités →</span>
+        <span class="en">All news →</span>
+      </a>
+    </div>
+  </div>
+  <div class="mbc-track-wrap">
+    <div class="mbc-track" id="mb-carr-light-track"></div>
+  </div>
+  <div class="mbc-dots" id="mb-carr-light-dots"></div>
+</section>
+
+<script src="mb-carrousel.js"></script>
+
+<!-- ─────────────────────────────────────────────────────
+
+  VERSION FOND SOMBRE (sur pages sombres / hero foncé)
+  Utiliser sur : index.html, partenaires.html, carte.html
+
+──────────────────────────────────────────────────────── -->
+<!--
+<section
+  class="mb-carrousel-section on-dark"
+  data-carr-id="mb-carr-dark"
+  data-carr-limit="9"
+  data-carr-autoplay="5000">
+  <div class="mbc-header">
+    <div>
+      <div style="font-family:'Space Mono',monospace;font-size:10px;color:#f5a623;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.4rem">
+        <span class="fr">ACTUALITÉS RÉCENTES</span>
+        <span class="en">LATEST NEWS</span>
+      </div>
+      <div class="mbc-title">
+        <span class="fr">Ce qui se passe sur le terrain</span>
+        <span class="en">What's happening in the field</span>
+      </div>
+    </div>
+    <div class="mbc-controls">
+      <button class="mbc-btn" onclick="MBCarrousel.move('mb-carr-dark',-1)">←</button>
+      <button class="mbc-btn" onclick="MBCarrousel.move('mb-carr-dark', 1)">→</button>
+      <a href="actualites.html" class="mbc-see-all">
+        <span class="fr">Toutes les actualités →</span>
+        <span class="en">All news →</span>
+      </a>
+    </div>
+  </div>
+  <div class="mbc-track-wrap">
+    <div class="mbc-track" id="mb-carr-dark-track"></div>
+  </div>
+  <div class="mbc-dots" id="mb-carr-dark-dots"></div>
+</section>
+-->
+
+<!--
+═══════════════════════════════════════════════════════════════════
+  INSTRUCTIONS D'INTÉGRATION PAR PAGE
+═══════════════════════════════════════════════════════════════════
+
+  📄 index.html
+    → Utiliser version DARK (on-dark)
+    → Coller avant le <footer>
+    → id: "mb-carr-index"
+
+  💰 don.html
+    → Utiliser version LIGHT (on-light)
+    → Coller avant la section PS final
+    → id: "mb-carr-don"
+
+  🤝 partenaires.html
+    → Utiliser version DARK (on-dark)
+    → Coller avant la section CTA finale
+    → id: "mb-carr-part"
+
+  🔬 technologies.html
+    → Utiliser version LIGHT (on-light)
+    → Coller avant la section synthèse
+    → id: "mb-carr-tech"
+
+  🗺️ carte.html
+    → Utiliser version DARK (on-dark)
+    → Coller avant la timeline
+    → id: "mb-carr-carte"
+
+  📊 gouvernance.html
+    → Utiliser version LIGHT (on-light)
+    → Coller avant la section contact
+    → id: "mb-carr-gouv"
+
+═══════════════════════════════════════════════════════════════════
+  POUR AJOUTER UN ARTICLE :
+  Ouvrir mb-carrousel.js → chercher window.MB_NEWS_ITEMS = [
+  Ajouter un objet avec ces champs :
+  {
+    id: 10,                          // numéro unique
+    cat: 'terrain',                  // terrain | tech | media | event
+    catFR: '🌾 TERRAIN',
+    catEN: '🌾 FIELD',
+    catClass: 'cat-terrain',
+    emoji: '🌾',
+    bg: 'linear-gradient(135deg,#0d3320,#1a5c3a)',
+    dateFR: 'Mar 2026',
+    dateEN: 'Mar 2026',
+    titleFR: 'Titre en français',
+    titleEN: 'Title in English',
+    excerptFR: 'Résumé court en français (2 phrases).',
+    excerptEN: 'Short summary in English (2 sentences).',
+    link: 'actualites.html',         // page de destination au clic
+    featured: false
+  }
+═══════════════════════════════════════════════════════════════════
+-->

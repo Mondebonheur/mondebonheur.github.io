@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Notre Équipe — ONG Monde et Bonheur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --v:#1a5c3a;--vc:#2d8a58;--vp:#e8f5ee;--vd:#0d3320;
+  --o:#c8860a;--oc:#f5a623;--op:#fdf3e3;
+  --br:#3d2b1f;--wh:#fdfcf8;--gr:#f0ede6;
+  --tx:#1a1a18;--td:#4a4a44;--tp:#8a8a82;
+  --rouge:#c0392b;--haut:66px;--r:14px;
+  --sh:0 4px 24px rgba(0,0,0,.08);
+  --sh-lg:0 20px 60px rgba(0,0,0,.14);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{font-family:'DM Sans',sans-serif;background:var(--wh);color:var(--tx);overflow-x:hidden;padding-top:var(--haut);}
+[data-lang="fr"] .en{display:none!important;}
+[data-lang="en"] .fr{display:none!important;}
+a{text-decoration:none;}
+
+
+/* 1. Cache uniquement le menu mobile s'il n'est pas ouvert, sans toucher au flux HTML */
+#mb-mobile-menu:not(.open) {
+    opacity: 0 !important;
+    pointer-events: none !important;
+    position: absolute !important;
+    z-index: -1 !important;
+}
+
+/* 2. Supprime la barre de statut (Accueil 🏠) sans impacter le Hero */
+.mb-nav-status, .nav-status {
+    display: none !important;
+}
+
+/* 3. Sécurité pour ton image Hero : on force sa visibilité */
+.equipe-hero {
+    display: block !important;
+    visibility: visible !important;
+    background-size: cover !important;
+    background-position: center !important;
+    /* On s'assure qu'aucune div invisible ne passe devant */
+    position: relative;
+    z-index: 1;
+}
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.equipe-hero{
+  padding:80px 8% 90px;
+  background:
+    linear-gradient(155deg,rgba(13,51,32,.97) 0%,rgba(26,92,58,.9) 55%,rgba(61,43,31,.8) 100%),
+    url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=1400&q=80') center/cover no-repeat;
+  text-align:center;position:relative;overflow:hidden;
+}
+.equipe-hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:70px;background:linear-gradient(transparent,var(--wh));}
+.hero-lbl{display:inline-flex;align-items:center;gap:8px;background:rgba(245,166,35,.15);border:1px solid rgba(245,166,35,.3);color:#f5d087;font-family:'Space Mono',monospace;font-size:10px;letter-spacing:.12em;padding:5px 14px;border-radius:20px;margin-bottom:1.4rem;position:relative;}
+.equipe-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2.4rem,5vw,4rem);font-weight:900;color:white;line-height:1.1;margin-bottom:1.2rem;position:relative;}
+.equipe-hero h1 em{font-style:italic;color:#f5d087;}
+.equipe-hero p{font-size:clamp(.95rem,1.5vw,1.1rem);color:rgba(255,255,255,.75);max-width:600px;margin:0 auto;line-height:1.8;font-weight:300;position:relative;}
+
+/* Stat band */
+.stats-band{background:var(--v);display:flex;justify-content:center;flex-wrap:wrap;}
+.sb-stat{padding:1.1rem 2.5rem;text-align:center;border-right:1px solid rgba(255,255,255,.1);}
+.sb-stat:last-child{border-right:none;}
+.sb-num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:#f5d087;line-height:1;display:block;}
+.sb-lbl{font-size:11px;color:rgba(255,255,255,.6);margin-top:2px;}
+
+/* ══════════════════════════════════════
+   PRÉSIDENTE — SECTION SPÉCIALE
+══════════════════════════════════════ */
+.presidente-section{padding:80px 8%;background:white;}
+.presidente-inner{max-width:1100px;margin:0 auto;}
+.presidente-card{
+  display:grid;grid-template-columns:340px 1fr;gap:4rem;
+  align-items:center;background:white;border-radius:20px;
+  border:1px solid rgba(26,92,58,.1);overflow:hidden;
+  box-shadow:var(--sh-lg);
+}
+.pc-visual{position:relative;height:460px;background:linear-gradient(160deg,var(--vd),var(--v));}
+.pc-img{width:100%;height:100%;object-fit:cover;object-position:top;}
+.pc-img-ph{width:100%;height:100%;display:flex;align-items:center;justify-content:center;}
+.pc-monogram{
+  width:140px;height:140px;border-radius:50%;
+  background:rgba(255,255,255,.12);border:3px solid rgba(255,255,255,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:3rem;font-weight:900;color:white;
+}
+.pc-badge{
+  position:absolute;bottom:1.5rem;left:1.5rem;right:1.5rem;
+  background:rgba(13,51,32,.9);backdrop-filter:blur(8px);
+  border:1px solid rgba(245,166,35,.3);border-radius:12px;
+  padding:1rem 1.2rem;
+}
+.pc-badge-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:white;}
+.pc-badge-role{font-size:11.5px;color:#f5d087;margin-top:3px;font-family:'Space Mono',monospace;letter-spacing:.05em;}
+.pc-body{padding:2rem 2rem 2rem 0;}
+.pc-quote-mark{font-family:'Playfair Display',serif;font-size:5rem;color:var(--vp);line-height:.8;margin-bottom:.5rem;}
+.pc-quote{font-family:'Playfair Display',serif;font-size:1.25rem;font-style:italic;color:var(--tx);line-height:1.7;margin-bottom:1.5rem;}
+.pc-bio{font-size:14.5px;color:var(--td);line-height:1.85;margin-bottom:1.5rem;}
+.pc-timeline{display:flex;flex-direction:column;gap:.7rem;}
+.pc-tl-item{display:flex;align-items:flex-start;gap:.8rem;font-size:13.5px;color:var(--td);}
+.pc-tl-year{font-family:'Space Mono',monospace;font-size:10px;color:var(--o);min-width:70px;margin-top:2px;font-weight:700;}
+.pc-skills{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.2rem;}
+.pc-skill{display:inline-flex;align-items:center;gap:.3rem;background:var(--vp);border:1px solid rgba(26,92,58,.15);color:var(--v);font-size:12px;font-weight:600;padding:4px 11px;border-radius:10px;}
+.pc-social{display:flex;gap:.5rem;margin-top:1.2rem;}
+.pc-soc-btn{width:36px;height:36px;border-radius:9px;background:var(--vp);border:1px solid rgba(26,92,58,.15);display:flex;align-items:center;justify-content:center;font-size:15px;cursor:pointer;transition:all .2s;}
+.pc-soc-btn:hover{background:var(--v);}
+
+/* ══════════════════════════════════════
+   CONSEIL D'ADMINISTRATION
+══════════════════════════════════════ */
+.ca-section{padding:80px 8%;background:var(--gr);}
+.ca-inner{max-width:1200px;margin:0 auto;}
+.sec-header{text-align:center;margin-bottom:3rem;}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;line-height:1.2;margin-bottom:.6rem;}
+.sec-sub{font-size:15px;color:var(--td);max-width:560px;margin:0 auto;line-height:1.7;}
+
+/* Flip cards grid */
+.flip-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.4rem;}
+.flip-grid.cols3{grid-template-columns:repeat(3,1fr);}
+.flip-grid.cols2{grid-template-columns:repeat(2,1fr);max-width:700px;margin:0 auto;}
+
+/* ══════════════════════════════════════
+   FLIP CARD 3D — LE CŒUR DU DESIGN
+══════════════════════════════════════ */
+.flip-card{height:320px;perspective:1000px;cursor:pointer;}
+.flip-card-inner{
+  position:relative;width:100%;height:100%;
+  transform-style:preserve-3d;
+  transition:transform .6s cubic-bezier(.4,0,.2,1);
+}
+.flip-card:hover .flip-card-inner,
+.flip-card.flipped .flip-card-inner{transform:rotateY(180deg);}
+
+/* Face avant */
+.flip-front,.flip-back{
+  position:absolute;inset:0;
+  border-radius:var(--r);
+  backface-visibility:hidden;
+  -webkit-backface-visibility:hidden;
+  overflow:hidden;
+}
+.flip-front{
+  background:white;border:1.5px solid rgba(26,92,58,.1);
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:flex-end;text-align:center;
+  box-shadow:var(--sh);
+}
+.ff-photo{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,var(--vd),var(--v));
+  display:flex;align-items:center;justify-content:center;
+}
+.ff-photo img{width:100%;height:100%;object-fit:cover;object-position:top;}
+.ff-photo-ph{
+  width:90px;height:90px;border-radius:50%;
+  background:rgba(255,255,255,.15);border:3px solid rgba(255,255,255,.3);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:white;
+}
+/* Gradient overlay sur la photo */
+.ff-overlay{
+  position:absolute;bottom:0;left:0;right:0;
+  background:linear-gradient(transparent,rgba(13,51,32,.95));
+  padding:1.5rem 1.2rem 1.2rem;
+  z-index:1;
+}
+.ff-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:white;margin-bottom:.25rem;}
+.ff-role{font-size:11px;color:rgba(255,255,255,.65);line-height:1.4;}
+.ff-hint{
+  position:absolute;top:.8rem;right:.8rem;z-index:2;
+  background:rgba(255,255,255,.15);backdrop-filter:blur(4px);
+  border:1px solid rgba(255,255,255,.2);border-radius:8px;
+  padding:3px 8px;font-size:9.5px;color:rgba(255,255,255,.6);
+  font-family:'Space Mono',monospace;letter-spacing:.05em;
+}
+
+/* Face arrière */
+.flip-back{
+  background:linear-gradient(160deg,var(--vd),#1a4a2a);
+  transform:rotateY(180deg);
+  padding:1.5rem;display:flex;flex-direction:column;
+  border:1.5px solid rgba(45,138,88,.2);
+}
+.fb-name{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:white;margin-bottom:.2rem;}
+.fb-role{font-family:'Space Mono',monospace;font-size:9px;color:var(--oc);letter-spacing:.07em;margin-bottom:.8rem;text-transform:uppercase;}
+.fb-bio{font-size:12.5px;color:rgba(255,255,255,.72);line-height:1.65;flex:1;}
+.fb-skills{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.7rem;}
+.fb-skill{font-size:10.5px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.75);padding:2px 8px;border-radius:7px;}
+.fb-contact{margin-top:.8rem;padding-top:.8rem;border-top:1px solid rgba(255,255,255,.1);display:flex;gap:.4rem;}
+.fb-btn{flex:1;padding:7px;text-align:center;border-radius:7px;font-size:11.5px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .2s;}
+.fb-btn-main{background:var(--vc);color:white;}
+.fb-btn-main:hover{background:#3aaa70;}
+.fb-btn-sec{background:rgba(255,255,255,.1);color:rgba(255,255,255,.7);border:1px solid rgba(255,255,255,.15);}
+.fb-btn-sec:hover{background:rgba(255,255,255,.2);color:white;}
+
+/* ══════════════════════════════════════
+   ÉQUIPE TERRAIN
+══════════════════════════════════════ */
+.terrain-section{padding:80px 8%;background:white;}
+.terrain-inner{max-width:1200px;margin:0 auto;}
+
+/* ══════════════════════════════════════
+   ÉQUIPE FRANCE
+══════════════════════════════════════ */
+.france-section{padding:80px 8%;background:var(--gr);}
+.france-inner{max-width:1200px;margin:0 auto;}
+
+/* ══════════════════════════════════════
+   PARTENAIRES TECHNIQUES
+══════════════════════════════════════ */
+.partenaires-section{padding:70px 8%;background:white;}
+.partenaires-inner{max-width:1100px;margin:0 auto;}
+.partners-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-top:2rem;}
+.partner-card{background:var(--gr);border-radius:var(--r);padding:1.5rem;border:1px solid rgba(26,92,58,.08);transition:all .25s;}
+.partner-card:hover{transform:translateY(-3px);box-shadow:var(--sh-lg);border-color:rgba(26,92,58,.2);}
+.partner-icon{font-size:2rem;margin-bottom:.6rem;}
+.partner-org{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;margin-bottom:.2rem;}
+.partner-role{font-family:'Space Mono',monospace;font-size:9px;color:var(--o);letter-spacing:.07em;text-transform:uppercase;margin-bottom:.5rem;}
+.partner-desc{font-size:13px;color:var(--td);line-height:1.6;}
+
+/* ══════════════════════════════════════
+   FAQ ÉQUIPE
+══════════════════════════════════════ */
+.faq-section{padding:70px 8%;background:var(--gr);}
+.faq-inner{max-width:800px;margin:0 auto;}
+.faq-item{border-bottom:1px solid rgba(26,92,58,.1);}
+.faq-q{width:100%;background:none;border:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;padding:1.1rem 0;text-align:left;font-family:'DM Sans',sans-serif;}
+.faq-q-txt{font-size:15px;font-weight:600;color:var(--tx);padding-right:1rem;line-height:1.35;}
+.faq-ico{width:28px;height:28px;border-radius:50%;background:var(--vp);display:flex;align-items:center;justify-content:center;color:var(--v);font-size:18px;flex-shrink:0;transition:transform .3s;}
+.faq-item.open .faq-ico{transform:rotate(45deg);background:var(--v);color:white;}
+.faq-ans{max-height:0;overflow:hidden;transition:max-height .4s ease,padding .3s;font-size:14px;color:var(--td);line-height:1.8;}
+.faq-item.open .faq-ans{max-height:300px;padding-bottom:1.2rem;}
+
+/* ══════════════════════════════════════
+   CTA
+══════════════════════════════════════ */
+.cta-section{background:linear-gradient(135deg,var(--vd),var(--v));padding:70px 8%;text-align:center;}
+.cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);font-weight:700;color:white;margin-bottom:1rem;}
+.cta-section p{font-size:15px;color:rgba(255,255,255,.7);max-width:520px;margin:0 auto 2rem;line-height:1.8;}
+.cta-btns{display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;}
+.btn-w{display:inline-flex;align-items:center;gap:8px;background:white;color:var(--v);padding:13px 26px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;border:none;font-family:'DM Sans',sans-serif;transition:all .25s;}
+.btn-w:hover{background:var(--op);transform:translateY(-2px);}
+.btn-o{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);color:white;padding:13px 26px;border-radius:9px;font-size:14px;font-weight:700;cursor:pointer;border:1.5px solid rgba(255,255,255,.22);font-family:'DM Sans',sans-serif;transition:all .25s;}
+.btn-o:hover{background:rgba(255,255,255,.18);transform:translateY(-2px);}
+
+/* ══════════════════════════════════════
+   RESPONSIVE
+══════════════════════════════════════ */
+@media(max-width:1000px){
+  .presidente-card{grid-template-columns:1fr;}
+  .pc-visual{height:280px;}
+  .pc-body{padding:1.5rem;}
+  .flip-grid{grid-template-columns:repeat(2,1fr);}
+  .flip-grid.cols3{grid-template-columns:repeat(2,1fr);}
+  .partners-grid{grid-template-columns:1fr 1fr;}
+}
+@media(max-width:600px){
+  .flip-grid,.flip-grid.cols3,.flip-grid.cols2{grid-template-columns:1fr 1fr;}
+  .flip-card{height:280px;}
+  .partners-grid{grid-template-columns:1fr;}
+  .stats-band{gap:0;}
+  .sb-stat{flex:1;min-width:50%;border-right:none;border-bottom:1px solid rgba(255,255,255,.08);}
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="equipe-hero">
+  <div class="hero-lbl">👥 <span class="fr">NOTRE ÉQUIPE · HUMAINS DERRIÈRE L'IMPACT</span><span class="en">OUR TEAM · HUMANS BEHIND THE IMPACT</span></div>
+  <h1 class="fr">Des hommes et des femmes<br>qui croient que la <em>résilience</em><br>est la première énergie renouvelable.</h1>
+  <h1 class="en">Men and women who believe<br>that <em>resilience</em> is the<br>first renewable energy.</h1>
+  <p class="fr">Derrière chaque cuisinière installée, chaque école construite, chaque enfant formé — il y a une équipe. Passez votre curseur sur chaque portrait pour découvrir leur histoire.</p>
+  <p class="en">Behind every cooker installed, every school built, every child trained — there is a team. Hover over each portrait to discover their story.</p>
+</section>
+
+<!-- STATS BAND -->
+<div class="stats-band">
+  <div class="sb-stat"><span class="sb-num">20</span><div class="sb-lbl fr">ans d'engagement collectif</div><div class="sb-lbl en">years of collective commitment</div></div>
+  <div class="sb-stat"><span class="sb-num">2</span><div class="sb-lbl fr">pôles : France &amp; Cameroun</div><div class="sb-lbl en">hubs: France &amp; Cameroon</div></div>
+  <div class="sb-stat"><span class="sb-num">5</span><div class="sb-lbl fr">zones d'intervention couvertes</div><div class="sb-lbl en">intervention zones covered</div></div>
+  <div class="sb-stat"><span class="sb-num">100%</span><div class="sb-lbl fr">bénévoles ou militants</div><div class="sb-lbl en">volunteers or activists</div></div>
+</div>
+
+<!-- ══════════════════════════════════════
+     PRÉSIDENTE FONDATRICE
+══════════════════════════════════════ -->
+<section class="presidente-section">
+  <div class="presidente-inner">
+    <div class="section-lbl reveal"><span class="fr">DIRECTION · FONDATRICE</span><span class="en">LEADERSHIP · FOUNDER</span></div>
+    <div class="presidente-card reveal">
+
+      <div class="pc-visual">
+        <img class="pc-img"
+          src="C:\Users\Windows\OneDrive\Desktop\fix.html\images\HERMINE.jpeg"
+          alt="Hermine Ngo Batjom Lapeyronnie"
+          onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="pc-img-ph" style="display:none">
+          <div class="pc-monogram">H</div>
+        </div>
+        <div class="pc-badge">
+          <div class="pc-badge-name">Hermine Ngo Batjom Lapeyronnie</div>
+          <div class="pc-badge-role fr">Présidente Fondatrice · Directrice Générale</div>
+          <div class="pc-badge-role en">Founding President · Chief Executive</div>
+        </div>
+      </div>
+
+      <div class="pc-body">
+        <div class="pc-quote-mark">"</div>
+        <div class="pc-quote fr">Transformer la boue en or, et la fumée en lumière. On ne développe pas un continent avec de la charité — on le développe avec de la dignité et de la technologie.</div>
+        <div class="pc-quote en">Turn mud into gold, and smoke into light. You don't develop a continent with charity — you develop it with dignity and technology.</div>
+
+        <div class="pc-bio fr">Hermine Ngo Batjom Lapeyronnie est la fondatrice et présidente de Monde et Bonheur depuis 2005. Son parcours exceptionnel — mère à 17 ans, coiffeuse, commerçante, technicienne en froid et climatisation — lui a forgé une maîtrise unique de la thermodynamique, fondement de nos innovations Green-Tech. En 2008, lors du "Premier Marché Africain" qu'elle organisait à Chancelade · France, abandonnée par son équipe et enceinte, elle a porté l'événement seule au prix de sa santé — perdant son enfant Nancy Olivia. Ce sacrifice intime est devenu le socle moral inébranlable de l'ONG. Depuis, chaque projet MB est un hommage à cet enfant.</div>
+        <div class="pc-bio en">Hermine Ngo Batjom Lapeyronnie is the founder and president of Monde et Bonheur since 2005. Her exceptional journey — teenage mother at 17, hairdresser, trader, refrigeration and air conditioning technician — gave her a unique mastery of thermodynamics, the foundation of our Green-Tech innovations. In 2008, while organising the "First African Market" in Chancelade · France, abandoned by her team and pregnant, she carried the event alone at the cost of her health — losing her child Nancy Olivia. This intimate sacrifice became the unshakeable moral foundation of the NGO.</div>
+
+        <div class="pc-timeline">
+          <div class="pc-tl-item"><span class="pc-tl-year">1983–2004</span><span class="fr">Parcours autodidacte : coiffure, commerce, froid &amp; climatisation</span><span class="en">Self-taught journey: hairdressing, commerce, refrigeration engineering</span></div>
+          <div class="pc-tl-item"><span class="pc-tl-year">2005</span><span class="fr">Fondation EFEACAM (Espoir Femmes Enfants Artisans Cameroun)</span><span class="en">Foundation of EFEACAM</span></div>
+          <div class="pc-tl-item"><span class="pc-tl-year">2006</span><span class="fr">Agrément MINATD N°00000404 · Renommage en Monde et Bonheur</span><span class="en">MINATD approval · Renamed Monde et Bonheur</span></div>
+          <div class="pc-tl-item"><span class="pc-tl-year">2008</span><span class="fr">Le sacrifice fondateur · Cancy Olivia · Mission Sacrée</span><span class="en">The founding sacrifice · Nancy Olivia · Sacred Mission</span></div>
+          <div class="pc-tl-item"><span class="pc-tl-year">2010+</span><span class="fr">Pivot technologique : biométhanisation, cuisinières, MetaScript</span><span class="en">Technology pivot: biodigestion, cookers, MetaScript</span></div>
+        </div>
+
+        <div class="pc-skills">
+          <span class="pc-skill">🔧 Thermodynamique</span>
+          <span class="pc-skill">🌿 Green-Tech frugale</span>
+          <span class="pc-skill">👩 Leadership féminin</span>
+          <span class="pc-skill">🌍 Développement durable</span>
+          <span class="pc-skill">📊 Gestion ONG</span>
+          <span class="pc-skill">🤝 Plaidoyer</span>
+        </div>
+
+        <div class="pc-social">
+          <div class="pc-soc-btn" title="Email" onclick="window.location='mailto:courrielmondeetbonheur@gmail.com'">✉️</div>
+          <div class="pc-soc-btn" title="WhatsApp" onclick="window.open('https://wa.me/237657160617')">💬</div>
+          <div class="pc-soc-btn" title="LinkedIn">💼</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CONSEIL D'ADMINISTRATION
+══════════════════════════════════════ -->
+<section class="ca-section">
+  <div class="ca-inner">
+    <div class="sec-header reveal">
+      <div class="section-lbl"><span class="fr">GOUVERNANCE · CONSEIL D'ADMINISTRATION</span><span class="en">GOVERNANCE · BOARD OF DIRECTORS</span></div>
+      <h2 class="sec-title fr">Le Conseil qui guide, contrôle<br>et valide chaque décision stratégique.</h2>
+      <h2 class="sec-title en">The Board that guides, controls<br>and approves every strategic decision.</h2>
+      <p class="sec-sub fr">Passez votre curseur sur chaque membre pour découvrir son rôle, son expertise et sa contribution à l'ONG.</p>
+      <p class="sec-sub en">Hover over each member to discover their role, expertise and contribution to the NGO.</p>
+    </div>
+
+    <div class="flip-grid reveal">
+
+      <!-- CA 1 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="ff-photo">
+              <div class="ff-photo-ph">A</div>
+            </div>
+            <div class="ff-hint fr">Survoler →</div>
+            <div class="ff-hint en">Hover →</div>
+            <div class="ff-overlay">
+              <div class="ff-name">Alphonse M.</div>
+              <div class="ff-role fr">Vice-Président · Trésorier</div>
+              <div class="ff-role en">Vice-President · Treasurer</div>
+            </div>
+          </div>
+          <div class="flip-back">
+            <div class="fb-name">Alphonse M.</div>
+            <div class="fb-role fr">Vice-Président · Trésorier</div>
+            <div class="fb-role en">Vice-President · Treasurer</div>
+            <div class="fb-bio fr">Expert-comptable certifié et gestionnaire financier. Supervise la gestion budgétaire de l'ONG, valide les rapports financiers annuels et garantit la transparence totale vis-à-vis des partenaires et auditeurs.</div>
+            <div class="fb-bio en">Certified accountant and financial manager. Oversees the NGO's budget management, validates annual financial reports and guarantees full transparency towards partners and auditors.</div>
+            <div class="fb-skills">
+              <span class="fb-skill fr">Finance NGO</span><span class="fb-skill">Audit</span><span class="fb-skill fr">Gestion budgétaire</span>
+            </div>
+            <div class="fb-contact">
+              <button class="fb-btn fb-btn-main" onclick="window.location='mailto:courrielmondeetbonheur@gmail.com'">
+                <span class="fr">Contacter</span><span class="en">Contact</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CA 2 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="ff-photo" style="background:linear-gradient(160deg,#2d1a00,#7a4500)">
+              <div class="ff-photo-ph">C</div>
+            </div>
+            <div class="ff-hint fr">Survoler →</div><div class="ff-hint en">Hover →</div>
+            <div class="ff-overlay">
+              <div class="ff-name">Cécile T.</div>
+              <div class="ff-role fr">Secrétaire Générale</div>
+              <div class="ff-role en">General Secretary</div>
+            </div>
+          </div>
+          <div class="flip-back">
+            <div class="fb-name">Cécile T.</div>
+            <div class="fb-role fr">Secrétaire Générale</div>
+            <div class="fb-role en">General Secretary</div>
+            <div class="fb-bio fr">Juriste spécialisée en droit des associations et organisations internationales. Assure la conformité légale de MB en France et au Cameroun, gère les accréditations officielles et les relations institutionnelles.</div>
+            <div class="fb-bio en">Lawyer specialising in association and international organisation law. Ensures MB's legal compliance in France and Cameroon, manages official accreditations and institutional relations.</div>
+            <div class="fb-skills">
+              <span class="fb-skill fr">Droit des ONG</span><span class="fb-skill">MINATD</span><span class="fb-skill">FORIM</span>
+            </div>
+            <div class="fb-contact">
+              <button class="fb-btn fb-btn-main" onclick="window.location='mailto:courrielmondeetbonheur@gmail.com'">
+                <span class="fr">Contacter</span><span class="en">Contact</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CA 3 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="ff-photo" style="background:linear-gradient(160deg,#0d2040,#1a4a6b)">
+              <div class="ff-photo-ph">J</div>
+            </div>
+            <div class="ff-hint fr">Survoler →</div><div class="ff-hint en">Hover →</div>
+            <div class="ff-overlay">
+              <div class="ff-name">Jean-Marc D.</div>
+              <div class="ff-role fr">Administrateur · Pôle France</div>
+              <div class="ff-role en">Administrator · France Hub</div>
+            </div>
+          </div>
+          <div class="flip-back">
+            <div class="fb-name">Jean-Marc D.</div>
+            <div class="fb-role fr">Administrateur · Pôle France</div>
+            <div class="fb-role en">Administrator · France Hub</div>
+            <div class="fb-bio fr">Responsable de la coordination du pôle France (Chancelade). Gère la levée de fonds internationale, les partenariats avec le FORIM, et mobilise la diaspora camerounaise en Europe pour les projets de co-développement.</div>
+            <div class="fb-bio en">Responsible for coordinating the France hub (Chancelade). Manages international fundraising, FORIM partnerships, and mobilises the Cameroonian diaspora in Europe for co-development projects.</div>
+            <div class="fb-skills">
+              <span class="fb-skill fr">Levée de fonds</span><span class="fb-skill">Diaspora</span><span class="fb-skill fr">Co-développement</span>
+            </div>
+            <div class="fb-contact">
+              <button class="fb-btn fb-btn-main" onclick="window.location='mailto:courrielmondeetbonheur@gmail.com'">
+                <span class="fr">Contacter</span><span class="en">Contact</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CA 4 -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="ff-photo" style="background:linear-gradient(160deg,#1e0d35,#4a2080)">
+              <div class="ff-photo-ph">M</div>
+            </div>
+            <div class="ff-hint fr">Survoler →</div><div class="ff-hint en">Hover →</div>
+            <div class="ff-overlay">
+              <div class="ff-name">Marie-Louise K.</div>
+              <div class="ff-role fr">Administratrice · Communication</div>
+              <div class="ff-role en">Administrator · Communications</div>
+            </div>
+          </div>
+          <div class="flip-back">
+            <div class="fb-name">Marie-Louise K.</div>
+            <div class="fb-role fr">Administratrice · Communication</div>
+            <div class="fb-role en">Administrator · Communications</div>
+            <div class="fb-bio fr">Chargée de la stratégie de communication de MB, des relations presse (RFI, Le Monde, CRTV, Jeune Afrique) et de la visibilité sur les réseaux sociaux. Elle orchestre le plaidoyer climatique de l'ONG aux forums internationaux.</div>
+            <div class="fb-bio en">In charge of MB's communication strategy, press relations (RFI, Le Monde, CRTV, Jeune Afrique) and social media visibility. She orchestrates the NGO's climate advocacy at international forums.</div>
+            <div class="fb-skills">
+              <span class="fb-skill">Presse</span><span class="fb-skill">Plaidoyer</span><span class="fb-skill">Réseaux sociaux</span>
+            </div>
+            <div class="fb-contact">
+              <button class="fb-btn fb-btn-main" onclick="window.location='mailto:courrielmondeetbonheur@gmail.com'">
+                <span class="fr">Contacter</span><span class="en">Contact</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     COORDINATEURS TERRAIN
+══════════════════════════════════════ -->
+<section class="terrain-section">
+  <div class="terrain-inner">
+    <div class="sec-header reveal">
+      <div class="section-lbl"><span class="fr">SUR LE TERRAIN · COORDINATEURS</span><span class="en">IN THE FIELD · COORDINATORS</span></div>
+      <h2 class="sec-title fr">Ceux qui transforment les plans<br>en réalités sur le terrain.</h2>
+      <h2 class="sec-title en">Those who turn plans<br>into field realities.</h2>
+    </div>
+    <div class="flip-grid cols3 reveal">
+
+      <!-- Terrain 1 — Batchenga -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="ff-photo" style="background:linear-gradient(160deg,#1a3d22,#2d6b3a)">
+              <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=300&q=70" alt="Coordinatrice Batchenga" style="width:100%;height:100%;object-fit:cover;object-position:top" onerror="this.style.display='none'">
+            </div>
+            <div class="ff-hint fr">Survoler →</div><div class="ff-hint en">Hover →</div>
+            <div class="ff-overlay">
+              <div class="ff-name">Félicité N.</div>
+              <div class="ff-role fr">Coordinatrice · Batchenga</div>
+              <div class="ff-role en">Coordinator · Batchenga</div>
+            </div>
+          </div>
+          <div class="flip-back">
+            <div class="fb-name">Félicité N.</div>
+            <div class="fb-role fr">Coordinatrice Terrain · Batchenga</div>
+            <div class="fb-role en">Field Coordinator · Batchenga</div>
+            <div class="fb-bio fr">Présidente de la CUMA de Batchenga depuis sa création. Ancienne bénéficiaire devenue coordinatrice, elle supervise la coopérative de 23 femmes, le séchoir Flash, et les formations en gestion agricole. Elle est la preuve vivante que nos projets fonctionnent.</div>
+            <div class="fb-bio en">President of the Batchenga CUMA since its creation. Former beneficiary turned coordinator, she oversees the cooperative of 23 women, the Flash Dryer, and agricultural management training. She is living proof that our projects work.</div>
+            <div class="fb-skills"><span class="fb-skill">CUMA</span><span class="fb-skill fr">Séchoir Flash</span><span class="fb-skill fr">Agriculture</span></div>
+            <div class="fb-contact">
+              <button class="fb-btn fb-btn-main" onclick="location.href='carte.html'">
+                <span class="fr">Voir Batchenga</span><span class="en">See Batchenga</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terrain 2 — Bondjock -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="ff-photo" style="background:linear-gradient(160deg,#1e0d35,#4a2080)">
+              <div class="ff-photo-ph">R</div>
+            </div>
+            <div class="ff-hint fr">Survoler →</div><div class="ff-hint en">Hover →</div>
+            <div class="ff-overlay">
+              <div class="ff-name">Robert E.</div>
+              <div class="ff-role fr">Coordinateur · Bondjock</div>
+              <div class="ff-role en">Coordinator · Bondjock</div>
+            </div>
+          </div>
+          <div class="flip-back">
+            <div class="fb-name">Robert E.</div>
+            <div class="fb-role fr">Coordinateur Terrain · Bondjock</div>
+            <div class="fb-role en">Field Coordinator · Bondjock</div>
+            <div class="fb-bio fr">Ingénieur agronome et formateur MetaScript. Supervise l'installation du méthaniseur pilote du Lycée de Bondjock, forme les enseignants au laboratoire virtuel, et gère le calendrier des démonstrations biogaz pour les partenaires visiteurs.</div>
+            <div class="fb-bio en">Agronomic engineer and MetaScript trainer. Oversees the Bondjock High School pilot digester installation, trains teachers on the virtual lab, and manages the biogas demonstration schedule for visiting partners.</div>
+            <div class="fb-skills"><span class="fb-skill">Biogaz</span><span class="fb-skill">MetaScript</span><span class="fb-skill fr">Agro</span></div>
+            <div class="fb-contact">
+              <button class="fb-btn fb-btn-main" onclick="location.href='carte.html'">
+                <span class="fr">Voir Bondjock</span><span class="en">See Bondjock</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terrain 3 — Lomié -->
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="ff-photo" style="background:linear-gradient(160deg,#0d3320,#1a5c3a)">
+              <div class="ff-photo-ph">S</div>
+            </div>
+            <div class="ff-hint fr">Survoler →</div><div class="ff-hint en">Hover →</div>
+            <div class="ff-overlay">
+              <div class="ff-name">Samuel B.</div>
+              <div class="ff-role fr">Coordinateur · Lomié / Baka</div>
+              <div class="ff-role en">Coordinator · Lomié / Baka</div>
+            </div>
+          </div>
+          <div class="flip-back">
+            <div class="fb-name">Samuel B.</div>
+            <div class="fb-role fr">Coordinateur · Lomié / Abakoum</div>
+            <div class="fb-role en">Coordinator · Lomié / Abakoum</div>
+            <div class="fb-bio fr">Médiateur culturel entre la communauté Baka et les institutions. Parle trois dialectes locaux. Supervise l'école primaire (107 élèves), les champs communautaires de manioc, et accompagne la sédentarisation progressive des familles dans le respect total de leur culture.</div>
+            <div class="fb-bio en">Cultural mediator between the Baka community and institutions. Speaks three local dialects. Oversees the primary school (107 pupils), communal cassava fields, and supports the gradual settlement of families in full respect of their culture.</div>
+            <div class="fb-skills"><span class="fb-skill fr">Médiation culturelle</span><span class="fb-skill fr">Éducation</span><span class="fb-skill">Baka</span></div>
+            <div class="fb-contact">
+              <button class="fb-btn fb-btn-main" onclick="location.href='carte.html'">
+                <span class="fr">Voir Lomié</span><span class="en">See Lomié</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ÉQUIPE FRANCE
+══════════════════════════════════════ -->
+<section class="france-section">
+  <div class="france-inner">
+    <div class="sec-header reveal">
+      <div class="section-lbl"><span class="fr">SIÈGE FRANCE · CHANCELADE (24)</span><span class="en">FRANCE HQ · CHANCELADE (24)</span></div>
+      <h2 class="sec-title fr">L'équipe qui mobilise<br>les ressources au Nord.</h2>
+      <h2 class="sec-title en">The team that mobilises<br>resources in the North.</h2>
+    </div>
+    <div class="flip-grid cols2 reveal">
+
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="ff-photo" style="background:linear-gradient(160deg,#3d2b1f,#7a5020)">
+              <div class="ff-photo-ph">P</div>
+            </div>
+            <div class="ff-hint fr">Survoler →</div><div class="ff-hint en">Hover →</div>
+            <div class="ff-overlay">
+              <div class="ff-name">Pierre L.</div>
+              <div class="ff-role fr">Responsable Partenariats France</div>
+              <div class="ff-role en">France Partnerships Manager</div>
+            </div>
+          </div>
+          <div class="flip-back">
+            <div class="fb-name">Pierre L.</div>
+            <div class="fb-role fr">Responsable Partenariats · France</div>
+            <div class="fb-role en">Partnerships Manager · France</div>
+            <div class="fb-bio fr">Développe les partenariats avec les entreprises, banques et institutions françaises. Gère les conventions de mécénat, les Certificats Carbone, et coordonne les visites terrain pour les partenaires européens. Ancien directeur RSE d'un groupe industriel.</div>
+            <div class="fb-bio en">Develops partnerships with French companies, banks and institutions. Manages sponsorship agreements, Carbon Certificates, and coordinates field visits for European partners. Former CSR director of an industrial group.</div>
+            <div class="fb-skills"><span class="fb-skill">RSE</span><span class="fb-skill">Mécénat</span><span class="fb-skill">Carbone</span></div>
+            <div class="fb-contact">
+              <button class="fb-btn fb-btn-main" onclick="location.href='partenaires.html'">
+                <span class="fr">Voir les offres</span><span class="en">See offers</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card">
+        <div class="flip-card-inner">
+          <div class="flip-front">
+            <div class="ff-photo" style="background:linear-gradient(160deg,#1a2a00,#3a5a10)">
+              <div class="ff-photo-ph">N</div>
+            </div>
+            <div class="ff-hint fr">Survoler →</div><div class="ff-hint en">Hover →</div>
+            <div class="ff-overlay">
+              <div class="ff-name">Nadège F.</div>
+              <div class="ff-role fr">Coordinatrice Diaspora &amp; Dons</div>
+              <div class="ff-role en">Diaspora &amp; Donations Coordinator</div>
+            </div>
+          </div>
+          <div class="flip-back">
+            <div class="fb-name">Nadège F.</div>
+            <div class="fb-role fr">Coordinatrice Diaspora &amp; Dons</div>
+            <div class="fb-role en">Diaspora &amp; Donations Coordinator</div>
+            <div class="fb-bio fr">Mobilise la diaspora camerounaise en Europe (Paris, Lyon, Londres, Bruxelles). Gère les parrainages d'enfants, les dons en ligne, l'émission des reçus fiscaux et les rapports d'impact personnalisés envoyés aux donateurs. Membre de la diaspora elle-même depuis 12 ans.</div>
+            <div class="fb-bio en">Mobilises the Cameroonian diaspora in Europe (Paris, Lyon, London, Brussels). Manages child sponsorships, online donations, tax receipt issuance and personalised impact reports sent to donors. A diaspora member herself for 12 years.</div>
+            <div class="fb-skills"><span class="fb-skill">Diaspora</span><span class="fb-skill">Dons</span><span class="fb-skill fr">Parrainages</span></div>
+            <div class="fb-contact">
+              <button class="fb-btn fb-btn-main" onclick="location.href='don.html'">
+                <span class="fr">Page des dons</span><span class="en">Donations page</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PARTENAIRES TECHNIQUES & BÉNÉVOLES
+══════════════════════════════════════ -->
+<section class="partenaires-section">
+  <div class="partenaires-inner">
+    <div class="sec-header reveal">
+
+      <div class="section-lbl"><span class="fr">EXPERTISE EXTERNE · BÉNÉVOLES DE COMPÉTENCES</span><span class="en">EXTERNAL EXPERTISE · SKILLS VOLUNTEERING</span></div>
+      <h2 class="sec-title fr">Ils apportent leur expertise.<br>Nous construisons ensemble.</h2>
+      <h2 class="sec-title en">They bring their expertise.<br>We build together.</h2>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-card reveal">
+        <div class="icon-remplacement">
+           <img src="C:\Users\Windows\OneDrive\Desktop\fix.html\imageF\bathcam.jpeg" alt="Bathcam" style="margin:auto; width:300px; height: 200px; object-fit: contain;">
+        </div>
+        <div class="partner-org fr">BATHCAM HOLDIND</div>
+        <div class="partner-org en">BATHCAM HOLDIND</div>
+        <div class="partner-role fr">Expertise technique biogaz</div>
+        <div class="partner-role en">Biogas technical expertise</div>
+        <div class="partner-desc fr">Appui technique pour la conception et l'installation des digesteurs pilotes. Validation des protocoles de sécurité et de maintenance.</div>
+        <div class="partner-desc en">Technical support for the design and installation of pilot digesters. Validation of safety and maintenance protocols.</div>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-icon">💻</div>
+        <div class="partner-org fr">Développeurs Bénévoles</div>
+        <div class="partner-org en">Volunteer Developers</div>
+        <div class="partner-role fr">MetaScript &amp; numérique</div>
+        <div class="partner-role en">MetaScript &amp; digital</div>
+        <div class="partner-desc fr">Équipe de développeurs africains de la diaspora qui contribuent bénévolement au développement de MetaScript, des simulations scientifiques et de l'infrastructure numérique de l'ONG.</div>
+        <div class="partner-desc en">Team of African diaspora developers who voluntarily contribute to MetaScript development, scientific simulations and the NGO's digital infrastructure.</div>
+      </div>
+      <div class="partner-card reveal">
+        <div class="partner-icon">🌿</div>
+        <div class="partner-org fr">Agronomes Partenaires</div>
+        <div class="partner-org en">Partner Agronomists</div>
+        <div class="partner-role fr">Formations agricoles terrain</div>
+        <div class="partner-role en">Field agricultural training</div>
+        <div class="partner-desc fr">Agronomes certifiés qui animent les formations en gestion agricole pour les coopératives CUMA, et valident les résultats des digestats sur les cultures pilotes de Batchenga et Bondjock.</div>
+        <div class="partner-desc en">Certified agronomists who run agricultural management training for CUMA cooperatives, and validate digestate results on pilot crops in Batchenga and Bondjock.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CTA -->
+<section class="cta-section">
+  <h2 class="fr">Rejoignez l'équipe qui construit<br>l'Afrique de demain.</h2>
+  <h2 class="en">Join the team building<br>tomorrow's Africa.</h2>
+  <p class="fr">Bénévolat de compétences, stage, mission terrain ou partenariat — il y a une place pour chaque talent engagé.</p>
+  <p class="en">Skills volunteering, internship, field mission or partnership — there's a place for every committed talent.</p>
+  <div class="cta-btns">
+    <button class="btn-w" onclick="window.location='mailto:courrielmondeetbonheur@gmail.com?subject=Candidature Bénévolat MB'">
+      ✉️ <span class="fr">Nous écrire</span><span class="en">Write to us</span>
+    </button>
+    <button class="btn-o" onclick="location.href='partenaires.html'">
+      🤝 <span class="fr">Voir les partenariats</span><span class="en">See partnerships</span>
+    </button>
+  </div>
+</section>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+/* Langue */
+function setLang(l){
+  document.documentElement.setAttribute('data-lang',l);
+}
+
+/* FAQ */
+function toggleFaq(btn){
+  const item=btn.closest('.faq-item');
+  const open=item.classList.contains('open');
+  document.querySelectorAll('.faq-item.open').forEach(i=>i.classList.remove('open'));
+  if(!open)item.classList.add('open');
+}
+
+/* Touch support flip cards mobile */
+document.querySelectorAll('.flip-card').forEach(card=>{
+  card.addEventListener('click',()=>{
+    if(window.innerWidth<=768) card.classList.toggle('flipped');
+  });
+});
+
+
+
+/* Reveal */
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('visible'),i*80);obs.unobserve(e.target);}
+  });
+},{threshold:.07});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+<script src="mb-nav.js"></script>
+<script src="mb-faq.js"></script>
+<script src="mb-carrousel-images.js"></script>
+</body>
+</html>

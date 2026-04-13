@@ -1,0 +1,1895 @@
+<!DOCTYPE html>
+<html lang="fr" data-lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Projets ONG Monde et Bonheur — Green-Tech, Agriculture, Éducation, Santé. Documents téléchargeables.">
+<title>Nos Projets — ONG Monde et Bonheur</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ════════════════════════════════════════════════════
+   VARIABLES & RESET
+════════════════════════════════════════════════════ */
+:root{
+  --v:#1a5c3a; --vc:#2d8a58; --vp:#e8f5ee; --vd:#0d3320;
+  --o:#c8860a; --oc:#f5a623; --op:#fdf3e3;
+  --br:#3d2b1f; --wh:#fdfcf8; --gr:#f0ede6;
+  --tx:#1a1a18; --td:#4a4a44; --tp:#8a8a82;
+  --rouge:#c0392b; --bleu:#1a4a7a; --bp:#e8f0f8;
+  --violet:#5a2d82; --viol-p:#f0e8ff;
+  --r:14px; --r-lg:20px;
+  --sh:0 4px 24px rgba(0,0,0,.08);
+  --sh-lg:0 20px 60px rgba(0,0,0,.14);
+  --sh-xl:0 40px 100px rgba(0,0,0,.18);
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;}
+body{font-family:'DM Sans',sans-serif;background:var(--tx);color:var(--wh);overflow-x:hidden;}
+a{text-decoration:none;color:inherit;}
+button{cursor:pointer;font-family:'DM Sans',sans-serif;border:none;}
+img{display:block;max-width:100%;}
+[data-lang="fr"] .en{display:none!important;}
+[data-lang="en"] .fr{display:none!important;}
+
+/* ════════════════════════════════════════════════════
+   CURSEUR PERSONNALISÉ
+════════════════════════════════════════════════════ */
+.cursor{
+  position:fixed;width:12px;height:12px;border-radius:50%;
+  background:var(--oc);pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);transition:transform .1s;
+  mix-blend-mode:difference;
+}
+.cursor-ring{
+  position:fixed;width:36px;height:36px;border-radius:50%;
+  border:1.5px solid rgba(245,166,35,.5);pointer-events:none;z-index:9998;
+  transform:translate(-50%,-50%);transition:transform .25s ease,width .25s,height .25s;
+}
+.cursor-ring.hover{width:60px;height:60px;border-color:var(--oc);}
+
+/* ════════════════════════════════════════════════════
+   TOPBAR MINIMALISTE (pas de header complet)
+════════════════════════════════════════════════════ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;z-index:500;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:.8rem 3rem;background:rgba(26,26,24,.85);
+  backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.tb-logo{
+  display:flex;align-items:center;gap:.7rem;
+  font-family:'Playfair Display',serif;
+}
+.tb-disk{
+  width:36px;height:36px;border-radius:9px;
+  background:linear-gradient(135deg,var(--v),var(--vc));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:12px;color:#fff;letter-spacing:-.5px;
+  font-family:'Space Mono',monospace;
+}
+.tb-name{font-size:14px;font-weight:700;color:#fff;}
+.tb-sub{font-size:10px;color:rgba(255,255,255,.45);font-family:'Space Mono',monospace;}
+.tb-right{display:flex;align-items:center;gap:1rem;}
+.tb-back{
+  display:flex;align-items:center;gap:.5rem;
+  font-size:12px;color:rgba(255,255,255,.55);
+  padding:6px 14px;border-radius:20px;
+  border:1px solid rgba(255,255,255,.12);
+  transition:all .2s;
+}
+.tb-back:hover{color:#fff;border-color:rgba(255,255,255,.3);}
+.lang-tog{
+  display:flex;background:rgba(255,255,255,.07);
+  border-radius:20px;padding:2px;
+  border:1px solid rgba(255,255,255,.1);
+}
+.lng{
+  padding:4px 10px;border-radius:16px;border:none;
+  background:none;font-size:10px;font-weight:700;
+  cursor:pointer;color:rgba(255,255,255,.4);
+  font-family:'Space Mono',monospace;transition:all .2s;
+}
+.lng.on{background:var(--v);color:#fff;}
+
+/* ════════════════════════════════════════════════════
+   HERO — CINÉMATIQUE
+════════════════════════════════════════════════════ */
+.hero{
+  min-height:100vh;display:flex;align-items:center;
+  position:relative;overflow:hidden;
+  background:#080e08;
+  padding:120px 3rem 80px;
+}
+
+/* Grille de fond animée */
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(45,138,88,.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45,138,88,.06) 1px, transparent 1px);
+  background-size:60px 60px;
+  animation:gridMove 25s linear infinite;
+}
+@keyframes gridMove{
+  0%{transform:translate(0,0);}
+  100%{transform:translate(60px,60px);}
+}
+
+/* Orbes de lumière */
+.orb{
+  position:absolute;border-radius:50%;filter:blur(80px);
+  pointer-events:none;animation:orbFloat 8s ease-in-out infinite;
+}
+.orb1{width:500px;height:500px;background:rgba(45,138,88,.12);top:-10%;left:-5%;animation-delay:0s;}
+.orb2{width:400px;height:400px;background:rgba(200,134,10,.08);bottom:10%;right:-5%;animation-delay:-3s;}
+.orb3{width:300px;height:300px;background:rgba(26,92,58,.15);top:40%;left:40%;animation-delay:-6s;}
+@keyframes orbFloat{
+  0%,100%{transform:translate(0,0) scale(1);}
+  33%{transform:translate(30px,-20px) scale(1.05);}
+  66%{transform:translate(-20px,30px) scale(.95);}
+}
+
+.hero-content{
+  position:relative;z-index:2;max-width:1200px;
+  margin:0 auto;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:4rem;align-items:center;
+}
+.hero-left{}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:.18em;text-transform:uppercase;
+  color:var(--oc);border:1px solid rgba(245,166,35,.25);
+  background:rgba(245,166,35,.07);padding:5px 14px;
+  border-radius:20px;margin-bottom:1.5rem;
+  animation:fadeUp .8s ease .2s both;
+}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.6rem,4.5vw,4.5rem);
+  font-weight:900;line-height:1.05;
+  color:#fff;margin-bottom:1.2rem;
+  animation:fadeUp .8s ease .35s both;
+}
+.hero-title em{font-style:italic;color:var(--oc);}
+.hero-title .line2{color:var(--vc);}
+.hero-lead{
+  font-size:clamp(.95rem,1.4vw,1.1rem);
+  color:rgba(255,255,255,.6);line-height:1.85;
+  font-weight:300;margin-bottom:2rem;
+  max-width:480px;
+  animation:fadeUp .8s ease .5s both;
+}
+.hero-stats{
+  display:flex;gap:2rem;flex-wrap:wrap;
+  animation:fadeUp .8s ease .65s both;
+}
+.hs-item{text-align:center;}
+.hs-num{
+  font-family:'Playfair Display',serif;font-size:2rem;
+  font-weight:900;color:var(--oc);display:block;line-height:1;
+}
+.hs-lbl{font-size:11px;color:rgba(255,255,255,.4);margin-top:4px;font-family:'Space Mono',monospace;}
+
+/* Carte hero droite */
+.hero-right{
+  animation:fadeUp .8s ease .45s both;
+}
+.hero-visual{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:24px;padding:2rem;
+  backdrop-filter:blur(12px);
+}
+.hv-label{
+  font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:.12em;color:rgba(255,255,255,.3);
+  text-transform:uppercase;margin-bottom:1rem;
+}
+.hv-sectors{display:flex;flex-direction:column;gap:.75rem;}
+.hv-sector{
+  display:flex;align-items:center;gap:.9rem;
+  padding:.75rem 1rem;border-radius:12px;
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.06);
+  transition:all .3s;cursor:pointer;
+}
+.hv-sector:hover{background:rgba(45,138,88,.1);border-color:rgba(45,138,88,.2);}
+.hv-ico{font-size:1.3rem;flex-shrink:0;}
+.hv-info{flex:1;}
+.hv-name{font-size:13px;font-weight:600;color:#fff;}
+.hv-count{font-size:11px;color:rgba(255,255,255,.35);margin-top:2px;}
+.hv-bar{width:50px;height:4px;border-radius:2px;background:rgba(255,255,255,.1);overflow:hidden;}
+.hv-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--vc),var(--oc));}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(28px);}
+  to{opacity:1;transform:translateY(0);}
+}
+
+/* Scroll indicator */
+.scroll-hint{
+  position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:.4rem;
+  color:rgba(255,255,255,.3);font-size:10px;font-family:'Space Mono',monospace;
+  letter-spacing:.1em;animation:bounce 2s ease infinite;
+}
+.scroll-hint::before{
+  content:'';width:1px;height:40px;
+  background:linear-gradient(transparent,rgba(255,255,255,.3));
+}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0);}50%{transform:translateX(-50%) translateY(6px);}}
+
+/* ════════════════════════════════════════════════════
+   FILTRES DE SECTEURS
+════════════════════════════════════════════════════ */
+.filters-zone{
+  background:#0d1410;
+  padding:3rem 3rem 2rem;
+  border-bottom:1px solid rgba(255,255,255,.05);
+  position:sticky;top:0;z-index:100;
+}
+.filters-inner{max-width:1200px;margin:0 auto;}
+.filters-label{
+  font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:.15em;color:rgba(255,255,255,.3);
+  text-transform:uppercase;margin-bottom:.8rem;
+}
+.filters-row{
+  display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;
+  justify-content:space-between;
+}
+.filters-pills{display:flex;gap:.5rem;flex-wrap:wrap;}
+.pill{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:7px 16px;border-radius:30px;font-size:12px;font-weight:600;
+  border:1px solid rgba(255,255,255,.1);background:rgba(255,255,255,.04);
+  color:rgba(255,255,255,.5);transition:all .22s;cursor:pointer;
+}
+.pill:hover{color:#fff;border-color:rgba(255,255,255,.25);}
+.pill.active{background:var(--v);color:#fff;border-color:var(--vc);}
+.pill-count{
+  background:rgba(255,255,255,.15);color:inherit;
+  font-family:'Space Mono',monospace;font-size:9px;
+  padding:1px 6px;border-radius:10px;
+}
+.filters-search{
+  display:flex;align-items:center;gap:.6rem;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;padding:7px 14px;
+}
+.filters-search input{
+  background:none;border:none;outline:none;
+  color:#fff;font-size:13px;font-family:'DM Sans',sans-serif;
+  width:180px;
+}
+.filters-search input::placeholder{color:rgba(255,255,255,.25);}
+.fs-icon{color:rgba(255,255,255,.3);font-size:14px;}
+
+/* ════════════════════════════════════════════════════
+   GRILLE DE PROJETS
+════════════════════════════════════════════════════ */
+.projects-zone{
+  background:var(--tx);
+  padding:4rem 3rem;
+  min-height:60vh;
+}
+.projects-inner{max-width:1200px;margin:0 auto;}
+
+.sector-block{margin-bottom:4rem;}
+.sector-block[data-hidden="true"]{display:none;}
+
+.sector-head{
+  display:flex;align-items:center;gap:1rem;
+  margin-bottom:1.5rem;padding-bottom:1rem;
+  border-bottom:1px solid rgba(255,255,255,.07);
+}
+.sh-ico{
+  width:44px;height:44px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.3rem;flex-shrink:0;
+}
+.sh-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;font-weight:700;color:#fff;
+}
+.sh-sub{font-size:12px;color:rgba(255,255,255,.35);margin-top:.2rem;}
+.sh-count{
+  margin-left:auto;font-family:'Space Mono',monospace;
+  font-size:11px;color:rgba(255,255,255,.3);
+  background:rgba(255,255,255,.05);
+  padding:4px 10px;border-radius:8px;
+}
+
+/* Grille projets */
+.proj-grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+  gap:1.2rem;
+}
+
+/* Carte projet */
+.proj-card{
+  background:rgba(255,255,255,.03);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:var(--r-lg);overflow:hidden;
+  transition:transform .28s ease,box-shadow .28s ease,border-color .28s;
+  display:flex;flex-direction:column;
+  position:relative;cursor:pointer;
+}
+.proj-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 30px 80px rgba(0,0,0,.35);
+  border-color:rgba(255,255,255,.14);
+}
+.proj-card.featured{
+  grid-column:1/-1;
+  display:grid;grid-template-columns:1fr 1fr;
+}
+@media(max-width:700px){.proj-card.featured{grid-template-columns:1fr;}}
+
+/* Bande couleur en haut de carte */
+.pc-accent{height:4px;width:100%;flex-shrink:0;}
+.proj-card.featured .pc-accent{display:none;}
+
+/* Image */
+.pc-img{
+  width:100%;height:200px;object-fit:cover;
+  background:rgba(255,255,255,.04);flex-shrink:0;
+}
+.proj-card.featured .pc-img{height:100%;min-height:280px;}
+
+/* Contenu */
+.pc-body{
+  padding:1.4rem;flex:1;display:flex;flex-direction:column;
+}
+.proj-card.featured .pc-body{padding:2rem;}
+
+.pc-tags{display:flex;gap:.4rem;flex-wrap:wrap;margin-bottom:.8rem;}
+.pc-tag{
+  font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:.06em;padding:3px 8px;border-radius:6px;
+  font-weight:700;text-transform:uppercase;
+}
+.pc-status{
+  position:absolute;top:1rem;right:1rem;
+  font-family:'Space Mono',monospace;font-size:9px;
+  padding:3px 8px;border-radius:6px;font-weight:700;
+  text-transform:uppercase;
+}
+.st-encours{background:rgba(245,166,35,.15);color:var(--oc);}
+.st-termine{background:rgba(74,222,128,.12);color:#4ade80;}
+.st-prevu{background:rgba(96,165,250,.12);color:#60a5fa;}
+
+.pc-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem;font-weight:700;color:#fff;
+  margin-bottom:.5rem;line-height:1.3;
+}
+.proj-card.featured .pc-title{font-size:1.6rem;}
+
+.pc-desc{
+  font-size:13px;color:rgba(255,255,255,.5);
+  line-height:1.7;flex:1;margin-bottom:1rem;
+}
+
+.pc-meta{
+  display:flex;gap:1rem;flex-wrap:wrap;
+  font-family:'Space Mono',monospace;font-size:10px;
+  color:rgba(255,255,255,.3);margin-bottom:1rem;
+  padding-top:.8rem;border-top:1px solid rgba(255,255,255,.06);
+}
+.pm-item{display:flex;align-items:center;gap:.3rem;}
+
+/* Documents téléchargeables */
+.pc-docs{
+  display:flex;flex-direction:column;gap:.4rem;
+  margin-bottom:1rem;
+}
+.doc-item{
+  display:flex;align-items:center;gap:.6rem;
+  padding:.5rem .75rem;border-radius:8px;
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  font-size:12px;transition:all .2s;
+  text-decoration:none;color:rgba(255,255,255,.6);
+}
+.doc-item:hover{
+  background:rgba(45,138,88,.1);
+  border-color:rgba(45,138,88,.2);
+  color:#fff;
+}
+.doc-icon{font-size:1rem;flex-shrink:0;}
+.doc-name{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.doc-size{font-family:'Space Mono',monospace;font-size:9px;color:rgba(255,255,255,.3);flex-shrink:0;}
+.doc-dl{
+  font-size:11px;color:var(--vc);flex-shrink:0;
+  display:flex;align-items:center;gap:.2rem;
+}
+
+/* Actions de carte */
+.pc-actions{display:flex;gap:.5rem;flex-wrap:wrap;}
+.btn-card{
+  display:inline-flex;align-items:center;gap:.4rem;
+  padding:8px 14px;border-radius:8px;font-size:12px;font-weight:600;
+  transition:all .2s;cursor:pointer;
+}
+.btn-primary{background:var(--v);color:#fff;}
+.btn-primary:hover{background:var(--vc);}
+.btn-ghost{
+  background:rgba(255,255,255,.05);color:rgba(255,255,255,.6);
+  border:1px solid rgba(255,255,255,.1);
+}
+.btn-ghost:hover{background:rgba(255,255,255,.1);color:#fff;}
+.btn-share{
+  background:rgba(245,166,35,.1);color:var(--oc);
+  border:1px solid rgba(245,166,35,.2);
+  position:relative;
+}
+.btn-share:hover{background:rgba(245,166,35,.2);}
+
+/* Menu partage */
+.share-menu{
+  position:absolute;bottom:calc(100% + 8px);right:0;
+  background:#1a2b1e;border:1px solid rgba(255,255,255,.12);
+  border-radius:12px;padding:.5rem;min-width:180px;
+  box-shadow:0 20px 60px rgba(0,0,0,.4);
+  display:none;z-index:200;
+}
+.share-menu.open{display:block;animation:fadeUp .18s ease both;}
+.sm-item{
+  display:flex;align-items:center;gap:.6rem;
+  padding:.55rem .8rem;border-radius:8px;
+  font-size:12.5px;color:rgba(255,255,255,.75);
+  cursor:pointer;transition:background .15s;white-space:nowrap;
+}
+.sm-item:hover{background:rgba(255,255,255,.07);color:#fff;}
+.sm-ico{width:20px;text-align:center;}
+
+/* ════════════════════════════════════════════════════
+   MODAL PROJET (vue détaillée)
+════════════════════════════════════════════════════ */
+.modal-ov{
+  position:fixed;inset:0;background:rgba(0,0,0,.85);
+  z-index:1000;display:flex;align-items:center;justify-content:center;
+  opacity:0;pointer-events:none;transition:opacity .25s;
+  padding:1.5rem;
+  backdrop-filter:blur(8px);
+}
+.modal-ov.open{opacity:1;pointer-events:all;}
+.modal{
+  background:#111c14;border:1px solid rgba(255,255,255,.1);
+  border-radius:24px;width:100%;max-width:820px;
+  max-height:90vh;overflow-y:auto;
+  transform:translateY(30px) scale(.97);transition:transform .28s ease;
+}
+.modal-ov.open .modal{transform:translateY(0) scale(1);}
+.modal-head{
+  display:flex;align-items:flex-start;justify-content:space-between;
+  padding:1.5rem 1.8rem;border-bottom:1px solid rgba(255,255,255,.07);
+  gap:1rem;
+}
+.mh-left{flex:1;}
+.mh-tags{display:flex;gap:.4rem;margin-bottom:.6rem;flex-wrap:wrap;}
+.mh-title{
+  font-family:'Playfair Display',serif;
+  font-size:1.5rem;font-weight:700;color:#fff;line-height:1.25;
+}
+.mh-close{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  color:rgba(255,255,255,.5);width:36px;height:36px;border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;transition:all .18s;flex-shrink:0;
+}
+.mh-close:hover{background:rgba(255,0,0,.15);color:#f87171;}
+.modal-body{padding:1.5rem 1.8rem;display:flex;flex-direction:column;gap:1.2rem;}
+
+/* Galerie media */
+.media-grid{
+  display:grid;grid-template-columns:2fr 1fr 1fr;
+  gap:.6rem;border-radius:14px;overflow:hidden;height:240px;
+}
+.mg-main{grid-row:1/3;position:relative;}
+.mg-main img,.mg-item img{
+  width:100%;height:100%;object-fit:cover;
+  background:rgba(255,255,255,.06);
+}
+.mg-item{position:relative;}
+.mg-play{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,.4);font-size:2rem;
+  transition:background .2s;cursor:pointer;
+}
+.mg-play:hover{background:rgba(0,0,0,.6);}
+
+/* Détails modal */
+.m-section{background:rgba(255,255,255,.03);border-radius:12px;padding:1.1rem;}
+.ms-title{
+  font-family:'Space Mono',monospace;font-size:9px;
+  letter-spacing:.12em;color:rgba(255,255,255,.3);
+  text-transform:uppercase;margin-bottom:.8rem;
+}
+.ms-grid{display:grid;grid-template-columns:1fr 1fr;gap:.5rem;}
+.ms-item{display:flex;flex-direction:column;gap:.2rem;}
+.ms-label{font-size:11px;color:rgba(255,255,255,.3);}
+.ms-value{font-size:13.5px;font-weight:600;color:#fff;}
+
+/* Progress dans modal */
+.prog-wrap{background:rgba(255,255,255,.06);border-radius:4px;height:8px;overflow:hidden;margin-top:.4rem;}
+.prog-fill{height:100%;border-radius:4px;background:linear-gradient(90deg,var(--vc),var(--oc));transition:width 1.2s ease;}
+
+/* Documents modal */
+.docs-list{display:flex;flex-direction:column;gap:.45rem;}
+
+/* CTA modal */
+.modal-cta{
+  padding:1.2rem 1.8rem;border-top:1px solid rgba(255,255,255,.07);
+  display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;
+}
+.btn-modal-p{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:linear-gradient(135deg,var(--v),var(--vc));
+  color:#fff;padding:11px 22px;border-radius:10px;
+  font-size:13px;font-weight:700;transition:all .2s;
+  box-shadow:0 8px 24px rgba(26,92,58,.4);
+}
+.btn-modal-p:hover{transform:translateY(-2px);box-shadow:0 14px 36px rgba(26,92,58,.5);}
+.btn-modal-s{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+  color:rgba(255,255,255,.7);padding:11px 22px;border-radius:10px;
+  font-size:13px;font-weight:600;transition:all .2s;
+}
+.btn-modal-s:hover{background:rgba(255,255,255,.1);color:#fff;}
+
+/* ════════════════════════════════════════════════════
+   SECTION CTA FINAL — ULTRA PUISSANT
+════════════════════════════════════════════════════ */
+.cta-final{
+  position:relative;overflow:hidden;
+  background:linear-gradient(160deg,#050e07 0%,#0d2a14 40%,#1a3d1a 70%,#0a1a08 100%);
+  padding:8rem 3rem;text-align:center;
+}
+.cta-final::before{
+  content:'';position:absolute;inset:0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(45,138,88,.2), transparent),
+    radial-gradient(ellipse 40% 40% at 20% 20%, rgba(245,166,35,.06), transparent);
+}
+/* Particules animées */
+.particles{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
+.p-dot{
+  position:absolute;width:2px;height:2px;border-radius:50%;
+  background:var(--oc);opacity:0;
+  animation:particle 6s ease-in-out infinite;
+}
+@keyframes particle{
+  0%{opacity:0;transform:translateY(0);}
+  20%{opacity:.8;}
+  80%{opacity:.3;}
+  100%{opacity:0;transform:translateY(-120px);}
+}
+
+.cta-content{position:relative;z-index:2;max-width:800px;margin:0 auto;}
+.cta-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:'Space Mono',monospace;font-size:9px;letter-spacing:.15em;
+  color:var(--oc);border:1px solid rgba(245,166,35,.25);
+  background:rgba(245,166,35,.07);padding:5px 14px;
+  border-radius:20px;margin-bottom:1.5rem;
+}
+.cta-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.2rem,4vw,4rem);
+  font-weight:900;color:#fff;line-height:1.08;
+  margin-bottom:1rem;
+}
+.cta-title em{font-style:italic;color:var(--oc);}
+.cta-lead{
+  font-size:1.05rem;color:rgba(255,255,255,.6);
+  line-height:1.8;max-width:540px;margin:0 auto 2.5rem;font-weight:300;
+}
+.cta-buttons{
+  display:flex;justify-content:center;gap:1rem;flex-wrap:wrap;
+  margin-bottom:3rem;
+}
+.btn-cta-main{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:linear-gradient(135deg,var(--v),var(--vc));
+  color:#fff;padding:16px 32px;border-radius:12px;
+  font-size:15px;font-weight:700;
+  box-shadow:0 20px 60px rgba(26,92,58,.5);
+  transition:all .3s;position:relative;overflow:hidden;
+}
+.btn-cta-main::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.15),transparent);
+  opacity:0;transition:opacity .2s;
+}
+.btn-cta-main:hover{transform:translateY(-3px);box-shadow:0 28px 80px rgba(26,92,58,.6);}
+.btn-cta-main:hover::after{opacity:1;}
+.btn-cta-sec{
+  display:inline-flex;align-items:center;gap:.6rem;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);
+  color:#fff;padding:16px 32px;border-radius:12px;font-size:15px;font-weight:600;
+  transition:all .3s;
+}
+.btn-cta-sec:hover{background:rgba(255,255,255,.12);transform:translateY(-2px);}
+
+/* Compteurs */
+.cta-counters{
+  display:flex;justify-content:center;gap:3rem;
+  flex-wrap:wrap;
+  padding-top:2.5rem;
+  border-top:1px solid rgba(255,255,255,.07);
+}
+.cc-item{text-align:center;}
+.cc-num{
+  font-family:'Playfair Display',serif;
+  font-size:2.5rem;font-weight:900;
+  color:var(--oc);display:block;line-height:1;
+}
+.cc-lbl{font-size:11px;color:rgba(255,255,255,.35);margin-top:.3rem;font-family:'Space Mono',monospace;}
+
+/* ════════════════════════════════════════════════════
+   ÉTAT VIDE
+════════════════════════════════════════════════════ */
+.empty-state{
+  text-align:center;padding:5rem 2rem;
+  display:none;
+}
+.empty-state.show{display:block;}
+.es-icon{font-size:3rem;margin-bottom:1rem;opacity:.4;}
+.es-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:rgba(255,255,255,.4);margin-bottom:.5rem;}
+.es-sub{font-size:13px;color:rgba(255,255,255,.25);}
+
+/* ════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════ */
+@media(max-width:1024px){
+  .hero-content{grid-template-columns:1fr;gap:2.5rem;}
+  .hero-right{display:none;}
+}
+@media(max-width:768px){
+  .hero{padding:100px 1.5rem 60px;}
+  .topbar{padding:.7rem 1.2rem;}
+  .filters-zone{padding:1.5rem 1.2rem 1rem;}
+  .filters-row{flex-direction:column;align-items:flex-start;gap:.8rem;}
+  .filters-search input{width:140px;}
+  .projects-zone{padding:2.5rem 1.2rem;}
+  .proj-grid{grid-template-columns:1fr;}
+  .proj-card.featured{grid-column:auto;grid-template-columns:1fr;}
+  .media-grid{grid-template-columns:1fr;height:auto;}
+  .mg-main,.mg-item{height:160px;}
+  .ms-grid{grid-template-columns:1fr;}
+  .cta-final{padding:5rem 1.5rem;}
+  .cta-counters{gap:1.5rem;}
+  .modal-body{padding:1.2rem;}
+  .modal-head{padding:1.2rem;}
+  .modal-cta{flex-direction:column;}
+  .btn-modal-p,.btn-modal-s{justify-content:center;}
+  .hero-stats{gap:1.2rem;}
+}
+@media(max-width:480px){
+  .hero-title{font-size:2.2rem;}
+  .tb-sub{display:none;}
+  .tb-back span{display:none;}
+  .filters-search{display:none;}
+}
+</style>
+</head>
+<body>
+
+<!-- Curseur personnalisé -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- ════════════════════════════════════════════════════
+     TOPBAR MINIMALISTE
+════════════════════════════════════════════════════ -->
+<div class="topbar">
+  <a href="index.html" class="tb-logo">
+    <div class="tb-disk">MB</div>
+    <div>
+      <div class="tb-name">Monde et Bonheur</div>
+      <div class="tb-sub">ONG · Cameroun & France</div>
+    </div>
+  </a>
+  <div class="tb-right">
+    <a href="index.html" class="tb-back">
+      ← <span class="fr">Retour au site</span><span class="en">Back to site</span>
+    </a>
+    <div class="lang-tog">
+      <button class="lng on" onclick="setLang('fr')">FR</button>
+      <button class="lng" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════════════ -->
+<section class="hero" id="top">
+  <div class="hero-grid"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <div class="hero-content">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        🌍 <span class="fr">PROJETS & RÉALISATIONS · 2005–2026</span>
+        <span class="en">PROJECTS & ACHIEVEMENTS · 2005–2026</span>
+      </div>
+      <h1 class="hero-title">
+        <span class="fr">Chaque projet<br>est une <em>vie</em><br><span class="line2">transformée.</span></span>
+        <span class="en">Every project<br>is one <em>life</em><br><span class="line2">transformed.</span></span>
+      </h1>
+      <p class="hero-lead fr">
+        Depuis 2005, Monde et Bonheur déploie des projets concrets dans 5 secteurs stratégiques. Chaque initiative est documentée, évaluée et partagée pour inspirer d'autres acteurs du changement en Afrique.
+      </p>
+      <p class="hero-lead en">
+        Since 2005, Monde et Bonheur deploys concrete projects across 5 strategic sectors. Every initiative is documented, evaluated and shared to inspire other change-makers across Africa.
+      </p>
+      <div class="hero-stats">
+        <div class="hs-item">
+          <span class="hs-num" id="cnt-projets">24</span>
+          <div class="hs-lbl fr">Projets</div>
+          <div class="hs-lbl en">Projects</div>
+        </div>
+        <div class="hs-item">
+          <span class="hs-num">5</span>
+          <div class="hs-lbl fr">Secteurs</div>
+          <div class="hs-lbl en">Sectors</div>
+        </div>
+        <div class="hs-item">
+          <span class="hs-num">10K+</span>
+          <div class="hs-lbl fr">Vies impactées</div>
+          <div class="hs-lbl en">Lives impacted</div>
+        </div>
+        <div class="hs-item">
+          <span class="hs-num">3</span>
+          <div class="hs-lbl fr">Pays</div>
+          <div class="hs-lbl en">Countries</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-visual">
+        <div class="hv-label fr">RÉPARTITION PAR SECTEUR</div>
+        <div class="hv-label en">BREAKDOWN BY SECTOR</div>
+        <div class="hv-sectors">
+          <div class="hv-sector" onclick="filterSector('green-tech')">
+            <div class="hv-ico">⚡</div>
+            <div class="hv-info">
+              <div class="hv-name">Green-Tech & Énergie</div>
+              <div class="hv-count fr">8 projets actifs</div>
+              <div class="hv-count en">8 active projects</div>
+            </div>
+            <div class="hv-bar"><div class="hv-fill" style="width:90%"></div></div>
+          </div>
+          <div class="hv-sector" onclick="filterSector('agriculture')">
+            <div class="hv-ico">🌾</div>
+            <div class="hv-info">
+              <div class="hv-name">Agriculture & Alimentation</div>
+              <div class="hv-count fr">6 projets actifs</div>
+              <div class="hv-count en">6 active projects</div>
+            </div>
+            <div class="hv-bar"><div class="hv-fill" style="width:65%"></div></div>
+          </div>
+          <div class="hv-sector" onclick="filterSector('education')">
+            <div class="hv-ico">📚</div>
+            <div class="hv-info">
+              <div class="hv-name">Éducation & Formation</div>
+              <div class="hv-count fr">5 projets actifs</div>
+              <div class="hv-count en">5 active projects</div>
+            </div>
+            <div class="hv-bar"><div class="hv-fill" style="width:55%"></div></div>
+          </div>
+          <div class="hv-sector" onclick="filterSector('sante')">
+            <div class="hv-ico">🏥</div>
+            <div class="hv-info">
+              <div class="hv-name">Santé & Eau</div>
+              <div class="hv-count fr">3 projets actifs</div>
+              <div class="hv-count en">3 active projects</div>
+            </div>
+            <div class="hv-bar"><div class="hv-fill" style="width:35%"></div></div>
+          </div>
+          <div class="hv-sector" onclick="filterSector('leadership')">
+            <div class="hv-ico">👩</div>
+            <div class="hv-info">
+              <div class="hv-name">Leadership Féminin</div>
+              <div class="hv-count fr">2 projets actifs</div>
+              <div class="hv-count en">2 active projects</div>
+            </div>
+            <div class="hv-bar"><div class="hv-fill" style="width:22%"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="scroll-hint">SCROLL</div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     FILTRES
+════════════════════════════════════════════════════ -->
+<div class="filters-zone">
+  <div class="filters-inner">
+    <div class="filters-label fr">FILTRER PAR SECTEUR</div>
+    <div class="filters-label en">FILTER BY SECTOR</div>
+    <div class="filters-row">
+      <div class="filters-pills">
+        <button class="pill active" data-filter="all" onclick="filterSector('all',this)">
+          <span class="fr">Tous les projets</span><span class="en">All projects</span>
+          <span class="pill-count">24</span>
+        </button>
+        <button class="pill" data-filter="green-tech" onclick="filterSector('green-tech',this)">
+          ⚡ Green-Tech <span class="pill-count">8</span>
+        </button>
+        <button class="pill" data-filter="agriculture" onclick="filterSector('agriculture',this)">
+          🌾 <span class="fr">Agriculture</span><span class="en">Farming</span> <span class="pill-count">6</span>
+        </button>
+        <button class="pill" data-filter="education" onclick="filterSector('education',this)">
+          📚 <span class="fr">Éducation</span><span class="en">Education</span> <span class="pill-count">5</span>
+        </button>
+        <button class="pill" data-filter="sante" onclick="filterSector('sante',this)">
+          🏥 <span class="fr">Santé</span><span class="en">Health</span> <span class="pill-count">3</span>
+        </button>
+        <button class="pill" data-filter="leadership" onclick="filterSector('leadership',this)">
+          👩 <span class="fr">Leadership</span><span class="en">Leadership</span> <span class="pill-count">2</span>
+        </button>
+      </div>
+      <div class="filters-search">
+        <span class="fs-icon">🔍</span>
+        <input type="text" id="search-input" placeholder="Rechercher / Search…" oninput="searchProjects(this.value)">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     PROJETS PAR SECTEUR
+════════════════════════════════════════════════════ -->
+<div class="projects-zone">
+  <div class="projects-inner">
+
+    <!-- État vide -->
+    <div class="empty-state" id="empty-state">
+      <div class="es-icon">🔎</div>
+      <div class="es-title fr">Aucun projet trouvé</div>
+      <div class="es-title en">No project found</div>
+      <div class="es-sub fr">Essayez un autre filtre ou terme de recherche.</div>
+      <div class="es-sub en">Try another filter or search term.</div>
+    </div>
+
+    <!-- ── SECTEUR : GREEN-TECH ── -->
+    <div class="sector-block" data-sector="green-tech" id="block-green-tech">
+      <div class="sector-head">
+        <div class="sh-ico" style="background:rgba(245,166,35,.1)">⚡</div>
+        <div>
+          <div class="sh-title fr">Green-Tech & Énergie Propre</div>
+          <div class="sh-title en">Green-Tech & Clean Energy</div>
+          <div class="sh-sub fr">Cuisinières écologiques · Biogaz · Séchoir Flash · Solaire</div>
+          <div class="sh-sub en">Eco-cookers · Biogas · Flash Dryer · Solar</div>
+        </div>
+        <div class="sh-count">8 <span class="fr">projets</span><span class="en">projects</span></div>
+      </div>
+      <div class="proj-grid" id="grid-green-tech">
+
+        <!-- Carte FEATURED : Cuisinière 1 Bois / 3 Foyers -->
+        <div class="proj-card featured" data-id="p1" onclick="openModal('p1')">
+          <img class="pc-img" src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=700&q=75" alt="Cuisinière écologique MB" loading="lazy" onerror="this.style.background='rgba(255,255,255,.06)'">
+          <div>
+            <div class="pc-accent" style="background:linear-gradient(90deg,#f5a623,#c8860a)"></div>
+            <div class="pc-body">
+              <div class="pc-tags">
+                <span class="pc-tag" style="background:rgba(245,166,35,.15);color:#f5a623">⭐ PHARE</span>
+                <span class="pc-tag" style="background:rgba(74,222,128,.1);color:#4ade80">En cours</span>
+              </div>
+              <div class="pc-title fr">Cuisinière Thermodynamique<br>"1 Bois / 3 Foyers"</div>
+              <div class="pc-title en">Thermodynamic Cooker<br>"1 Log / 3 Stoves"</div>
+              <div class="pc-desc fr">
+                Notre innovation phare : une chambre de combustion en céramique réfractaire qui alimente simultanément 3 foyers avec un seul morceau de bois. Résultat : −90% de consommation de biomasse, zéro fumée visible, 3h/jour gagnées pour les femmes. Déployée dans 384 foyers à Batchenga, Bondjock et Lomié.
+              </div>
+              <div class="pc-desc en">
+                Our flagship innovation: a refractory ceramic combustion chamber powering 3 stoves simultaneously with a single log. Result: −90% biomass consumption, zero visible smoke, 3h/day saved for women. Deployed in 384 households in Batchenga, Bondjock and Lomié.
+              </div>
+              <div class="pc-meta">
+                <span class="pm-item">📍 Batchenga · Bondjock · Lomié</span>
+                <span class="pm-item">📅 <span class="fr">2018 → En cours</span><span class="en">2018 → Ongoing</span></span>
+                <span class="pm-item">👥 384 <span class="fr">foyers</span><span class="en">households</span></span>
+              </div>
+              <div class="pc-docs">
+                <a href="#" class="doc-item" onclick="dlDoc(event,'Rapport_Cuisiniere_MB_2024.pdf')">
+                  <span class="doc-icon">📄</span>
+                  <span class="doc-name">Rapport d'impact 2024 — Cuisinière MB</span>
+                  <span class="doc-size">2.4 MB</span>
+                  <span class="doc-dl">↓ PDF</span>
+                </a>
+                <a href="#" class="doc-item" onclick="dlDoc(event,'Fiche_Technique_Cuisiniere.pdf')">
+                  <span class="doc-icon">📐</span>
+                  <span class="doc-name fr">Fiche technique & plans de fabrication</span>
+                  <span class="doc-name en">Technical sheet & manufacturing plans</span>
+                  <span class="doc-size">1.1 MB</span>
+                  <span class="doc-dl">↓ PDF</span>
+                </a>
+              </div>
+              <div class="pc-actions">
+                <button class="btn-card btn-primary" onclick="openModal('p1');event.stopPropagation()">
+                  <span class="fr">Voir le projet →</span><span class="en">View project →</span>
+                </button>
+                <button class="btn-card btn-share" onclick="toggleShare('share-p1');event.stopPropagation()">
+                  🔗 <span class="fr">Partager</span><span class="en">Share</span>
+                  <div class="share-menu" id="share-p1">
+                    <div class="sm-item" onclick="shareNet('whatsapp','p1')"><span class="sm-ico">💬</span> WhatsApp</div>
+                    <div class="sm-item" onclick="shareNet('facebook','p1')"><span class="sm-ico">📘</span> Facebook</div>
+                    <div class="sm-item" onclick="shareNet('twitter','p1')"><span class="sm-ico">🐦</span> X / Twitter</div>
+                    <div class="sm-item" onclick="shareNet('linkedin','p1')"><span class="sm-ico">💼</span> LinkedIn</div>
+                    <div class="sm-item" onclick="shareNet('copy','p1')"><span class="sm-ico">📋</span> <span class="fr">Copier le lien</span><span class="en">Copy link</span></div>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carte : Séchoir Flash -->
+        <div class="proj-card" data-id="p2" onclick="openModal('p2')">
+          <div class="pc-accent" style="background:linear-gradient(90deg,#2d8a58,#1a5c3a)"></div>
+          <img class="pc-img" src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=400&q=70" alt="Séchoir flash" loading="lazy" onerror="this.style.background='rgba(255,255,255,.06)'">
+          <div class="pc-body">
+            <span class="pc-status st-encours">En cours</span>
+            <div class="pc-tags">
+              <span class="pc-tag" style="background:rgba(45,138,88,.15);color:#4ade80">Green-Tech</span>
+            </div>
+            <div class="pc-title fr">Séchoir Flash "5 Minutes"</div>
+            <div class="pc-title en">Flash Dryer "5 Minutes"</div>
+            <div class="pc-desc fr">Ventilation cyclonique à haute température qui sèche poisson, manioc et cacao en 5 min. Zéro perte post-récolte. Le produit séché se vend 30–50% plus cher.</div>
+            <div class="pc-desc en">High-temperature cyclonic airflow dries fish, cassava and cocoa in 5 min. Zero post-harvest loss. Dried product sells 30–50% higher.</div>
+            <div class="pc-meta">
+              <span class="pm-item">📍 Bondjock</span>
+              <span class="pm-item">📅 2021 →</span>
+            </div>
+            <div class="pc-docs">
+              <a href="#" class="doc-item" onclick="dlDoc(event,'Sechoir_Flash_Guide.pdf')">
+                <span class="doc-icon">📋</span>
+                <span class="doc-name fr">Guide opérateur Séchoir Flash</span>
+                <span class="doc-name en">Flash Dryer operator guide</span>
+                <span class="doc-size">890 KB</span>
+                <span class="doc-dl">↓ PDF</span>
+              </a>
+            </div>
+            <div class="pc-actions">
+              <button class="btn-card btn-ghost" onclick="openModal('p2');event.stopPropagation()">
+                <span class="fr">Détails</span><span class="en">Details</span>
+              </button>
+              <button class="btn-card btn-share" onclick="toggleShare('share-p2');event.stopPropagation()">
+                🔗 <span class="fr">Partager</span><span class="en">Share</span>
+                <div class="share-menu" id="share-p2">
+                  <div class="sm-item" onclick="shareNet('whatsapp','p2')"><span class="sm-ico">💬</span> WhatsApp</div>
+                  <div class="sm-item" onclick="shareNet('facebook','p2')"><span class="sm-ico">📘</span> Facebook</div>
+                  <div class="sm-item" onclick="shareNet('linkedin','p2')"><span class="sm-ico">💼</span> LinkedIn</div>
+                  <div class="sm-item" onclick="shareNet('copy','p2')"><span class="sm-ico">📋</span> <span class="fr">Copier le lien</span><span class="en">Copy link</span></div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Carte : Biométhanisation -->
+        <div class="proj-card" data-id="p3" onclick="openModal('p3')">
+          <div class="pc-accent" style="background:linear-gradient(90deg,#5a2d82,#8a58c8)"></div>
+          <img class="pc-img" src="https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=400&q=70" alt="Biogaz digesteur" loading="lazy" onerror="this.style.background='rgba(255,255,255,.06)'">
+          <div class="pc-body">
+            <span class="pc-status st-encours">En cours</span>
+            <div class="pc-tags">
+              <span class="pc-tag" style="background:rgba(90,45,130,.2);color:#c084fc">Biogaz</span>
+            </div>
+            <div class="pc-title fr">Unité Biométhanisation Pilote — Bondjock</div>
+            <div class="pc-title en">Pilot Biodigestion Unit — Bondjock</div>
+            <div class="pc-desc fr">Digesteur communautaire alimenté par les déchets organiques du lycée. Produit biogaz (cuisson propre) + digestat (fertilisant). Ambition : électrification du lycée en 2026.</div>
+            <div class="pc-desc en">Community digester fed by school organic waste. Produces biogas (clean cooking) + digestate (fertiliser). Ambition: power the school by 2026.</div>
+            <div class="pc-meta">
+              <span class="pm-item">📍 Bondjock</span>
+              <span class="pm-item">📅 2023 →</span>
+            </div>
+            <div class="pc-docs">
+              <a href="#" class="doc-item" onclick="dlDoc(event,'Plan_Digesteur_Bondjock.pdf')">
+                <span class="doc-icon">📐</span>
+                <span class="doc-name fr">Plans du digesteur Bondjock</span>
+                <span class="doc-name en">Bondjock digester blueprints</span>
+                <span class="doc-size">3.2 MB</span>
+                <span class="doc-dl">↓ PDF</span>
+              </a>
+              <a href="#" class="doc-item" onclick="dlDoc(event,'Rapport_Biogaz_2023.pdf')">
+                <span class="doc-icon">📊</span>
+                <span class="doc-name fr">Rapport de démarrage 2023</span>
+                <span class="doc-name en">Start-up report 2023</span>
+                <span class="doc-size">1.8 MB</span>
+                <span class="doc-dl">↓ PDF</span>
+              </a>
+            </div>
+            <div class="pc-actions">
+              <button class="btn-card btn-ghost" onclick="openModal('p3');event.stopPropagation()">
+                <span class="fr">Détails</span><span class="en">Details</span>
+              </button>
+              <button class="btn-card btn-share" onclick="toggleShare('share-p3');event.stopPropagation()">
+                🔗 <div class="share-menu" id="share-p3">
+                  <div class="sm-item" onclick="shareNet('whatsapp','p3')"><span class="sm-ico">💬</span> WhatsApp</div>
+                  <div class="sm-item" onclick="shareNet('facebook','p3')"><span class="sm-ico">📘</span> Facebook</div>
+                  <div class="sm-item" onclick="shareNet('linkedin','p3')"><span class="sm-ico">💼</span> LinkedIn</div>
+                  <div class="sm-item" onclick="shareNet('copy','p3')"><span class="sm-ico">📋</span> <span class="fr">Copier</span><span class="en">Copy</span></div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTEUR : AGRICULTURE ── -->
+    <div class="sector-block" data-sector="agriculture" id="block-agriculture">
+      <div class="sector-head">
+        <div class="sh-ico" style="background:rgba(74,222,128,.08)">🌾</div>
+        <div>
+          <div class="sh-title fr">Agriculture & Sécurité Alimentaire</div>
+          <div class="sh-title en">Agriculture & Food Security</div>
+          <div class="sh-sub fr">CUMA · Reboisement · Post-récolte · Coopératives</div>
+          <div class="sh-sub en">CUMA · Reforestation · Post-harvest · Cooperatives</div>
+        </div>
+        <div class="sh-count">6 <span class="fr">projets</span><span class="en">projects</span></div>
+      </div>
+      <div class="proj-grid" id="grid-agriculture">
+
+        <div class="proj-card featured" data-id="p4" onclick="openModal('p4')">
+          <img class="pc-img" src="https://images.unsplash.com/photo-1560493676-04071c5f467b?w=700&q=75" alt="CUMA Batchenga femmes agriculture" loading="lazy" onerror="this.style.background='rgba(255,255,255,.06)'">
+          <div>
+            <div class="pc-accent" style="background:linear-gradient(90deg,#4ade80,#2d8a58)"></div>
+            <div class="pc-body">
+              <div class="pc-tags">
+                <span class="pc-tag" style="background:rgba(74,222,128,.12);color:#4ade80">⭐ PHARE</span>
+                <span class="pc-tag" style="background:rgba(74,222,128,.1);color:#4ade80">En cours</span>
+              </div>
+              <div class="pc-title fr">CUMA Féminine — Coopérative Batchenga</div>
+              <div class="pc-title en">Women's CUMA — Batchenga Cooperative</div>
+              <div class="pc-desc fr">Structuration de 23 productrices isolées en Coopérative d'Utilisation de Matériel Agricole. Mécanisation partagée, accès au marché, formation comptabilité. Résultat : +40% surfaces cultivées, revenus multipliés par 2,3.</div>
+              <div class="pc-desc en">23 isolated women farmers organised into an Agricultural Equipment Cooperative. Shared mechanisation, market access, bookkeeping training. Result: +40% cultivated area, income ×2.3.</div>
+              <div class="pc-meta">
+                <span class="pm-item">📍 Batchenga</span>
+                <span class="pm-item">📅 2016 → En cours</span>
+                <span class="pm-item">👥 23 femmes</span>
+              </div>
+              <div class="pc-docs">
+                <a href="#" class="doc-item" onclick="dlDoc(event,'Rapport_CUMA_2024.pdf')">
+                  <span class="doc-icon">📊</span><span class="doc-name">Rapport CUMA Batchenga 2024</span><span class="doc-size">1.9 MB</span><span class="doc-dl">↓ PDF</span>
+                </a>
+                <a href="#" class="doc-item" onclick="dlDoc(event,'Statuts_CUMA_Batchenga.pdf')">
+                  <span class="doc-icon">📋</span><span class="doc-name fr">Statuts de la coopérative</span><span class="doc-name en">Cooperative bylaws</span><span class="doc-size">340 KB</span><span class="doc-dl">↓ PDF</span>
+                </a>
+              </div>
+              <div class="pc-actions">
+                <button class="btn-card btn-primary" onclick="openModal('p4');event.stopPropagation()">
+                  <span class="fr">Voir le projet →</span><span class="en">View project →</span>
+                </button>
+                <button class="btn-card btn-share" onclick="toggleShare('share-p4');event.stopPropagation()">
+                  🔗 <span class="fr">Partager</span><span class="en">Share</span>
+                  <div class="share-menu" id="share-p4">
+                    <div class="sm-item" onclick="shareNet('whatsapp','p4')"><span class="sm-ico">💬</span> WhatsApp</div>
+                    <div class="sm-item" onclick="shareNet('facebook','p4')"><span class="sm-ico">📘</span> Facebook</div>
+                    <div class="sm-item" onclick="shareNet('linkedin','p4')"><span class="sm-ico">💼</span> LinkedIn</div>
+                    <div class="sm-item" onclick="shareNet('copy','p4')"><span class="sm-ico">📋</span> <span class="fr">Copier</span><span class="en">Copy</span></div>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card" data-id="p5" onclick="openModal('p5')">
+          <div class="pc-accent" style="background:linear-gradient(90deg,#4ade80,#22c55e)"></div>
+          <img class="pc-img" src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=70" alt="Reboisement Teck Batchenga" loading="lazy" onerror="this.style.background='rgba(255,255,255,.06)'">
+          <div class="pc-body">
+            <span class="pc-status st-encours">En cours</span>
+            <div class="pc-tags"><span class="pc-tag" style="background:rgba(74,222,128,.1);color:#4ade80">Reboisement</span></div>
+            <div class="pc-title fr">Reboisement en Teck — Épargne Verte</div>
+            <div class="pc-title en">Teak Reforestation — Green Savings</div>
+            <div class="pc-desc fr">Plantation de 2 500 tecks comme capital naturel communautaire et réservoir carbone. Première coupe prévue 2031, revenus estimés : 45M FCFA.</div>
+            <div class="pc-desc en">2,500 teak trees as community natural capital and carbon sink. First harvest 2031, estimated revenue: 45M FCFA.</div>
+            <div class="pc-meta"><span class="pm-item">📍 Batchenga</span><span class="pm-item">📅 2019 →</span></div>
+            <div class="pc-docs">
+              <a href="#" class="doc-item" onclick="dlDoc(event,'Plan_Reboisement_Teck.pdf')">
+                <span class="doc-icon">🌳</span><span class="doc-name fr">Plan de reboisement & carte</span><span class="doc-name en">Reforestation plan & map</span><span class="doc-size">2.1 MB</span><span class="doc-dl">↓ PDF</span>
+              </a>
+            </div>
+            <div class="pc-actions">
+              <button class="btn-card btn-ghost" onclick="openModal('p5');event.stopPropagation()"><span class="fr">Détails</span><span class="en">Details</span></button>
+              <button class="btn-card btn-share" onclick="toggleShare('share-p5');event.stopPropagation()">
+                🔗 <div class="share-menu" id="share-p5">
+                  <div class="sm-item" onclick="shareNet('whatsapp','p5')"><span class="sm-ico">💬</span> WhatsApp</div>
+                  <div class="sm-item" onclick="shareNet('linkedin','p5')"><span class="sm-ico">💼</span> LinkedIn</div>
+                  <div class="sm-item" onclick="shareNet('copy','p5')"><span class="sm-ico">📋</span> <span class="fr">Copier</span><span class="en">Copy</span></div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTEUR : ÉDUCATION ── -->
+    <div class="sector-block" data-sector="education" id="block-education">
+      <div class="sector-head">
+        <div class="sh-ico" style="background:rgba(96,165,250,.08)">📚</div>
+        <div>
+          <div class="sh-title fr">Éducation & Innovation Numérique</div>
+          <div class="sh-title en">Education & Digital Innovation</div>
+          <div class="sh-sub fr">MetaScript · Écoles · Infrastructure · Formation</div>
+          <div class="sh-sub en">MetaScript · Schools · Infrastructure · Training</div>
+        </div>
+        <div class="sh-count">5 <span class="fr">projets</span><span class="en">projects</span></div>
+      </div>
+      <div class="proj-grid" id="grid-education">
+
+        <div class="proj-card featured" data-id="p6" onclick="openModal('p6')">
+          <img class="pc-img" src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=700&q=75" alt="MetaScript laboratoire virtuel" loading="lazy" onerror="this.style.background='rgba(255,255,255,.06)'">
+          <div>
+            <div class="pc-accent" style="background:linear-gradient(90deg,#60a5fa,#3b82f6)"></div>
+            <div class="pc-body">
+              <div class="pc-tags">
+                <span class="pc-tag" style="background:rgba(96,165,250,.15);color:#60a5fa">⭐ PHARE</span>
+                <span class="pc-tag" style="background:rgba(96,165,250,.1);color:#60a5fa">En cours</span>
+              </div>
+              <div class="pc-title fr">Projet MetaScript — Laboratoire Virtuel</div>
+              <div class="pc-title en">MetaScript Project — Virtual Lab</div>
+              <div class="pc-desc fr">Logiciel de simulation scientifique (Physique, Chimie, Biogaz) sur tablette Android low-cost. Fonctionne hors ligne. Déployé dans 12 lycées pilotes au Cameroun. Résultat : +28% notes Physique-Chimie.</div>
+              <div class="pc-desc en">Scientific simulation software (Physics, Chemistry, Biogas) on low-cost Android tablet. Works offline. Deployed in 12 pilot high schools. Result: +28% Physics-Chemistry grades.</div>
+              <div class="pc-meta">
+                <span class="pm-item">📍 12 lycées · Cameroun</span>
+                <span class="pm-item">📅 2022 →</span>
+                <span class="pm-item">👥 3 400 élèves</span>
+              </div>
+              <div class="pc-docs">
+                <a href="#" class="doc-item" onclick="dlDoc(event,'MetaScript_Brochure.pdf')">
+                  <span class="doc-icon">📱</span><span class="doc-name">MetaScript — Brochure produit</span><span class="doc-size">1.4 MB</span><span class="doc-dl">↓ PDF</span>
+                </a>
+                <a href="#" class="doc-item" onclick="dlDoc(event,'MetaScript_Resultats_2023.pdf')">
+                  <span class="doc-icon">📊</span><span class="doc-name fr">Résultats scolaires 2023</span><span class="doc-name en">Academic results 2023</span><span class="doc-size">920 KB</span><span class="doc-dl">↓ PDF</span>
+                </a>
+                <a href="#" class="doc-item" onclick="dlDoc(event,'MetaScript_Demo.mp4')">
+                  <span class="doc-icon">🎬</span><span class="doc-name fr">Vidéo démo MetaScript (3 min)</span><span class="doc-name en">MetaScript demo video (3 min)</span><span class="doc-size">48 MB</span><span class="doc-dl">↓ MP4</span>
+                </a>
+              </div>
+              <div class="pc-actions">
+                <button class="btn-card btn-primary" onclick="openModal('p6');event.stopPropagation()">
+                  <span class="fr">Voir le projet →</span><span class="en">View project →</span>
+                </button>
+                <button class="btn-card btn-share" onclick="toggleShare('share-p6');event.stopPropagation()">
+                  🔗 <span class="fr">Partager</span><span class="en">Share</span>
+                  <div class="share-menu" id="share-p6">
+                    <div class="sm-item" onclick="shareNet('whatsapp','p6')"><span class="sm-ico">💬</span> WhatsApp</div>
+                    <div class="sm-item" onclick="shareNet('facebook','p6')"><span class="sm-ico">📘</span> Facebook</div>
+                    <div class="sm-item" onclick="shareNet('twitter','p6')"><span class="sm-ico">🐦</span> X / Twitter</div>
+                    <div class="sm-item" onclick="shareNet('linkedin','p6')"><span class="sm-ico">💼</span> LinkedIn</div>
+                    <div class="sm-item" onclick="shareNet('copy','p6')"><span class="sm-ico">📋</span> <span class="fr">Copier</span><span class="en">Copy</span></div>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card" data-id="p7" onclick="openModal('p7')">
+          <div class="pc-accent" style="background:linear-gradient(90deg,#60a5fa,#1a4a7a)"></div>
+          <img class="pc-img" src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=400&q=70" alt="École Baka Lomié" loading="lazy" onerror="this.style.background='rgba(255,255,255,.06)'">
+          <div class="pc-body">
+            <span class="pc-status st-encours">En cours</span>
+            <div class="pc-tags"><span class="pc-tag" style="background:rgba(96,165,250,.1);color:#60a5fa">Éducation</span></div>
+            <div class="pc-title fr">École Primaire Baka — Lomié</div>
+            <div class="pc-title en">Baka Primary School — Lomié</div>
+            <div class="pc-desc fr">Construction d'une école en dur pour les enfants Pygmées Baka, victimes de marginalisation scolaire. Effectifs : 40 → 107 élèves réguliers. Taux de filles : +40% en un an.</div>
+            <div class="pc-desc en">Permanent school built for Baka Pygmy children, victims of educational marginalisation. Enrolment: 40 → 107 regular pupils. Girl ratio: +40% in one year.</div>
+            <div class="pc-meta"><span class="pm-item">📍 Lomié, Région Est</span><span class="pm-item">📅 2013 →</span><span class="pm-item">👥 107 élèves</span></div>
+            <div class="pc-docs">
+              <a href="#" class="doc-item" onclick="dlDoc(event,'Rapport_Ecole_Baka_2024.pdf')">
+                <span class="doc-icon">📊</span><span class="doc-name fr">Rapport scolarisation 2024</span><span class="doc-name en">Schooling report 2024</span><span class="doc-size">1.6 MB</span><span class="doc-dl">↓ PDF</span>
+              </a>
+            </div>
+            <div class="pc-actions">
+              <button class="btn-card btn-ghost" onclick="openModal('p7');event.stopPropagation()"><span class="fr">Détails</span><span class="en">Details</span></button>
+              <button class="btn-card btn-share" onclick="toggleShare('share-p7');event.stopPropagation()">
+                🔗 <div class="share-menu" id="share-p7">
+                  <div class="sm-item" onclick="shareNet('whatsapp','p7')"><span class="sm-ico">💬</span> WhatsApp</div>
+                  <div class="sm-item" onclick="shareNet('linkedin','p7')"><span class="sm-ico">💼</span> LinkedIn</div>
+                  <div class="sm-item" onclick="shareNet('copy','p7')"><span class="sm-ico">📋</span> <span class="fr">Copier</span><span class="en">Copy</span></div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTEUR : SANTÉ ── -->
+    <div class="sector-block" data-sector="sante" id="block-sante">
+      <div class="sector-head">
+        <div class="sh-ico" style="background:rgba(248,113,113,.08)">🏥</div>
+        <div>
+          <div class="sh-title fr">Santé & Eau Potable</div>
+          <div class="sh-title en">Health & Safe Water</div>
+          <div class="sh-sub fr">Ambulance · Brigades mobiles · Eau · Assainissement</div>
+          <div class="sh-sub en">Ambulance · Mobile brigades · Water · Sanitation</div>
+        </div>
+        <div class="sh-count">3 <span class="fr">projets</span><span class="en">projects</span></div>
+      </div>
+      <div class="proj-grid" id="grid-sante">
+
+        <div class="proj-card" data-id="p8" onclick="openModal('p8')">
+          <div class="pc-accent" style="background:linear-gradient(90deg,#f87171,#c0392b)"></div>
+          <img class="pc-img" src="https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=400&q=70" alt="Ambulance Sapeurs-Pompiers" loading="lazy" onerror="this.style.background='rgba(255,255,255,.06)'">
+          <div class="pc-body">
+            <span class="pc-status st-termine">Terminé</span>
+            <div class="pc-tags"><span class="pc-tag" style="background:rgba(248,113,113,.12);color:#f87171">Santé</span></div>
+            <div class="pc-title fr">Don Ambulance Médicalisée — Sapeurs-Pompiers</div>
+            <div class="pc-title en">Medical Ambulance Donation — Fire Brigade</div>
+            <div class="pc-desc fr">Remise officielle d'une ambulance médicalisée équipée au Corps National des Sapeurs-Pompiers du Cameroun. Impact direct sur le délai d'intervention lors d'accidents de la route.</div>
+            <div class="pc-desc en">Official handover of a fully equipped medical ambulance to the Cameroon National Fire Brigade. Direct impact on road accident response times.</div>
+            <div class="pc-meta"><span class="pm-item">📍 Yaoundé</span><span class="pm-item">📅 2019</span></div>
+            <div class="pc-docs">
+              <a href="#" class="doc-item" onclick="dlDoc(event,'Remise_Ambulance_PV.pdf')">
+                <span class="doc-icon">📋</span><span class="doc-name fr">PV de remise officielle</span><span class="doc-name en">Official handover minutes</span><span class="doc-size">420 KB</span><span class="doc-dl">↓ PDF</span>
+              </a>
+            </div>
+            <div class="pc-actions">
+              <button class="btn-card btn-ghost" onclick="openModal('p8');event.stopPropagation()"><span class="fr">Détails</span><span class="en">Details</span></button>
+              <button class="btn-card btn-share" onclick="toggleShare('share-p8');event.stopPropagation()">
+                🔗 <div class="share-menu" id="share-p8">
+                  <div class="sm-item" onclick="shareNet('whatsapp','p8')"><span class="sm-ico">💬</span> WhatsApp</div>
+                  <div class="sm-item" onclick="shareNet('linkedin','p8')"><span class="sm-ico">💼</span> LinkedIn</div>
+                  <div class="sm-item" onclick="shareNet('copy','p8')"><span class="sm-ico">📋</span> <span class="fr">Copier</span><span class="en">Copy</span></div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="proj-card" data-id="p9" onclick="openModal('p9')">
+          <div class="pc-accent" style="background:linear-gradient(90deg,#f87171,#ef4444)"></div>
+          <img class="pc-img" src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&q=70" alt="Brigade médicale mobile" loading="lazy" onerror="this.style.background='rgba(255,255,255,.06)'">
+          <div class="pc-body">
+            <span class="pc-status st-encours">En cours</span>
+            <div class="pc-tags"><span class="pc-tag" style="background:rgba(248,113,113,.12);color:#f87171">Santé</span></div>
+            <div class="pc-title fr">Brigade d'Intervention de Proximité (BIP)</div>
+            <div class="pc-title en">Mobile Health Brigade (MHB)</div>
+            <div class="pc-desc fr">Unités médicales mobiles déployées dans les zones enclavées pour dépistage, soins primaires et sensibilisation. Couvre Batchenga, Bondjock et les zones rurales alentour.</div>
+            <div class="pc-desc en">Mobile medical units deployed in isolated areas for screening, primary care and health education. Covers Batchenga, Bondjock and surrounding rural zones.</div>
+            <div class="pc-meta"><span class="pm-item">📍 Région Centre</span><span class="pm-item">📅 2020 →</span></div>
+            <div class="pc-docs">
+              <a href="#" class="doc-item" onclick="dlDoc(event,'BIP_Rapport_2024.pdf')">
+                <span class="doc-icon">📊</span><span class="doc-name">Rapport BIP 2024</span><span class="doc-size">1.1 MB</span><span class="doc-dl">↓ PDF</span>
+              </a>
+            </div>
+            <div class="pc-actions">
+              <button class="btn-card btn-ghost" onclick="openModal('p9');event.stopPropagation()"><span class="fr">Détails</span><span class="en">Details</span></button>
+              <button class="btn-card btn-share" onclick="toggleShare('share-p9');event.stopPropagation()">
+                🔗 <div class="share-menu" id="share-p9">
+                  <div class="sm-item" onclick="shareNet('whatsapp','p9')"><span class="sm-ico">💬</span> WhatsApp</div>
+                  <div class="sm-item" onclick="shareNet('linkedin','p9')"><span class="sm-ico">💼</span> LinkedIn</div>
+                  <div class="sm-item" onclick="shareNet('copy','p9')"><span class="sm-ico">📋</span> <span class="fr">Copier</span><span class="en">Copy</span></div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ── SECTEUR : LEADERSHIP FÉMININ ── -->
+    <div class="sector-block" data-sector="leadership" id="block-leadership">
+      <div class="sector-head">
+        <div class="sh-ico" style="background:rgba(192,132,252,.08)">👩</div>
+        <div>
+          <div class="sh-title fr">Leadership Féminin & Entrepreneuriat</div>
+          <div class="sh-title en">Women's Leadership & Entrepreneurship</div>
+          <div class="sh-sub fr">Autonomisation · Formation · CUMA · Revenus</div>
+          <div class="sh-sub en">Empowerment · Training · CUMA · Income</div>
+        </div>
+        <div class="sh-count">2 <span class="fr">projets</span><span class="en">projects</span></div>
+      </div>
+      <div class="proj-grid" id="grid-leadership">
+
+        <div class="proj-card" data-id="p10" onclick="openModal('p10')">
+          <div class="pc-accent" style="background:linear-gradient(90deg,#c084fc,#9333ea)"></div>
+          <img class="pc-img" src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=400&q=70" alt="Formation leadership féminin" loading="lazy" onerror="this.style.background='rgba(255,255,255,.06)'">
+          <div class="pc-body">
+            <span class="pc-status st-encours">En cours</span>
+            <div class="pc-tags"><span class="pc-tag" style="background:rgba(192,132,252,.12);color:#c084fc">Leadership</span></div>
+            <div class="pc-title fr">Programme "Femmes d'Affaires Vertes"</div>
+            <div class="pc-title en">"Green Business Women" Programme</div>
+            <div class="pc-desc fr">Formation 14 jours en gestion d'entreprise, comptabilité, marketing et accès au crédit. Réservé aux femmes entrepreneures dans les filières Green-Tech MB. 97% de taux de complétion.</div>
+            <div class="pc-desc en">14-day training in business management, accounting, marketing and credit access. Reserved for women entrepreneurs in MB Green-Tech value chains. 97% completion rate.</div>
+            <div class="pc-meta"><span class="pm-item">📍 Yaoundé · Batchenga</span><span class="pm-item">📅 2020 →</span><span class="pm-item">👥 89 diplômées</span></div>
+            <div class="pc-docs">
+              <a href="#" class="doc-item" onclick="dlDoc(event,'Programme_Femmes_Vertes.pdf')">
+                <span class="doc-icon">📋</span><span class="doc-name fr">Programme de formation détaillé</span><span class="doc-name en">Detailed training programme</span><span class="doc-size">780 KB</span><span class="doc-dl">↓ PDF</span>
+              </a>
+            </div>
+            <div class="pc-actions">
+              <button class="btn-card btn-ghost" onclick="openModal('p10');event.stopPropagation()"><span class="fr">Détails</span><span class="en">Details</span></button>
+              <button class="btn-card btn-share" onclick="toggleShare('share-p10');event.stopPropagation()">
+                🔗 <div class="share-menu" id="share-p10">
+                  <div class="sm-item" onclick="shareNet('whatsapp','p10')"><span class="sm-ico">💬</span> WhatsApp</div>
+                  <div class="sm-item" onclick="shareNet('linkedin','p10')"><span class="sm-ico">💼</span> LinkedIn</div>
+                  <div class="sm-item" onclick="shareNet('copy','p10')"><span class="sm-ico">📋</span> <span class="fr">Copier</span><span class="en">Copy</span></div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /projects-inner -->
+</div><!-- /projects-zone -->
+
+<!-- ════════════════════════════════════════════════════
+     CTA FINAL ULTRA PUISSANT
+════════════════════════════════════════════════════ -->
+<section class="cta-final">
+  <!-- Particules animées -->
+  <div class="particles" id="particles-cta"></div>
+
+  <div class="cta-content">
+    <div class="cta-badge">
+      🚀 <span class="fr">REJOIGNEZ LA MISSION · GALA NOVEMBRE 2026</span>
+      <span class="en">JOIN THE MISSION · GALA NOVEMBER 2026</span>
+    </div>
+    <h2 class="cta-title">
+      <span class="fr">L'Afrique n'a pas besoin<br>de <em>tuteurs</em>.<br>Elle a besoin d'<em>alliés.</em></span>
+      <span class="en">Africa doesn't need<br><em>tutors</em>.<br>It needs <em>allies.</em></span>
+    </h2>
+    <p class="cta-lead fr">
+      Chacun de ces projets a besoin de vous pour passer à l'échelle. Financer une cuisinière, une tablette MetaScript ou une formation, c'est transformer une vie en un acte concret. Rejoignez les 247 partenaires qui construisent l'Afrique de demain.
+    </p>
+    <p class="cta-lead en">
+      Each project needs you to scale up. Funding one cooker, one MetaScript tablet or one training session is a concrete act of transformation. Join the 247 partners building tomorrow's Africa.
+    </p>
+
+    <div class="cta-buttons">
+      <a href="don.html" class="btn-cta-main">
+        ❤️ <span class="fr">Soutenir un projet maintenant</span><span class="en">Support a project now</span>
+      </a>
+      <a href="partenaires.html" class="btn-cta-sec">
+        🤝 <span class="fr">Devenir partenaire stratégique</span><span class="en">Become a strategic partner</span>
+      </a>
+    </div>
+
+    <div class="cta-counters">
+      <div class="cc-item">
+        <span class="cc-num" id="cnt-vies">0</span>
+        <div class="cc-lbl fr">VIES IMPACTÉES</div>
+        <div class="cc-lbl en">LIVES IMPACTED</div>
+      </div>
+      <div class="cc-item">
+        <span class="cc-num" id="cnt-cuisinieres">0</span>
+        <div class="cc-lbl fr">CUISINIÈRES</div>
+        <div class="cc-lbl en">COOKERS DEPLOYED</div>
+      </div>
+      <div class="cc-item">
+        <span class="cc-num" id="cnt-eleves">0</span>
+        <div class="cc-lbl fr">ÉLÈVES · METASCRIPT</div>
+        <div class="cc-lbl en">PUPILS · METASCRIPT</div>
+      </div>
+      <div class="cc-item">
+        <span class="cc-num" id="cnt-femmes">0</span>
+        <div class="cc-lbl fr">FEMMES FORMÉES</div>
+        <div class="cc-lbl en">WOMEN TRAINED</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════
+     MODAL PROJET DÉTAILLÉ
+════════════════════════════════════════════════════ -->
+<div class="modal-ov" id="modal-overlay" onclick="closeModalIfBg(event)">
+  <div class="modal" id="modal-main">
+    <div class="modal-head">
+      <div class="mh-left">
+        <div class="mh-tags" id="modal-tags"></div>
+        <div class="mh-title fr" id="modal-title-fr">Titre du projet</div>
+        <div class="mh-title en" id="modal-title-en">Project title</div>
+      </div>
+      <button class="mh-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+
+      <!-- Galerie -->
+      <div class="media-grid" id="modal-media">
+        <div class="mg-main"><img src="" alt="" id="modal-img-main" loading="lazy" onerror="this.style.background='rgba(255,255,255,.06)'"></div>
+        <div class="mg-item"><img src="" alt="" id="modal-img-2" loading="lazy" onerror="this.style.background='rgba(255,255,255,.06)'"></div>
+        <div class="mg-item"><div class="mg-play" id="modal-video-btn" onclick="openVideo()">▶</div></div>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <div style="font-size:14px;color:rgba(255,255,255,.65);line-height:1.85" class="fr" id="modal-desc-fr">Description détaillée...</div>
+        <div style="font-size:14px;color:rgba(255,255,255,.65);line-height:1.85" class="en" id="modal-desc-en">Detailed description...</div>
+      </div>
+
+      <!-- Infos clés -->
+      <div class="m-section">
+        <div class="ms-title fr">DONNÉES CLÉS</div>
+        <div class="ms-title en">KEY DATA</div>
+        <div class="ms-grid" id="modal-kpis"></div>
+        <div style="margin-top:.8rem">
+          <div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:.4rem;font-family:'Space Mono',monospace" class="fr">AVANCEMENT DU PROJET</div>
+          <div style="font-size:11px;color:rgba(255,255,255,.3);margin-bottom:.4rem;font-family:'Space Mono',monospace" class="en">PROJECT PROGRESS</div>
+          <div class="prog-wrap"><div class="prog-fill" id="modal-progress" style="width:0%"></div></div>
+          <div style="text-align:right;font-family:'Space Mono',monospace;font-size:10px;color:rgba(255,255,255,.35);margin-top:.3rem" id="modal-pct">0%</div>
+        </div>
+      </div>
+
+      <!-- Documents -->
+      <div class="m-section">
+        <div class="ms-title fr">DOCUMENTS & RESSOURCES</div>
+        <div class="ms-title en">DOCUMENTS & RESOURCES</div>
+        <div class="docs-list" id="modal-docs"></div>
+      </div>
+
+    </div>
+    <div class="modal-cta">
+      <a href="don.html" class="btn-modal-p">❤️ <span class="fr">Soutenir ce projet</span><span class="en">Support this project</span></a>
+      <a href="partenaires.html" class="btn-modal-s">🤝 <span class="fr">Proposer un partenariat</span><span class="en">Propose a partnership</span></a>
+      <button class="btn-modal-s" id="modal-share-btn" onclick="shareCurrentProject()">🔗 <span class="fr">Partager</span><span class="en">Share</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════════════════ */-->
+<script>
+/* ══════════════════════════════════════════════════
+   DONNÉES DES PROJETS
+══════════════════════════════════════════════════ */
+const PROJECTS = {
+  p1:{
+    titleFR:"Cuisinière Thermodynamique «1 Bois / 3 Foyers»",
+    titleEN:"Thermodynamic Cooker «1 Log / 3 Stoves»",
+    tags:["⭐ PHARE","Green-Tech","En cours"],
+    descFR:"La cuisinière MB est bâtie sur un principe de thermodynamique avancée : une chambre de combustion isolée en céramique réfractaire maximise la pyrolyse du bois. La chaleur produite est canalisée vers 3 foyers distincts via un système de tirage forcé. Un seul morceau de 1 kg suffit à alimenter 3 marmites en ébullition simultanée. Impact cumulé depuis 2018 : 384 foyers équipés, 1 152 heures économisées par semaine, 5 tonnes de bois évitées par cuisinière par an.",
+    descEN:"The MB cooker is built on advanced thermodynamics: a refractory ceramic combustion chamber maximises wood pyrolysis. Heat is channelled to 3 separate burners via a forced-draft system. A single 1kg log feeds 3 boiling pots simultaneously. Cumulative impact since 2018: 384 households equipped, 1,152 hours saved weekly, 5 tonnes of wood avoided per cooker per year.",
+    kpis:[{l:"Foyers équipés",v:"384"},{l:"Réduction biomasse",v:"−90%"},{l:"CO₂ évité/an",v:"120 t"},{l:"Heures/jour gagnées",v:"3h"}],
+    progress:78,
+    zone:"Batchenga · Bondjock · Lomié",
+    date:"2018 → Ongoing",
+    images:["https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=500&q=75","https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=300&q=70"],
+    docs:[{icon:"📄",nameFR:"Rapport d'impact 2024",nameEN:"Impact report 2024",size:"2.4 MB",file:"Rapport_Cuisiniere_MB_2024.pdf"},{icon:"📐",nameFR:"Fiche technique & plans",nameEN:"Technical sheet & plans",size:"1.1 MB",file:"Fiche_Technique_Cuisiniere.pdf"},{icon:"🎬",nameFR:"Vidéo terrain Batchenga",nameEN:"Field video Batchenga",size:"62 MB",file:"Video_Cuisiniere_Terrain.mp4"}]
+  },
+  p2:{
+    titleFR:"Séchoir Flash «5 Minutes»",titleEN:"Flash Dryer «5 Minutes»",
+    tags:["Green-Tech","En cours"],
+    descFR:"Technologie de ventilation cyclonique à haute température contrôlée. Le flux d'air chaud extrait l'humidité au cœur du produit sans le cuire. Ce qui prenait 3 à 5 jours au soleil se fait en 5 minutes. Produit vendu 30–50% plus cher sur les marchés. Amortissement de l'équipement en moins de 6 mois pour une coopérative de femmes.",
+    descEN:"High-temperature controlled cyclonic airflow technology. Hot air extracts moisture from inside the product without cooking it. What took 3–5 days in the sun now takes 5 minutes. Product sells 30–50% higher on markets. Equipment pays back in under 6 months for a women's cooperative.",
+    kpis:[{l:"Temps de séchage",v:"5 min"},{l:"Gain prix marché",v:"+40%"},{l:"Perte récolte évitée",v:"0%"},{l:"Amortissement",v:"<6 mois"}],
+    progress:65,zone:"Bondjock",date:"2021 →",
+    images:["https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=500&q=75","https://images.unsplash.com/photo-1560493676-04071c5f467b?w=300&q=70"],
+    docs:[{icon:"📋",nameFR:"Guide opérateur Séchoir Flash",nameEN:"Flash Dryer operator guide",size:"890 KB",file:"Sechoir_Flash_Guide.pdf"}]
+  },
+  p3:{
+    titleFR:"Unité Biométhanisation Pilote — Bondjock",titleEN:"Pilot Biodigestion Unit — Bondjock",
+    tags:["Biogaz","En cours"],
+    descFR:"Le digesteur communautaire de Bondjock traite les déchets organiques du lycée de 1 200 élèves. Processus anaérobie en 21 jours : les bactéries dégradent la matière organique et produisent du méthane (biogaz) et du digestat (fertilisant liquide). Ambition 2026 : produire assez d'électricité pour l'ensemble du lycée.",
+    descEN:"The Bondjock community digester processes organic waste from a school of 1,200 pupils. 21-day anaerobic process: bacteria degrade organic matter producing methane (biogas) and digestate (liquid fertiliser). 2026 ambition: produce enough electricity for the entire school.",
+    kpis:[{l:"Déchets traités/jour",v:"120 kg"},{l:"Biogaz produit/jour",v:"18 m³"},{l:"Digestat/mois",v:"2 t"},{l:"Objectif électricité",v:"2026"}],
+    progress:45,zone:"Bondjock",date:"2023 →",
+    images:["https://images.unsplash.com/photo-1508739773434-c26b3d09e071?w=500&q=75","https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=300&q=70"],
+    docs:[{icon:"📐",nameFR:"Plans digesteur Bondjock",nameEN:"Bondjock digester blueprints",size:"3.2 MB",file:"Plan_Digesteur_Bondjock.pdf"},{icon:"📊",nameFR:"Rapport de démarrage 2023",nameEN:"Start-up report 2023",size:"1.8 MB",file:"Rapport_Biogaz_2023.pdf"}]
+  },
+  p4:{
+    titleFR:"CUMA Féminine — Coopérative Batchenga",titleEN:"Women's CUMA — Batchenga Cooperative",
+    tags:["⭐ PHARE","Agriculture","En cours"],
+    descFR:"23 femmes productrices isolées structurées en Coopérative d'Utilisation de Matériel Agricole (CUMA). La mécanisation partagée (motoculteur, décortiqueuse, balance de précision) a permis d'augmenter de 40% les surfaces cultivées et de multiplier les revenus par 2,3. Formation comptabilité et négociation commerciale intégrée au programme.",
+    descEN:"23 isolated women farmers organised into an Agricultural Equipment Cooperative (CUMA). Shared mechanisation (tiller, husker, precision scale) increased cultivated area by 40% and multiplied income by 2.3. Bookkeeping and commercial negotiation training integrated into the programme.",
+    kpis:[{l:"Membres actives",v:"23"},{l:"Surfaces cultivées",v:"+40%"},{l:"Revenus multipliés",v:"×2.3"},{l:"Formations données",v:"12"}],
+    progress:85,zone:"Batchenga",date:"2016 →",
+    images:["https://images.unsplash.com/photo-1560493676-04071c5f467b?w=500&q=75","https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=300&q=70"],
+    docs:[{icon:"📊",nameFR:"Rapport CUMA 2024",nameEN:"CUMA report 2024",size:"1.9 MB",file:"Rapport_CUMA_2024.pdf"},{icon:"📋",nameFR:"Statuts de la coopérative",nameEN:"Cooperative bylaws",size:"340 KB",file:"Statuts_CUMA_Batchenga.pdf"}]
+  },
+  p5:{
+    titleFR:"Reboisement en Teck — Épargne Verte",titleEN:"Teak Reforestation — Green Savings",
+    tags:["Agriculture","En cours"],
+    descFR:"2 500 tecks plantés sur 8 hectares constituent un capital naturel communautaire et un puits carbone certifiable. Croissance annuelle suivie, taux de survie : 91%. Première coupe commerciale prévue 2031. Revenus estimés pour la communauté : 45 millions de FCFA sur 15 ans.",
+    descEN:"2,500 teak trees planted on 8 hectares form community natural capital and a certifiable carbon sink. Annual growth monitored, survival rate: 91%. First commercial harvest planned 2031. Estimated community revenue: 45 million FCFA over 15 years.",
+    kpis:[{l:"Tecks plantés",v:"2 500"},{l:"Surface",v:"8 ha"},{l:"Taux de survie",v:"91%"},{l:"Revenus estimés",v:"45M FCFA"}],
+    progress:55,zone:"Batchenga",date:"2019 →",
+    images:["https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=500","https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=300"],
+    docs:[{icon:"🌳",nameFR:"Plan reboisement & carte",nameEN:"Reforestation plan & map",size:"2.1 MB",file:"Plan_Reboisement_Teck.pdf"}]
+  },
+  p6:{
+    titleFR:"Projet MetaScript — Laboratoire Virtuel",titleEN:"MetaScript Project — Virtual Lab",
+    tags:["⭐ PHARE","Éducation","En cours"],
+    descFR:"MetaScript est un langage de programmation et une plateforme de simulation ultra-légère conçue pour tourner sur des tablettes Android à moins de 50 000 FCFA, sans connexion internet. Les élèves peuvent simuler des réactions chimiques, des circuits électriques et des processus de biogaz. Résultat après 2 ans : +28% de notes moyennes en Physique-Chimie dans les 12 lycées pilotes.",
+    descEN:"MetaScript is a programming language and ultra-light simulation platform designed to run on Android tablets costing under 50,000 FCFA, without internet. Pupils can simulate chemical reactions, electrical circuits and biogas processes. Result after 2 years: +28% average Physics-Chemistry grades in 12 pilot schools.",
+    kpis:[{l:"Lycées équipés",v:"12"},{l:"Élèves utilisateurs",v:"3 400"},{l:"Gain notes Phys-Chi",v:"+28%"},{l:"Prix tablette",v:"<50K FCFA"}],
+    progress:70,zone:"12 lycées · Cameroun",date:"2022 →",
+    images:["https://images.unsplash.com/photo-1509062522246-3755977927d7?w=500&q=75","https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=300&q=70"],
+    docs:[{icon:"📱",nameFR:"Brochure produit MetaScript",nameEN:"MetaScript product brochure",size:"1.4 MB",file:"MetaScript_Brochure.pdf"},{icon:"📊",nameFR:"Résultats scolaires 2023",nameEN:"Academic results 2023",size:"920 KB",file:"MetaScript_Resultats_2023.pdf"},{icon:"🎬",nameFR:"Vidéo démo MetaScript (3 min)",nameEN:"MetaScript demo video (3 min)",size:"48 MB",file:"MetaScript_Demo.mp4"}]
+  },
+  p7:{
+    titleFR:"École Primaire Baka — Lomié",titleEN:"Baka Primary School — Lomié",
+    tags:["Éducation","En cours"],
+    descFR:"Les enfants Pygmées Baka étaient scolarisés à même le sol, sous les intempéries, avec un taux d'absentéisme supérieur à 70%. La construction d'une école en matériaux durables a changé radicalement la donne : 40 à 107 élèves réguliers, taux de filles multiplié par 1,4. L'école est devenue le premier lieu de fierté communautaire des Baka.",
+    descEN:"Baka Pygmy children were schooled on bare ground in all weather, with absenteeism above 70%. Building a permanent school radically changed the picture: 40 to 107 regular pupils, girl ratio multiplied by 1.4. The school became the Baka community's first source of pride.",
+    kpis:[{l:"Élèves avant/après",v:"40→107"},{l:"Taux filles",v:"+40%"},{l:"Absentéisme",v:"−65%"},{l:"Enseignants",v:"4"}],
+    progress:90,zone:"Lomié, Région Est",date:"2013 →",
+    images:["https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=500&q=75","https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=300&q=70"],
+    docs:[{icon:"📊",nameFR:"Rapport scolarisation 2024",nameEN:"Schooling report 2024",size:"1.6 MB",file:"Rapport_Ecole_Baka_2024.pdf"}]
+  },
+  p8:{
+    titleFR:"Don Ambulance Médicalisée — Sapeurs-Pompiers",titleEN:"Medical Ambulance Donation — Fire Brigade",
+    tags:["Santé","Terminé"],
+    descFR:"Acquisition et remise officielle d'une ambulance médicalisée équipée (défibrillateur, oxygène, civière, matériel de premiers secours) au Corps National des Sapeurs-Pompiers du Cameroun. Véhicule opérationnel depuis 2019. Impact estimé : réduction de 40% du délai d'intervention sur les accidents de la route sur l'axe Yaoundé–Batchenga.",
+    descEN:"Procurement and official handover of a fully equipped medical ambulance (defibrillator, oxygen, stretcher, first-aid kit) to the Cameroon National Fire Brigade. Vehicle operational since 2019. Estimated impact: 40% reduction in road accident response time on the Yaoundé–Batchenga axis.",
+    kpis:[{l:"Valeur don",v:"12M FCFA"},{l:"En service depuis",v:"2019"},{l:"Réduction délai",v:"−40%"},{l:"Axe couvert",v:"Yaoundé–Btcg"}],
+    progress:100,zone:"Yaoundé",date:"2019",
+    images:["https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=500&q=75","https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=300&q=70"],
+    docs:[{icon:"📋",nameFR:"PV de remise officielle",nameEN:"Official handover minutes",size:"420 KB",file:"Remise_Ambulance_PV.pdf"}]
+  },
+  p9:{
+    titleFR:"Brigade d'Intervention de Proximité (BIP)",titleEN:"Mobile Health Brigade (MHB)",
+    tags:["Santé","En cours"],
+    descFR:"Unités médicales mobiles composées d'infirmiers et d'agents de santé communautaire formés par MB. Déployées mensuellement dans les zones sans accès aux soins : dépistage paludisme, hypertension, malnutrition, vaccination. Plus de 4 200 consultations réalisées depuis 2020.",
+    descEN:"Mobile medical units of nurses and MB-trained community health workers. Deployed monthly in areas without healthcare access: malaria, hypertension, malnutrition screening, vaccination. Over 4,200 consultations since 2020.",
+    kpis:[{l:"Consultations",v:"4 200+"},{l:"Zones couvertes",v:"12"},{l:"Agents formés",v:"18"},{l:"Vaccinations",v:"1 800+"}],
+    progress:60,zone:"Région Centre",date:"2020 →",
+    images:["https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=500&q=75","https://images.unsplash.com/photo-1538108149393-fbbd81895907?w=300&q=70"],
+    docs:[{icon:"📊",nameFR:"Rapport BIP 2024",nameEN:"MHB report 2024",size:"1.1 MB",file:"BIP_Rapport_2024.pdf"}]
+  },
+  p10:{
+    titleFR:"Programme «Femmes d'Affaires Vertes»",titleEN:"«Green Business Women» Programme",
+    tags:["Leadership","En cours"],
+    descFR:"Formation intensive de 14 jours délivrant des compétences en gestion d'entreprise, comptabilité de base, marketing rural et accès au microcrédit. Réservé aux femmes engagées dans les filières Green-Tech MB (cuisinières, coopératives, séchoir). Taux de complétion : 97%. 89 diplômées à ce jour.",
+    descEN:"Intensive 14-day training delivering skills in business management, basic accounting, rural marketing and microcredit access. Reserved for women engaged in MB Green-Tech value chains (cookers, cooperatives, dryers). Completion rate: 97%. 89 graduates to date.",
+    kpis:[{l:"Diplômées",v:"89"},{l:"Taux de complétion",v:"97%"},{l:"Durée",v:"14 jours"},{l:"Revenus post-form.",v:"+62%"}],
+    progress:72,zone:"Yaoundé · Batchenga",date:"2020 →",
+    images:["https://images.unsplash.com/photo-1531482615713-2afd69097998?w=500&q=75","https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=300&q=70"],
+    docs:[{icon:"📋",nameFR:"Programme de formation détaillé",nameEN:"Detailed training programme",size:"780 KB",file:"Programme_Femmes_Vertes.pdf"}]
+  }
+};
+
+const PROJ_LABELS = {
+  "⭐ PHARE":{bg:"rgba(245,166,35,.15)",c:"#f5a623"},
+  "Green-Tech":{bg:"rgba(45,138,88,.12)",c:"#4ade80"},
+  "Biogaz":{bg:"rgba(90,45,130,.18)",c:"#c084fc"},
+  "Agriculture":{bg:"rgba(74,222,128,.1)",c:"#4ade80"},
+  "Reboisement":{bg:"rgba(74,222,128,.1)",c:"#4ade80"},
+  "Éducation":{bg:"rgba(96,165,250,.1)",c:"#60a5fa"},
+  "Santé":{bg:"rgba(248,113,113,.12)",c:"#f87171"},
+  "Leadership":{bg:"rgba(192,132,252,.12)",c:"#c084fc"},
+  "En cours":{bg:"rgba(245,166,35,.1)",c:"#f5a623"},
+  "Terminé":{bg:"rgba(74,222,128,.1)",c:"#4ade80"},
+  "Prévu":{bg:"rgba(96,165,250,.1)",c:"#60a5fa"},
+};
+
+/* ══════════════════════════════════════════════════
+   CURSEUR
+══════════════════════════════════════════════════ */
+const cursor = document.getElementById('cursor');
+const ring   = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove', e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+(function animRing(){rx+=(mx-rx)*.15;ry+=(my-ry)*.15;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
+document.querySelectorAll('a,button,.proj-card,.hv-sector,.pill').forEach(el=>{
+  el.addEventListener('mouseenter',()=>ring.classList.add('hover'));
+  el.addEventListener('mouseleave',()=>ring.classList.remove('hover'));
+});
+// Masquer sur mobile
+if('ontouchstart' in window){cursor.style.display='none';ring.style.display='none';}
+
+/* ══════════════════════════════════════════════════
+   LANGUE
+══════════════════════════════════════════════════ */
+function setLang(l){
+  document.documentElement.setAttribute('data-lang',l);
+  document.documentElement.setAttribute('lang',l);
+  document.querySelectorAll('.lng').forEach(b=>b.classList.toggle('on',b.textContent===l.toUpperCase()));
+}
+
+/* ══════════════════════════════════════════════════
+   FILTRES SECTEURS
+══════════════════════════════════════════════════ */
+function filterSector(sector, btn){
+  // Mettre à jour les pills
+  document.querySelectorAll('.pill').forEach(p=>p.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  else {
+    const match = document.querySelector('[data-filter="'+sector+'"]');
+    if(match) match.classList.add('active');
+  }
+  // Afficher/masquer les blocs
+  const blocks = document.querySelectorAll('.sector-block');
+  let visible = 0;
+  blocks.forEach(b=>{
+    const show = sector==='all' || b.getAttribute('data-sector')===sector;
+    b.setAttribute('data-hidden', show?'false':'true');
+    if(show) visible++;
+  });
+  document.getElementById('empty-state').classList.toggle('show', visible===0);
+  // Scroller vers la zone
+  document.getElementById('block-'+(sector==='all'?'green-tech':sector))?.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+/* ══════════════════════════════════════════════════
+   RECHERCHE
+══════════════════════════════════════════════════ */
+function searchProjects(q){
+  const query = q.trim().toLowerCase();
+  const cards = document.querySelectorAll('.proj-card');
+  let visible = 0;
+  cards.forEach(card=>{
+    const id = card.getAttribute('data-id');
+    const p = PROJECTS[id];
+    if(!p){card.style.display='';return;}
+    const match = !query ||
+      p.titleFR.toLowerCase().includes(query) ||
+      p.titleEN.toLowerCase().includes(query) ||
+      p.descFR.toLowerCase().includes(query) ||
+      (p.zone||'').toLowerCase().includes(query);
+    card.style.display = match?'':'none';
+    if(match) visible++;
+  });
+  // Cacher les secteurs entièrement vides
+  document.querySelectorAll('.sector-block').forEach(b=>{
+    const cards = b.querySelectorAll('.proj-card');
+    const anyVisible = [...cards].some(c=>c.style.display!=='none');
+    b.setAttribute('data-hidden', anyVisible?'false':'true');
+  });
+  document.getElementById('empty-state').classList.toggle('show', visible===0);
+}
+
+/* ══════════════════════════════════════════════════
+   MODAL
+══════════════════════════════════════════════════ */
+let currentProjId = null;
+function openModal(id){
+  currentProjId = id;
+  const p = PROJECTS[id];
+  if(!p) return;
+  const l = document.documentElement.getAttribute('data-lang')||'fr';
+
+  // Tags
+  const tagsEl = document.getElementById('modal-tags');
+  tagsEl.innerHTML = (p.tags||[]).map(t=>{
+    const s = PROJ_LABELS[t]||{bg:'rgba(255,255,255,.1)',c:'rgba(255,255,255,.6)'};
+    return `<span class="pc-tag" style="background:${s.bg};color:${s.c}">${t}</span>`;
+  }).join('');
+
+  // Titres
+  document.getElementById('modal-title-fr').textContent = p.titleFR;
+  document.getElementById('modal-title-en').textContent = p.titleEN;
+  // Desc
+  document.getElementById('modal-desc-fr').textContent = p.descFR;
+  document.getElementById('modal-desc-en').textContent = p.descEN;
+  // Images
+  const img1 = document.getElementById('modal-img-main');
+  const img2 = document.getElementById('modal-img-2');
+  img1.src = p.images[0]||''; img1.alt=p.titleFR;
+  img2.src = p.images[1]||''; img2.alt=p.titleFR;
+  // KPIs
+  const kpisEl = document.getElementById('modal-kpis');
+  kpisEl.innerHTML = (p.kpis||[]).map(k=>`
+    <div class="ms-item">
+      <span class="ms-label">${k.l}</span>
+      <span class="ms-value">${k.v}</span>
+    </div>`).join('');
+  // Progress
+  document.getElementById('modal-progress').style.width = (p.progress||0)+'%';
+  document.getElementById('modal-pct').textContent = (p.progress||0)+'%';
+  // Docs
+  const docsEl = document.getElementById('modal-docs');
+  docsEl.innerHTML = (p.docs||[]).map(d=>`
+    <a href="#" class="doc-item" onclick="dlDoc(event,'${d.file}')">
+      <span class="doc-icon">${d.icon}</span>
+      <span class="doc-name fr">${d.nameFR}</span>
+      <span class="doc-name en">${d.nameEN}</span>
+      <span class="doc-size">${d.size}</span>
+      <span class="doc-dl">↓ ${d.file.split('.').pop().toUpperCase()}</span>
+    </a>`).join('');
+
+  document.getElementById('modal-overlay').classList.add('open');
+  document.body.style.overflow='hidden';
+
+  // Animer progress bar
+  setTimeout(()=>{
+    document.getElementById('modal-progress').style.width=(p.progress||0)+'%';
+  },100);
+}
+
+function closeModal(){
+  document.getElementById('modal-overlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+function closeModalIfBg(e){
+  if(e.target===document.getElementById('modal-overlay')) closeModal();
+}
+
+/* ══════════════════════════════════════════════════
+   TÉLÉCHARGEMENT DOCUMENTS
+══════════════════════════════════════════════════ */
+function dlDoc(e, filename){
+  e.preventDefault();
+  e.stopPropagation();
+  // Simulation : en production, mettre les vrais chemins
+  const link = document.createElement('a');
+  link.href = 'documents/' + filename; // ← dossier documents/ à créer
+  link.download = filename;
+  link.click();
+  // Toast notification
+  showToast('📥 Téléchargement de ' + filename);
+}
+
+/* ══════════════════════════════════════════════════
+   PARTAGE RÉSEAUX SOCIAUX
+══════════════════════════════════════════════════ */
+function toggleShare(menuId){
+  const all = document.querySelectorAll('.share-menu');
+  all.forEach(m=>{ if(m.id!==menuId) m.classList.remove('open'); });
+  const menu = document.getElementById(menuId);
+  if(menu) menu.classList.toggle('open');
+}
+// Fermer les menus partage au clic extérieur
+document.addEventListener('click', e=>{
+  if(!e.target.closest('.btn-share') && !e.target.closest('.share-menu')){
+    document.querySelectorAll('.share-menu').forEach(m=>m.classList.remove('open'));
+  }
+});
+
+function shareNet(network, projId){
+  const p = PROJECTS[projId];
+  if(!p) return;
+  const l = document.documentElement.getAttribute('data-lang')||'fr';
+  const title = l==='fr' ? p.titleFR : p.titleEN;
+  const url   = encodeURIComponent(window.location.href + '#' + projId);
+  const text  = encodeURIComponent('🌍 Projet ONG Monde et Bonheur : ' + title + ' — Voir les détails : ');
+  const urls = {
+    whatsapp: 'https://wa.me/?text=' + text + url,
+    facebook: 'https://www.facebook.com/sharer/sharer.php?u=' + url,
+    twitter:  'https://twitter.com/intent/tweet?text=' + text + '&url=' + url,
+    linkedin: 'https://www.linkedin.com/shareArticle?mini=true&url=' + url + '&title=' + encodeURIComponent(title),
+    copy:     null
+  };
+  if(network==='copy'){
+    navigator.clipboard?.writeText(window.location.href + '#' + projId)
+      .then(()=>showToast('✅ Lien copié !'))
+      .catch(()=>showToast('Copiez : '+window.location.href+'#'+projId,'i'));
+  } else if(urls[network]){
+    window.open(urls[network], '_blank', 'width=600,height=450');
+  }
+  document.querySelectorAll('.share-menu').forEach(m=>m.classList.remove('open'));
+}
+
+function shareCurrentProject(){
+  if(!currentProjId) return;
+  shareNet('copy', currentProjId);
+}
+
+/* ══════════════════════════════════════════════════
+   TOAST NOTIFICATION
+══════════════════════════════════════════════════ */
+function showToast(msg){
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;bottom:2rem;right:2rem;z-index:9999;background:#1a2b1e;border:1px solid rgba(45,138,88,.3);color:#4ade80;padding:.7rem 1.2rem;border-radius:10px;font-size:13px;font-weight:600;box-shadow:0 10px 40px rgba(0,0,0,.4);transform:translateX(120%);transition:transform .3s;font-family:DM Sans,sans-serif';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  requestAnimationFrame(()=>requestAnimationFrame(()=>t.style.transform='translateX(0)'));
+  setTimeout(()=>{t.style.transform='translateX(120%)';setTimeout(()=>t.remove(),300);},3000);
+}
+
+/* ══════════════════════════════════════════════════
+   COMPTEURS ANIMÉS
+══════════════════════════════════════════════════ */
+function animCounter(id, target, suffix=''){
+  const el = document.getElementById(id);
+  if(!el) return;
+  let current = 0;
+  const step = target / 70;
+  const t = setInterval(()=>{
+    current = Math.min(current+step, target);
+    el.textContent = Math.round(current).toLocaleString('fr') + suffix;
+    if(current >= target) clearInterval(t);
+  }, 22);
+}
+
+/* ══════════════════════════════════════════════════
+   INTERSECTION OBSERVER — Reveal & counters
+══════════════════════════════════════════════════ */
+const revObs = new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.style.opacity='1';
+      e.target.style.transform='translateY(0)';
+      revObs.unobserve(e.target);
+    }
+  });
+},{threshold:.08});
+
+// Observer les cartes projets
+document.querySelectorAll('.proj-card').forEach((el,i)=>{
+  el.style.opacity='0';
+  el.style.transform='translateY(30px)';
+  el.style.transition=`opacity .5s ease ${i*0.06}s, transform .5s ease ${i*0.06}s`;
+  revObs.observe(el);
+});
+
+// Observer la section CTA pour déclencher les compteurs
+const ctaObs = new IntersectionObserver(entries=>{
+  if(entries[0].isIntersecting){
+    animCounter('cnt-vies', 10000, '+');
+    animCounter('cnt-cuisinieres', 384);
+    animCounter('cnt-eleves', 3400);
+    animCounter('cnt-femmes', 89);
+    ctaObs.disconnect();
+  }
+},{threshold:.3});
+ctaObs.observe(document.querySelector('.cta-final'));
+
+/* ══════════════════════════════════════════════════
+   PARTICULES CTA
+══════════════════════════════════════════════════ */
+function createParticles(){
+  const container = document.getElementById('particles-cta');
+  if(!container) return;
+  for(let i=0; i<25; i++){
+    const p = document.createElement('div');
+    p.className='p-dot';
+    p.style.cssText = `
+      left:${Math.random()*100}%;
+      bottom:${Math.random()*30}%;
+      animation-delay:${Math.random()*6}s;
+      animation-duration:${4+Math.random()*4}s;
+    `;
+    container.appendChild(p);
+  }
+}
+createParticles();
+
+/* ══════════════════════════════════════════════════
+   ANCRAGE URL — naviguer directement vers un projet
+══════════════════════════════════════════════════ */
+function checkUrlAnchor(){
+  const hash = window.location.hash.replace('#','');
+  if(hash && PROJECTS[hash]){
+    setTimeout(()=>openModal(hash), 400);
+  }
+}
+checkUrlAnchor();
+
+/* ══════════════════════════════════════════════════
+   KEYBOARD NAV
+══════════════════════════════════════════════════ */
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') closeModal();
+});
+
+/* ══════════════════════════════════════════════════
+   VIDÉO PLACEHOLDER
+══════════════════════════════════════════════════ */
+function openVideo(){
+  showToast('🎬 Vidéo à intégrer (YouTube / Vimeo)');
+}
+</script>
+
+</body>
+</html>
