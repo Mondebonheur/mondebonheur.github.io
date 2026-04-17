@@ -1,6 +1,7 @@
 /**
  * mb-nav.js — Navigation universelle pour l'ONG Monde et Bonheur
- * Version corrigée — sans erreurs de syntaxe
+ * Version responsive + hiérarchie enrichie (Apropos → Equipe/Gouvernance ; Projets → Technologies/Carte ; Formations)
+ * ICONS complet — plus d'erreurs
  */
 
 (function() {
@@ -8,7 +9,7 @@
 
   if (document.getElementById('mb-nav-injected')) return;
 
-  /* ---------- 1. CSS ---------- */
+  /* ---------- 1. CSS (corrigé, responsive) ---------- */
   const CSS = `
     :root {
       --nav-h: 66px;
@@ -39,13 +40,7 @@
       display: flex; align-items: center; gap: 11px;
       text-decoration: none; flex-shrink: 0; margin-right: auto;
     }
-    .mb-logo-disk {
-      width: 40px; height: 40px; border-radius: 50%;
-      background: linear-gradient(135deg, var(--v), var(--vc));
-      border: 2px solid rgba(255,255,255,.3);
-      display: flex; align-items: center; justify-content: center;
-    }
-    .mb-logo-disk svg { width: 22px; height: 22px; }
+    .mb-logo img { height: 50px; width: auto; }
     .mb-logo-name {
       font-family: 'Playfair Display', serif;
       font-size: 14px; font-weight: 700; color: var(--v);
@@ -267,114 +262,7 @@
       .mb-hamburger { display: flex; }
       .mb-footer-main { grid-template-columns: 1fr 1fr; gap: 2.5rem; }
     }
-    @media (max-width: 640px)    /* ============================================================
-       CARROUSEL D'IMAGES PREMIUM
-    ============================================================ */
-    .mb-image-carrousel {
-      background: var(--gr, #f0ede6);
-      padding: 3rem 2rem;
-      max-width: 1400px;
-      margin: 0 auto;
-      font-family: 'DM Sans', sans-serif;
-    }
-    .mb-image-carrousel-title {
-      text-align: center;
-      font-family: 'Playfair Display', serif;
-      font-size: 2rem;
-      font-weight: 700;
-      color: var(--vert, #1a5c3a);
-      margin-bottom: 2rem;
-    }
-    .mb-image-carrousel-container {
-      position: relative;
-      overflow: hidden;
-      border-radius: 20px;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    }
-    .mb-image-carrousel-track {
-      display: flex;
-      transition: transform 0.5s ease-in-out;
-    }
-    .mb-image-carrousel-slide {
-      flex: 0 0 100%;
-      min-width: 0;
-      position: relative;
-    }
-    .mb-image-carrousel-slide img {
-      width: 100%;
-      height: auto;
-      display: block;
-      object-fit: cover;
-      max-height: 70vh;
-      object-position: center;
-    }
-    .mb-image-carrousel-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      padding: 0 1rem;
-      pointer-events: none;
-    }
-    .mb-image-carrousel-btn {
-      background: rgba(0,0,0,0.5);
-      backdrop-filter: blur(4px);
-      border: none;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      font-size: 1.8rem;
-      font-weight: bold;
-      color: white;
-      cursor: pointer;
-      transition: background 0.2s;
-      pointer-events: auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .mb-image-carrousel-btn:hover {
-      background: rgba(0,0,0,0.8);
-    }
-    .mb-image-carrousel-dots {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 1.5rem;
-      flex-wrap: wrap;
-    }
-    .mb-image-carrousel-dot {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: var(--tp, #8a8a82);
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .mb-image-carrousel-dot.active {
-      background: var(--vert, #1a5c3a);
-      transform: scale(1.2);
-    }
-
-    @media (max-width: 768px) {
-      .mb-image-carrousel {
-        padding: 2rem 1rem;
-      }
-      .mb-image-carrousel-title {
-        font-size: 1.6rem;
-      }
-      .mb-image-carrousel-btn {
-        width: 36px;
-        height: 36px;
-        font-size: 1.4rem;
-      }
-      .mb-image-carrousel-dot {
-        width: 10px;
-        height: 10px;
-      }
-    } {
+    @media (max-width: 640px) {
       :root { --nav-h: 60px; }
       #mb-header { padding: 0 1.2rem; }
       .mb-logo-tagline { display: none; }
@@ -386,19 +274,10 @@
     style.id = 'mb-nav-css';
     style.textContent = CSS;
     document.head.appendChild(style);
-
-    
   }
 
-
-  
-  
-  /* ---------- 2. Icônes (SVG valides) ---------- */
+  /* ---------- 2. Icônes SVG (définition complète) ---------- */
   const ICONS = {
-    logo: `<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="24" height="24" rx="12" fill="white" stroke="currentColor"/>
-            <text x="12" y="17" text-anchor="middle" fill="currentColor" font-size="12" font-weight="bold">MB</text>
-          </svg>`,
     email: `<svg viewBox="0 0 24 24" width="14" height="14"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" stroke="currentColor" stroke-width="1.5" fill="none"/><polyline points="22,6 12,13 2,6" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>`,
     whatsapp: `<svg viewBox="0 0 24 24" width="14" height="14"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>`,
     facebook: `<svg viewBox="0 0 24 24" width="14" height="14"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" stroke="currentColor" stroke-width="1.5" fill="none"/></svg>`,
@@ -413,30 +292,35 @@
   /* ---------- 3. Structure des menus ---------- */
   const NAV_ITEMS = [
     { labelFR: 'Accueil', labelEN: 'Home', href: 'index.html', icon: '🏠' },
-    { labelFR: 'Apropos', labelEN: 'About',href:'apropos.html'},
     {
-      labelFR: 'Nos Technologies', labelEN: 'Our Technologies',
-      href: 'technologies.html', icon: '🔬',
+      labelFR: 'À propos', labelEN: 'About',
+      href: 'apropos.html', icon: '📖',
       children: [
-        { labelFR: '🔥 Cuisinière "1 Bois / 3 Foyers"', labelEN: '🔥 Cooker "1 Wood / 3 Fires"', href: 'technologies.html#cuisiniere' },
-        { labelFR: '⚡ Séchoir Flash "5 Minutes"', labelEN: '⚡ Flash Dryer "5 Minutes"', href: 'technologies.html#sechoir' },
-        { labelFR: '♻️ Biométhanisation', labelEN: '♻️ Biodigestion', href: 'technologies.html#biogaz' },
-        { labelFR: '💻 MetaScript', labelEN: '💻 MetaScript', href: 'technologies.html#metascript' },
+        { labelFR: '👥 Équipe', labelEN: '👥 Team', href: 'equipe.html' },
+        { labelFR: '🔒 Gouvernance', labelEN: '🔒 Governance', href: 'gouvernance.html' }
+      ]
+    },
+    {
+      labelFR: 'Projets', labelEN: 'Projects',
+      href: 'projets.html', icon: '🗂️',
+      children: [
+        { labelFR: '🔬 Nos Technologies', labelEN: '🔬 Our Technologies', href: 'technologies.html' },
+        { labelFR: '🗺️ Carte des interventions', labelEN: '🗺️ Intervention map', href: 'carte.html' }
       ]
     },
     {
       labelFR: 'Nos Actions', labelEN: 'Our Work',
       href: 'carte.html', icon: '🗺️',
       children: [
-        { labelFR: '🗺️ Carte des interventions', labelEN: '🗺️ Intervention map', href: 'carte.html' },
         { labelFR: '🌾 Batchenga', labelEN: '🌾 Batchenga', href: 'carte.html#batchenga' },
         { labelFR: '🏗️ Bondjock', labelEN: '🏗️ Bondjock', href: 'carte.html#bondjock' },
-        { labelFR: '🌿 Lomié / Baka', labelEN: '🌿 Lomié / Baka', href: 'carte.html#lomie' },
+        { labelFR: '🌿 Lomié / Baka', labelEN: '🌿 Lomié / Baka', href: 'carte.html#lomie' }
       ]
     },
     { labelFR: 'Actualités', labelEN: 'News', href: 'actualites.html', icon: '📰' },
+    { labelFR: 'Formations', labelEN: 'Trainings', href: 'formations-monde-bonheur.html', icon: '🎓' },
     { labelFR: 'Transparence', labelEN: 'Transparency', href: 'gouvernance.html', icon: '🔒' },
-    { labelFR: 'Partenaires', labelEN: 'Partners', href: 'partenaires.html', icon: '🤝' },
+    { labelFR: 'Partenaires', labelEN: 'Partners', href: 'partenaires.html', icon: '🤝' }
   ];
 
   function currentPage() {
@@ -483,14 +367,13 @@
     const navLinks = NAV_ITEMS.map(item => buildNavItem(item, l)).join('');
     return `
       <a href="index.html" class="mb-logo">
-      <img src="logo.jpeg" alt="Logo Monde et Bonheur" style="height: 50px; width: auto;">
-      
-      <div class="mb-logo-text">
-        <span class="mb-logo-name">Monde et Bonheur</span>
-        <span class="mb-logo-tagline fr">ONG · Cameroun & France</span>
-        <span class="mb-logo-tagline en">NGO · Cameroon & France</span>
-      </div>
-    </a>
+        <img src="logo.jpeg" alt="Logo Monde et Bonheur">
+        <div class="mb-logo-text">
+          <span class="mb-logo-name">Monde et Bonheur</span>
+          <span class="mb-logo-tagline fr">ONG · Cameroun & France</span>
+          <span class="mb-logo-tagline en">NGO · Cameroon & France</span>
+        </div>
+      </a>
       <ul class="mb-nav-links">${navLinks}</ul>
       <div class="mb-nav-right">
         <div class="mb-lang-toggle">
@@ -542,10 +425,12 @@
   function buildFooter(l) {
     const pages = [
       { labelFR: '🏠 Accueil', labelEN: '🏠 Home', href: 'index.html' },
-      { labelFR: 'Apropos', labelEN: 'About',href:'apropos.html'},
+      { labelFR: '📖 À propos', labelEN: '📖 About', href: 'apropos.html' },
+      { labelFR: '🗂️ Projets', labelEN: '🗂️ Projects', href: 'projets.html' },
       { labelFR: '🔬 Technologies', labelEN: '🔬 Technologies', href: 'technologies.html' },
       { labelFR: '🗺️ Zones d\'intervention', labelEN: '🗺️ Intervention Zones', href: 'carte.html' },
       { labelFR: '📰 Actualités', labelEN: '📰 News', href: 'actualites.html' },
+      { labelFR: '🎓 Formations', labelEN: '🎓 Trainings', href: 'formations-monde-bonheur.html' },
       { labelFR: '🤝 Partenaires', labelEN: '🤝 Partners', href: 'partenaires.html' },
       { labelFR: '🔒 Gouvernance', labelEN: '🔒 Governance', href: 'gouvernance.html' },
       { labelFR: '👥 Équipe', labelEN: '👥 Team', href: 'equipe.html' },
@@ -558,14 +443,7 @@
     return `
       <div class="mb-footer-main">
         <div class="mb-footer-brand">
-          <div class="mb-footer-brand-disk"><a href="index.html" class="mb-logo">
-      <img src="logo.jpeg" alt="Logo Monde et Bonheur" style="height: 50px; width: auto;">
-      
-
-    </a></div>
-
-
-
+          <div class="mb-footer-brand-disk"><img src="logo.jpeg" alt="Logo" style="width: 45px; border-radius: 50%;"></div>
           <div class="mb-footer-brand-name">Monde et Bonheur</div>
           <div class="mb-footer-brand-tag fr">Association de Solidarité Internationale &amp; Entreprise Sociale.<br>« De la Résilience Humaine à l'Innovation Climatique »</div>
           <div class="mb-footer-brand-tag en">International Solidarity Association &amp; Social Enterprise.<br>"From Human Resilience to Climate Innovation"</div>
@@ -625,11 +503,10 @@
     `;
   }
 
-  /* ---------- 7. Injection dans le DOM ---------- */
+  /* ---------- 7. Injection ---------- */
   function inject() {
     const lang = getLang();
 
-    // Header
     let header = document.getElementById('mb-header');
     if (!header) {
       header = document.createElement('header');
@@ -638,7 +515,6 @@
     }
     header.innerHTML = buildHeader(lang);
 
-    // Drawer mobile
     let drawer = document.getElementById('mb-mobile-drawer');
     if (!drawer) {
       drawer = document.createElement('div');
@@ -647,10 +523,6 @@
     }
     drawer.innerHTML = buildDrawer(lang);
 
-    // Supprimer les anciens footers
-    document.querySelectorAll('.mini-footer').forEach(el => el.remove());
-
-    // Footer
     let footer = document.getElementById('mb-footer');
     if (!footer) {
       footer = document.createElement('footer');
@@ -659,14 +531,12 @@
     }
     footer.innerHTML = buildFooter(lang);
 
-    // Marqueur
     if (!document.getElementById('mb-nav-injected')) {
       const marker = document.createElement('meta');
       marker.id = 'mb-nav-injected';
       document.head.appendChild(marker);
     }
 
-    // Effet de scroll sur header
     window.addEventListener('scroll', () => {
       header.classList.toggle('scrolled', window.scrollY > 20);
     }, { passive: true });
@@ -683,14 +553,9 @@
       if (header) header.innerHTML = buildHeader(l);
       if (drawer) drawer.innerHTML = buildDrawer(l);
       if (footer) footer.innerHTML = buildFooter(l);
-      // fermer le drawer
       if (drawer) drawer.classList.remove('open');
       const ham = document.getElementById('mb-hamburger');
       if (ham) ham.classList.remove('open');
-      // rafraîchir les carrousels s'ils existent
-      if (window.MBCarrousel && window.MBCarrousel.rebuildAll) {
-        window.MBCarrousel.rebuildAll();
-      }
     },
     toggleMobile: function() {
       const drawer = document.getElementById('mb-mobile-drawer');
@@ -707,7 +572,6 @@
     getLang: getLang
   };
 
-  // Fermer le drawer au clic extérieur
   document.addEventListener('click', function(e) {
     const drawer = document.getElementById('mb-mobile-drawer');
     const header = document.getElementById('mb-header');
@@ -717,7 +581,6 @@
     window.MBNav.closeMobile();
   });
 
-  // Lancer l'injection
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', inject);
   } else {
